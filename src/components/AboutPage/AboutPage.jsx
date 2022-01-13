@@ -10,6 +10,7 @@ function AboutPage() {
     <div className="container">
       <div>
         <p>This about page is for anyone to read!</p>
+        <h1>{JSON.stringify('hello world')}</h1>
       </div>
     </div>
   );
