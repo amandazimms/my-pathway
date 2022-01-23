@@ -3,10 +3,13 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* messageSaga() {
   yield takeLatest('CREATE_MESSAGE_SESSION', createMessageSession);
+  yield takeLatest('GET_MESSAGE_SESSION', getMessageSession);
   yield takeLatest('CREATE_MESSAGE_DETAIL', createMessageDetail);
+  yield takeLatest('GET_AVAILALE_MESSAGE_SESSIONS', getAvailableMessageSessions);
+  
+  
 }
 
-// worker Saga: will be fired on "FETCH_QUIZ" actions
 function* createMessageSession(info) {
  
   try {
@@ -16,6 +19,19 @@ function* createMessageSession(info) {
       url: '/api/message/session',
       data: info.payload
     });
+    
+    yield put({ type: 'SET_ACTIVE_MESSAGE_SESSION', payload: response.data });
+
+  } catch (error) {
+    console.log('message get request failed', error);
+  }
+}
+
+function* getMessageSession(info) {
+ 
+  try {
+    console.log("getMessageSession Saga", info);
+    const response = yield axios.get('/api/message/enter',{params: info.payload});
     
     yield put({ type: 'SET_ACTIVE_MESSAGE_SESSION', payload: response.data });
 
@@ -35,6 +51,19 @@ function* createMessageDetail(info) {
     });
     
     yield put({ type: 'SET_ACTIVE_MESSAGE_DETAIL', payload: response.data });
+
+  } catch (error) {
+    console.log('message get request failed', error);
+  }
+}
+
+function* getAvailableMessageSessions(info) {
+ 
+  try {
+    console.log("getMessageSessions Saga", info);
+    const response = yield axios.get('/api/message/sessions',{params: info.payload});
+    
+    yield put({ type: 'SET_AVAILABLE_MESSAGE_SESSIONS', payload: response.data });
 
   } catch (error) {
     console.log('message get request failed', error);

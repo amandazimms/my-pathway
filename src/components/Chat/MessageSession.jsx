@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import MessageDetail from './MessageDetail';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -35,6 +36,8 @@ function messageSessionFunction(props) {
       <p>Event Name: {store.activeMessageSession.event_name}</p>
       <p>Student Name: {store.activeMessageSession.student_first_name} {store.activeMessageSession.student_last_name}</p>
       <p>Proctor Name: {store.activeMessageSession.proctor_first_name} {store.activeMessageSession.proctor_last_name}</p>
+      {store.activeMessageDetail.map(message => (<MessageDetail message={message} key={message.message_id} />))}
+      <h2>Message Session Details</h2>
       <label htmlFor="message">Message:</label><input type="text" id='message' value={messageText} onChange={handleMessageText}/>
       <button onClick={handleNewMessage}>Send Message</button>
     </div>

@@ -4,6 +4,7 @@ import user from './user.reducer';
 import test from './test.reducer';
 import activeMessageSession from './active_message_session.reducer';
 import activeMessageDetail from './active_message_detail.reducer'
+import availableMessageSessions from './available_message_sessions.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   test, // returns quiz data
   activeMessageSession, // return chat session data
   activeMessageDetail, // return chat detail data
+  availableMessageSessions, // returns chat sessions available
 });
 
 export default rootReducer;
