@@ -6,7 +6,7 @@ const router = express.Router();
  * POST route template
  */
 router.post('/', (req, res) => {
-    console.log('MADE IT TO CHAT PUT', req.body);
+    console.log('MADE IT TO MESSAGE PUT', req.body);
     const query = `INSERT INTO "message_session" ("exam_id", "created_by")
                    VALUES ($1, $2)
                    RETURNING "id";`;

@@ -1,4 +1,4 @@
-const activeChatReducer = (state = {}, action) => {
+const activeMessageSessionReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_ACTIVE_MESSAGE_SESSION':
       return action.payload;
@@ -11,4 +11,4 @@ const activeChatReducer = (state = {}, action) => {
 
 // user will be on the redux state at:
 // state.user
-export default activeChatReducer;
+export default activeMessageSessionReducer;
