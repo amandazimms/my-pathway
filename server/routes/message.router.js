@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
                     WHERE message_session.id=${newMessageSessionId}`
       pool.query(query).then(result => {
         console.log('Message_Session Query Results', result.rows);
-        res.send(result.rows);
+        res.send(result.rows[0]);
       })
         .catch(err => {
           console.log('ERROR: Get all quizes', err);
