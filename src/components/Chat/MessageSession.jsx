@@ -10,6 +10,24 @@ function messageSessionFunction(props) {
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Message Session Header');
+  const [messageText, setMessageText] = useState('')
+
+  const handleMessageText = (event) => {
+    setMessageText(event.target.value)
+  }
+
+  const handleNewMessage = () => {
+    console.log('In handleNewMessage', messageText);
+    dispatch({
+      type:'CREATE_MESSAGE_DETAIL',
+      payload:{
+        message_session_id:store.activeMessageSession.message_session_id,
+        creator_id:store.user.id,
+        message:messageText
+      }
+    })
+    setMessageText('')
+  }
 
   return (
     <div>
@@ -17,7 +35,8 @@ function messageSessionFunction(props) {
       <p>Event Name: {store.activeMessageSession.event_name}</p>
       <p>Student Name: {store.activeMessageSession.student_first_name} {store.activeMessageSession.student_last_name}</p>
       <p>Proctor Name: {store.activeMessageSession.proctor_first_name} {store.activeMessageSession.proctor_last_name}</p>
-
+      <label htmlFor="message">Message:</label><input type="text" id='message' value={messageText} onChange={handleMessageText}/>
+      <button onClick={handleNewMessage}>Send Message</button>
     </div>
   );
 }

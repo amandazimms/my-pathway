@@ -5,7 +5,7 @@ const router = express.Router();
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/session', (req, res) => {
   console.log('MADE IT TO MESSAGE PUT', req.body);
   const query = `INSERT INTO "message_session" ("exam_id", "created_by")
                    VALUES ($1, $2)
@@ -36,7 +36,38 @@ router.post('/', (req, res) => {
         res.send(result.rows[0]);
       })
         .catch(err => {
-          console.log('ERROR: Get all quizes', err);
+          console.log('ERROR: Get Message Session', err);
+          res.sendStatus(500)
+        })
+    })
+});
+
+router.post('/detail', (req, res) => {
+  console.log('MADE IT TO MESSAGE PUT', req.body);
+  const query = `INSERT INTO "message_detail" ("message_session_id", "creator_id", "message")
+                   VALUES ($1, $2, $3)
+                   RETURNING "id";`;
+  pool.query(query, [req.body.message_session_id, req.body.creator_id, req.body.message])
+    .then(result => {
+      console.log(result.rows[0].id);
+      const newMessageDetailId = result.rows[0].id;
+      const query = `SELECT 
+                    message_detail.message_session_id AS message_session_id,
+                    message_detail.create_date AS timestamp,
+                    message_detail.creator_id AS creator_id,
+                    message_detail.message AS message,
+                    "user".first_name AS creator_first_name,
+                    "user".last_name AS creator_last_name
+                    FROM message_detail
+                    JOIN "user" ON message_detail.creator_id="user".id
+                    WHERE message_detail.message_session_id=${req.body.message_session_id}
+                    ORDER BY timestamp DESC;`
+      pool.query(query).then(result => {
+        console.log('Message_Session Query Results', result.rows);
+        res.send(result.rows);
+      })
+        .catch(err => {
+          console.log('ERROR: Get all messages detail', err);
           res.sendStatus(500)
         })
     })
