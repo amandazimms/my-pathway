@@ -12,12 +12,22 @@ router.post('/', (req, res) => {
                    RETURNING "id";`;
   pool.query(query, [req.body.examId, req.body.userId])
     .then(result => {
-      res.send(result.rows);
+      console.log(result.rows[0].id);
+      const newMessageSessionId = result.rows[0].id;
+      const query = `SELECT * FROM message_session
+                     JOIN exam ON exam.id=message_session.exam_id
+                     JOIN event ON exam.event_id=event.id
+                     JOIN "user" ON event.proctor_id="user".id
+                     WHERE message_session.id=${newMessageSessionId}`
+      pool.query(query).then(result => {
+        console.log('Message_Session Query Results', result.rows);
+        res.send(result.rows);
     })
     .catch(err => {
       console.log('ERROR: Get all quizes', err);
       res.sendStatus(500)
     })
+  })
 });
 
 /**
