@@ -13,14 +13,14 @@ function AboutPage() {
   const store = useSelector((store) => store);
 
   useEffect(()=>{
-    dispatch( {type: 'FETCH_QUIZ'})
+    dispatch( {type: 'FETCH_TEST'})
   }, [])
 
   return (
     <div className="container">
       <div>
         <p>This about page is for anyone to read!</p>
-        <h1>{JSON.stringify(store.quiz)}</h1>
+        <h1>{JSON.stringify(store.test)}</h1>
       </div>
       
     </div>

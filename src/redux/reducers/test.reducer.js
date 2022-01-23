@@ -1,8 +1,8 @@
-const quizReducer = (state = {}, action) => {
+const testReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'SET_QUIZ':
+    case 'SET_TEST':
       return action.payload;
-    case 'UNSET_QUIZ':
+    case 'UNSET_TEST':
       return {};
     default:
       return state;
@@ -11,4 +11,4 @@ const quizReducer = (state = {}, action) => {
 
 // user will be on the redux state at:
 // state.user
-export default quizReducer;
+export default testReducer;
