@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useSelector} from 'react-redux';
 
 // Basic functional component structure for React with default state
@@ -10,10 +10,12 @@ function messageDetailFunction(props) {
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Message Detail');
 
+
+
   return (
     <div>
       {/* <p>{JSON.stringify(props)}</p> */}
-      <p><b>{props.message.creator_first_name} Said:</b>{props.message.message}</p>
+      <p><b>{props.message.creator_first_name} Said: </b>{props.message.message}</p>
     </div>
   );
 }

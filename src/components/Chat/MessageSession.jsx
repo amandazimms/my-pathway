@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import MessageDetail from './MessageDetail';
 
 // Basic functional component structure for React with default state
@@ -12,6 +13,23 @@ function messageSessionFunction(props) {
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Message Session Header');
   const [messageText, setMessageText] = useState('')
+
+  const history = useHistory()
+
+  useEffect(() => {
+    getMessageDetail();
+    const getMessageTimer = setInterval(() => {getMessageDetail()}, 3000);
+    return () => clearInterval(getMessageTimer)
+  },[])
+
+  const getMessageDetail = () => {
+    dispatch({
+      type:'GET_MESSAGE_DETAIL',
+      payload:{
+        session_id:store.activeMessageSession.message_session_id
+      }
+    })
+  }
 
   const handleMessageText = (event) => {
     setMessageText(event.target.value)
@@ -30,14 +48,19 @@ function messageSessionFunction(props) {
     setMessageText('')
   }
 
+
+
   return (
     <div>
+      <button onClick={() => {history.goBack()}}>RETURN TO CHAT HOME</button>
       <h2>{heading}</h2>
       <p>Event Name: {store.activeMessageSession.event_name}</p>
+      <p>Message Session ID: {store.activeMessageSession.message_session_id}</p>
       <p>Student Name: {store.activeMessageSession.student_first_name} {store.activeMessageSession.student_last_name}</p>
       <p>Proctor Name: {store.activeMessageSession.proctor_first_name} {store.activeMessageSession.proctor_last_name}</p>
-      {store.activeMessageDetail.map(message => (<MessageDetail message={message} key={message.message_id} />))}
+      
       <h2>Message Session Details</h2>
+      {store.activeMessageDetail.map(message => (<MessageDetail message={message} key={message.message_id} />))}
       <label htmlFor="message">Message:</label><input type="text" id='message' value={messageText} onChange={handleMessageText}/>
       <button onClick={handleNewMessage}>Send Message</button>
     </div>

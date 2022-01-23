@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Chat from '../Chat/Chat';
+import MessageSession from '../Chat/MessageSession'
 
 import './App.css';
 
@@ -66,6 +67,13 @@ function App() {
             path="/chat"
           >
             <Chat />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/message_session"
+          >
+            <MessageSession />
           </ProtectedRoute>
 
           <ProtectedRoute

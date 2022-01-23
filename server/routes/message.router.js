@@ -62,7 +62,7 @@ router.post('/detail', (req, res) => {
                     FROM message_detail
                     JOIN "user" ON message_detail.creator_id="user".id
                     WHERE message_detail.message_session_id=${req.body.message_session_id}
-                    ORDER BY timestamp DESC;`
+                    ORDER BY timestamp ASC;`
       pool.query(query).then(result => {
         console.log('Message_Session Query Results', result.rows);
         res.send(result.rows);
@@ -97,6 +97,30 @@ router.get('/sessions', (req, res) => {
                   LEFT JOIN "user" AS student ON student.id=exam.student_id
                   WHERE (exam_id=${req.query.exam_id} AND proctor_id=${req.query.user_id})
                   OR (exam_id=${req.query.exam_id} AND student_id=${req.query.user_id});`
+  pool.query(query)
+  .then( result => {
+  res.send(result.rows);
+  })
+  .catch(err => {
+  console.log('ERROR: Get Available Message Sessions', err);
+  res.sendStatus(500)
+  })
+});
+
+router.get('/detail', (req, res) => {
+  console.log('In GET MESSAGE DETAIL', req.query);
+  const query = `SELECT
+                message_detail.id AS message_id,
+                message_detail.message_session_id AS message_session_id,
+                message_detail.create_date AS timestamp,
+                message_detail.creator_id AS creator_id,
+                message_detail.message AS message,
+                "user".first_name AS creator_first_name,
+                "user".last_name AS creator_last_name
+                FROM message_detail
+                JOIN "user" ON message_detail.creator_id="user".id
+                WHERE message_detail.message_session_id=${req.query.session_id}
+                ORDER BY timestamp ASC;`
   pool.query(query)
   .then( result => {
   res.send(result.rows);
