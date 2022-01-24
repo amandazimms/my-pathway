@@ -11,6 +11,44 @@ function* testSaga() {
     //@jackie saga/dispatch - fetches ALL tests in DB. 
     //to dispatch from component, use example:
     //dispatch({ type: 'FETCH_ALL_TESTS' }); 
+
+  yield takeLatest('ADD_TEST', addTest);
+    //@jackie saga/dispatch - posts a new test to the db.
+    //to dispatch from component, use example:
+    //  first populate some object like newTest with all the needed data, then dispatch it
+    //  newTest = { 
+    //    title: someString, 
+    //    points_possible: someInt, 
+    //    test_time_limit: someInt, 
+    //    question_shuffle: bool, 
+    //    test_attempt_limit: someInt,
+    //    created_by: user.id, //this is the proctor's id, should be already there in the store 
+    //  } 
+    //dispatch({ type: 'ADD_TEST', payload: { test: newTest } });     
+}
+
+// worker Saga: will be fired on "ADD_TEST" actions
+function* addTest(action){
+  //ap.test is the test object to add, 
+  //  including title, points_possible, test_time_limit, question_shuffle,
+  //  test_attempt_limit, and .created_by
+
+  //first declare test obj with all the test data from ap. 
+  let test = ap.test;
+
+  try {
+    const postedTest = yield axios.post('/api/test', ap.test );
+
+    //now add to that test object the id & dates that were created when it was posted to DB
+    test = {...test, id: postedTest.id, create_date: postedTest.create_date, last_modified_date: postedTest.last_modified_date }
+
+    //finally send the 'complete' test object to the reducer
+    yield put({ type: 'SET_SELECTED_TEST', payload: test })
+
+  } catch (error) {
+    console.log('POST test failed', error);
+
+  }
 }
 
 // worker Saga: will be fired on "FETCH_TEST" actions
