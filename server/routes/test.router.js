@@ -5,9 +5,13 @@ const router = express.Router();
 
 router.get('/selected', (req, res) => {
   //@nickolas todo
-  //get * from one specific test
+  //this should select * from the test table, 
+  //  plus make a join with the questions table to get all the questions on this test.
+
   //this will be used when a proctor is viewing a test that's already been created
+  
   //use variable req.params.test_id for the test id value
+  
   //send back the results.rows
   
 });
