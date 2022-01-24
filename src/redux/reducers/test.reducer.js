@@ -6,6 +6,8 @@ const selected = (state = {}, action) => {
   switch (action.type) {
     case 'SET_SELECTED_TEST':
       return action.payload;
+    case 'UPDATE_SELECTED_TEST':
+      return {...state, ...action.payload};
     case 'UNSET_SELECTED_TEST':
       return {};
     default:

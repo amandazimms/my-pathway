@@ -27,12 +27,55 @@ function* testSaga() {
     //dispatch({ type: 'ADD_TEST', payload: { test: newTest } }); 
     
   yield takeLatest('DELETE_TEST', deleteTest);
-    //@jackie TODO AZ
+    //@jackie saga/dispatch - deletes a test from the db.
+    //to dispatch from component, use example:
+    //dispatch({ type: 'DELETE_TEST', payload: { test_id: putSomethingHere } }); 
 
+  yield takeLatest('UPDATE_TEST_SETTINGS', updateTestSettings);  
+    //@jackie saga/dispatch - updates any/all of the columns in the test table in the db.
+    //I chose to add 'settings' to this here because of their wireframe naming - 
+    //  the test 'settings' are all the columns in the test table
+    //  the test questions of course live in the questions table
+    //
+    //To dispatch from component, use example:
+    //  First populate some object like updatedTest with all the needed data, then dispatch it.
+    //  User can choose to edit, for example, only 1-2 fields, 
+    //  and the rest we can use the existing values in the selectedTest store.
+    //
+    //  updatedTest = { 
+    //    title: someString, 
+    //    points_possible: someInt, 
+    //    test_time_limit: someInt, 
+    //    question_shuffle: bool, 
+    //    test_attempt_limit: someInt,
+    //    last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
+    //  } 
+    //dispatch({ type: 'ADD_TEST', payload: { test: updatedTest } }); 
+  }
+
+
+
+// worker Saga: will be fired on "UPDATE_TEST_SETTINGS" actions
+function* updateTestSettings(action){
+  const ap = action.payload;
+   //ap.test is the test object to update, 
+  //  including title, points_possible, test_time_limit, question_shuffle,
+  //  test_attempt_limit, and .last_modified_by
+
+  try {
+    yield axios.put(`/api/test${ap.test_id}`, ap.test);
+    yield put({ type: 'UPDATE_SELECTED_TEST', payload: ap.test });
+      //todo ^ AZ - definitely need to verify that this works correctly
+
+  } catch (error) {
+    console.log('update test settings failed', error);
+
+  }
 }
 
 // worker Saga: will be fired on "DELETE_TEST" actions
 function* deleteTest(action){
+  const ap = action.payload;
   //ap.test_id 
 
   try {
@@ -51,6 +94,7 @@ function* deleteTest(action){
 
 // worker Saga: will be fired on "ADD_TEST" actions
 function* addTest(action){
+  const ap = action.payload;
   //ap.test is the test object to add, 
   //  including title, points_possible, test_time_limit, question_shuffle,
   //  test_attempt_limit, and .created_by
@@ -78,8 +122,8 @@ function* addTest(action){
 
 // worker Saga: will be fired on "FETCH_TEST" actions
 function* fetchTest(action) {
-  //ap.test_id is the test id to fetch
   const ap = action.payload;
+  //ap.test_id is the test id to fetch
  
   try {
     const response = yield axios.get('/api/test/selected', { params: {test_id: ap.test_id} });
