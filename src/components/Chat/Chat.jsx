@@ -13,12 +13,13 @@ function chatFunction(props) {
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Chat Component');
+  const [examId, setExamId] = useState(null)
    
   useEffect(() => {
     dispatch({
       type:'GET_AVAILALE_MESSAGE_SESSIONS',
       payload:{
-        exam_id:1,
+        exam_id:2,
         user_id:store.user.id
       }
     })
@@ -34,7 +35,7 @@ function chatFunction(props) {
     dispatch({
       type:'GET_AVAILALE_MESSAGE_SESSIONS',
       payload:{
-        exam_id:1,
+        exam_id:examId,
         user_id:store.user.id
       }
     })
@@ -45,7 +46,7 @@ function chatFunction(props) {
       type:'CREATE_MESSAGE_SESSION', 
       payload:{
         userId: store.user.id,
-        examId: 1,
+        examId: examId,
         done: () => {
           history.push('/message_session');
         }
@@ -68,14 +69,31 @@ function chatFunction(props) {
     })
   };
 
+  const handleExamId = (event) => {
+    setExamId(event.target.value)
+  }
+
   return (
     <div>
       <h2>{heading}</h2>
       <h5>{store.user.first_name} {store.user.last_name} - {store.user.role}</h5>
+      <label htmlFor="examId">Enter Exam ID:</label><input type="text" id='examId' value={examId} onChange={handleExamId}/>
+      <br />
+      <button onClick={getSessions}>Find Active Chats</button>
+      <br />
       {store.availableMessageSessions.length === 0?
       <button onClick={newChat}>Start New Chat</button>:
       <>
-      {store.availableMessageSessions.map(session => (<div key={session.message_session_id} > <p>Chat Between {session.proctor_first_name} and {session.student_first_name}, Chat ID: {session.message_session_id}</p><button value={session.message_session_id} onClick={resumeChat}>Join Chat</button></div>))}
+      {store.availableMessageSessions.map(session => (
+              <div key={session.message_session_id} > 
+                <p>
+                  Chat Between {session.proctor_first_name} and {session.student_first_name} 
+                </p>
+                <p>
+                 Chat ID: {session.message_session_id} 
+                </p>
+                
+                <button value={session.message_session_id} onClick={resumeChat}>Join Chat</button></div>))}
       </>
       }
       {/* <MessageSession /> */}
