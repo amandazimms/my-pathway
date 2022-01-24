@@ -11,9 +11,7 @@ router.get('/selected', (req, res) => {
   //this will be used when a proctor is viewing a test that's already been created
   
   //use variable req.params.test_id for the test id value
-  
   //send back the results.rows
-  
 });
 
 router.get('/all', (req, res) => {
@@ -47,5 +45,12 @@ router.post('/', (req, res) => {
   //i did something similar to all that ^^ for solo so can help with any of that if needed!! 
   //same with Chris too, I believe
 });
+
+router.delete('/:id', (req,res)=> {
+  //@nickolas todo (from Amanda - thanks)
+  //delete the test with id req.params.id
+  //send back status 200
+}
+
 
 module.exports = router;

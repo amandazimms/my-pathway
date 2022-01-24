@@ -24,7 +24,29 @@ function* testSaga() {
     //    test_attempt_limit: someInt,
     //    created_by: user.id, //this is the proctor's id, should be already there in the store 
     //  } 
-    //dispatch({ type: 'ADD_TEST', payload: { test: newTest } });     
+    //dispatch({ type: 'ADD_TEST', payload: { test: newTest } }); 
+    
+  yield takeLatest('DELETE_TEST', deleteTest);
+    //@jackie TODO AZ
+
+}
+
+// worker Saga: will be fired on "DELETE_TEST" actions
+function* deleteTest(action){
+  //ap.test_id 
+
+  try {
+    yield axios.delete(`/api/test${ap.test_id}`);
+
+    yield put({ type: 'UNSET_SELECTED_TEST' });
+    //note - unsure if we need to fetch_all_tests here... I suppose deleting a test would bring
+    //the proctor back to the "all tests" type view, but that should be doing its own 
+    //fetch_all_tests already. if needed we can add one here!
+
+  } catch (error) {
+    console.log('DELETE test failed', error);
+
+  }
 }
 
 // worker Saga: will be fired on "ADD_TEST" actions
@@ -44,6 +66,9 @@ function* addTest(action){
 
     //finally send the 'complete' test object to the reducer
     yield put({ type: 'SET_SELECTED_TEST', payload: test })
+    //note - I did not put a fetch_all_tests here since when a proctor creates a test, they are
+    // necessarily now selecting that test. if they navigate back to the 'all tests' type view,
+    // there a fetch_all_tests will be triggered anwyay. If needed we can add one of those here too.
 
   } catch (error) {
     console.log('POST test failed', error);
