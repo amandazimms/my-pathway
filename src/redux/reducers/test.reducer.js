@@ -1,4 +1,3 @@
-
 import { combineReducers } from 'redux';
 
 const selected = (state = {}, action) => {
