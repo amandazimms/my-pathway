@@ -21,8 +21,7 @@ function AboutPage() {
       <div>
         <p>This about page is for anyone to read!</p>
         <h1>{JSON.stringify(store.test)}</h1>
-      </div>
-      
+      </div> 
     </div>
   );
 }
