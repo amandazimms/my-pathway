@@ -26,7 +26,7 @@ function messageSessionFunction(props) {
     dispatch({
       type:'GET_MESSAGE_DETAIL',
       payload:{
-        session_id:store.activeMessageSession.message_session_id
+        session_id:store.message.activeMessageSession.message_session_id
       }
     })
   }
@@ -40,7 +40,7 @@ function messageSessionFunction(props) {
     dispatch({
       type:'CREATE_MESSAGE_DETAIL',
       payload:{
-        message_session_id:store.activeMessageSession.message_session_id,
+        message_session_id:store.message.activeMessageSession.message_session_id,
         creator_id:store.user.id,
         message:messageText
       }
@@ -54,13 +54,13 @@ function messageSessionFunction(props) {
     <div>
       <button onClick={() => {history.goBack()}}>RETURN TO CHAT HOME</button>
       <h2>{heading}</h2>
-      <p>Event Name: {store.activeMessageSession.event_name}</p>
-      <p>Message Session ID: {store.activeMessageSession.message_session_id}</p>
-      <p>Student Name: {store.activeMessageSession.student_first_name} {store.activeMessageSession.student_last_name}</p>
-      <p>Proctor Name: {store.activeMessageSession.proctor_first_name} {store.activeMessageSession.proctor_last_name}</p>
+      <p>Event Name: {store.message.activeMessageSession.event_name}</p>
+      <p>Message Session ID: {store.message.activeMessageSession.message_session_id}</p>
+      <p>Student Name: {store.message.activeMessageSession.student_first_name} {store.message.activeMessageSession.student_last_name}</p>
+      <p>Proctor Name: {store.message.activeMessageSession.proctor_first_name} {store.message.activeMessageSession.proctor_last_name}</p>
       
       <h2>Message Session Details</h2>
-      {store.activeMessageDetail.map(message => (<MessageDetail message={message} key={message.message_id} />))}
+      {store.message.activeMessageDetail.map(message => (<MessageDetail message={message} key={message.message_id} />))}
       <label htmlFor="message">Message:</label><input type="text" id='message' value={messageText} onChange={handleMessageText}/>
       <button onClick={handleNewMessage}>Send Message</button>
     </div>

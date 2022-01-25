@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import messageDetailFunction from './MessageDetail';
-import MessageSession from './MessageSession';
+
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -14,31 +13,26 @@ function chatFunction(props) {
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Chat Component');
   const [examId, setExamId] = useState(null)
+  const [openChat, setOpenChat] = useState(false)
    
   useEffect(() => {
-    dispatch({
-      type:'GET_AVAILALE_MESSAGE_SESSIONS',
-      payload:{
-        exam_id:2,
-        user_id:store.user.id
-      }
-    })
-  getSessions();
-  const getSessionsTimer = setInterval(() => {getSessions()}, 10000);
+  const getSessionsTimer = setInterval(() => {getSessions()}, 15000);
     return () => clearInterval(getSessionsTimer)
   },[])
 
   const history = useHistory()
 
   const getSessions = () => {
-    console.log('getSesssions Started');
-    dispatch({
-      type:'GET_AVAILALE_MESSAGE_SESSIONS',
-      payload:{
-        exam_id:examId,
-        user_id:store.user.id
-      }
-    })
+    if(examId != null ){
+      dispatch({
+        type:'GET_AVAILALE_MESSAGE_SESSIONS',
+        payload:{
+          exam_id:examId,
+          user_id:store.user.id
+        }
+      })
+      setOpenChat(true)
+    }
   };
 
   const newChat = () => {
@@ -70,21 +64,25 @@ function chatFunction(props) {
   };
 
   const handleExamId = (event) => {
-    setExamId(event.target.value)
+      setExamId(event.target.value)
   }
 
   return (
     <div>
       <h2>{heading}</h2>
+      {/* <p>{JSON.stringify(store.message)}</p> */}
       <h5>{store.user.first_name} {store.user.last_name} - {store.user.role}</h5>
       <label htmlFor="examId">Enter Exam ID:</label><input type="text" id='examId' value={examId} onChange={handleExamId}/>
       <br />
       <button onClick={getSessions}>Find Active Chats</button>
       <br />
-      {store.availableMessageSessions.length === 0?
-      <button onClick={newChat}>Start New Chat</button>:
+      {store.message.availableMessageSession.length === 0 && openChat === true?
       <>
-      {store.availableMessageSessions.map(session => (
+      <h6><b>NO ACTIVE CHATS FOUND</b></h6>
+      <button onClick={newChat}>Start New Chat</button>
+      </>:
+      <>
+      {store.message.availableMessageSession.map(session => (
               <div key={session.message_session_id} > 
                 <p>
                   Chat Between {session.proctor_first_name} and {session.student_first_name} 
@@ -96,7 +94,6 @@ function chatFunction(props) {
                 <button value={session.message_session_id} onClick={resumeChat}>Join Chat</button></div>))}
       </>
       }
-      {/* <MessageSession /> */}
 
     </div>
   );
