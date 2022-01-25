@@ -204,4 +204,3 @@ CREATE TABLE "message_detail" (
     FOREIGN KEY ("creator_id")
       REFERENCES "user"("id")
 );
-
