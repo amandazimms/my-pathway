@@ -19,10 +19,12 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import TestPage from '../TestPage/TestPage';
 import Chat from '../Chat/Chat';
 import MessageSession from '../Chat/MessageSession'
 
 import './App.css';
+import TestList from '../TestList/TestList';
 
 function App() {
   const dispatch = useDispatch();
@@ -82,6 +84,30 @@ function App() {
             path="/info"
           >
             <InfoPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows TestPage (with new = true as props) else shows LoginPage
+            exact
+            path="/test-new"
+          >
+            <TestPage new={true}/>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows TestPage (with new = false as props) else shows LoginPage
+            exact
+            path="/test"
+          >
+            <TestPage new={false}/>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows TestList else shows LoginPage
+            exact
+            path="/test-list"
+          >
+            <TestList new={false}/>
           </ProtectedRoute>
 
           <Route
