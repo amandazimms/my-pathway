@@ -29,14 +29,12 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const customTheme = createMuiTheme ({
   typography: {
     fontFamily: 
-    'Lato',
+    'Helvetica Neue',
   },
   palette: {
     type: 'light',
     primary: {
       main: '#1E2A49',
-      light: '#ffffff',
-      dark: '#898B8D',
     },
     secondary: {
       main: '#7FC1C5',
