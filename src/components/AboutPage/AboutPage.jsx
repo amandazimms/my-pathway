@@ -20,9 +20,8 @@ function AboutPage() {
     <div className="container">
       <div>
         <p>This about page is for anyone to read!</p>
-        <h1>quiz: {JSON.stringify(store.quiz)}</h1>
-      </div>
-      
+        <h1>{JSON.stringify(store.test)}</h1>
+      </div> 
     </div>
   );
 }

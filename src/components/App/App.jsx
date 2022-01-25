@@ -19,8 +19,39 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Chat from '../Chat/Chat';
+import MessageSession from '../Chat/MessageSession'
 
 import './App.css';
+
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const customTheme = createMuiTheme ({
+  typography: {
+    fontFamily: 
+    'Lato',
+  },
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#1E2A49',
+      light: '#ffffff',
+      dark: '#898B8D',
+    },
+    secondary: {
+      main: '#7FC1C5',
+    },
+    error: {
+      main: 'rgba(236,58,45,0.97)',
+    },
+    warning: {
+      main: '#ff9906',
+    },
+    success: {
+      main: '#46b54b',
+    },
+  },
+});
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +89,20 @@ function App() {
             path="/user"
           >
             <UserPage />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/chat"
+          >
+            <Chat />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/message_session"
+          >
+            <MessageSession />
           </ProtectedRoute>
 
           <ProtectedRoute
