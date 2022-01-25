@@ -2,6 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function* testSaga() {
+
   yield takeLatest('FETCH_TEST', fetchTest);
     //fetches all the info for a single test. 
     //dispatch({ type: 'FETCH_TEST', payload: {test_id: putSomethingHere} }); 
@@ -141,8 +142,6 @@ function* fetchAllTests() {
 
   } catch (error) {
     console.log('get all tests request failed', error);
-  
-
   }
 }
 

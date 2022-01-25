@@ -20,6 +20,8 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import TestPage from '../TestPage/TestPage';
+import Chat from '../Chat/Chat';
+import MessageSession from '../Chat/MessageSession'
 
 import './App.css';
 import TestList from '../TestList/TestList';
@@ -60,6 +62,20 @@ function App() {
             path="/user"
           >
             <UserPage />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/chat"
+          >
+            <Chat />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/message_session"
+          >
+            <MessageSession />
           </ProtectedRoute>
 
           <ProtectedRoute
