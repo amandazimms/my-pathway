@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 
+//Material-UI imports 
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 
 function TestItem(props) {
@@ -11,8 +15,8 @@ function TestItem(props) {
   
   const dispatch = useDispatch();
   const [heading, setHeading] = useState('Functional Component');
+  const selectedTest = useSelector(store => store.test.selected);
 
-  //Amanda 
   const setSelectedTest = (_test) => {
     console.log('clicked edit test');
     dispatch({ type: 'SET_SELECTED_TEST', payload: _test });
@@ -33,6 +37,14 @@ const addTest = (event) => {
   dispatch({ type: 'ADD_TEST', payload: { test: newTest } });
 }
 
+//for tabs 
+const [selectedTab, setSelectedTab] = useState(0);
+
+const handleTabChange = (event, value) => {
+      setSelectedTab(value);
+    };
+
+
   return (
     <div>
       <h2>I'm a test</h2>
@@ -45,6 +57,15 @@ const addTest = (event) => {
 
 
       <div className='add-test'>
+      <Box sx={{width: '100%', bgcolor: 'background.paper'}}>
+          <Tabs value={selectedTab} onChange={handleTabChange} centered>
+          <Tab label="Questions" />
+          <Tab label="Settings"/> 
+        </Tabs>
+      </Box>
+
+    
+    
       <h2>Add A Test</h2>
        <form>
 
@@ -73,7 +94,7 @@ const addTest = (event) => {
        <input required defaultValue={newTest.test_attempt_limit}  type="integer" name="attempts" />
        </div>
        
-       <button onClick={addTest} variant='contained' color='primary' type='submit'>Add Item</button>
+       <button onClick={addTest} variant='contained' color='primary' type='submit'>Add Test</button>
 
        </form>
     </div>
