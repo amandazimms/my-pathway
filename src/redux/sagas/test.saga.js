@@ -4,14 +4,11 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* testSaga() {
 
   yield takeLatest('FETCH_TEST', fetchTest);
-
-    //@jackie saga/dispatch - fetches all the info for a single test. 
-    //to dispatch from component, use example:
+    //fetches all the info for a single test. 
     //dispatch({ type: 'FETCH_TEST', payload: {test_id: putSomethingHere} }); 
   
   yield takeLatest('FETCH_ALL_TESTS', fetchAllTests);
-    //@jackie saga/dispatch - fetches ALL tests in DB. 
-    //to dispatch from component, use example:
+    //fetches ALL tests in DB. 
     //dispatch({ type: 'FETCH_ALL_TESTS' }); 
 
   yield takeLatest('ADD_TEST', addTest);
@@ -29,8 +26,7 @@ function* testSaga() {
     //dispatch({ type: 'ADD_TEST', payload: { test: newTest } }); 
     
   yield takeLatest('DELETE_TEST', deleteTest);
-    //@jackie saga/dispatch - deletes a test from the db.
-    //to dispatch from component, use example:
+    //deletes a test from the db.
     //dispatch({ type: 'DELETE_TEST', payload: { test_id: putSomethingHere } }); 
 
   yield takeLatest('UPDATE_TEST_SETTINGS', updateTestSettings);  
@@ -52,7 +48,7 @@ function* testSaga() {
     //    test_attempt_limit: someInt,
     //    last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
     //  } 
-    //dispatch({ type: 'ADD_TEST', payload: { test: updatedTest } }); 
+    //dispatch({ type: 'UPDATE_TEST_SETTINGS', payload: { test: updatedTest } }); 
   }
 
 

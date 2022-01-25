@@ -42,7 +42,7 @@ CREATE TABLE "test" (
 );
 
 INSERT INTO "test" ("title", "points_possible")
-VALUES ('Example Test',100), ('Math Test', 100), ('Geography', 100)
+VALUES ('Example Test',100), ('Math Test', 100), ('Geography', 100);
 
 CREATE TABLE "question" (
   "id" serial,
@@ -86,9 +86,7 @@ VALUES (1, 'Amanda last name?', 'Zimaman', 'Cinnamon', 'Simmering', 'Zimmerman',
 (3, 'Capital of Italy?', 'Rigatoni', 'Rome', 'Florence', 'Milan', 'Venice', 'Naples', 'Rome'),
 (3, 'Capital of Peru?', 'Llama', 'Lima', 'Cusco', 'Machu Picchu', 'Madrid', 'Nazca', 'Lima'),
 (3, 'Capital of Ghana?', 'Lagos', 'Accra', 'Cape Town', 'Johannesburg', 'Nairobi', 'Cairo', 'Accra'),
-(2, '77 x 77 ?', 4987, 7777, 6013, 5929, 6239, 'idk', 5927)
-
-
+(2, '77 x 77 ?', 4987, 7777, 6013, 5929, 6239, 'idk', 5927);
 
 
 
