@@ -1,3 +1,4 @@
+
 import { combineReducers } from 'redux';
 
 const selected = (state = {}, action) => {
@@ -9,6 +10,7 @@ const selected = (state = {}, action) => {
     case 'UPDATE_SELECTED_TEST':
       return {...state, ...action.payload};
     case 'UNSET_SELECTED_TEST':
+
       return {};
     default:
       return state;
@@ -32,3 +34,4 @@ export default combineReducers({
   selected,
   all,
 });
+

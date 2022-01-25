@@ -3,6 +3,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* testSaga() {
   yield takeLatest('FETCH_TEST', fetchTest);
+
     //@jackie saga/dispatch - fetches all the info for a single test. 
     //to dispatch from component, use example:
     //dispatch({ type: 'FETCH_TEST', payload: {test_id: putSomethingHere} }); 
@@ -145,6 +146,7 @@ function* fetchAllTests() {
   } catch (error) {
     console.log('get all tests request failed', error);
   
+
   }
 }
 
