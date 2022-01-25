@@ -37,7 +37,7 @@ function Nav() {
             </Link>
 
             <Link className="navLink" to="/test">
-              Tests
+              Create Tests
             </Link>
 
             <LogOutButton className="navLink" />
