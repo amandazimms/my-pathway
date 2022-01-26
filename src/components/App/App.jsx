@@ -118,11 +118,27 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
+            // logged in shows TestPage (with new = true as props) else shows LoginPage
+            exact
+            path="/test-new"
+          >
+            <TestPage new={true}/>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows TestPage (with new = false as props) else shows LoginPage
             exact
             path="/test"
           >
-            <TestItem />
+            <TestPage new={false}/>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows TestList else shows LoginPage
+            exact
+            path="/test-list"
+          >
+            <TestList />
           </ProtectedRoute>
 
           <ProtectedRoute
