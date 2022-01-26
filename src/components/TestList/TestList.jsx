@@ -6,8 +6,8 @@ import TestItem from '../TestItem/TestItem';
 
 function TestList(props) {
 
-  const tests = useSelector(store => store.test.all);
-  // const tests = ["fakeTest1", "fakeTest2"]
+  // const tests = useSelector(store => store.test.all);
+  const tests = ["fakeTest1", "fakeTest2"]
   const dispatch = useDispatch();
 
   // const [heading, setHeading] = useState('Functional Component');
@@ -23,8 +23,8 @@ function TestList(props) {
       <p>all tests stringified: {JSON.stringify(tests)}</p>
 
       {tests.map(test => (
-        <TestItem test={test} key={test.id}/>
-        // <TestItem test={test}/>
+        // <TestItem test={test} key={test.id}/>
+        <TestItem test={test}/>
       ))}
 
       <Link to="/test-new">
