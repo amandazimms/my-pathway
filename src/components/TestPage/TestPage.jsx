@@ -18,6 +18,13 @@ function TestPage(props) {
 
   const dispatch = useDispatch();
 
+  //proctor inputs
+  const [title, setTitle] = useState('');
+  const [pointsPossible, setPointsPossible] = useState('');
+  const [timeLimit, setTimeLimit] = useState(''); 
+  const [questionShuffle, setQuestionShuffle] = useState(true); 
+  const [testAttempt, setTestAttempt] = useState(''); 
+
   useEffect(() => {
     dispatch({ type: 'FETCH_QUESTIONS', payload: {test_id: test.id} });
   }, []);
@@ -45,8 +52,15 @@ function TestPage(props) {
 
        created_by: user.id, //this is the proctor's id, should be already there in the store 
      } 
-    dispatch({ type: 'ADD_TEST', payload: { test: newTest } }); 
-  }
+    dispatch({ type: 'ADD_TEST', 
+    payload: {
+      title: title, 
+      pointsPossible: pointsPossible,
+      timeLimit: timeLimit, 
+      questionShuffle: questionShuffle,
+      testAttempt: testAttempt
+     } }); 
+  }; 
 
   const updateTest = () => {
     console.log('in update test');
@@ -151,12 +165,72 @@ function TestPage(props) {
 
   return (
     <div>
-
-      <h2>This is one test in all its glory</h2>
-      <p>test, stringified: {JSON.stringify(test)}</p>
-
-      <p>inputs here - dropdowns, etc!</p>
-      <p>what type? how long? etc!</p>
+<form className="formPanel" onSubmit={addTest}>
+      <h2>Add a New Test</h2>
+      <div>
+        <label htmlFor="title">
+          Exam Title:
+          <input
+            type="text"
+            name="title"
+            value={title}
+            required
+            onChange={(event) => setTitle(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="points_possible">
+          Number of Points
+          <input
+            type="text"
+            name="points_possible"
+            value={pointsPossible}
+            required
+            onChange={(event) => setPointsPossible(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="Time">
+          Time to complete exam: 
+          <input
+            type="text"
+            name="test_time_limit"
+            value={timeLimit}
+            required
+            onChange={(event) => setTimeLimit(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="boolean">
+          Order of questions:
+          <input
+            type="text"
+            name="question_shuffle"
+            value={questionShuffle}
+            required
+            onChange={(event) => setQuestionShuffle(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="attempts">
+          Number of attempts allowed
+          <input
+            type="text"
+            name="test_attempt_limit"
+            value={testAttempt}
+            required
+            onChange={(event) => setTestAttempt(event.target.value)}
+          />
+        </label>
+      </div>
+    <div>
+        <input className="btn" type="submit" name="submit" value="Register" />
+      </div>
+    </form>
 
       { isNew
           // if we arrived at this page via "add test..."

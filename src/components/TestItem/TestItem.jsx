@@ -2,19 +2,49 @@ import React, { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 
+//Material-UI imports 
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
 
 function TestItem(props) {
 
   const store = useSelector(store => store);
-  const test = props.test;
+  const [test, setTest] = useState(props.test);
+  
   const dispatch = useDispatch();
-
   const [heading, setHeading] = useState('Functional Component');
+  
+  const selectedTest = useSelector(store => store.test.selected);
 
   const setSelectedTest = (_test) => {
     console.log('clicked edit test');
     dispatch({ type: 'SET_SELECTED_TEST', payload: _test });
   }
+
+const newTest = { 
+       title: '', 
+       points_possible: '', 
+       test_time_limit: '', 
+       question_shuffle: '', 
+       test_attempt_limit: '',
+      //  created_by: user.id, //this is the proctor's id, should be already there in the store 
+     } 
+
+
+const addTest = (event) => {
+  console.log('add test here')
+  dispatch({ type: 'ADD_TEST', payload: { test: newTest } });
+}
+
+//for tabs 
+const [selectedTab, setSelectedTab] = useState(0);
+
+const handleTabChange = (event, value) => {
+      setSelectedTab(value);
+    };
+
 
   return (
     <div>
@@ -27,6 +57,7 @@ function TestItem(props) {
       </Link>
 
     </div>
+    
   );
 }
 

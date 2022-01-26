@@ -19,12 +19,38 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import TestPage from '../TestPage/TestPage';
 import Chat from '../Chat/Chat';
-import MessageSession from '../Chat/MessageSession'
+import MessageSession from '../Chat/MessageSession'; 
+import TestItem from '../TestItem/TestItem';
 
 import './App.css';
-import TestList from '../TestList/TestList';
+
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const customTheme = createMuiTheme ({
+  typography: {
+    fontFamily: 
+    'Helvetica Neue',
+  },
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#1E2A49',
+    },
+    secondary: {
+      main: '#7FC1C5',
+    },
+    error: {
+      main: 'rgba(236,58,45,0.97)',
+    },
+    warning: {
+      main: '#ff9906',
+    },
+    success: {
+      main: '#46b54b',
+    },
+  },
+});
 
 function App() {
   const dispatch = useDispatch();
@@ -79,35 +105,19 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/test"
+          >
+            <TestItem />
+          </ProtectedRoute>
+
+          <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
             path="/info"
           >
             <InfoPage />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows TestPage (with new = true as props) else shows LoginPage
-            exact
-            path="/test-new"
-          >
-            <TestPage new={true}/>
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows TestPage (with new = false as props) else shows LoginPage
-            exact
-            path="/test"
-          >
-            <TestPage new={false}/>
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows TestList else shows LoginPage
-            exact
-            path="/test-list"
-          >
-            <TestList new={false}/>
           </ProtectedRoute>
 
           <Route
