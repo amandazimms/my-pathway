@@ -6,13 +6,12 @@ const selected = (state = {}, action) => {
   switch (action.type) {
     case 'SET_SELECTED_TEST':
       return action.payload;
-    case 'UPDATE_SELECTED_TEST':
-      return {...state, ...action.payload};
-    case 'UNSET_SELECTED_TEST':
-
-      return {};
+    case 'SET-UPDATE_SELECTED_TEST':   // <----note - sorry about the goofy name.
+      return {...state, ...action.payload}; // the idea is that "set-update"s spread in some new info and leave some existing, 
+    case 'UNSET_SELECTED_TEST':             // while "sets" return a totally new state
+      return {};                            // this was done to avoid overlap with other UPDATE dispatches that make DB calls rather than reducer alterations
     default:
-      return state;
+      return state;  
   }
 };
 
