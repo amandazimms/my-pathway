@@ -8,11 +8,10 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import Nav from '../Nav/Nav';
+
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
@@ -26,6 +25,8 @@ import TestItem from '../TestItem/TestItem';
 import './App.css';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import NavDrawer from '../Nav/Nav';
+import { makeStyles } from '@material-ui/core/styles';
 
 const customTheme = createMuiTheme ({
   typography: {
@@ -52,10 +53,20 @@ const customTheme = createMuiTheme ({
   },
 });
 
+//for nav drawer 
+const useStyles = makeStyles({
+  container: {
+    display: "flex" 
+  }
+})
+
 function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
+  
+  //for navDrawer 
+  const classes = useStyles(); 
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -64,7 +75,9 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        <div className={classes.container}>
+        <NavDrawer />
+        
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -168,6 +181,8 @@ function App() {
           </Route>
         </Switch>
         <Footer />
+        
+        </div> 
       </div>
     </Router>
   );

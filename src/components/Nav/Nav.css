@@ -1,42 +1,75 @@
-.nav {
-  /* flex box layout */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin: 0 0 30px;
-  background-color: #1E2A49;
-  overflow: hidden;
-}
-
-.nav a {
-  text-decoration: none;
-}
-
 .nav-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #f2f2f2;
-  padding-left: 10px;
-  margin: 0;
-}
-
-.navLink {
   display: inline-block;
-  color: #f2f2f2;
-  background-color: #1E2A49;
-  text-align: center;
-  padding: 24px 10px;
-  text-decoration: none;
-  font-size: 15px;
-
-  /* these last two make the logout button in
-  the nav bar look like another link */
-  border: none;
-  cursor: pointer;
-  outline: 0;
+  color: #1E2A49; 
+  padding-left: 10px;
+  font-weight: 600;
+  font-family:'Lato', sans-serif; 
+  /* margin: 0;
+  position: absolute;
+  top: 50%; */
 }
 
-.navLink:hover {
-  background-color: #7FC1CF;
+.nav-right {
+  float: right; 
+  text-align: right; 
+}
+.nav {
+margin: 0;
+/* background-color: rgba(231, 178, 252, 0.8); */
+overflow: hidden;
+}
+
+.nav-link {
+float: left;
+color: #7FC1C5; 
+/* background-color:rgba(231, 178, 252, 0.8);; */
+text-align: center;
+padding: 12px 10px;
+text-decoration: none;
+font-size: 18px;
+
+/* these last two make the logout button in
+the nav bar look like another link */
+border:none;
+cursor: pointer;
+outline:0;
+}
+
+.nav-hamburger {
+float: left;
+color: #7FC1C5; 
+/* padding-top: 8px; */
+margin-top: 6px;
+
+}
+
+.nav-link:hover {
+background-color: #f3ededa8
+}
+
+.drawer-link:hover {
+background-color: #7fc2c5ad; 
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&family=Lato:ital,wght@0,100;0,300;1,100&display=swap');
+.drawer-link {
+color:rgba(0, 0, 0, 0.8);
+text-align: center;
+padding: 4px 10px;
+text-decoration: none;
+font-size: 16px;
+font-weight: 400;
+font-family: 'Lato', sans-serif; 
+
+/* these last two make the logout button in
+the nav bar look like another link */
+border:none;
+cursor: pointer;
+outline:0;
+}
+
+.logo{
+  max-width: 60;
+  text-alignt: center; 
+  height: 100px; 
 }

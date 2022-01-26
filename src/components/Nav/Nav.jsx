@@ -1,55 +1,66 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
-import { useSelector } from 'react-redux';
+import React from "react"; 
+import { withRouter } from "react-router";
+//Drawer MUI 
+import {Drawer as MUIDrawer, ListItem, List,  ListItemText, ListItemIcon} from "@material-ui/core"; 
+import {makeStyles} from "@material-ui/core/styles"; 
+import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
 
-function Nav() {
-  const user = useSelector((store) => store.user);
 
+const useStyles = makeStyles({
+  drawer: {
+    width: '200px' 
+
+  }
+}); 
+
+const NavDrawer = (props) => {
+
+console.log(props);
+
+const {history} = props;  
+const classes = useStyles(); 
+const itemsList = [
+  {
+      text:"Create Test", 
+      icon: <BookmarkAddOutlinedIcon/>, 
+      onClick: ()=> history.push('/test')
+  }, 
+  {
+      text:"Messages",
+      icon: <ChatBubbleOutlineOutlinedIcon/>, 
+      onClick: ()=> history.push('/chat')
+  },
+  {
+      text:"About",
+      icon: <ListAltOutlinedIcon/>,
+      onClick: ()=> history.push('/about')
+  },
+  {
+      text:"Info",
+      icon: <InfoOutlinedIcon/>,
+      onClick: ()=> history.push('/info')
+  },
+  ]; 
+
+  return(
+  <MUIDrawer variant="permanent" className={classes.drawer}>
+  <List>
+            {itemsList.map((item, index) => {
+              const {text, icon, onClick} = item; 
   return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Kyros</h2>
-      </Link>
-      <div>
-        {/* If no user is logged in, show these links */}
-        {user.id === null &&
-          // If there's no user, show login/registration links
-          <Link className="navLink" to="/login">
-            Login / Register
-          </Link>
-        }
+              <ListItem button key={text} onClick={onClick}>
+                { icon && <ListItemIcon>{icon}</ListItemIcon>}
+                <ListItemText primary={text} />
+              </ListItem>
+          );
+        })}
+          </List>
+  </MUIDrawer>
 
-        {/* If a user is logged in, show these links */}
-        {user.id && (
-          <>
-            <Link className="navLink" to="/user">
-              Home
-            </Link>
-
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
-
-            <Link className="navLink" to="/chat">
-              Chat
-            </Link>
-
-            <Link className="navLink" to="/test">
-              Create Tests
-            </Link>
-
-            <LogOutButton className="navLink" />
-          </>
-        )}
-
-        <Link className="navLink" to="/about">
-          About
-        </Link>
-      </div>
-    </div>
   );
-}
+};
+export default withRouter(NavDrawer);
 
-export default Nav;
