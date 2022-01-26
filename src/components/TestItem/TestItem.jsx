@@ -56,50 +56,8 @@ const handleTabChange = (event, value) => {
         <button>Edit this test</button>
       </Link>
 
-
-      <div className='add-test'>
-      <Box sx={{width: '100%', bgcolor: 'background.paper'}}>
-          <Tabs value={selectedTab} onChange={handleTabChange} centered>
-          <Tab label="Questions" />
-          <Tab label="Settings"/> 
-        </Tabs>
-      </Box>
-
-    
-    
-      <h2>Add A Test</h2>
-       <form>
-
-      <div className='input-text'>
-      <label>Title</label> 
-      <input required defaultValue={newTest.title} type="text" name="title" />
-      </div>
-
-       <div className='input-text'>
-       <label>Points Possible</label> 
-       <input required defaultValue={newTest.points_possible}  type="integer" name="points" />
-       </div>
-
-       <div className='input-text'>
-       <label>Test Time Limit</label> 
-       <input required defaultValue={newTest.test_time_limit} type="integer" name="time limit" />
-       </div>
-
-       <div className='input-text'>
-       <label>Question Shuffle</label> 
-       <input required defaultValue={newTest.question_shuffle}  type="boolean" name="true false" />
-       </div>
-
-       <div className='input-text'>
-       <label>Number of Attempts Allowed</label> 
-       <input required defaultValue={newTest.test_attempt_limit}  type="integer" name="attempts" />
-       </div>
-       
-       <button onClick={addTest} variant='contained' color='primary' type='submit'>Add Test</button>
-
-       </form>
     </div>
-    </div>
+    
   );
 }
 
