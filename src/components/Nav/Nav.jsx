@@ -22,7 +22,7 @@ import { CssBaseline } from "@mui/material";
 
 
 const useStyles = makeStyles({
-  drawerWidth: {
+  drawer: {
     width: '400px', 
     color: 'primary'
   }
@@ -65,7 +65,7 @@ const itemsList = [
         <Typography variant="h6" noWrap component="div"></Typography>
       </Toolbar>
     </AppBar>
-  <MUIDrawer variant="permanent" className={classes.drawer}>
+  <MUIDrawer variant="permanent" className={classes.drawer} width='300px'>
   <List>
             {itemsList.map((item, index) => {
               const {text, icon, onClick} = item; 

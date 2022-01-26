@@ -228,7 +228,7 @@ function TestPage(props) {
         </label>
       </div>
     <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+        <input className="btn" type="submit" name="submit" value="Add New Test" />
       </div>
     </form>
 
