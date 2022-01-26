@@ -1,23 +1,34 @@
 import React from "react"; 
 import { withRouter } from "react-router";
+
 //Drawer MUI 
-import {Drawer as MUIDrawer, ListItem, List,  ListItemText, ListItemIcon} from "@material-ui/core"; 
+import {Drawer as MUIDrawer, 
+                  ListItem, 
+                  List,  
+                  ListItemText, 
+                  ListItemIcon,
+                  AppBar,
+                  Toolbar,
+                  Typography,
+                  Box, 
+                  Button } from "@material-ui/core"; 
+
 import {makeStyles} from "@material-ui/core/styles"; 
 import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import { CssBaseline } from "@mui/material";
 
 
 const useStyles = makeStyles({
-  drawer: {
-    width: '200px' 
-
+  drawerWidth: {
+    width: '400px', 
+    color: 'primary'
   }
 }); 
 
 const NavDrawer = (props) => {
-
 console.log(props);
 
 const {history} = props;  
@@ -45,12 +56,22 @@ const itemsList = [
   },
   ]; 
 
-  return(
+
+ return(
+   <Box sx={{display: 'flex'}}>
+     <CssBaseline/> 
+    <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer +1}}>
+      <Toolbar>
+        <Typography variant="h6" noWrap component="div"></Typography>
+      </Toolbar>
+    </AppBar>
   <MUIDrawer variant="permanent" className={classes.drawer}>
   <List>
             {itemsList.map((item, index) => {
               const {text, icon, onClick} = item; 
+
   return (
+              
               <ListItem button key={text} onClick={onClick}>
                 { icon && <ListItemIcon>{icon}</ListItemIcon>}
                 <ListItemText primary={text} />
@@ -59,8 +80,9 @@ const itemsList = [
         })}
           </List>
   </MUIDrawer>
-
-  );
+  </Box>
+ );
 };
+  
 export default withRouter(NavDrawer);
 
