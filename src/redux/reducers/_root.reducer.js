@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   test, // since test.reducer is a combo of reducers, test has sub-stores:  store.test.selected and store.test.all 
       //^ example to use in your component:   const selectedTest = useSelector(store => store.test.selected);
       //^ or                                  const allTests = useSelector(store => store.test.all);
-  question,     
+  question, //same story as above for question reducer: use store.question.selected / store.question.all     
 
 
 });
