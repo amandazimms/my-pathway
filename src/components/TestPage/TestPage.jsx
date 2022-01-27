@@ -7,6 +7,8 @@ function TestPage(props) {
   //if we arrive here by clicking "add" a new test, props.new will be true (see app.jsx, routes).
   //if we arrive by clicking "edit" an existing test, props.new will be false.
   //use isNew to conditionally render things! 
+
+  //are we pushing to master?
   const isNew = props.new; 
 
   const store = useSelector(store => store);
