@@ -4,8 +4,8 @@ import user from './user.reducer';
 import test from './test.reducer';
 import message from './message.reducer';
 import question from './question.reducer';
+import event from './event.reducer';
 import allUsers from './allUsers.reducer';
-
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -20,7 +20,8 @@ const rootReducer = combineReducers({
   test, // since test.reducer is a combo of reducers, test has sub-stores:  store.test.selected and store.test.all 
       //^ example to use in your component:   const selectedTest = useSelector(store => store.test.selected);
       //^ or                                  const allTests = useSelector(store => store.test.all);
-  question, //same story as above for question reducer: use store.question.selected / store.question.all 
+  question, //same story as above for question reducer: use store.question.selected / store.question.all     
+  event, //again, same, use: store.event.selected / store.event.all
   allUsers, // returns data about registered users in app    
 });
 

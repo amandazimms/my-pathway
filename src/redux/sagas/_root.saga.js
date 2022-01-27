@@ -4,6 +4,7 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import testSaga from './test.saga';
 import messageSaga from './message.saga';
+import eventSaga from './event.saga';
 import allUsers from './allUsers.saga';
 
 // rootSaga is the primary saga.
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     userSaga(),
     testSaga(),
     messageSaga(),
+    eventSaga(),
     allUsers(),
   ]);
 }
