@@ -26,6 +26,8 @@ import TestItem from '../TestItem/TestItem';
 import './App.css';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import TestPage from '../TestPage/TestPage';
+import TestList from '../TestList/TestList';
 
 const customTheme = createMuiTheme ({
   typography: {
