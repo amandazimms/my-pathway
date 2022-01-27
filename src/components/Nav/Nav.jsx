@@ -22,6 +22,11 @@ function Nav() {
         }
 
         {/* If a user is logged in, show these links */}
+        {user.role === "PROCTOR" && (
+          <Link className="navLink" to="/user_management">
+            Users
+          </Link>
+        )}
         {user.id && (
           <>
             <Link className="navLink" to="/user">
@@ -42,6 +47,11 @@ function Nav() {
 
             <LogOutButton className="navLink" />
           </>
+        )}
+        {user.role === "PROCTOR" && (
+          <Link className="navLink" to="/user_management">
+            Users
+          </Link>
         )}
 
         <Link className="navLink" to="/about">
