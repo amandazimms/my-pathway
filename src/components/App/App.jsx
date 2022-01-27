@@ -5,14 +5,10 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
@@ -22,14 +18,13 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Chat from '../Chat/Chat';
 import MessageSession from '../Chat/MessageSession'; 
 import TestItem from '../TestItem/TestItem';
-
 import './App.css';
-
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import TestPage from '../TestPage/TestPage';
 import TestList from '../TestList/TestList';
+import UserManagement from '../UserManagement/UserManagement'
 
-const customTheme = createMuiTheme ({
+const customTheme = createTheme ({
   typography: {
     fontFamily: 
     'Helvetica Neue',
@@ -128,6 +123,13 @@ function App() {
             path="/test-list"
           >
             <TestList />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/user_management"
+          >
+            <UserManagement />
           </ProtectedRoute>
 
           <ProtectedRoute
