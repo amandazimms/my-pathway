@@ -24,6 +24,7 @@ import MessageSession from '../Chat/MessageSession';
 import TestItem from '../TestItem/TestItem';
 import TestPage from '../TestPage/TestPage'
 import TestList from '../TestList/TestList';
+import QuestionForm from '../QuestionForm/QuestionForm';
 import './App.css';
 
 import {createTheme} from '@material-ui/core/styles'
@@ -129,12 +130,20 @@ function App() {
             <TestList />
           </ProtectedRoute>
 
-          <ProtectedRoute
+          {/* <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
             path="/info"
           >
             <InfoPage />
+          </ProtectedRoute> */}
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/question"
+          >
+            <QuestionForm />
           </ProtectedRoute>
 
           <Route

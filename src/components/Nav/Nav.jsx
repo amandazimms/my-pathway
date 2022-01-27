@@ -50,9 +50,9 @@ const itemsList = [
       onClick: ()=> history.push('/about')
   },
   {
-      text:"Info",
+      text:"Question Form",
       icon: <InfoOutlinedIcon/>,
-      onClick: ()=> history.push('/info')
+      onClick: ()=> history.push('/question')
   },
   ]; 
 
