@@ -8,34 +8,35 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 
-function TestItem(props) {
+function QuestionItem(props) {
 
   const store = useSelector(store => store);
-  const [test, setTest] = useState(props.test);
+  
+  const [question, setQuestion] = useState(props.question);
   
   const dispatch = useDispatch();
   const [heading, setHeading] = useState('Functional Component');
   
-  const selectedTest = useSelector(store => store.test.selected);
+  const selectedQuestion = useSelector(store => store.question.selected);
 
-  const setSelectedTest = (_test) => {
-    console.log('clicked edit test');
-    dispatch({ type: 'SET_SELECTED_TEST', payload: _test });
+  const setSelectedQuestion = (_question) => {
+    console.log('clicked edit question');
+    dispatch({ type: 'SET_SELECTED_QUESTION', payload: _question });
   }
 
 
   return (
     <div>
       <h2>I'm a test</h2>
-      <p>stringified test:{JSON.stringify(test)}</p>
+      <p>stringified test:{JSON.stringify(question)}</p>
 
-      <Link to="/test" onClick={() => setSelectedTest(test)}>
+      <Link to="/test" onClick={() => setSelectedQuestion(question)}>
         {/* when the edit button is clicked, this will move user to the /test page, and set the selectedTest to this one */}
-        <button>Edit this test</button>
+        <button>Edit this Question</button>
       </Link>
     </div>
     
   );
 }
 
-export default TestItem;
+export default QuestionItem;
