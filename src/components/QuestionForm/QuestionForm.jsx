@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import {useSelector} from 'react-redux';
 import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-ui/core"; 
-import RadioGroup from '@material-ui/core/RadioGroup'; 
 import { FormControlLabel } from '@material-ui/core';
-import { Radio } from '@material-ui/core';
 import { Button } from '@material-ui/core';
+import Switch from '@mui/material/Switch'; 
+import { FormGroup } from '@material-ui/core';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Box } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 function QuestionForm(props) {
 
@@ -33,7 +37,6 @@ const [newQuestion, setNewQuestion] = useState ({
 const addQuestion = (event) => {
 console.log('in add question');
 event.preventDefault(); 
-
 dispatch({ type: 'ADD_QUESTION', 
  payload: { 
   pointValue: pointValue,
@@ -51,9 +54,13 @@ dispatch({ type: 'ADD_QUESTION',
 }; //end addQuestion 
 
 return (
-  
-<div className="quesitonForm">
+  <Box>
+<form className="formPanel">
+
 <h2>Question</h2>
+<FormControl fullWidth>
+<TextField id="outlined-basic" label="Question" variant="outlined"/> 
+</FormControl>
 
 <FormControl fullWidth> 
 <InputLabel id="pointSelect">Point Value</InputLabel>
@@ -83,17 +90,33 @@ return (
     </Select>
 </FormControl>
      
-<RadioGroup>
-  <FormControlLabel value="answer" control={ <Radio/> } label="1" />
-  <FormControlLabel value="answer" control={ <Radio/> } label="2"/>
-  <FormControlLabel value="answer" control={ <Radio/> } label="3"/>
-  <FormControlLabel value="answer" control={ <Radio/> } label="4"/>
-</RadioGroup>
+<Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+<RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+<TextField id="input-with-sx" label="Answer 1" variant="standard"/>
+</Box>
+
+<Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+<RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+<TextField id="input-with-sx" label="Answer 2" variant="standard"/>
+</Box>
+
+<Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+<RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+<TextField id="input-with-sx" label="Answer 3" variant="standard"/>
+</Box>
+
+<Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+<RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+<TextField id="input-with-sx" label="Answer 4" variant="standard"/>
+</Box>
+
+<FormGroup>
+      <FormControlLabel control={<Switch defaultChecked />} label="" />
+</FormGroup>
 
 
-
-<Button onClick={addQuestion}></Button>
-   </div>
+</form>
+</Box> 
   );
 }
 export default QuestionForm;

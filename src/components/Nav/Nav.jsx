@@ -1,88 +1,102 @@
-import React from "react"; 
-import { withRouter } from "react-router";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import LogOutButton from '../LogOutButton/LogOutButton';
+import './Nav.css';
+import { useSelector } from 'react-redux';
 
-//Drawer MUI 
-import {Drawer as MUIDrawer, 
-                  ListItem, 
-                  List,  
-                  ListItemText, 
-                  ListItemIcon,
-                  AppBar,
-                  Toolbar,
-                  Typography,
-                  Box, 
-                  Button } from "@material-ui/core"; 
+import {createTheme, ThemeProvider} from '@material-ui/core/styles'
 
-import {makeStyles} from "@material-ui/core/styles"; 
-import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
-import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
-import { CssBaseline } from "@mui/material";
-
-
-const useStyles = makeStyles({
-  drawer: {
-    width: '400px', 
-    color: 'primary'
-  }
-}); 
-
-const NavDrawer = (props) => {
-console.log(props);
-
-const {history} = props;  
-const classes = useStyles(); 
-const itemsList = [
-  {
-      text:"Create Test", 
-      icon: <BookmarkAddOutlinedIcon/>, 
-      onClick: ()=> history.push('/test')
-  }, 
-  {
-      text:"Messages",
-      icon: <ChatBubbleOutlineOutlinedIcon/>, 
-      onClick: ()=> history.push('/chat')
+const customTheme = createTheme ({
+  typography: {
+    fontFamily: 'Nunito Sans',
+    fontWeightLight: 200,
+    fontWeightRegular: 300,
+    fontWeightRegular: 400,
+    fontWeightBold: 600, 
   },
-  {
-      text:"About",
-      icon: <ListAltOutlinedIcon/>,
-      onClick: ()=> history.push('/about')
-  },
-  {
-      text:"Question Form",
-      icon: <InfoOutlinedIcon/>,
-      onClick: ()=> history.push('/question')
-  },
-  ]; 
 
+  palette: {
+    primary: {
+      main: '#1E2A49',
+    },
+    secondary: {
+      main: '#7FC1C5',
+    },
+    error: {
+      main: 'rgba(236,58,45,0.97)',
+    },
+    warning: {
+      main: '#ff9906',
+    },
+    success: {
+      main: '#46b54b',
+    },
+  },
+});
 
- return(
-   <Box sx={{display: 'flex'}}>
-     <CssBaseline/> 
-    <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer +1}}>
-      <Toolbar>
-        <Typography variant="h6" noWrap component="div"></Typography>
-      </Toolbar>
-    </AppBar>
-  <MUIDrawer variant="permanent" className={classes.drawer} width='300px'>
-  <List>
-            {itemsList.map((item, index) => {
-              const {text, icon, onClick} = item; 
+function Nav() {
+  const user = useSelector((store) => store.user);
 
   return (
-              
-              <ListItem button key={text} onClick={onClick}>
-                { icon && <ListItemIcon>{icon}</ListItemIcon>}
-                <ListItemText primary={text} />
-              </ListItem>
-          );
-        })}
-          </List>
-  </MUIDrawer>
-  </Box>
- );
-};
-  
-export default withRouter(NavDrawer);
+    <ThemeProvider theme={customTheme}>
+    <div className="nav">
+      <Link to="/home">
+        <h2 className="nav-title">Kyros</h2>
+      </Link>
+      <div>
+        {/* If no user is logged in, show these links */}
+        {user.id === null &&
+          // If there's no user, show login/registration links
+          <Link className="navLink" to="/login">
+            Login / Register
+          </Link>
+        }
+
+        {/* If a user is logged in, show these links */}
+        {user.role === "PROCTOR" && (
+          <Link className="navLink" to="/user_management">
+            Users
+          </Link>
+        )}
+        {user.id && (
+          <>
+            <Link className="navLink" to="/user">
+              Home
+            </Link>
+
+            <Link className="navLink" to="/info">
+              Info Page
+            </Link>
+
+            <Link className="navLink" to="/question">
+              Question Form
+            </Link>
+
+            <Link className="navLink" to="/chat">
+              Chat
+            </Link>
+
+            <Link className="navLink" to="/test">
+              Create Tests
+            </Link>
+
+            <LogOutButton className="navLink" />
+          </>
+        )}
+        {user.role === "PROCTOR" && (
+          <Link className="navLink" to="/user_management">
+            Users
+          </Link>
+        )}
+
+        <Link className="navLink" to="/about">
+          About
+        </Link>
+      </div>
+    </div>
+    </ThemeProvider>
+  );
+}
+
+export default Nav;
 

@@ -27,15 +27,10 @@ import TestList from '../TestList/TestList';
 import QuestionForm from '../QuestionForm/QuestionForm';
 import './App.css';
 
-import {createTheme} from '@material-ui/core/styles'
+import {ThemeProvider, createTheme} from '@material-ui/core/styles';
 
-const customTheme = createTheme ({
-  typography: {
-    fontFamily: 
-    'Helvetica Neue',
-  },
+const theme = createTheme ({
   palette: {
-    type: 'light',
     primary: {
       main: '#1E2A49',
     },
@@ -52,11 +47,18 @@ const customTheme = createTheme ({
       main: '#46b54b',
     },
   },
+  
+typography: {
+    fontFamily: 'Nunito Sans',
+    fontWeightLight: 200,
+    fontWeightRegular: 300,
+    fontWeightRegular: 400,
+    fontWeightBold: 600, 
+  },
 });
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
 
   useEffect(() => {
@@ -64,6 +66,7 @@ function App() {
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div>
         <Nav />
@@ -129,14 +132,7 @@ function App() {
           >
             <TestList />
           </ProtectedRoute>
-
-          {/* <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </ProtectedRoute> */}
+         
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
@@ -196,6 +192,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+  </ThemeProvider>
   );
 }
 
