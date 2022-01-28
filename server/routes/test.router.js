@@ -70,9 +70,11 @@ router.put('/:id', (req, res)=> {
   //and don't do anything with create_date or created_by
   //you don't need to do RETURNING
   //send a status 200 back
+  console.log('got to router. req.body:', req.body);
+  console.log('req.params:', req.params);  
   const id = req.params.id
-  const queryString = `UPDATE "test" SET title = $1, points_possible = $2, test_time_limit = $3, question_shuffle = $4, test_attempt_limit = $5, created_by =$6, last_modified_date = CURRENT_TIMESTAMP WHERE id = $7 RETURNING *`;
-  const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.created_by, id];
+  const queryString = `UPDATE "test" SET title = $1, points_possible = $2, test_time_limit = $3, question_shuffle = $4, test_attempt_limit = $5, last_modified_by = $6, last_modified_date = CURRENT_TIMESTAMP WHERE id = $7`;
+  const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.last_modified_by, id];
    pool.query( queryString, values ).then( (results)=>{
     res.send( results.rows[0] );
   }).catch( (err)=>{
