@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 
-function TestSettings(props) {
+function TestPage(props) {
   //This is the page a proctor is brought to upon clicking "add test" or "edit test";
   //if we arrive here by clicking "add" a new test, props.new will be true (see app.jsx, routes).
   //if we arrive by clicking "edit" an existing test, props.new will be false.
   //use isNew to conditionally render things! 
+
+  //are we pushing to master?
   const isNew = props.new; 
 
   const store = useSelector(store => store);
@@ -43,7 +45,6 @@ function TestSettings(props) {
       //  test_attempt_limit: someInt,
 
       //then delete placeholder values below (except created_by).
-       test_id: 1,
        title: "testy mctesterson", 
        points_possible: 999, 
        test_time_limit: 999, 
@@ -52,6 +53,7 @@ function TestSettings(props) {
 
        created_by: user.id, //this is the proctor's id, should be already there in the store 
      } 
+    //  @J-A Pair Todo - rework this to look like payload: { test: newTest }
     dispatch({ type: 'ADD_TEST', 
     payload: {
       title: title, 
@@ -163,11 +165,47 @@ function TestSettings(props) {
     dispatch({ type: 'DELETE_QUESTION', payload: { question_id: putSomethingHere, test_id: test.id } }); 
   }
 
+  const tacoTitleTest = () => {
+    console.log('in update test');
+
+    let updatedTest = {
+      title: "TACO", 
+      points_possible: test.points_possible,
+      test_time_limit: test.test_time_limit,
+      question_shuffle: test.question_shuffle,
+      test_attempt_limit: test.test_attempt_limit,
+      last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
+      id: test.id, //this is also in store already
+    } 
+    dispatch({ type: 'UPDATE_TEST_SETTINGS', payload: { test: updatedTest } }); 
+  }
+
+  const marigoldTestTest = () => {
+    let newTest = { 
+       title: "marigold", 
+       points_possible: 999, 
+       test_time_limit: 999, 
+       question_shuffle: true, 
+       test_attempt_limit: 66,
+       created_by: user.id, //this is the proctor's id, should be already there in the store 
+    }
+    dispatch({ type: 'ADD_TEST', payload: { test: newTest } }); 
+  }
+
   return (
     <div>
-<form className="formPanel" onSubmit={addTest}>
+      {/* <button onClick={tacoTitleTest}>For Testing only :) Click to change existing test's title to taco</button> */}
+      {/* <button onClick={marigoldTestTest}>4 Testing only :P Click to add a new test with title marigold</button> */}
+
+      <form className="formPanel" onSubmit={addTest}>
+     
+      {/* @J-A Pair Todo - add a conditional render here for "new test" vs "edit existing" */}
       <h2>Add a New Test</h2>
+      
+      <p>{JSON.stringify(test)}</p>
       <div>
+
+        {/* @J-A Pair Todo - IF isNew = false, populate these form input fields with existing data */}
         <label htmlFor="title">
           Exam Title:
           <input
@@ -228,7 +266,7 @@ function TestSettings(props) {
         </label>
       </div>
     <div>
-        <input className="btn" type="submit" name="submit" value="Add New Test" />
+        <input className="btn" type="submit" name="submit" value="Register" />
       </div>
     </form>
 
@@ -249,4 +287,4 @@ function TestSettings(props) {
   );
 }
 
-export default TestSettings;
+export default TestPage;

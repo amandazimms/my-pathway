@@ -14,8 +14,6 @@ function TestPage(props) {
   //are we pushing to master?
   const isNew = props.new; 
 
-  
-
   return (
     <div>
       < TestSettings />
