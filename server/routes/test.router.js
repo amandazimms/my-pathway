@@ -8,17 +8,31 @@ router.get('/selected', (req, res) => {
   //this will be used when a proctor is viewing a test that's already been created
   //use variable req.params.test_id for the test id value
   //send back the results.rows
+
+  const queryString = `SELECT * FROM test INNER JOIN question ON test.id=question.parent_test_id` ;
+  pool.query( queryString ).then( (results)=>{
+    res.send( results.rows );
+  }).catch( (err)=>{
+    console.log("error get test", err );
+    res.sendStatus( 500 );
+  })
 });
 router.get('/all', (req, res) => {
   //@nickolas todo (from Amanda - thanks)
   //get * from the tests table
   //this will be used when a proctor is viewing all the tests that have been created
   //send back the results.rows
+  const queryString = `SELECT * FROM test`;
+  pool.query( queryString ).then( (results)=>{
+    res.send( results.rows );
+  }).catch( (err)=>{
+    console.log("error get test", err );
+    res.sendStatus( 500 );
+  })
 });
 router.post('/', (req, res) => {
   //@nickolas todo (from Amanda - thanks)
-  //post a new entry to the test table
-  //this will happen when the proctor is creating a test
+  //post a new entry to the test table, this will happen when the proctor is creating a test
   //req.body is the test object. the columns are in:
   //req.body.title, req.body.points_possible, req.body.test_time_limit,
   //req.body.question_shuffle, req.body.test_attempt_limit, and req.body.created_by
@@ -32,6 +46,16 @@ router.post('/', (req, res) => {
   //finally plz send back results.rows[0] rather than results.rows
   //i did something similar to all that ^^ for solo so can help with any of that if needed!!
   //same with Chris too, I believe
+  const id = req.params.id
+  const queryString = `INSERT INTO test (title, points_possible, test_time_limit, question_shuffle, test_attempt_limit, created_by) VALUES ( $1, $2, $3, $4, $5, $6 ) RETURNING id, create_date, last_modified_date;`;
+  const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.created_by ];
+   pool.query( queryString, values).then( (results)=>{
+    res.send(results.rows[0]);
+  }).catch( (err)=>{
+    console.log("error post test", err );
+    res.send(err);
+  })
+
 });
 router.put('/:id', (req, res)=> {
   //@nickolas todo (from Amanda - thanks)
@@ -46,11 +70,29 @@ router.put('/:id', (req, res)=> {
   //and don't do anything with create_date or created_by
   //you don't need to do RETURNING
   //send a status 200 back
+  const id = req.params.id
+  const queryString = `UPDATE "test" SET title = $1, points_possible = $2, test_time_limit = $3, question_shuffle = $4, test_attempt_limit = $5, created_by =$6, last_modified_date = CURRENT_TIMESTAMP WHERE id = $7 RETURNING *`;
+  const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.created_by, id];
+   pool.query( queryString, values ).then( (results)=>{
+    res.send( results.rows[0] );
+  }).catch( (err)=>{
+    console.log("error put test", err );
+    res.sendStatus( 500 );
+  })
 })
 router.delete('/:id', (req,res)=> {
   //@nickolas todo (from Amanda - thanks)
   //delete the test with id req.params.id
   //send back status 200
+  const id = req.params.id
+  const queryString =  `DELETE FROM test WHERE id = $1 `
+  pool.query(queryString, [id])
+  .then(() => res.sendStatus(200))
+  .catch( (err)=>{
+    console.log("error delete test", err );
+    res.sendStatus( 500 );
+  })
+
 });
 
 

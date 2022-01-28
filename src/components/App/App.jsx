@@ -5,7 +5,6 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -18,15 +17,19 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Chat from '../Chat/Chat';
 import MessageSession from '../Chat/MessageSession'; 
-import TestItem from '../TestItem/TestItem';
-import TestPage from '../TestSettings/TestSettings'
-import TestList from '../TestList/TestList';
 import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 import './App.css';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import TestPage from '../TestPage/TestPage';
+import UserManagement from '../UserManagement/UserManagement'
 
 import {ThemeProvider, createTheme} from '@material-ui/core/styles';
 
 const theme = createTheme ({
+  typography: {
+    fontFamily: 
+    'Helvetica Neue',
+  },
   palette: {
     primary: {
       main: '#1E2A49',
@@ -130,13 +133,12 @@ function App() {
             <TestList />
           </ProtectedRoute>
          
-
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/question"
+            path="/user_management"
           >
-            <NewQuestionModal />
+            <UserManagement />
           </ProtectedRoute>
 
           <Route
