@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 
-function TestPage(props) {
+function TestSettings(props) {
   //This is the page a proctor is brought to upon clicking "add test" or "edit test";
   //if we arrive here by clicking "add" a new test, props.new will be true (see app.jsx, routes).
   //if we arrive by clicking "edit" an existing test, props.new will be false.
@@ -287,4 +287,4 @@ function TestPage(props) {
   );
 }
 
-export default TestPage;
+export default TestSettings;
