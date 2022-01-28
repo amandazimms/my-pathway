@@ -7,12 +7,9 @@ import {
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
@@ -24,7 +21,7 @@ import MessageSession from '../Chat/MessageSession';
 import TestItem from '../TestItem/TestItem';
 import TestPage from '../TestPage/TestPage'
 import TestList from '../TestList/TestList';
-import QuestionForm from '../QuestionForm/QuestionForm';
+import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 import './App.css';
 
 import {ThemeProvider, createTheme} from '@material-ui/core/styles';
@@ -139,7 +136,7 @@ function App() {
             exact
             path="/question"
           >
-            <QuestionForm />
+            <NewQuestionModal />
           </ProtectedRoute>
 
           <Route

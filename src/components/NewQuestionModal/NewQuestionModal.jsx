@@ -9,8 +9,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Box } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Modal } from '@mui/material';
 
-function QuestionForm(props) {
+function NewQuestionModal(props) {
 
 const store = useSelector((store) => store);
 const [heading, setHeading] = useState('Functional Component');
@@ -53,8 +55,17 @@ dispatch({ type: 'ADD_QUESTION',
 }); 
 }; //end addQuestion 
 
+const saveButton=()=>{
+  props.onClickClose
+}
+
 return (
-  <Box>
+<>
+<Modal 
+open={open}
+// onClose={handleClose}
+>
+<Box>
 <form className="formPanel">
 
 <h2>Question</h2>
@@ -111,12 +122,15 @@ return (
 </Box>
 
 <FormGroup>
-      <FormControlLabel control={<Switch defaultChecked />} label="" />
+      <FormControlLabel control={<Switch defaultChecked />} label="" />  
+      <Button onClick={saveButton}>Save</Button>
 </FormGroup>
 
 
 </form>
 </Box> 
+</Modal>
+</>
   );
 }
-export default QuestionForm;
+export default NewQuestionModal;
