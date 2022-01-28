@@ -26,6 +26,11 @@ function QuestionList(props) {
     console.log(showModal); 
   }
 
+  const closeModal=()=>{
+    setShowModal(false); 
+    console.log('closeModal running', showModal); 
+  }
+
   return (
     <div>
       <h2>Here's all the questions</h2>
@@ -39,7 +44,7 @@ function QuestionList(props) {
       ))}
 
         { showModal?
-          <NewQuestionModal/> 
+          <NewQuestionModal onClickClose={()=>closeModal()}/> 
           :<></>
         }
 

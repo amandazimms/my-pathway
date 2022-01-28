@@ -4,41 +4,11 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
-import {createTheme, ThemeProvider} from '@material-ui/core/styles'
-
-const customTheme = createTheme ({
-  typography: {
-    fontFamily: 'Nunito Sans',
-    fontWeightLight: 200,
-    fontWeightRegular: 300,
-    fontWeightRegular: 400,
-    fontWeightBold: 600, 
-  },
-
-  palette: {
-    primary: {
-      main: '#1E2A49',
-    },
-    secondary: {
-      main: '#7FC1C5',
-    },
-    error: {
-      main: 'rgba(236,58,45,0.97)',
-    },
-    warning: {
-      main: '#ff9906',
-    },
-    success: {
-      main: '#46b54b',
-    },
-  },
-});
 
 function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
-    <ThemeProvider theme={customTheme}>
     <div className="nav">
       <Link to="/home">
         <h2 className="nav-title">Kyros</h2>
@@ -94,7 +64,6 @@ function Nav() {
         </Link>
       </div>
     </div>
-    </ThemeProvider>
   );
 }
 

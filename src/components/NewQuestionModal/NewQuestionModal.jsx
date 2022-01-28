@@ -55,8 +55,10 @@ dispatch({ type: 'ADD_QUESTION',
 }); 
 }; //end addQuestion 
 
+
 const saveButton=()=>{
-  props.onClickClose
+  //dispatch add the question 
+  props.onClickClose()
 }
 
 return (

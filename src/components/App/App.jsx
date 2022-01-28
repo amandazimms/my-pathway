@@ -19,7 +19,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Chat from '../Chat/Chat';
 import MessageSession from '../Chat/MessageSession'; 
 import TestItem from '../TestItem/TestItem';
-import TestPage from '../TestPage/TestPage'
+import TestPage from '../TestSettings/TestSettings'
 import TestList from '../TestList/TestList';
 import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 import './App.css';
