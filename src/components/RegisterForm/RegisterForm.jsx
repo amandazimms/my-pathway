@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+
 function RegisterForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -154,5 +155,6 @@ function RegisterForm() {
     </form>
   );
 }
+
 
 export default RegisterForm;

@@ -17,20 +17,20 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Chat from '../Chat/Chat';
 import MessageSession from '../Chat/MessageSession'; 
-import TestItem from '../TestItem/TestItem';
+import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 import './App.css';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import TestPage from '../TestPage/TestPage';
-import TestList from '../TestList/TestList';
 import UserManagement from '../UserManagement/UserManagement'
 
-const customTheme = createTheme ({
+import {ThemeProvider, createTheme} from '@material-ui/core/styles';
+
+const theme = createTheme ({
   typography: {
     fontFamily: 
     'Helvetica Neue',
   },
   palette: {
-    type: 'light',
     primary: {
       main: '#1E2A49',
     },
@@ -47,11 +47,18 @@ const customTheme = createTheme ({
       main: '#46b54b',
     },
   },
+  
+typography: {
+    fontFamily: 'Nunito Sans',
+    fontWeightLight: 200,
+    fontWeightRegular: 300,
+    fontWeightRegular: 400,
+    fontWeightBold: 600, 
+  },
 });
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
 
   useEffect(() => {
@@ -59,6 +66,7 @@ function App() {
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div>
         <Nav />
@@ -124,20 +132,13 @@ function App() {
           >
             <TestList />
           </ProtectedRoute>
+         
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
             path="/user_management"
           >
             <UserManagement />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
           </ProtectedRoute>
 
           <Route
@@ -190,6 +191,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+  </ThemeProvider>
   );
 }
 
