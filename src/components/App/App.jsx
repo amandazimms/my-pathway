@@ -22,8 +22,7 @@ import './App.css';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import TestPage from '../TestPage/TestPage';
 import UserManagement from '../UserManagement/UserManagement'
-
-import {ThemeProvider, createTheme} from '@material-ui/core/styles';
+import TestList from '../TestList/TestList';
 
 const theme = createTheme ({
   typography: {
