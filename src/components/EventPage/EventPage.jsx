@@ -37,8 +37,8 @@ function EventPage(props) {
       // (will later add create_date, last_modified_date, last_modified_by in the router)
        created_by: user.id, //this is the proctor's id, should be already there in the store 
      } 
-    dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } ); 
-  }; 
+     dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } }); 
+  } 
 
   const updateEvent = () => {
     console.log('in update event');
