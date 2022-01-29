@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PhotoCapture from '../PhotoCapture/PhotoCapture';
+import Button from '@mui/material/Button';
 
 
 function RegisterForm() {
@@ -12,6 +14,7 @@ function RegisterForm() {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipCode, setZipCode] = useState('');
+  const [takePicture, setTakePicture] = useState(false);
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -29,9 +32,13 @@ function RegisterForm() {
         addressTwo: addressTwo,
         city: city,
         state: state,
-        zipCode: zipCode
+        zipCode: zipCode,
+        profilePicture:'https://d5t4h5a9.rocketcdn.me/wp-content/uploads/2021/04/Website-Photo-18.png'
       },
     });
+    dispatch({
+      type: 'UNSET_IMAGE_DATA'
+    })
   }; // end registerUser
 
   return (
@@ -90,64 +97,71 @@ function RegisterForm() {
           />
         </label>
         <div>
-        <label htmlFor="address_one">
-          Address Line 1:
-          <input
-            type="text"
-            name="address_one"
-            value={addressOne}
-            required
-            onChange={(event) => setAddressOne(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="address_two">
-          Address Line 2:
-          <input
-            type="text"
-            name="address_two"
-            value={addressTwo}
-            onChange={(event) => setAddressTwo(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="city">
-          City:
-          <input
-            type="text"
-            name="city"
-            value={city}
-            required
-            onChange={(event) => setCity(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="state">
-          State:
-          <input
-            type="text"
-            name="state"
-            value={state}
-            required
-            onChange={(event) => setState(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="zip_code">
-          Zip Code:
-          <input
-            type="text"
-            name="zip_code"
-            value={zipCode}
-            required
-            onChange={(event) => setZipCode(event.target.value)}
-          />
-        </label>
-      </div>
+          <label htmlFor="address_one">
+            Address Line 1:
+            <input
+              type="text"
+              name="address_one"
+              value={addressOne}
+              required
+              onChange={(event) => setAddressOne(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="address_two">
+            Address Line 2:
+            <input
+              type="text"
+              name="address_two"
+              value={addressTwo}
+              onChange={(event) => setAddressTwo(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="city">
+            City:
+            <input
+              type="text"
+              name="city"
+              value={city}
+              required
+              onChange={(event) => setCity(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="state">
+            State:
+            <input
+              type="text"
+              name="state"
+              value={state}
+              required
+              onChange={(event) => setState(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="zip_code">
+            Zip Code:
+            <input
+              type="text"
+              name="zip_code"
+              value={zipCode}
+              required
+              onChange={(event) => setZipCode(event.target.value)}
+            />
+          </label>
+        </div>
+          {takePicture?
+            <>
+              <Button variant="contained" onClick={() => setTakePicture(false)}>Cancel</Button>
+              <PhotoCapture />
+            </>:
+            <Button variant="contained" onClick={() => setTakePicture(true)}>Take Profile Picture</Button>
+          }
       </div>
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
