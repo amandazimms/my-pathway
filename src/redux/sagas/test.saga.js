@@ -75,7 +75,7 @@ function* addQuestion(action){
   let question = ap.question;
   try {
     const postedQuestion = yield axios.post('/api/test/question', ap.question );
-    question = {...test, id: postedQuestion.id, create_date: postedQuestion.create_date, last_modified_date: postedQuestion.last_modified_date }
+    question = {...test, id: postedQuestion.data.id, create_date: postedQuestion.data.create_date, last_modified_date: postedQuestion.data.last_modified_date }
     yield put({ type: 'FETCH_QUESTIONS', payload: {parent_test_id: parent_test_id} });
     yield put({ type: 'SET_SELECTED_QUESTION', payload: {question} })
   } catch (error) {
@@ -123,7 +123,7 @@ function* addTest(action){
   let test = ap.test;  //first declare test obj with all the test data from ap. 
   try {
     const postedTest = yield axios.post('/api/test', ap.test );  //now add to that test object the id & dates that were created when it was posted to DB
-    test = {...test, id: postedTest.id, create_date: postedTest.create_date, last_modified_date: postedTest.last_modified_date }
+    test = {...test, id: postedTest.data.id, create_date: postedTest.data.create_date, last_modified_date: postedTest.data.last_modified_date }
     yield put({ type: 'SET_SELECTED_TEST', payload: test }); //finally send the 'complete' test object to the reducer
     //note - I did not put a fetch_all_tests here since when a proctor creates a test, they are
     // necessarily now selecting that test. if they navigate back to the 'all tests' type view,
