@@ -16,29 +16,54 @@ function RegisterForm() {
   const [zipCode, setZipCode] = useState('');
   const [takePicture, setTakePicture] = useState(false);
   const errors = useSelector((store) => store.errors);
+  const store = useSelector((store) => store);
   const dispatch = useDispatch();
 
-  const registerUser = (event) => {
-    event.preventDefault();
+  const postImageData = async () => {
+    if(store.image.url != '/images/profile_default.png'){
+      const url = store.image.url;
+      console.log('url = ', url);
+      return await fetch(url,{
+        method: 'PUT',
+        headers: {
+          'Content-Type' : 'jpeg'
+        },
+        body: store.image.data
+      });
+    }
+  }
 
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        firstName: firstName,
-        lastName: lastName,
-        username: username,
-        password: password,
-        addressOne: addressOne,
-        addressTwo: addressTwo,
-        city: city,
-        state: state,
-        zipCode: zipCode,
-        profilePicture:'https://d5t4h5a9.rocketcdn.me/wp-content/uploads/2021/04/Website-Photo-18.png'
-      },
-    });
-    dispatch({
-      type: 'UNSET_IMAGE_DATA'
-    })
+  const registerUser = async (event) => {
+    event.preventDefault();
+    try{
+      const url = store.image.url.split('?')[0];
+      console.log('line 39 url = ', url);        
+      const result = await postImageData();
+      console.log(result);
+      dispatch({
+        type: 'REGISTER',
+        payload: {
+          firstName: firstName,
+          lastName: lastName,
+          username: username,
+          password: password,
+          addressOne: addressOne,
+          addressTwo: addressTwo,
+          city: city,
+          state: state,
+          zipCode: zipCode,
+          profilePicture:url
+        },
+      });
+      dispatch({
+        type: 'UNSET_IMAGE_DATA'
+      })
+      dispatch({
+        type: 'UNSET_IMAGE_URL'
+      })
+    } catch (err) {
+      console.error('Registration Error:', err);
+    }
   }; // end registerUser
 
   return (

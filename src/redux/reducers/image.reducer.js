@@ -22,9 +22,21 @@ const url = (state = '/images/profile_default.png', action) => {
   }
 };
 
+const profilePicture = (state = '/images/profile_default.png', action) => {
+  switch (action.type) {
+    case 'SET_PROFILE_PICTURE':
+      return action.payload;
+    case 'UNSET_PROFILE_PICTURE':
+      return {url:'/images/image.png'}
+    default:
+      return state;
+  }
+};
+
 
 
 export default combineReducers({
   data,
   url,
+  profilePicture,
 });
