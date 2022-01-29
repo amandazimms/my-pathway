@@ -194,8 +194,8 @@ function TestSettings(props) {
 
   return (
     <div>
-      {/* <button onClick={tacoTitleTest}>For Testing only :) Click to change existing test's title to taco</button> */}
-      {/* <button onClick={marigoldTestTest}>4 Testing only :P Click to add a new test with title marigold</button> */}
+      <button onClick={tacoTitleTest}>For Testing only :) Click to change existing test's title to taco</button>
+      <button onClick={marigoldTestTest}>4 Testing only :P Click to add a new test with title marigold</button>
 
       <form className="formPanel" onSubmit={addTest}>
      

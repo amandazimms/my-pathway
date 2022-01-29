@@ -25,11 +25,18 @@ function userManagementFunction(props) {
     })
   }, [])
 
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  const updateUserRole = (id) => {
+    console.log('In updateUserRole with User:', store.user.id);
+    if (confirm('Change user to a PROCTOR role?')) {
+      dispatch({
+        type: 'UPDATE_USER_ROLE',
+        payload: {
+          user_id: store.user.id,
+          update_id: id
+        }
+      })
+    }
   }
-  
-  const rows = store.allUsers.setAllUsers
 
   return (
     <div>
@@ -47,9 +54,9 @@ function userManagementFunction(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {store.allUsers.setAllUsers.map((row) => (
             <TableRow
-              key={row.email}
+              key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -61,7 +68,7 @@ function userManagementFunction(props) {
               <TableCell align="center">
                 {row.role === 'PROCTOR'?
                 <Button variant="outlined" disabled>Make Proctor</Button>:
-                <Button variant="outlined" >Make Proctor</Button>
+                <Button variant="outlined" onClick={() => {updateUserRole(row.id)}} >Make Proctor</Button>
                 }
               </TableCell>
             </TableRow>

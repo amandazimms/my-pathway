@@ -4,6 +4,7 @@ import PhotoCapture from '../PhotoCapture/PhotoCapture';
 import Button from '@mui/material/Button';
 
 
+
 function RegisterForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -187,6 +188,7 @@ function RegisterForm() {
             </>:
             <Button variant="contained" onClick={() => setTakePicture(true)}>Take Profile Picture</Button>
           }
+
       </div>
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />

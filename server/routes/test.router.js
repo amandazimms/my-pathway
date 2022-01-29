@@ -71,10 +71,10 @@ router.put('/:id', (req, res)=> {
   //you don't need to do RETURNING
   //send a status 200 back
   const id = req.params.id
-  const queryString = `UPDATE "test" SET title = $1, points_possible = $2, test_time_limit = $3, question_shuffle = $4, test_attempt_limit = $5, created_by =$6, last_modified_date = CURRENT_TIMESTAMP WHERE id = $7 RETURNING *`;
-  const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.created_by, id];
+  const queryString = `UPDATE "test" SET title = $1, points_possible = $2, test_time_limit = $3, question_shuffle = $4, test_attempt_limit = $5, last_modified_by = $6, last_modified_date = CURRENT_TIMESTAMP WHERE id = $7`;
+  const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.last_modified_by, id];
    pool.query( queryString, values ).then( (results)=>{
-    res.send( results.rows[0] );
+    res.sendStatus(200);
   }).catch( (err)=>{
     console.log("error put test", err );
     res.sendStatus( 500 );
@@ -85,7 +85,7 @@ router.delete('/:id', (req,res)=> {
   //delete the test with id req.params.id
   //send back status 200
   const id = req.params.id
-  const queryString =  `DELETE FROM test WHERE id = $1 `
+  const queryString =  `DELETE FROM test WHERE id = $1`
   pool.query(queryString, [id])
   .then(() => res.sendStatus(200))
   .catch( (err)=>{
