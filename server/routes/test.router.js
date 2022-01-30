@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
   //i did something similar to all that ^^ for solo so can help with any of that if needed!!
   //same with Chris too, I believe
   const id = req.params.id
-  const queryString = `INSERT INTO test (title, points_possible, test_time_limit, question_shuffle, test_attempt_limit, created_by) VALUES ( $1, $2, $3, $4, $5, $6 ) RETURNING id, create_date, last_modified_date;`;
+  const queryString = `INSERT INTO test (title, points_possible, test_time_limit, question_shuffle, test_attempt_limit, created_by) VALUES ( $1, $2, $3, $4, $5, $6 ) RETURNING *`;
   const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.created_by ];
    pool.query( queryString, values).then( (results)=>{
     res.send(results.rows[0]);
@@ -74,7 +74,7 @@ router.put('/:id', (req, res)=> {
   const queryString = `UPDATE "test" SET title = $1, points_possible = $2, test_time_limit = $3, question_shuffle = $4, test_attempt_limit = $5, created_by =$6, last_modified_date = CURRENT_TIMESTAMP WHERE id = $7 RETURNING *`;
   const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.created_by, id];
    pool.query( queryString, values ).then( (results)=>{
-    res.send( results.rows[0] );
+    res.sendStatus(200);
   }).catch( (err)=>{
     console.log("error put test", err );
     res.sendStatus( 500 );
@@ -85,7 +85,7 @@ router.delete('/:id', (req,res)=> {
   //delete the test with id req.params.id
   //send back status 200
   const id = req.params.id
-  const queryString =  `DELETE FROM test WHERE id = $1 `
+  const queryString =  `DELETE FROM test WHERE id = $1 `;
   pool.query(queryString, [id])
   .then(() => res.sendStatus(200))
   .catch( (err)=>{
@@ -101,6 +101,14 @@ router.get('/question/all', (req, res) => {
   //@nickolas todo (from Amanda - thanks)
   //get all questions for this specific test
   //this will be used when a proctor is viewing an already created test with questions already on it
+  const id = req.params.test_id 
+  const queryString = `SELECT * FROM question WHERE id = $1`
+  pool.query( queryString, [id] ).then( (results)=>{
+    res.send( results.rows );
+  }).catch( (err)=>{
+    console.log("error get all questions", err );
+    res.sendStatus( 500 );
+  })
 
   //req.params.test_id is the test id
   //send back the results.rows
@@ -127,6 +135,17 @@ router.post('/question', (req, res) => {
 
   //i did something similar to all that ^^ for solo so can help with any of that if needed!!
   //same with Chris too, I believe
+
+  const id = req.params.test_id 
+  const queryString = `INSERT INTO question (point_value, type, required, question, option_one, option_two, option_three, option_four, option_five, option_six, answer, status) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12 )  RETURNING *`;
+  const values = [ req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.status];
+   pool.query( queryString, values).then( (results)=>{
+    res.send(results.rows[0]);
+  }).catch( (err)=>{
+    console.log("error post question", err );
+    res.send(err);
+  })
+
 });
 router.put('/question/:id', (req, res)=> {
   //@nickolas todo (from Amanda - thanks)
@@ -144,11 +163,29 @@ router.put('/question/:id', (req, res)=> {
   //and don't do anything with create_date or created_by
   //you don't need to do RETURNING
   //send a status 200 back
+  const id = req.params.id
+  const queryString = `UPDATE question SET point_value = $1, type = $2, required = $3, question = $4, option_one = $5, option_two = $6, option_three = $7, option_four = $8, option_five = $9, option_six = $10, answer = $11, status = $12, last_modified_date = CURRENT_TIMESTAMP WHERE id = $13`;
+  const values = [ req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.status, id ];
+   pool.query( queryString, values ).then( (results)=>{
+    res.sendStatus(200);
+  }).catch( (err)=>{
+    console.log("error put test", err );
+    res.sendStatus( 500 );
+  })
+  
 })
 
 router.delete('/question/:id', (req,res)=> {
   //@nickolas todo (from Amanda - thanks)
   //delete the question with id req.params.id
   //send back status 200
+  const id = req.params.id
+  const queryString =  `DELETE FROM question WHERE id = $1 `;
+  pool.query(queryString, [id])
+  .then(() => res.sendStatus(200))
+  .catch( (err)=>{
+    console.log("error delete question", err );
+    res.sendStatus( 500 );
+  })
 });
 module.exports = router;
