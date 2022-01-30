@@ -5,14 +5,10 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
@@ -21,21 +17,19 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Chat from '../Chat/Chat';
 import MessageSession from '../Chat/MessageSession'; 
-import TestItem from '../TestItem/TestItem';
-
+import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 import './App.css';
-
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import TestPage from '../TestPage/TestPage';
+import UserManagement from '../UserManagement/UserManagement'
 import TestList from '../TestList/TestList';
 
-const customTheme = createMuiTheme ({
+const theme = createTheme ({
   typography: {
     fontFamily: 
     'Helvetica Neue',
   },
   palette: {
-    type: 'light',
     primary: {
       main: '#1E2A49',
     },
@@ -52,11 +46,18 @@ const customTheme = createMuiTheme ({
       main: '#46b54b',
     },
   },
+  
+typography: {
+    fontFamily: 'Nunito Sans',
+    fontWeightLight: 200,
+    fontWeightRegular: 300,
+    fontWeightRegular: 400,
+    fontWeightBold: 600, 
+  },
 });
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
 
   useEffect(() => {
@@ -64,6 +65,7 @@ function App() {
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div>
         <Nav />
@@ -129,13 +131,13 @@ function App() {
           >
             <TestList />
           </ProtectedRoute>
-
+         
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/user_management"
           >
-            <InfoPage />
+            <UserManagement />
           </ProtectedRoute>
 
           <Route
@@ -188,6 +190,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+  </ThemeProvider>
   );
 }
 

@@ -4,6 +4,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
+
 function Nav() {
   const user = useSelector((store) => store.user);
 
@@ -22,6 +23,11 @@ function Nav() {
         }
 
         {/* If a user is logged in, show these links */}
+        {user.role === "PROCTOR" && (
+          <Link className="navLink" to="/user_management">
+            Users
+          </Link>
+        )}
         {user.id && (
           <>
             <Link className="navLink" to="/user">
@@ -30,6 +36,10 @@ function Nav() {
 
             <Link className="navLink" to="/info">
               Info Page
+            </Link>
+
+            <Link className="navLink" to="/question">
+              Question Form
             </Link>
 
             <Link className="navLink" to="/chat">
@@ -43,6 +53,11 @@ function Nav() {
             <LogOutButton className="navLink" />
           </>
         )}
+        {user.role === "PROCTOR" && (
+          <Link className="navLink" to="/user_management">
+            Users
+          </Link>
+        )}
 
         <Link className="navLink" to="/about">
           About
@@ -53,3 +68,4 @@ function Nav() {
 }
 
 export default Nav;
+
