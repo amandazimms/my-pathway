@@ -55,13 +55,13 @@ function* fetchAllQuestions(action) {
 // worker Saga: will be fired on "UPDATE_QUESTION" actions
 function* updateQuestion(action){
   const ap = action.payload;
-  //ap.question is the question object to add:
+  console.log('ap:', ap);
+  //ap.question is the question object to update:
   //id, point_value, type, required, question, option_one (thru six), answer, status, 
   //parent_test_id, created_by
   try {
     yield axios.put(`/api/question/${ap.question.id}`, ap.question);
     yield put({ type: 'SET-UPDATE_SELECTED_QUESTION', payload: ap.question });
-      //todo ^ @Amanda - definitely need to verify that this works correctly
   } catch (error) {
     console.log('update question failed', error);
   }
@@ -94,7 +94,6 @@ function* updateTestSettings(action){
   try {
     yield axios.put(`/api/test/${ap.test.id}`, ap.test);
     yield put({ type: 'SET-UPDATE_SELECTED_TEST', payload: ap.test });
-      //todo ^ @Amanda - definitely need to verify that this works correctly
   } catch (error) {
     console.log('update test settings failed', error);
   }
