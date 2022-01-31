@@ -10,9 +10,9 @@ function ExamList(props) {
 
   // const [heading, setHeading] = useState('Functional Component');
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_ALL_EXAMS' }); 
-  }, []);
+  // useEffect(() => {
+  //   dispatch({ type: 'FETCH_ALL_EXAMS' }); 
+  // }, []);
 
   return (
     <div>

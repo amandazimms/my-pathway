@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 function EventItem(props) {
+  //this is one event item which is displayed in the .map of eventList
 
   const store = useSelector((store) => store);
   const selectedEvent = useSelector(store => store.event.selected);
@@ -19,13 +20,35 @@ function EventItem(props) {
 
   return (
     <div>
-      <h2>I'm an event</h2>
-      <p>stringified event:{JSON.stringify(event)}</p>
+      <h2>Event: {event.name}</h2>
+      <p>Status: {event.status}</p>
+      <p>Date: {event.date}</p>
 
-      <Link to="/event" onClick={() => setSelectedEvent(event)}>
-        {/* when the edit button is clicked, this will move user to the /event page, and set the selectedEvent to this one */}
-        <button>Edit this event</button>
-      </Link>
+      {
+        event.status==="upcoming"
+        ? <Link to="/event" onClick={() => setSelectedEvent(event)}>
+            {/* when the view button is clicked, this will move user to the /event page, and set the selectedEvent to this one */}
+            <button>View (upcoming) Event</button>
+          </Link>
+        : <></>
+      }
+      {
+        event.status==="inProgress"
+        ? <Link to="/event" onClick={() => setSelectedEvent(event)}>
+            {/* when the enter button is clicked, this will move user to the /event page, and set the selectedEvent to this one */}
+            <button>Enter (in progress) Event</button>
+          </Link>
+        : <></>
+      }
+      {
+        event.status==="completed"
+        ? <Link to="/event" onClick={() => setSelectedEvent(event)}>
+            {/* when the view button is clicked, this will move user to the /event page, and set the selectedEvent to this one */}
+            <button>View (completed) Event Results</button>
+          </Link>
+        : <></>
+      }
+     
     </div>
   );
 }

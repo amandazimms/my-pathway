@@ -272,11 +272,11 @@ function TestSettings(props) {
 
       { isNew
           // if we arrived at this page via "add test..."
-        ? <button onClick={addTest}>Create Test</button>
+        ? <button onClick={addTest}>Add This Test</button>
         
           // else (if we arrived at this page via "edit (existing) test")
         : <>
-            <button onClick={updateTest}>Save Test</button>
+            <button onClick={updateTest}>Update Test</button>
 
             {/* @Jackie or @Amanda todo - delete button may not make the most sense here */}
             <button onClick={deleteTest}>Delete Test</button>

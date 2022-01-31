@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 function ExamItem(props) {
+  //this is one exam item which will be displayed in the .map of an examList
 
   const store = useSelector((store) => store);
   const selectedExam = useSelector(store => store.exam.selected);
@@ -19,7 +20,7 @@ function ExamItem(props) {
 
   return (
     <div>
-      <h2>I'm an exam</h2>
+      <h2>I'm an Exam</h2>
       <p>stringified exam:{JSON.stringify(exam)}</p>
 
       <Link to="/exam" onClick={() => setSelectedExam(exam)}>
