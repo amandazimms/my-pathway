@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
   //i did something similar to all that ^^ for solo so can help with any of that if needed!!
   //same with Chris too, I believe
   const id = req.params.id
-  const queryString = `INSERT INTO test (title, points_possible, test_time_limit, question_shuffle, test_attempt_limit, created_by) VALUES ( $1, $2, $3, $4, $5, $6 ) RETURNING *`;
+  const queryString = `INSERT INTO test (title, points_possible, test_time_limit, question_shuffle, test_attempt_limit, created_by) VALUES ( $1, $2, $3, $4, $5, $6 ) RETURNING id, create_date, last_modified_date;`;
   const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.created_by ];
    pool.query( queryString, values).then( (results)=>{
     res.send(results.rows[0]);
@@ -85,7 +85,7 @@ router.delete('/:id', (req,res)=> {
   //delete the test with id req.params.id
   //send back status 200
   const id = req.params.id
-  const queryString =  `DELETE FROM test WHERE id = $1 `;
+  const queryString =  `DELETE FROM test WHERE id = $1`;
   pool.query(queryString, [id])
   .then(() => res.sendStatus(200))
   .catch( (err)=>{
