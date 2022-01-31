@@ -14,7 +14,7 @@ function* testSaga() {
     //dispatch({ type: 'UPDATE_TEST_SETTINGS', payload: { test: updatedTest } }); 
  
   yield takeLatest('FETCH_ALL_QUESTIONS', fetchAllQuestions);//fetches all questions for the selected test.
-    // dispatch({ type: 'FETCH_ALL_QUESTIONS', payload: {test_id: test.id} });
+    // dispatch({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: test.id} });
   yield takeLatest('ADD_QUESTION', addQuestion); //posts a new question to the db.
     //dispatch({ type: '', payload: { question: newQuestion} }
   yield takeLatest('UPDATE_QUESTION', updateQuestion); //updates an existing question in the db
@@ -32,7 +32,7 @@ function* deleteQuestion(action){
   try {
     yield axios.delete(`/api/question/${ap.question_id}`);
     yield put({ type: 'UNSET_SELECTED_QUESTION' });
-    yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {test_id: ap.test_id}})
+    yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: ap.parent_test_id}})
 
   } catch (error) {
     console.log('DELETE question failed', error);
@@ -42,9 +42,10 @@ function* deleteQuestion(action){
 // worker Saga: will be fired on "FETCH_ALL_QUESTIONS" actions
 function* fetchAllQuestions(action) {
   const ap = action.payload;
-  //ap.test_id 
+  console.log('fetch all, ap:', ap)
+  //ap.parent_test_id 
   try {
-    const response = yield axios.get('/api/question/all', { params: {test_id: ap.test_id} } );
+    const response = yield axios.get('/api/question/all', { params: {parent_test_id: ap.parent_test_id} } );
     yield put({ type: 'SET_ALL_QUESTIONS', payload: response.data });
   } catch (error) {
     console.log('get questions request failed', error);
@@ -76,8 +77,7 @@ function* addQuestion(action){
   try {
     const postedQuestion = yield axios.post('/api/question', ap.question );
     question = {...question, id: postedQuestion.data.id, create_date: postedQuestion.data.create_date, last_modified_date: postedQuestion.data.last_modified_date }
-    console.log('---------->question:', question);
-    yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: ap.parent_test_id} });
+    yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: question.parent_test_id} });
     yield put({ type: 'SET_SELECTED_QUESTION', payload: {question} })
   } catch (error) {
     console.log('POST question failed', error);

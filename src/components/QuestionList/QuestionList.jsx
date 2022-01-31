@@ -20,7 +20,7 @@ function QuestionList(props) {
   const [showModal, setShowModal] = useState(false); 
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_ALL_QUESTIONS', payload: {test_id: test.id} }); 
+    dispatch({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: test.id} }); 
   }, []);
   
   const addQuestion=()=> {
