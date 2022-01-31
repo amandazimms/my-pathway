@@ -45,8 +45,6 @@ function* fetchAllQuestions(action) {
   //ap.test_id 
   try {
     const response = yield axios.get('/api/question/all', { params: {test_id: ap.test_id} } );
-    console.log("response.data from fetch all qs:", response.data);
-
     yield put({ type: 'SET_ALL_QUESTIONS', payload: response.data });
   } catch (error) {
     console.log('get questions request failed', error);
@@ -77,8 +75,9 @@ function* addQuestion(action){
   let question = ap.question;
   try {
     const postedQuestion = yield axios.post('/api/question', ap.question );
-    question = {...test, id: postedQuestion.data.id, create_date: postedQuestion.data.create_date, last_modified_date: postedQuestion.data.last_modified_date }
-    yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: parent_test_id} });
+    question = {...question, id: postedQuestion.data.id, create_date: postedQuestion.data.create_date, last_modified_date: postedQuestion.data.last_modified_date }
+    console.log('---------->question:', question);
+    yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: ap.parent_test_id} });
     yield put({ type: 'SET_SELECTED_QUESTION', payload: {question} })
   } catch (error) {
     console.log('POST question failed', error);
