@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
 
   const id = req.params.test_id 
   const queryString = `INSERT INTO question (point_value, type, required, question, option_one, option_two, option_three, option_four, option_five, option_six, answer, status, parent_test_id, created_by) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)  RETURNING id, create_date, last_modified_date`;
-  const values = [ req.body.pointValue, req.body.type, req.body.required, req.body.question, req.body.optionOne, req.body.optionTwo, req.body.optionThree, req.body.optionFour, req.body.optionFive, req.body.optionSix, req.body.answer, req.body.status, req.body.parent_test_id, req.body.created_by];
+  const values = [ req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.status, req.body.parent_test_id, req.body.created_by];
    pool.query( queryString, values).then( (results)=>{
     res.send(results.rows[0]);
   }).catch( (err)=>{

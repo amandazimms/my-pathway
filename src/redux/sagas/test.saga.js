@@ -20,7 +20,7 @@ function* testSaga() {
   yield takeLatest('UPDATE_QUESTION', updateQuestion); //updates an existing question in the db
     // dispatch({ type: 'UPDATE_QUESTION', payload: {question: updatedQuestion} })
   yield takeLatest('DELETE_QUESTION', deleteQuestion);//deletes a question from the db.
-    // dispatch({ type: 'DELETE_QUESTION', payload: { question_id: putSomethingHere, test_id: test.id } }); 
+    // dispatch({ type: 'DELETE_QUESTION', payload: { question_id: question.id, parent_test_id: test.id } }); 
 }
 
 
@@ -28,7 +28,7 @@ function* testSaga() {
 function* deleteQuestion(action){
   const ap = action.payload;
   //ap.question_id
-  //ap.test_id
+  //ap.parent_test_id
   try {
     yield axios.delete(`/api/question/${ap.question_id}`);
     yield put({ type: 'UNSET_SELECTED_QUESTION' });

@@ -37,14 +37,14 @@ function QuestionList(props) {
     let testerQuestion = {
       parent_test_id: test.id, //<--keep this the same :)
       created_by: user.id,  //<--keep this the same :)
-      pointValue: 42,
+      point_value: 42,
       type: "multiple choice", 
       required: true, 
       question: "why are butterflies called that?",
-      optionOne: "it's cute",
-      optionTwo: "butter is tasty",
-      optionThree: "they fly",
-      optionFour: "flutterbys was already taken",
+      option_one: "it's cute",
+      option_two: "butter is tasty",
+      option_three: "they fly",
+      option_four: "flutterbys was already taken",
       answer: "flutterbys was already taken",
       status: "i'm not sure what to put here",
     }
@@ -60,8 +60,7 @@ function QuestionList(props) {
       <Button onClick={addQuestion}>Add Question</Button>
 
       {questions.map(question => (
-        // <TestItem test={test} key={test.id}/>
-        <QuestionItem /> 
+        <QuestionItem question={question} key={question.id}/> 
       ))}
 
         { showModal?
