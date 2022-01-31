@@ -54,7 +54,7 @@ function QuestionList(props) {
   return (
     <div>
       <h2>Here's all the questions</h2>
-      <p>all questions stringified: {JSON.stringify(questions)}</p>
+      {/* <p>all questions stringified: {JSON.stringify(questions)}</p> */}
 
       <Button onClick={addQuestionAboutButterflies}>For testing only ! add question about butterflies</Button>
       <Button onClick={addQuestion}>Add Question</Button>

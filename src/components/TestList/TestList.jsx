@@ -20,7 +20,7 @@ function TestList(props) {
   return (
     <div>
       <h2>Here's all the tests</h2>
-      <p>all tests stringified: {JSON.stringify(tests)}</p>
+      {/* <p>all tests stringified: {JSON.stringify(tests)}</p> */}
 
       {tests.map(test => (
         <TestItem test={test} key={test.id}/>
