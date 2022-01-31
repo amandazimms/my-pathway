@@ -137,7 +137,7 @@ router.post('/question', (req, res) => {
   //same with Chris too, I believe
 
   const id = req.params.test_id 
-  const queryString = `INSERT INTO question (point_value, type, required, question, option_one, option_two, option_three, option_four, option_five, option_six, answer, status) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12 )  RETURNING *`;
+  const queryString = `INSERT INTO question (point_value, type, required, question, option_one, option_two, option_three, option_four, option_five, option_six, answer, status) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12 )  RETURNING id, create_date, last_modified_date`;
   const values = [ req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.status];
    pool.query( queryString, values).then( (results)=>{
     res.send(results.rows[0]);
@@ -180,7 +180,7 @@ router.delete('/question/:id', (req,res)=> {
   //delete the question with id req.params.id
   //send back status 200
   const id = req.params.id
-  const queryString =  `DELETE FROM question WHERE id = $1 `;
+  const queryString =  `DELETE FROM question WHERE id = $1`;
   pool.query(queryString, [id])
   .then(() => res.sendStatus(200))
   .catch( (err)=>{
