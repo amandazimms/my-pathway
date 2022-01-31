@@ -9,6 +9,7 @@ import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 
 function QuestionList(props) {
 
+  const test = useSelector(store => store.test.selected);
   const questions = useSelector(store => store.question.all);
   // const questions = ["fakeTest1", "fakeTest2"]
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function QuestionList(props) {
   const [showModal, setShowModal] = useState(false); 
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_ALL_QUESTIONS' }); 
+    dispatch({ type: 'FETCH_ALL_QUESTIONS', payload: {test_id: test.id} }); 
   }, []);
   
   const addQuestion=()=> {
