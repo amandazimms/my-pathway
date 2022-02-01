@@ -26,10 +26,6 @@ function TestSettings(props) {
   const [timeLimit, setTimeLimit] = useState(''); 
   const [questionShuffle, setQuestionShuffle] = useState(true); 
   const [testAttempt, setTestAttempt] = useState(''); 
-
-  useEffect(() => {
-    dispatch({ type: 'FETCH_QUESTIONS', payload: {test_id: test.id} });
-  }, []);
   
   const addTest = () => {
     //this function should run when user(proctor) has FINISHED entering all of the settings for a test, 
@@ -202,7 +198,7 @@ function TestSettings(props) {
       {/* @J-A Pair Todo - add a conditional render here for "new test" vs "edit existing" */}
       <h2>Add a New Test</h2>
       
-      <p>{JSON.stringify(test)}</p>
+      <p>test: {JSON.stringify(test)}</p>
       <div>
 
         {/* @J-A Pair Todo - IF isNew = false, populate these form input fields with existing data */}

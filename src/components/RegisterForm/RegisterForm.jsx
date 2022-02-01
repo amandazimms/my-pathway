@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PhotoCapture from '../PhotoCapture/PhotoCapture';
+import Button from '@mui/material/Button';
+
 
 
 function RegisterForm() {
@@ -12,26 +15,56 @@ function RegisterForm() {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipCode, setZipCode] = useState('');
+  const [takePicture, setTakePicture] = useState(false);
   const errors = useSelector((store) => store.errors);
+  const store = useSelector((store) => store);
   const dispatch = useDispatch();
 
-  const registerUser = (event) => {
-    event.preventDefault();
+  const postImageData = async () => {
+    if(store.image.url != '/images/profile_default.png'){
+      const url = store.image.url;
+      console.log('url = ', url);
+      return await fetch(url,{
+        method: 'PUT',
+        headers: {
+          'Content-Type' : 'jpeg'
+        },
+        body: store.image.data
+      });
+    }
+  }
 
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        firstName: firstName,
-        lastName: lastName,
-        username: username,
-        password: password,
-        addressOne: addressOne,
-        addressTwo: addressTwo,
-        city: city,
-        state: state,
-        zipCode: zipCode
-      },
-    });
+  const registerUser = async (event) => {
+    event.preventDefault();
+    try{
+      const url = store.image.url.split('?')[0];
+      console.log('line 39 url = ', url);        
+      const result = await postImageData();
+      console.log(result);
+      dispatch({
+        type: 'REGISTER',
+        payload: {
+          firstName: firstName,
+          lastName: lastName,
+          username: username,
+          password: password,
+          addressOne: addressOne,
+          addressTwo: addressTwo,
+          city: city,
+          state: state,
+          zipCode: zipCode,
+          profilePicture:url
+        },
+      });
+      dispatch({
+        type: 'UNSET_IMAGE_DATA'
+      })
+      dispatch({
+        type: 'UNSET_IMAGE_URL'
+      })
+    } catch (err) {
+      console.error('Registration Error:', err);
+    }
   }; // end registerUser
 
   return (
@@ -90,64 +123,72 @@ function RegisterForm() {
           />
         </label>
         <div>
-        <label htmlFor="address_one">
-          Address Line 1:
-          <input
-            type="text"
-            name="address_one"
-            value={addressOne}
-            required
-            onChange={(event) => setAddressOne(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="address_two">
-          Address Line 2:
-          <input
-            type="text"
-            name="address_two"
-            value={addressTwo}
-            onChange={(event) => setAddressTwo(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="city">
-          City:
-          <input
-            type="text"
-            name="city"
-            value={city}
-            required
-            onChange={(event) => setCity(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="state">
-          State:
-          <input
-            type="text"
-            name="state"
-            value={state}
-            required
-            onChange={(event) => setState(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="zip_code">
-          Zip Code:
-          <input
-            type="text"
-            name="zip_code"
-            value={zipCode}
-            required
-            onChange={(event) => setZipCode(event.target.value)}
-          />
-        </label>
-      </div>
+          <label htmlFor="address_one">
+            Address Line 1:
+            <input
+              type="text"
+              name="address_one"
+              value={addressOne}
+              required
+              onChange={(event) => setAddressOne(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="address_two">
+            Address Line 2:
+            <input
+              type="text"
+              name="address_two"
+              value={addressTwo}
+              onChange={(event) => setAddressTwo(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="city">
+            City:
+            <input
+              type="text"
+              name="city"
+              value={city}
+              required
+              onChange={(event) => setCity(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="state">
+            State:
+            <input
+              type="text"
+              name="state"
+              value={state}
+              required
+              onChange={(event) => setState(event.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="zip_code">
+            Zip Code:
+            <input
+              type="text"
+              name="zip_code"
+              value={zipCode}
+              required
+              onChange={(event) => setZipCode(event.target.value)}
+            />
+          </label>
+        </div>
+          {takePicture?
+            <>
+              <Button variant="contained" onClick={() => setTakePicture(false)}>Cancel</Button>
+              <PhotoCapture />
+            </>:
+            <Button variant="contained" onClick={() => setTakePicture(true)}>Take Profile Picture</Button>
+          }
+
       </div>
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />

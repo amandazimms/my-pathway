@@ -1,0 +1,26 @@
+.screenShot{
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    border: "primary";
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 6px;
+    max-width: 500px;
+}
+
+.photoCaptureIcon{
+    transform: scale(2.3);
+}
+
+.photoCaptureRetakeImageButton{
+    width: 98%;
+    height: 50px;
+    max-width: 500px;
+}
+
+.photCaptureLaunchButton{
+    width: 98%;
+    height: 50px;
+    max-width: 500px;
+}

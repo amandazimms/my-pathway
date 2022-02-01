@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+
 router.get('/selected', (req, res) => {
   //@nickolas todo (from Amanda - thanks)
   //this should select * from the test table,
@@ -47,8 +48,8 @@ router.post('/', (req, res) => {
   //i did something similar to all that ^^ for solo so can help with any of that if needed!!
   //same with Chris too, I believe
   const id = req.params.id
-  const queryString = `INSERT INTO test (title, points_possible, test_time_limit, question_shuffle, test_attempt_limit, created_by) VALUES ( $1, $2, $3, $4, $5, $6 ) RETURNING id, create_date, last_modified_date;`;
-  const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.created_by ];
+  const queryString = `INSERT INTO test (title, points_possible, test_time_limit, question_shuffle, test_attempt_limit, created_by, last_modified_by) VALUES ( $1, $2, $3, $4, $5, $6 ) RETURNING id, create_date, last_modified_date;`;
+  const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, req.body.test_attempt_limit, req.body.created_by, req.body.last_modified_by ];
    pool.query( queryString, values).then( (results)=>{
     res.send(results.rows[0]);
   }).catch( (err)=>{
@@ -85,7 +86,7 @@ router.delete('/:id', (req,res)=> {
   //delete the test with id req.params.id
   //send back status 200
   const id = req.params.id
-  const queryString =  `DELETE FROM test WHERE id = $1`
+  const queryString =  `DELETE FROM test WHERE id = $1`;
   pool.query(queryString, [id])
   .then(() => res.sendStatus(200))
   .catch( (err)=>{
@@ -95,60 +96,4 @@ router.delete('/:id', (req,res)=> {
 
 });
 
-
-//QUESTIONS
-router.get('/question/all', (req, res) => {
-  //@nickolas todo (from Amanda - thanks)
-  //get all questions for this specific test
-  //this will be used when a proctor is viewing an already created test with questions already on it
-
-  //req.params.test_id is the test id
-  //send back the results.rows
-});
-router.post('/question', (req, res) => {
-  //@nickolas todo (from Amanda - thanks)
-  //post a new entry to the question table
-  //this will happen when the proctor is creating a test and adding a question to it
-
-  //req.body is the test object. the columns are in
-  //req.body. ...
-  // ... point_value, type, required, question, option_one, option_two ... option_six, answer, status
-  // ... parent_test_id, created_by
-
-  //like with the test post above:
-  //for create_date and last_modified_date, you can use NOW() 
-  //for last_modified_by, re-use req.body.created_by
-
-  //at the end of the query plz add the following 'RETURNING' stuff
-  //which will let me utilize those dates created by NOW() and also the id:
-  //  RETURNING id, create_date, last_modified_date;
-
-  //finally plz send back results.rows[0] rather than results.rows
-
-  //i did something similar to all that ^^ for solo so can help with any of that if needed!!
-  //same with Chris too, I believe
-});
-router.put('/question/:id', (req, res)=> {
-  //@nickolas todo (from Amanda - thanks)
-  //this is very analogous to the .put for test, higher above.
-
-  //data received is the same as for .post /question, right above.
-
-  //req.params.id is the id of the question
-
-  //req.body is the question object, again containing almost all the same properties as in the post, right above this
-
-  //the only difference is instead of created_by, we are sending last_modified_by
-  //for last_modified_date use NOW()
-
-  //and don't do anything with create_date or created_by
-  //you don't need to do RETURNING
-  //send a status 200 back
-})
-
-router.delete('/question/:id', (req,res)=> {
-  //@nickolas todo (from Amanda - thanks)
-  //delete the question with id req.params.id
-  //send back status 200
-});
 module.exports = router;

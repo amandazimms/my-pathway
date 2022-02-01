@@ -13,14 +13,14 @@ function* testSaga() {
   yield takeLatest('UPDATE_TEST_SETTINGS', updateTestSettings);//updates any/all of the columns in the test table in the db.
     //dispatch({ type: 'UPDATE_TEST_SETTINGS', payload: { test: updatedTest } }); 
  
-  yield takeLatest('FETCH_QUESTIONS', fetchQuestions);//fetches all questions for the selected test.
-    // dispatch({ type: 'FETCH_QUESTIONS', payload: {test_id: test.id} });
+  yield takeLatest('FETCH_ALL_QUESTIONS', fetchAllQuestions);//fetches all questions for the selected test.
+    // dispatch({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: test.id} });
   yield takeLatest('ADD_QUESTION', addQuestion); //posts a new question to the db.
     //dispatch({ type: '', payload: { question: newQuestion} }
   yield takeLatest('UPDATE_QUESTION', updateQuestion); //updates an existing question in the db
     // dispatch({ type: 'UPDATE_QUESTION', payload: {question: updatedQuestion} })
   yield takeLatest('DELETE_QUESTION', deleteQuestion);//deletes a question from the db.
-    // dispatch({ type: 'DELETE_QUESTION', payload: { question_id: putSomethingHere, test_id: test.id } }); 
+    // dispatch({ type: 'DELETE_QUESTION', payload: { question_id: question.id, parent_test_id: test.id } }); 
 }
 
 
@@ -28,23 +28,24 @@ function* testSaga() {
 function* deleteQuestion(action){
   const ap = action.payload;
   //ap.question_id
-  //ap.test_id
+  //ap.parent_test_id
   try {
-    yield axios.delete(`/api/test/question/${ap.question_id}`);
+    yield axios.delete(`/api/question/${ap.question_id}`);
     yield put({ type: 'UNSET_SELECTED_QUESTION' });
-    yield put({ type: 'FETCH_QUESTIONS', payload: {test_id: ap.test_id}})
+    yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: ap.parent_test_id}})
 
   } catch (error) {
     console.log('DELETE question failed', error);
   }
 }
 
-// worker Saga: will be fired on "FETCH_QUESTIONS" actions
-function* fetchQuestions(action) {
+// worker Saga: will be fired on "FETCH_ALL_QUESTIONS" actions
+function* fetchAllQuestions(action) {
   const ap = action.payload;
-  //ap.test_id 
+  console.log('fetch all, ap:', ap)
+  //ap.parent_test_id 
   try {
-    const response = yield axios.get('/api/test/question', { params: {test_id: ap.test_id} } );
+    const response = yield axios.get('/api/question/all', { params: {parent_test_id: ap.parent_test_id} } );
     yield put({ type: 'SET_ALL_QUESTIONS', payload: response.data });
   } catch (error) {
     console.log('get questions request failed', error);
@@ -54,13 +55,13 @@ function* fetchQuestions(action) {
 // worker Saga: will be fired on "UPDATE_QUESTION" actions
 function* updateQuestion(action){
   const ap = action.payload;
-  //ap.question is the question object to add:
+  console.log('ap:', ap);
+  //ap.question is the question object to update:
   //id, point_value, type, required, question, option_one (thru six), answer, status, 
   //parent_test_id, created_by
   try {
-    yield axios.put(`/api/test/question/${ap.question.id}`, ap.question);
+    yield axios.put(`/api/question/${ap.question.id}`, ap.question);
     yield put({ type: 'SET-UPDATE_SELECTED_QUESTION', payload: ap.question });
-      //todo ^ @Amanda - definitely need to verify that this works correctly
   } catch (error) {
     console.log('update question failed', error);
   }
@@ -74,9 +75,9 @@ function* addQuestion(action){
   //parent_test_id, created_by
   let question = ap.question;
   try {
-    const postedQuestion = yield axios.post('/api/test/question', ap.question );
-    question = {...test, id: postedQuestion.data.id, create_date: postedQuestion.data.create_date, last_modified_date: postedQuestion.data.last_modified_date }
-    yield put({ type: 'FETCH_QUESTIONS', payload: {parent_test_id: parent_test_id} });
+    const postedQuestion = yield axios.post('/api/question', ap.question );
+    question = {...question, id: postedQuestion.data.id, create_date: postedQuestion.data.create_date, last_modified_date: postedQuestion.data.last_modified_date }
+    yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: question.parent_test_id} });
     yield put({ type: 'SET_SELECTED_QUESTION', payload: {question} })
   } catch (error) {
     console.log('POST question failed', error);
@@ -93,7 +94,6 @@ function* updateTestSettings(action){
   try {
     yield axios.put(`/api/test/${ap.test.id}`, ap.test);
     yield put({ type: 'SET-UPDATE_SELECTED_TEST', payload: ap.test });
-      //todo ^ @Amanda - definitely need to verify that this works correctly
   } catch (error) {
     console.log('update test settings failed', error);
   }

@@ -7,6 +7,7 @@ import question from './question.reducer';
 import event from './event.reducer';
 import exam from './exam.reducer';
 import allUsers from './allUsers.reducer';
+import image from './image.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -24,7 +25,9 @@ const rootReducer = combineReducers({
   question, //same story as above for question reducer: use store.question.selected / store.question.all     
   event, //again, same, use: store.event.selected / store.event.all
   exam,
-  allUsers, // returns data about registered users in app    
+  allUsers, // returns data about registered users in app  
+  image,  // returns data about image captured
+
 });
 
 export default rootReducer;
