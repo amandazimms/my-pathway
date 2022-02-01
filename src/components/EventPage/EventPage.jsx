@@ -66,9 +66,45 @@ function EventPage(props) {
     dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } }); 
   }
 
+  const cheeseburgerEventTest = () => {
+    console.log('in update test');
+
+    let updatedEvent = {
+      event_name: "Cheeseburger Event", 
+      proctor_id: 1, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
+      test_id: 1,
+      event_date: "1999-02-02",
+      //@Chris todo - uncomment below 2 lines and add value:
+      // event_time: somethingHere,
+      // event_end_time: somethingHere,
+      url: "www.cheeseburger.com", 
+      last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
+      id: event.id,//this is also in store already
+    } 
+    dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
+  }
+
+  const daffodilEventTest = () => {
+    let newEvent = { 
+      event_name: "Daffodil Event", 
+      proctor_id: 1, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
+      test_id: 1,
+      event_date: "2022-01-31",
+      //@Chris todo - uncomment below 2 lines and add value:
+      // event_time: somethingHere,
+      // event_end_time: somethingHere,
+      url: "www.daffodil.com", 
+      created_by: user.id, //this is the proctor's id, should be already there in the store 
+    }
+    dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } }); 
+  }
+
   return (
     <div>
       <h2>Event</h2>
+      <button onClick={cheeseburgerEventTest}>For Testing only :) Click to change existing event's title to cheeseburger</button>
+      <button onClick={daffodilEventTest}>4 Testing only :P Click to add a new event with title daffodil</button>
+
       <p> Here in the 'header' area will be some details about this event, 
           such as what time it starts, 
           who will proctor, and what the test will be.

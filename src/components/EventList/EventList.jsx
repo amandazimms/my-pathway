@@ -25,10 +25,7 @@ function EventList(props) {
 
       <p>all events stringified: {JSON.stringify(events)}</p>
       {events.map(event => (
-        <>
-          {/* <EventItem event={event} key={event.id}/> */}
-          <EventItem event={event}/>
-        </>
+        <EventItem event={event} key={event.id}/>
       ))}
 
       <Link to="/event-new">
