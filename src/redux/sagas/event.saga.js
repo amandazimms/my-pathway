@@ -52,11 +52,10 @@ function* addEvent(action){
   //ap.event is the event object to update, 
   //including event_name, test_id, proctor_id, event_date, event_time
   //event_end_time, url, last_modified_by
-  
   let event = ap.event;  //first declare event obj with all the event data from ap. 
   try {
     const postedEvent = yield axios.post('/api/event', ap.event );  //now add to that event object the id & dates that were created when it was posted to DB
-    event = {...event, id: postedEvent.id, create_date: postedEvent.create_date, last_modified_date: postedEvent.last_modified_date }
+    event = {...event, id: postedEvent.data.id, create_date: postedEvent.data.create_date, last_modified_date: postedEvent.data.last_modified_date }
     yield put({ type: 'SET_SELECTED_EVENT', payload: event }); //finally send the 'complete' event object to the reducer
     //note - I did not put a fetch_all_EVENTs here since when a proctor creates a event, they are
     // necessarily now selecting that event. if they navigate back to the 'all events' type view,
@@ -83,7 +82,29 @@ function* fetchEvent(action) {
 function* fetchAllEvents() {
   try {
     const response = yield axios.get('/api/event/all');
-    yield put({ type: 'SET_ALL_EVENTS', payload: response.data });
+    
+    //@Chris todo please - research combining event_time and event_date into one date object. 
+    //then use some placeholder events (one in the past, one future, one now) to test
+    //I read that comparing date equality (=== / ==) is finnicky (not > / < / <=...), 
+    //but the pseudocode below should avoid that.
+    const events = response.data;   
+    const now = new Date();
+    
+    for (const event of events){
+      //if now >= (event_end_time with event_date)
+      //  event.status = "completed";
+      //else if now < (event_time with event_date)
+      //  event.status = "upcoming"
+      //else if (now < (event_end_time with event_date)) && now >= (event_time with event_date)
+      //  event.status = "inProgress"
+      //else console log error
+
+      //when above is working, please delete this line, I only used it to test that the final event.status works in component:
+      event.status = "upcoming"
+    }
+    console.log('events:', events);
+
+    yield put({ type: 'SET_ALL_EVENTS', payload: events });
   } catch (error) {
     console.log('get all events request failed', error);
   }

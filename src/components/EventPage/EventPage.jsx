@@ -3,58 +3,55 @@ import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 
 function EventPage(props) {
-  //This is the page a proctor is brought to upon clicking "add event" or "edit event";
-  //if we arrive here by clicking "add" a new event, props.new will be true (see app.jsx, routes).
-  //if we arrive by clicking "edit" an existing event, props.new will be false.
-  //use isNew to conditionally render things! 
+  //This is the page that displays "one event".
+
+  //status will be passed as props, either "inProgress", "upcoming", or "completed"
+  
+  //If it's an event in progress, it will look like wireframe "NEW view of Event in progress, proctor's view", from figma
+  
+  //If it's upcoming, it will look like wireframe "Create/Edit Event" in figma, with isNew=false
+  //  If proctor just clicked "add event" from the EventList page, ^ it will also look like that - with isNew=true
+
+  //If it's a completed evnet, it will look like wireframe "Proctor view of Individual event results" from figma
   const isNew = props.new; 
 
-  const store = useSelector(store => store);
   const user = useSelector(store => store.user);
   const event = useSelector(store => store.event.selected);
 
   const dispatch = useDispatch();
 
-  //proctor inputs
-  //const [title, setTitle] = useState('');
-  
   const addEvent = () => {
-    //this function should run when user(proctor) has FINISHED entering all of the settings for a event, 
-    //and then clicks "Create event"
-    console.log('in add event');
-   
+    console.log('add');
+    //this function should run when user(proctor) has FINISHED entering all of the details for an event, 
+    //and then clicks "Add this event"   
     let newEvent = { 
-      //TODO edit these columns
-      //@Jackie or @Amanda todo: fill in this commented block with actual input values from DOM. 
-      //  event_name: ,
-      //  test_id: ,
-      //  proctor_id: ,
-      //  event_date: , 
-      //  event_time: ,
-      //  event_end_time: ,
-      //  url: ,
-
-      // (will later add create_date, last_modified_date, last_modified_by in the router)
-       created_by: user.id, //this is the proctor's id, should be already there in the store 
+      //@Jackie todo or @Amanda todo - change these values to real data from user Input
+      event_name: "eventy mcEventerson", 
+      test_id: 1, 
+      proctor_id: 1, 
+      event_date: Date.now(), 
+      event_time: Date.now(),
+      event_end_time: Date.now(),
+      
+      last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
+      created_by: user.id, //this is the proctor's id, should be already there in the store 
      } 
-    dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } ); 
+    dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } }); 
   }; 
 
   const updateEvent = () => {
-    console.log('in update event');
+    console.log('update');
 
+    //this function should run when user(proctor) has FINISHED entering all of the details for an event, 
+    //and then clicks "update event" 
     let updatedEvent = { 
-      //@Amanda todo: fill in this commented block with actual input values from DOM. 
-      //for update we could have the form auto populate each field with the existing choice
-      //then it would work the same as add?
-      //  event_name: ,
-      //  test_id: ,
-      //  proctor_id: ,
-      //  event_date: , 
-      //  event_time: ,
-      //  event_end_time: ,
-      //  url: ,
-      // (will later add last_modified_date in the router)
+      //@Jackie todo or @Amanda todo - change these values to real data from user Input
+      event_name: "eventy mcEventerson", 
+      test_id: 1, 
+      proctor_id: 1, 
+      event_date: Date.now(), 
+      event_time: Date.now(),
+      event_end_time: Date.now(),
       
       last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
       id: event.id, //this is also in store already
@@ -63,27 +60,106 @@ function EventPage(props) {
   }
 
   const deleteEvent = () => {
+    console.log('delete');
+
     //@Jackie or @Amanda todo: as user first - "are you sure?"
     dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } }); 
   }
 
+  const cheeseburgerEventTest = () => {
+    console.log('in update test');
+
+    let updatedEvent = {
+      event_name: "Cheeseburger Event", 
+      proctor_id: 1, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
+      test_id: 1,
+      event_date: "1999-02-02",
+      //@Chris todo - uncomment below 2 lines and add value:
+      // event_time: somethingHere,
+      // event_end_time: somethingHere,
+      url: "www.cheeseburger.com", 
+      last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
+      id: event.id,//this is also in store already
+    } 
+    dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
+  }
+
+  const daffodilEventTest = () => {
+    let newEvent = { 
+      event_name: "Daffodil Event", 
+      proctor_id: 1, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
+      test_id: 1,
+      event_date: "2022-01-31",
+      //@Chris todo - uncomment the next 2 lines and add values:
+      // event_time: somethingHere,
+      // event_end_time: somethingHere,
+      url: "www.daffodil.com", 
+      created_by: user.id, //this is the proctor's id, should be already there in the store 
+    }
+    dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } }); 
+  }
 
   return (
     <div>
       <h2>Event</h2>
-      { isNew
-          // if we arrived at this page via "add event..."
-        ? <button onClick={addEvent}>Create Event</button>
-        
-          // else (if we arrived at this page via "edit (existing) event")
-        : <>
-            <button onClick={updateEvent}>Save Event</button>
+      <button onClick={cheeseburgerEventTest}>For Testing only :) Click to change existing event's title to cheeseburger</button>
+      <button onClick={daffodilEventTest}>4 Testing only :P Click to add a new event with title daffodil</button>
 
-            {/* @Jackie or @Amanda todo - delete button may not make the most sense here */}
-            <button onClick={deleteEvent}>Delete Event</button>
+      <p> Here in the 'header' area will be some details about this event, 
+          such as what time it starts, 
+          who will proctor, and what the test will be.
+
+          What is displayed below depends on whether the exam is upcoming, in progress, or completed.
+      </p>
+
+      {
+        event.status==="upcoming"
+        ? 
+          <>
+            <h3>This event is UPCOMING!</h3>
+            <p>Here will be inputs /components to edit the event details. Examples:</p>
+            <br></br>
+            <p>Test: [Dropdown]</p>
+            <p>Date: [Date picker]</p>
+            <p>Time: [Time picker]</p>
+            <p>Register Students: [Decide how to display this - list of all students?]</p>
+            { isNew 
+              ? <button onClick={addEvent}>Add This Event</button>
+              : <>
+                  <button onClick={updateEvent}>Update Event</button>
+                  <button onClick={deleteEvent}>Delete Event</button>
+                </>
+            }    
           </>
+        : <></>
       }
 
+      {
+        event.status==="inProgress"
+        ? 
+          <>
+            <h3>This event is IN PROGRESS!</h3>
+            <p>Here will be a list of students taking the exam. Examples:</p>
+            <br></br>
+            <p>Student: Jackie Spiess  |  ID Status: Verified                   |  Assistance: [    ]  |  [Enter Exam Button]</p>
+            <p>Student: Amanda Zimms   |  ID Status: [Click to Verify Button]   |  Assistance: [Icon]  |  [Enter Exam Button]</p>
+          </>
+        : <></>
+      }
+
+      {
+        event.status==="completed"
+        ? 
+          <>
+            <h3>This event is COMPLETED</h3>
+            <p>Here will be a list of student exam results. Examples:</p>
+            <br></br>
+            <p>Student: Nickolas C  |  ID #: 1234  |  Exam Started: 2:02pm |  [Details Button]</p>
+            <p>Student: Chris N     |  ID #: 5678  |  Exam Started: 2:04pm |  [Details Button]</p>
+          </>
+        : <></>
+      }
+      
     </div>
   );
 }
