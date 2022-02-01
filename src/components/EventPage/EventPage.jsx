@@ -90,7 +90,7 @@ function EventPage(props) {
       proctor_id: 1, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
       test_id: 1,
       event_date: "2022-01-31",
-      //@Chris todo - uncomment below 2 lines and add value:
+      //@Chris todo - uncomment the next 2 lines and add values:
       // event_time: somethingHere,
       // event_end_time: somethingHere,
       url: "www.daffodil.com", 
