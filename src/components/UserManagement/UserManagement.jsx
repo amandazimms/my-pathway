@@ -54,7 +54,7 @@ function userManagementFunction(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {store.allUsers.setAllUsers.map((row) => (
+          {store.allUsers.all.map((row) => (
             <TableRow
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

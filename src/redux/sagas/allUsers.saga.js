@@ -4,6 +4,8 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* messageSaga() {
   yield takeLatest('FETCH_ALL_USERS', fetchAllUsers);
   yield takeLatest('UPDATE_USER_ROLE', updateUserRole);
+  yield takeLatest('FETCH_ALL_PROCTORS', fetchAllProctors);
+  
  
 }
 
@@ -21,6 +23,19 @@ function* fetchAllUsers() {
   }
 };
 
+function* fetchAllProctors() {
+ 
+  try {
+    console.log("fetchAllProctors Saga");
+    const response = yield axios.get('/api/allusers/proctors');
+    
+    yield put({ type: 'SET_ALL_PROCTORS', payload: response.data });
+
+  } catch (error) {
+    console.log('fetchAllProctors request failed', error);
+  }
+};
+
 function* updateUserRole(info) {
  
   try {
@@ -33,5 +48,7 @@ function* updateUserRole(info) {
     console.log('fetchAllUsers request failed', error);
   }
 };
+
+
 
 export default messageSaga;
