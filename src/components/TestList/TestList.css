@@ -3,6 +3,7 @@
     padding-top: 70px;
     position: absolute;
     top: 0px;
+    font-family: HelveticaNeue;
   }
   
   
@@ -11,7 +12,7 @@
     background-color: #cbd0d6;
     padding: 20px 0px;
     margin-bottom: 30px;
-    font-family: HelveticNeue;
+    font-family: HelveticaNeue;
   }
   
   .addButton {
@@ -23,7 +24,7 @@
     color: white;
     border-radius: 23px;
     height: 40px;
-    font-family: Quicksand-SemiBold;
+    font-family: Helvetica-Neue-Light;
   }
   
   .addButton:focus {
@@ -45,13 +46,12 @@
     justify-content: space-between;
   }
   
-  .filterH2 {
-    font-size: 24px;
-    font-family: HelveticaNeue;
-    margin-bottom: 30px;
+  .heading {
+      font-family: Helvetica-Neue-Light; 
+      padding: 10px; 
+      margin-bottom: 10px; 
+      
   }
 
-  .heading{
-      font-family: HelveticaNeue; 
-      font-size: 40; 
-  }
+
+  

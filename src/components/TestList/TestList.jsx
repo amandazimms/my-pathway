@@ -29,10 +29,10 @@ function TestList(props) {
 
         <div className="addNewTest">
         <Container>
-          <h2 className="filterH2">
+          <h2>
             <div className="newButtonContainer">
               <button className="addButton">
-                Add New Test 
+                + Add New Test 
               </button>
             </div>
           </h2>
@@ -41,8 +41,9 @@ function TestList(props) {
 
       <Container>
         <div className="heading">
-        <h2>Recent Tests</h2>
+        <h2 fontFamily="Helvetica-Neue-Light">Recent Tests</h2>
         </div>
+
         <div className="testCardContainer">
         {tests.map(test => (
         <TestItem test={test} key={test.id}/>
@@ -50,13 +51,6 @@ function TestList(props) {
         </div>
       </Container>
 
-      {/* <Box sx={{flexGrow: 1}}>
-        <AppBar position="static">
-          <Link to="/test-new" className="clickable"> 
-          <Button>Add a New Test</Button>
-          </Link> 
-        </AppBar>
-      </Box> */}
 
       {/* <div className="cards">
         <h2>Recent Tests</h2>
@@ -64,6 +58,7 @@ function TestList(props) {
         <TestItem test={test} key={test.id}/>
       ))}
       </div> */}
+
     </div>
     </div>
   );
