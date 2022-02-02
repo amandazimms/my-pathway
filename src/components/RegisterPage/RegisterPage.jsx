@@ -18,7 +18,7 @@ function RegisterPage() {
         <Grid
         container
         direction="column"
-        justify="center"
+        justifyContent="center"
         spacing={2}
         className="logInPageContainer">
 

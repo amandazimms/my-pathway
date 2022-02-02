@@ -161,13 +161,15 @@ function RegisterForm() {
       
           {takePicture?
             <>
-              <Button variant="contained" onClick={() => setTakePicture(false)}>Cancel</Button>
+              <Button variant="contained" color="secondary" onClick={() => setTakePicture(false)}>Cancel</Button>
               <PhotoCapture />
             </>:
-            <Button variant="contained" onClick={() => setTakePicture(true)}>Take Profile Picture</Button>
+            <Button variant="contained" color="secondary" onClick={() => setTakePicture(true)}>Take Profile Picture</Button>
           }
 
       </div>
+      <br /> 
+
       <div>
         <Button className="btn-primary registerButton" variant="contained" onClick={registerUser}>
           Register
