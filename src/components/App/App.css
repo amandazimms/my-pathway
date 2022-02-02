@@ -1,12 +1,34 @@
+@font-face {
+  font-family: "HelveticaNeue";
+  src: local("HelveticaNeue"),
+    url("../../fonts/HelveNeuCon") format("truetype");
+}
+
+@font-face {
+  font-family: "Helvetica-Neue-Light";
+  src: local("Helvetica-Light"), url("../../fonts/HelveNeuLigCon") format("truetype");
+}
+
+@font-face {
+  font-family: "Helvetica-Medium";
+  src: local("Helvetica-Medium"),
+    url("../../fonts/HelveNeuMedCon") format("truetype");
+}
+
+@font-face {
+  font-family: "Helvetica-Bold";
+  src: local("Helvetica-Bold"),
+    url("../../fonts/HelveNeuThiExt") format("truetype");
+}
+
 html,
 body,
 #react-root {
   height: 100%;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&family=Lato:ital,wght@0,100;0,300;1,100&family=Nunito+Sans:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400&display=swap');
-
 body {
+  font-family: HelveticaNeue; 
   margin: 0px;
 }
 
@@ -15,73 +37,7 @@ img {
   max-width: 100%;
 }
 
-/* --------------------------------------------------------------------------------
-Container
--------------------------------------------------------------------------------- */
-
-.container {
-  padding: 20px;
-}
-
-/* --------------------------------------------------------------------------------
-Button
--------------------------------------------------------------------------------- */
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-color: #014041;
-  border-width: 1px 1px 3px;
-  border-radius: 4px;
-  background-color: #00acb0;
-  color: #f8f8f8;
-  font-size: 1.1rem;
-  outline: 0;
-  cursor: pointer;
-}
-
-.btn_sizeMin {
-  min-height: 50px;
-  min-width: 100px;
-}
-
-.btn_sizeSm {
-  padding: 10px 15px;
-  font-size: 0.8rem;
-}
-
-.btn_sizeFull {
-  display: block;
-  width: 100%;
-}
-
-.btn:hover {
-  background-color: #008183;
-  text-decoration: none;
-}
-
-/* This line makes the "Register" and "Login" buttons look like links */
-.btn_asLink {
-  padding: 0;
-  border-width: 0;
-  border-bottom: 1px solid #444;
-  border-radius: 0;
-  background: none;
-  font: inherit;
-  color: #444;
-}
-
-.btn_asLink:hover {
-  background-color: transparent;
-  border-color: #008183;
-  color: #008183;
-}
-
-/* --------------------------------------------------------------------------------
-Alert
--------------------------------------------------------------------------------- */
-
-.alert {
+/* .alert {
   box-sizing: border-box;
   padding: 15px 10px;
   margin: 15px 0;
@@ -90,11 +46,7 @@ Alert
   border-radius: 3px;
   color: #e01616;
   font-size: 0.8rem;
-}
-
-/* --------------------------------------------------------------------------------
-Form Treatment
--------------------------------------------------------------------------------- */
+} */
 
 .formPanel {
   box-sizing: border-box;
@@ -107,7 +59,94 @@ Form Treatment
   box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
 }
 
-input {
-  margin: 5px;
-  margin-bottom: 10px;
+input,
+textarea {
+  margin: 5px 0px 10px 0px;
+}
+
+h1 {
+  font-family: Helvetica-Neue-Light;
+  font-size: 48px;
+}
+
+h2 {
+  font-family: Helvetica-Medium;
+  font-size: 28px;
+}
+
+.btn-primary {
+  background-color: #1E2A49;
+  border-color: #1E2A49;
+  color: white;
+  border-radius: 5px !important;
+  width: 100% !important;
+  height: 48px;
+  font-family: Helvetica-Bold!important;
+}
+
+/* .btn-primary:focus,
+.btn-primary:active,
+.btn-primary:hover {
+  background-color: #28590c;
+  border-color: #28590c;
+  color: white;
+  border-radius: 5px !important;
+  width: 100% !important;
+  height: 48px;
+  font-family: Quicksand !important;
+  box-shadow: 0 0 0 0.25rem rgba(167, 37, 210, 0.5);
+} */
+
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: #7FC1C5;
+}
+
+.btn-secondary {
+  background-color: #7FC1C5;
+  border-color: #7FC1C5;
+  color: #fafcfb;
+  border-radius: 5px !important;
+  font-family: Helvetica-Bold !important;
+}
+
+.buttonGroup {
+  width: 80%;
+}
+
+a {
+  font-family: HelveticaNeue;
+  font-weight: bold;
+  color: black;
+  font-size: 18px;
+}
+
+.ModalTitle {
+  font-family: Helvetica-Bold;
+}
+
+.modalBody {
+  font-family: Helvetica-Medium;
+  font-size: 15px;
+}
+
+textarea:hover,
+.shareModalInput:hover,
+textarea:active,
+.shareModalInput:active,
+textarea:focus,
+.shareModalInput:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  border: 1px solid rgb(199, 199, 199) !important;
+  border-right: none !important;
 }
