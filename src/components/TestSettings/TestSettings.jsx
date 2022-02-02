@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
-import Button from '@mui/material/Button'; 
-import Container from '@mui/material/Container'; 
-import Grid from '@material-ui/core/Grid'
-import {Paper} from '@material-ui/core'
-import '../TestSettings/TestSettings.css'; 
 
 function TestSettings(props) {
   //This is the page a proctor is brought to upon clicking "add test" or "edit test";
@@ -95,9 +90,6 @@ function TestSettings(props) {
     //@Jackie or @Amanda todo: as user first - "are you sure?"
     dispatch({ type: 'DELETE_TEST', payload: { test_id: test.id } }); 
   }
-
-  //selectedTest hold all everything on the form 
-   const selectedTest = useSelector(store => store.test.selected);
 
   const addQuestion = () => {
     //this function should run when user(proctor) has FINISHED entering all of the info for a question, 
@@ -197,75 +189,97 @@ function TestSettings(props) {
   }
 
   return (
-   <div className="login">
+    <div>
+      <button onClick={tacoTitleTest}>For Testing only :) Click to change existing test's title to taco</button>
+      <button onClick={marigoldTestTest}>4 Testing only :P Click to add a new test with title marigold</button>
 
-     <Container className="RecipePageContainer">
-     <form className="formPanel" onSubmit={addTest}> 
+      <form className="formPanel" onSubmit={addTest}>
+     
+      {/* @J-A Pair Todo - add a conditional render here for "new test" vs "edit existing" */}
+      <h2>Add a New Test</h2>
+      
+      <p>test: {JSON.stringify(test)}</p>
+      <div>
 
-    <h3>Exam Title:</h3>
-    { isNew 
-    ? <input placeholder="Exam title" className="loginInput" type="text" value={title} required onChange={(event)=> setTitle(event.target.value)}/> 
-    : <p className="recipePageBasicInfoP">
-          {selectedTest.title}
-    </p>
-    }
+        {/* @J-A Pair Todo - IF isNew = false, populate these form input fields with existing data */}
+        <label htmlFor="title">
+          Exam Title:
+          <input
+            type="text"
+            name="title"
+            value={title}
+            required
+            onChange={(event) => setTitle(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="points_possible">
+          Number of Points
+          <input
+            type="text"
+            name="points_possible"
+            value={pointsPossible}
+            required
+            onChange={(event) => setPointsPossible(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="Time">
+          Time to complete exam: 
+          <input
+            type="text"
+            name="test_time_limit"
+            value={timeLimit}
+            required
+            onChange={(event) => setTimeLimit(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="boolean">
+          Order of questions:
+          <input
+            type="text"
+            name="question_shuffle"
+            value={questionShuffle}
+            required
+            onChange={(event) => setQuestionShuffle(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="attempts">
+          Number of attempts allowed
+          <input
+            type="text"
+            name="test_attempt_limit"
+            value={testAttempt}
+            required
+            onChange={(event) => setTestAttempt(event.target.value)}
+          />
+        </label>
+      </div>
+    <div>
+        <input className="btn" type="submit" name="submit" value="Register" />
+      </div>
+    </form>
 
-
-  
-  <h3>Number of points:</h3> 
-  { isNew 
-    ? <input placeholder="Number of Points" className="loginInput" type="text" value={pointsPossible} required onChange={(event)=> setPointsPossible(event.target.value)}/>
-    : <p className="recipePageBasicInfoP">
-          {selectedTest.points_possible}
-    </p>
-    }   
-
-
-
-  <h3>Time to complete quiz:</h3> 
-  { isNew 
-    ? <input placeholder="Time to complete quiz" className="loginInput" type="text" value={timeLimit} required onChange={(event)=> setTimeLimit(event.target.value)}/>
-    : <p className="recipePageBasicInfoP">
-          {selectedTest.test_time_limit}
-    </p>
-  } 
-
-
-
-  <h3>Order of questions:</h3> 
-  {isNew
-   ? <input placeholder="Order of questions" className="loginInput" type="text" value={questionShuffle} required onChange={(event)=> setQuestionShuffle(event.target.value)}/>
-   : <p className="recipePageBasicInfoP">
-          {selectedTest.question_shuffle}
-    </p>
-}
-
-
-<h3>Number of attempts allowed:</h3>
-  { isNew 
-    ? <input placeholder="Number of attempts allowed" className="loginInput" type="text" value={testAttempt} required onChange={(event)=> setTestAttempt(event.target.value)}/>
-   : <p className="recipePageBasicInfoP">
-          {selectedTest.test_attempt_limit}
-    </p>
-    } 
-<br></br>
-
-  { isNew
+      { isNew
           // if we arrived at this page via "add test..."
-        ? <Button variant="contained" color="primary" onClick={addTest}>Add This Test</Button>
+        ? <button onClick={addTest}>Add This Test</button>
         
           // else (if we arrived at this page via "edit (existing) test")
         : <>
-            <Button variant="contained" color="primary" onClick={updateTest}>Update Test</Button>
+            <button onClick={updateTest}>Update Test</button>
 
             {/* @Jackie or @Amanda todo - delete button may not make the most sense here */}
-            <Button variant="contained" color="secondary" onClick={deleteTest}>Delete Test</Button>
+            <button onClick={deleteTest}>Delete Test</button>
           </>
       }
 
-    </form>
-     </Container>
-  </div>
+    </div>
   );
 }
 
