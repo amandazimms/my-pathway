@@ -43,8 +43,8 @@ router.post('/', (req, res) => {
   // console.log('req.params:', req.params);
   console.log('req.body:', req.body);
 
-  const queryString = `INSERT INTO event (event_name, test_id, proctor_id, event_date, event_time, event_end_time, url, last_modified_by ) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8 )  RETURNING id, create_date, last_modified_date`;
-  const values = [ req.body.event_name, req.body.test_id, req.body.proctor_id, req.body.event_date, req.body.event_time, req.body.event_end_time, req.body.url, req.body.last_modified_by];
+  const queryString = `INSERT INTO event (event_name, test_id, proctor_id, event_date_start, event_date_end, url, created_by, last_modified_by ) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8)  RETURNING id, create_date, last_modified_date`;
+  const values = [ req.body.event_name, req.body.test_id, req.body.proctor_id, req.body.event_date_start, req.body.event_date_end, req.body.url, req.body.created_by, req.body.created_by];
    pool.query( queryString, values).then( (results)=>{
     res.send(results.rows[0]);
   }).catch( (err)=>{
@@ -65,8 +65,8 @@ router.put('/:id', (req, res)=> {
   //send 200 back :)
 
   const id = req.params.id
-  const queryString = `UPDATE event SET event_name = $1, test_id = $2, proctor_id = $3, event_date = $4, event_time = $5, event_end_time = $6, url = $7, last_modified_by = $8`;
-  const values = [ req.body.event_name, req.body.test_id, req.body.proctor_id, req.body.event_date, req.body.event_time, req.body.event_end_time, req.body.url, req.body.last_modified_by ];
+  const queryString = `UPDATE event SET event_name = $1, test_id = $2, proctor_id = $3, event_date_start = $4, event_date_end = $5, url = $6, last_modified_by = $7`;
+  const values = [ req.body.event_name, req.body.test_id, req.body.proctor_id, req.body.event_date_start, req.body.event_date_end, req.body.url, req.body.last_modified_by ];
    pool.query( queryString, values ).then( (results)=>{
     res.sendStatus(200);
   }).catch( (err)=>{

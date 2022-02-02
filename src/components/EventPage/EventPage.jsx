@@ -21,10 +21,12 @@ function EventPage(props) {
   const user = useSelector(store => store.user);
   const event = useSelector(store => store.event.selected);
 
-  const [eventDate, setEventDate] = useState('')
+
   const [eventName, setEventName] = useState('')
   const [eventTest, setEventTest] = useState('')
   const [eventProctor, setEventProctor] = useState('')
+  const [eventDateEnd, setEventDateEnd] = useState('')
+  const [eventDateStart, setEventDateStart] = useState('')
 
   const dispatch = useDispatch();
 
@@ -37,9 +39,14 @@ function EventPage(props) {
     })
   },[])
 
-  const handleDateChange = (event) => {
-    // console.log('Int handleDateChange', event.target.value);
-    setEventDate(event.target.value)
+  const handleDateStartChange = (event) => {
+    // console.log('Int   const handleDateStartChange = (event) => {
+    setEventDateStart(event.target.value)
+  }
+
+  const handleDateEndChange = (event) => {
+    // console.log('Int handleDateEndChange', event.target.value);
+    setEventDateEnd(event.target.value)
   }
 
   const handleNameChange = (event) => {
@@ -130,7 +137,8 @@ function EventPage(props) {
       event_name: eventName, 
       proctor_id: store.user.id, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
       test_id: eventTest,
-      event_date: eventDate,
+      event_date_start: eventDateStart,
+      event_date_end: eventDateEnd,
       //@Chris todo - uncomment the next 2 lines and add values:
       // event_time: "19:00",
       // event_end_time: "21:00",
@@ -156,7 +164,8 @@ function EventPage(props) {
       <br />
       <br />
       <TextField
-        id="outlined-select"
+        id="outlined-select-required"
+        required
         select
         label="Test"
         value={eventTest}
@@ -165,14 +174,15 @@ function EventPage(props) {
       >
         {store.test.all.map((test) => (
           <MenuItem key={test.id} value={test.id}>
-            {test.title}
+            {test.title} - {test.test_time_limit} Minutes
           </MenuItem>
         ))}
       </TextField>
       <br />
       <br />
       <TextField
-        id="outlined-select"
+        id="outlined-select-required"
+        required
         select
         label="Proctor"
         value={eventProctor}
@@ -189,13 +199,25 @@ function EventPage(props) {
       <br />
       <TextField
         id="datetime-local"
-        label="Event Date/Time"
+        label="Event Start Date/Time"
         type="datetime-local"
         sx={{ minWidth: 300 }}
         InputLabelProps={{
           shrink: true,
         }}
-        onChange={handleDateChange}
+        onChange={handleDateStartChange}
+      />
+      <br />
+      <br />
+      <TextField
+        id="datetime-local"
+        label="Event End Date/Time"
+        type="datetime-local"
+        sx={{ minWidth: 300 }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={handleDateEndChange}
       />
       <br />
       <br />
@@ -205,7 +227,9 @@ function EventPage(props) {
       <p>
           Event Name Is: {JSON.stringify(eventName)}
           <br />
-          Event Date Is: {JSON.stringify(eventDate)}
+          Event Start Date Is: {JSON.stringify(eventDateStart)}
+          <br />
+          Event End Date Is: {JSON.stringify(eventDateEnd)}
           <br />
           Selected Test ID: {JSON.stringify(eventTest)}
           <br />
