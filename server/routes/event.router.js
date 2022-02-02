@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
   //  RETURNING id, create_date, last_modified_date;
   //finally plz send back results.rows[0] rather than results.rows
 
-  console.log('req.params:', req.params);
+  // console.log('req.params:', req.params);
   console.log('req.body:', req.body);
 
   const queryString = `INSERT INTO event (event_name, test_id, proctor_id, event_date, event_time, event_end_time, url, last_modified_by ) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8 )  RETURNING id, create_date, last_modified_date`;

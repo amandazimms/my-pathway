@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import TextField from '@mui/material/TextField';
 
 function EventPage(props) {
   //This is the page that displays "one event".
@@ -14,11 +15,18 @@ function EventPage(props) {
 
   //If it's a completed evnet, it will look like wireframe "Proctor view of Individual event results" from figma
   const isNew = props.new; 
-
+  const store = useSelector(store => store);
   const user = useSelector(store => store.user);
   const event = useSelector(store => store.event.selected);
 
+  const [eventDate, setEventDate] = useState('')
+
   const dispatch = useDispatch();
+
+  const handleDateChange = (event) => {
+    console.log('Int handleDateChange', event.target.value);
+    setEventDate(event.target.value)
+  }
 
   const addEvent = () => {
     console.log('add');
@@ -27,7 +35,7 @@ function EventPage(props) {
     let newEvent = { 
       //@Jackie todo or @Amanda todo - change these values to real data from user Input
       event_name: "eventy mcEventerson", 
-      test_id: 1, 
+      test_id: 7, 
       proctor_id: 1, 
       event_date: Date.now(), 
       event_time: Date.now(),
@@ -75,8 +83,8 @@ function EventPage(props) {
       test_id: 1,
       event_date: "1999-02-02",
       //@Chris todo - uncomment below 2 lines and add value:
-      // event_time: somethingHere,
-      // event_end_time: somethingHere,
+      // event_time: "19:00",
+      // event_end_time: "21:00",
       url: "www.cheeseburger.com", 
       last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
       id: event.id,//this is also in store already
@@ -84,15 +92,17 @@ function EventPage(props) {
     dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
   }
 
+
+
   const daffodilEventTest = () => {
     let newEvent = { 
       event_name: "Daffodil Event", 
-      proctor_id: 1, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
-      test_id: 1,
-      event_date: "2022-01-31",
+      proctor_id: store.user.id, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
+      test_id: 7,
+      event_date: eventDate,
       //@Chris todo - uncomment the next 2 lines and add values:
-      // event_time: somethingHere,
-      // event_end_time: somethingHere,
+      // event_time: "19:00",
+      // event_end_time: "21:00",
       url: "www.daffodil.com", 
       created_by: user.id, //this is the proctor's id, should be already there in the store 
     }
@@ -103,6 +113,23 @@ function EventPage(props) {
     <div>
       <h2>Event</h2>
       <button onClick={cheeseburgerEventTest}>For Testing only :) Click to change existing event's title to cheeseburger</button>
+      <br />
+      <h3>SET DATE AND TIME FOR NEW EVENT</h3>
+
+      <TextField
+        id="datetime-local"
+        label="Event Date/Time"
+        type="datetime-local"
+        defaultValue="2022-02-24T10:30"
+        sx={{ width: 250 }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={handleDateChange}
+      />
+      <br />
+      <p>Event Date Is: {JSON.stringify(eventDate)}</p>
+      <br />
       <button onClick={daffodilEventTest}>4 Testing only :P Click to add a new event with title daffodil</button>
 
       <p> Here in the 'header' area will be some details about this event, 
