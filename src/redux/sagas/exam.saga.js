@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* eventSaga() {
+function* examSaga() {
   //TODO all of these
   //TODO all of these
   //TODO all of these
@@ -9,14 +9,33 @@ function* eventSaga() {
   //   //dispatch({ type: 'FETCH_EVENT', payload: {event_id: putSomethingHere} }); 
   // yield takeLatest('FETCH_ALL_EVENTS', fetchAllEvents);//fetches ALL Events in DB. 
   //   //dispatch({ type: 'FETCH_ALL_EVENTS' }); 
-  // yield takeLatest('ADD_EVENT', addEvent);//posts a new event to the db.
-  //   //dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } }); 
+  yield takeLatest('ADD_EXAM', addExam);//posts a new event to the db.
+    //dispatch({ type: 'ADD_EXAM', payload: { event: newEvent } }); 
   // yield takeLatest('DELETE_EVENT', deleteEvent);//deletes a event from the db.
   //   //dispatch({ type: 'DELETE_EVENT', payload: { event_id: putSomethingHere } }); 
   // yield takeLatest('UPDATE_EVENT_SETTINGS', updateEventSettings);//updates any/all of the columns in the event table in the db.
   //   //dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
  }
 
+ // worker Saga: will be fired on "ADD_EVENT" actions
+function* addExam(action){
+  const ap = action.payload;
+  //ap.exam is the exam object to add,
+  //including event_id, student_id, created_by (proctor id)
+  
+  let exam = ap.exam;  //first declare exam obj with all the event data from ap. 
+  try {
+    const postedExam = yield axios.post('/api/exam', ap.exam );  //now add to that event object the id & dates that were created when it was posted to DB
+    exam = {...exam, id: postedExam.id, create_date: postedExam.create_date, last_modified_date: postedExam.last_modified_date }
+    yield put({ type: 'SET_SELECTED_EXAM', payload: exam }); //finally send the 'complete' event object to the reducer
+    //note - I did not put a fetch_all_EVENTs here since when a proctor creates a event, they are
+    // necessarily now selecting that event. if they navigate back to the 'all events' type view,
+    // there a fetch_all_EVENTs will be triggered anwyay. If needed we can add one of those here too.
+
+  } catch (error) {
+    console.log('POST event failed', error);
+  }
+}
 
 
 // // worker Saga: will be fired on "UPDATE_EVENT_SETTINGS" actions
@@ -55,30 +74,6 @@ function* eventSaga() {
 //   }
 // }
 
-// // worker Saga: will be fired on "ADD_EVENT" actions
-// function* addEvent(action){
-//   //TODO all of these
-//   //TODO all of these
-//   //TODO all of these
-//   const ap = action.payload;
-//   //ap.event is the event object to update, 
-//   //including event_name, test_id, proctor_id, event_date, event_time
-//   //event_end_time, url, last_modified_by
-  
-//   let event = ap.event;  //first declare event obj with all the event data from ap. 
-//   try {
-//     const postedEvent = yield axios.post('/api/event', ap.event );  //now add to that event object the id & dates that were created when it was posted to DB
-//     event = {...event, id: postedEvent.id, create_date: postedEvent.create_date, last_modified_date: postedEvent.last_modified_date }
-//     yield put({ type: 'SET_SELECTED_EVENT', payload: event }); //finally send the 'complete' event object to the reducer
-//     //note - I did not put a fetch_all_EVENTs here since when a proctor creates a event, they are
-//     // necessarily now selecting that event. if they navigate back to the 'all events' type view,
-//     // there a fetch_all_EVENTs will be triggered anwyay. If needed we can add one of those here too.
-
-//   } catch (error) {
-//     console.log('POST event failed', error);
-//   }
-// }
-
 // // worker Saga: will be fired on "FETCH_EVENT" actions
 // function* fetchEvent(action) {
 //   //TODO all of these
@@ -107,4 +102,4 @@ function* eventSaga() {
 //   }
 // }
 
-export default eventSaga;
+export default examSaga;
