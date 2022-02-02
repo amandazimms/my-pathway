@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import Container from '@mui/material/Container'; 
+import Button from '@mui/material/Button'; 
+import '../TestSettings/TestSettings.css'; 
 
 function TestSettings(props) {
   //This is the page a proctor is brought to upon clicking "add test" or "edit test";
@@ -19,20 +22,31 @@ function TestSettings(props) {
   const selectedQuestion = useSelector(store => store.question.selected)//todo @Amanda not sure what component(s) will need this
 
   const dispatch = useDispatch();
-
-  //proctor inputs
-  const [title, setTitle] = useState('');
-  const [pointsPossible, setPointsPossible] = useState('');
-  const [timeLimit, setTimeLimit] = useState(''); 
-  const [questionShuffle, setQuestionShuffle] = useState(true); 
-  const [testAttempt, setTestAttempt] = useState(''); 
   
-  const addTest = () => {
+  const selectedTest = useSelector(store=> store.test.selected); 
+
+  const [newTest, setNewTest] = useState({
+    title: "",
+    points_possible: "",
+    test_time_limit: "",
+    question_shuffle: "",
+    test_attempt_limit: "", 
+    created_by: user.id, 
+  })
+
+  const addTest = ()=> {
+    dispatch({
+      type: "ADD_TEST", 
+      payload: newTest
+    }); 
+  }
+  
+  // const addTest = () => {
     //this function should run when user(proctor) has FINISHED entering all of the settings for a test, 
     //and then clicks "Create test"
-    console.log('in add test');
+    // console.log('in add test');
    
-    let newTest = { 
+    // let newTest = { 
       //@Jackie or @Amanda todo: fill in this commented block with actual input values from DOM. 
       //  title: someString, 
       //  points_possible: someInt, 
@@ -41,24 +55,18 @@ function TestSettings(props) {
       //  test_attempt_limit: someInt,
 
       //then delete placeholder values below (except created_by).
-       title: "testy mctesterson", 
-       points_possible: 999, 
-       test_time_limit: 999, 
-       question_shuffle: true, 
-       test_attempt_limit: 66,
+      //  title: "testy mctesterson", 
+      //  points_possible: 999, 
+      //  test_time_limit: 999, 
+      //  question_shuffle: true, 
+      //  test_attempt_limit: 66,
 
-       created_by: user.id, //this is the proctor's id, should be already there in the store 
-     } 
+      //  created_by: user.id, //this is the proctor's id, should be already there in the store 
+    //  } 
     //  @J-A Pair Todo - rework this to look like payload: { test: newTest }
-    dispatch({ type: 'ADD_TEST', 
-    payload: {
-      title: title, 
-      pointsPossible: pointsPossible,
-      timeLimit: timeLimit, 
-      questionShuffle: questionShuffle,
-      testAttempt: testAttempt
-     } }); 
-  }; 
+  //   dispatch({ type: 'ADD_TEST', 
+  //   payload: newTest}); 
+  // }; 
 
   const updateTest = () => {
     console.log('in update test');
@@ -189,97 +197,88 @@ function TestSettings(props) {
   }
 
   return (
-    <div>
-      <button onClick={tacoTitleTest}>For Testing only :) Click to change existing test's title to taco</button>
-      <button onClick={marigoldTestTest}>4 Testing only :P Click to add a new test with title marigold</button>
-
-      <form className="formPanel" onSubmit={addTest}>
+    <div> 
+    
+      {/* <button onClick={tacoTitleTest}>For Testing only :) Click to change existing test's title to taco</button>
+      <button onClick={marigoldTestTest}>4 Testing only :P Click to add a new test with title marigold</button> */}
      
       {/* @J-A Pair Todo - add a conditional render here for "new test" vs "edit existing" */}
-      <h2>Add a New Test</h2>
+       {/* <h2>Add a New Test</h2>
       
-      <p>test: {JSON.stringify(test)}</p>
-      <div>
+      <p>test: {JSON.stringify(test)}</p> */}
 
-        {/* @J-A Pair Todo - IF isNew = false, populate these form input fields with existing data */}
-        <label htmlFor="title">
-          Exam Title:
-          <input
-            type="text"
-            name="title"
-            value={title}
-            required
-            onChange={(event) => setTitle(event.target.value)}
-          />
+      <Container> 
+      { isNew 
+      ? <h2>Add Test</h2>
+      : <h2>Edit Test</h2>
+      }
+      <form className="addMovieForm">
+        <label htmlFor="movieTitle">
+          {" "}
+          Test Title: 
+          { isNew 
+          ? <input id="title" onChage={(event)=> setNewTest({...newTest, title: event.target.value})}/>
+          :<> {selectedTest.title}
+          </> 
+          }
         </label>
-      </div>
-      <div>
-        <label htmlFor="points_possible">
-          Number of Points
-          <input
-            type="text"
-            name="points_possible"
-            value={pointsPossible}
-            required
-            onChange={(event) => setPointsPossible(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="Time">
-          Time to complete exam: 
-          <input
-            type="text"
-            name="test_time_limit"
-            value={timeLimit}
-            required
-            onChange={(event) => setTimeLimit(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="boolean">
-          Order of questions:
-          <input
-            type="text"
-            name="question_shuffle"
-            value={questionShuffle}
-            required
-            onChange={(event) => setQuestionShuffle(event.target.value)}
-          />
-        </label>
-        </div>
-        <div>
-        <label htmlFor="attempts">
-          Number of attempts allowed
-          <input
-            type="text"
-            name="test_attempt_limit"
-            value={testAttempt}
-            required
-            onChange={(event) => setTestAttempt(event.target.value)}
-          />
-        </label>
-      </div>
-    <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
-      </div>
-    </form>
 
+        <label htmlFor="movieTitle">
+          {" "}
+          Number of Points: 
+          { isNew 
+          ? <input id="pointsPossible" onChage={(event)=> setNewTest({...newTest, points_possible: event.target.value})}/>
+          :<> {selectedTest.points_possible}
+          </> 
+          }
+        </label>
+
+        <label htmlFor="movieTitle">
+          {" "}
+          Time to complete quiz: 
+          { isNew 
+          ? <input id="timeToComplete" onChage={(event)=> setNewTest({...newTest, test_time_limit: event.target.value})}/>
+          :<> {selectedTest.test_time_limit}
+          </> 
+          }
+        </label>
+
+        <label htmlFor="movieTitle">
+          {" "}
+          Order of questions: 
+          { isNew 
+          ? <input id="questionShuffle" onChage={(event)=> setNewTest({...newTest, question_shuffle: event.target.value})}/>
+          :<> {selectedTest.question_shuffle}
+          </> 
+          }
+        </label>
+
+        <label htmlFor="movieTitle">
+          {" "}
+          Number of attempts allowed: 
+          { isNew 
+          ? <input id="movieTitle" onChage={(event)=> setNewTest({...newTest, test_attempt_limit: event.target.value})}/>
+          :<> {selectedTest.test_attempt_limit}
+          </> 
+          }
+        </label>
+       
+   
       { isNew
           // if we arrived at this page via "add test..."
-        ? <button onClick={addTest}>Add This Test</button>
+        ? <Button variant="contained" onClick={addTest}>Add This Test</Button>
         
           // else (if we arrived at this page via "edit (existing) test")
         : <>
-            <button onClick={updateTest}>Update Test</button>
+            <Button variant="contained" onClick={updateTest}>Update Test</Button>
 
             {/* @Jackie or @Amanda todo - delete button may not make the most sense here */}
-            <button onClick={deleteTest}>Delete Test</button>
+            <Button variant="contained" onClick={deleteTest}>Delete Test</Button>
           </>
       }
-
-    </div>
+      </form>
+      </Container>
+      </div> 
   );
 }
 
