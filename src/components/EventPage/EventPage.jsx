@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import { Button } from '@mui/material';
 
 function EventPage(props) {
   //This is the page that displays "one event".
@@ -20,13 +22,42 @@ function EventPage(props) {
   const event = useSelector(store => store.event.selected);
 
   const [eventDate, setEventDate] = useState('')
+  const [eventName, setEventName] = useState('')
+  const [eventTest, setEventTest] = useState('')
+  const [eventProctor, setEventProctor] = useState('')
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_ALL_TESTS"
+    })
+    dispatch({
+      type: "FETCH_ALL_PROCTORS"
+    })
+  },[])
+
   const handleDateChange = (event) => {
-    console.log('Int handleDateChange', event.target.value);
+    // console.log('Int handleDateChange', event.target.value);
     setEventDate(event.target.value)
   }
+
+  const handleNameChange = (event) => {
+    // console.log('Int handleNameChange', event.target.value);
+    setEventName(event.target.value)
+  }
+  
+  const handleTestChange = (event) => {
+    // console.log('Int handleTestChange', event.target.value);
+    setEventTest(event.target.value)
+  }
+
+  const handleProctorChange = (event) => {
+    // console.log('Int handleProctorChange', event.target.value);
+    setEventProctor(event.target.value)
+  }
+
+  
 
   const addEvent = () => {
     console.log('add');
@@ -94,11 +125,11 @@ function EventPage(props) {
 
 
 
-  const daffodilEventTest = () => {
+  const createEvent = () => {
     let newEvent = { 
-      event_name: "Daffodil Event", 
+      event_name: eventName, 
       proctor_id: store.user.id, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
-      test_id: 7,
+      test_id: eventTest,
       event_date: eventDate,
       //@Chris todo - uncomment the next 2 lines and add values:
       // event_time: "19:00",
@@ -111,26 +142,78 @@ function EventPage(props) {
 
   return (
     <div>
-      <h2>Event</h2>
-      <button onClick={cheeseburgerEventTest}>For Testing only :) Click to change existing event's title to cheeseburger</button>
       <br />
-      <h3>SET DATE AND TIME FOR NEW EVENT</h3>
+      <button onClick={cheeseburgerEventTest}>For Testing only :) Click to change existing event's title to cheeseburger (Update Test)</button>
+      <br />
+      <h2>Create New Event</h2>
 
+      <TextField
+        required
+        id="outlined-required"
+        label="Event Name"
+        onChange={handleNameChange}
+      />
+      <br />
+      <br />
+      <TextField
+        id="outlined-select"
+        select
+        label="Test"
+        value={eventTest}
+        sx={{ minWidth: 300 }}
+        onChange={handleTestChange}
+      >
+        {store.test.all.map((test) => (
+          <MenuItem key={test.id} value={test.id}>
+            {test.title}
+          </MenuItem>
+        ))}
+      </TextField>
+      <br />
+      <br />
+      <TextField
+        id="outlined-select"
+        select
+        label="Proctor"
+        value={eventProctor}
+        sx={{ minWidth: 300 }}
+        onChange={handleProctorChange}
+      >
+        {store.allUsers.proctorsOnly.map((proctor) => (
+          <MenuItem key={proctor.id} value={proctor.id}>
+            {proctor.first_name} {proctor.last_name}
+          </MenuItem>
+        ))}
+      </TextField>
+      <br />
+      <br />
       <TextField
         id="datetime-local"
         label="Event Date/Time"
         type="datetime-local"
-        defaultValue="2022-02-24T10:30"
-        sx={{ width: 250 }}
+        sx={{ minWidth: 300 }}
         InputLabelProps={{
           shrink: true,
         }}
         onChange={handleDateChange}
       />
       <br />
-      <p>Event Date Is: {JSON.stringify(eventDate)}</p>
       <br />
-      <button onClick={daffodilEventTest}>4 Testing only :P Click to add a new event with title daffodil</button>
+      <Button variant="outlined" onClick={createEvent}>Create New Event</Button>
+      <br />
+      <br />
+      <p>
+          Event Name Is: {JSON.stringify(eventName)}
+          <br />
+          Event Date Is: {JSON.stringify(eventDate)}
+          <br />
+          Selected Test ID: {JSON.stringify(eventTest)}
+          <br />
+          Selected Proctor ID: {JSON.stringify(eventProctor)}
+      
+      </p>
+     
+      {/* <button onClick={daffodilEventTest}>4 Testing only :P Click to add a new event</button> */}
 
       <p> Here in the 'header' area will be some details about this event, 
           such as what time it starts, 
