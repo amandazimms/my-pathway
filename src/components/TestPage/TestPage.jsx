@@ -16,6 +16,7 @@ function TestPage(props) {
 
   return (
     <div>
+      <h2 className="pageTitle"></h2>
       < TestSettings />
       < QuestionList /> 
 
