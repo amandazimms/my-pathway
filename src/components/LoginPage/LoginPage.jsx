@@ -3,22 +3,46 @@ import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
 import { Container, Paper } from '@material-ui/core';
 import KyrosLogo from "../../images/KyrosLogo.png"; 
+import Button from '@mui/material/Button'
 import "./LoginPage.css"; 
+import Grid from '@mui/material/Grid';
+
 
 function LoginPage() {
   const history = useHistory();
 
   return (
-    <Paper className="logInPageContainer">
+    <div>
+    <Grid container spacing={1} justifyContent="center" wrap="wrap" direction="row" alignitem="center">
+      <Grid item>
+        <Grid
+        container
+        direction="column"
+        justify="center"
+        spacing={2}
+        className="logInPageContainer"
+        >
+
+      <Paper variant="elevation" elevation={2} className="login-background">
+
+
+      <Grid item>
       <img alt="logo" className="kyros-logo" src={KyrosLogo}/>
+      </Grid>
+
+      <Grid item>
       <h1 className="login-h1">Welcome Back</h1>
-      <p className="login-p">
-        Please sign in to get started!
-      </p>
+      </Grid>
+
+      <Grid item>
       <LoginForm />
+      </Grid> 
+
+      <Grid item>
       Not a registered user?
       <br /> 
-        <a
+        <Button
+          varient="text"
           type="button"
           className="btn btn_asLink"
           onClick={() => {
@@ -26,8 +50,15 @@ function LoginPage() {
           }}
         >
           Register
-        </a>
-      </Paper>
+        </Button>
+        </Grid>
+
+       
+        </Paper>
+        </Grid> 
+        </Grid> 
+        </Grid>
+      </div>
   );
 }
 

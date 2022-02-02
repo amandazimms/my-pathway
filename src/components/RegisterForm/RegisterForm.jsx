@@ -191,7 +191,9 @@ function RegisterForm() {
 
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+        <Button className="btn-primary registerButton" variant="contained" onClick={registerUser}>
+          Register
+        </Button>
       </div>
     </form>
   );

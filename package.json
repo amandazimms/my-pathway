@@ -11,6 +11,7 @@
     "@material/tabs": "^2.3.0",
     "@mui/icons-material": "^5.3.1",
     "@mui/material": "^5.3.1",
+    "@mui/x-data-grid": "^5.4.0",
     "aws-sdk": "^2.1066.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",

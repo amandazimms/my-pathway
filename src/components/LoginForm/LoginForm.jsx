@@ -56,7 +56,7 @@ function LoginForm() {
 
       </div>
       <div className="loginButton">
-        <Button className="btn-primary loginButton" onClick={login}>Login</Button>
+        <Button className="btn-primary loginButton" color="primary" variant="contained" onClick={login}>Login</Button>
       </div>
     </form>
   );
