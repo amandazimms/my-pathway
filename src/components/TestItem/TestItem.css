@@ -1,0 +1,58 @@
+.cardImg {
+    border-radius: 25px 25px 0px 0px;
+    height: 187px;
+    object-fit: cover;
+  }
+  
+  .testCard {
+    width: 170px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    margin-top: 0px;
+    margin-bottom: 18px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 0px solid rgba(143, 143, 143, 0.077);
+    border-radius: 25px 25px 10px 10px;
+    background-color: #fcfcf6;
+  }
+  
+  .testCardBody {
+    padding: 10px 6px;
+  }
+
+  .testCard:hover{
+      background-color: #7fc2c55e; 
+  }
+  
+  .testCardName {
+    font-size: 15px;
+    font-family: HelveticaNeue;
+    margin-bottom: 0px;
+  }
+  
+  .testCardPrepTime {
+    font-family: HelveticaNeue;
+    font-size: 13px;
+    margin-bottom: 0px;
+    color: #898B8D;
+  }
+  
+  .text {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+  }
+
+  .cardCreateDate {
+    display: flex;
+    align-items: center;
+    color: #898B8D;
+  }
+  
+  
+  .cardMin {
+    margin-bottom: 0px;
+  }
