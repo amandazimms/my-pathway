@@ -159,6 +159,7 @@ function EventPage(props) {
         required
         id="outlined-required"
         label="Event Name"
+        sx={{ minWidth: 300 }}
         onChange={handleNameChange}
       />
       <br />
