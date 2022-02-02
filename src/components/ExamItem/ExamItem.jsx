@@ -9,7 +9,7 @@ function ExamItem(props) {
   const store = useSelector((store) => store);
   const selectedExam = useSelector(store => store.exam.selected);
 
-  const [exam, setExam] = useState(props.exam);
+  const exam = props.exam;
 
   const dispatch = useDispatch();
 

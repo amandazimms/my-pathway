@@ -4,15 +4,14 @@ import ExamItem from '../ExamItem/ExamItem';
 
 
 function ExamList(props) {
-  // const exams = useSelector(store => store.exam.all);
-  const exams = ["fakeExam1", "fakeExam2"]
+
+  const exams = useSelector(store => store.exam.all);
+  // const exams = ["fakeExam1", "fakeExam2"]
   const dispatch = useDispatch();
 
-  // const [heading, setHeading] = useState('Functional Component');
-
-  // useEffect(() => {
-  //   dispatch({ type: 'FETCH_ALL_EXAMS' }); 
-  // }, []);
+  useEffect(() => {
+    dispatch({ type: 'FETCH_ALL_EXAMS' }); 
+  }, []);
 
   return (
     <div>
@@ -21,8 +20,8 @@ function ExamList(props) {
       <p>all exams stringified: {JSON.stringify(exams)}</p>
 
       {exams.map(exam => (
-        // <ExamItem exam={exam} key={exam.id}/>
-        <ExamItem exam={exam}/>
+        <ExamItem exam={exam} key={exam.id}/>
+        // <ExamItem exam={exam}/>
       ))}
 
     </div>

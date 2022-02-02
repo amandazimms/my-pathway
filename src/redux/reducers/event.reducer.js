@@ -11,7 +11,7 @@ const selected = (state = {}, action) => {
     case 'UNSET_SELECTED_EVENT':             // while "sets" return a totally new state
       return {};                            // this was done to avoid overlap with other UPDATE dispatches that make DB calls rather than reducer alterations
     default:
-      return state;  
+      return state;
   }
 };
 
