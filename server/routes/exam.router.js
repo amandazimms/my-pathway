@@ -3,7 +3,10 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
+
 router.get('/', (req, res) => {
+//get all exams where student id is {req.params.student_id}
+// (select *)
 
 });
 
