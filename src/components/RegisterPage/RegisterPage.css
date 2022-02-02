@@ -1,55 +1,68 @@
-.kyros-logo{
+.kyros-logo {
     width: 200px;
     max-width: 100%;
     margin: 84px 0px 0px;
-}
+  }
 
-.registerPageContainer{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .login-background {
+justify-content: center;
+min-height: 30vh;
+padding: 50px;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
 }
-
-.register-h1{
+  
+  
+  .login-h1 {
     text-transform: none;
-}
-
-.register-p{
+    font-size: 42px;
+  }
+  
+  .login-p {
     text-align: center;
     width: 80%;
     font-size: 19px;
     font-weight: bold;
     line-height: 24px;
     margin-bottom: 39px;
-}
-
-.registerInput{
-    width:100% ;
+  }
+  
+  .loginInput {
+    width: 100%;
     height: 48px;
     background-color: white !important;
-    border: 1px solid #7Fc1c5 !important;
+    border: 1px solid #7FC1C5 !important;
     font-size: 18px;
-    font-family: HelveticaNeue;
+    font-family: Helvetica-Light; 
     padding-left: 12px;
-    margin:0px, 10px;
-}
-
-.registerForm{
+    margin: 0px, 10px;
+  }
+  
+  .loginForm {
     width: 76%;
     margin-bottom: 32px;
-}
-
-.registerButton{
+    justify-content: center;
+    min-height: 90vh;
+  }
+  
+  .loginButton {
     text-transform: uppercase;
     font-family: HelveticaNeue;
     font-weight: bold;
-    margin-top: 15px
-}
-
-
-.registerInputContainer{
+    margin-top: 15px;
+  }
+  
+  .loginButton {
+    text-transform: uppercase;
+    font-family: Helvetica-Light;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  
+  .loginContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+  }

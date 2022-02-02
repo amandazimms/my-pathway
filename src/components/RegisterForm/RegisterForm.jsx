@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 
 
 
+
 function RegisterForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -69,118 +70,95 @@ function RegisterForm() {
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="first_name">
-          First Name:
+      <div className="loginContainer">
           <input
+            placeholder="First Name"
+            className="loginInput"
             type="text"
             name="first_name"
             value={firstName}
             required
             onChange={(event) => setFirstName(event.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="last_name">
-          Last Name:
           <input
+            placeholder="Last Name"
+            className="loginInput"
             type="text"
             name="last_name"
             value={lastName}
             required
             onChange={(event) => setLastName(event.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="username">
-          Email:
+        
           <input
+            placeholder="Email address"
+            className="loginInput"
             type="text"
             name="username"
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
+       <input
+            placeholder="Password"
+            className="loginInput"
             type="password"
             name="password"
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
           />
-        </label>
-        <div>
-          <label htmlFor="address_one">
-            Address Line 1:
-            <input
+          <input
+              placeholder="Address Line 1"
+              className="loginInput"
               type="text"
               name="address_one"
               value={addressOne}
               required
               onChange={(event) => setAddressOne(event.target.value)}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="address_two">
-            Address Line 2:
-            <input
+          <input
+              placeholder="Address Line 2"
+              className="loginInput"
               type="text"
               name="address_two"
               value={addressTwo}
               onChange={(event) => setAddressTwo(event.target.value)}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="city">
-            City:
-            <input
+          
+         <input
+              placeholder="City"
+              className="loginInput"
               type="text"
               name="city"
               value={city}
               required
               onChange={(event) => setCity(event.target.value)}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="state">
-            State:
             <input
+              placeholder="State"
+              className="loginInput"
               type="text"
               name="state"
               value={state}
               required
               onChange={(event) => setState(event.target.value)}
             />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="zip_code">
-            Zip Code:
             <input
+              placeholder="Zip Code"
+              className="loginInput" 
               type="text"
               name="zip_code"
               value={zipCode}
               required
               onChange={(event) => setZipCode(event.target.value)}
             />
-          </label>
-        </div>
+      
           {takePicture?
             <>
               <Button variant="contained" onClick={() => setTakePicture(false)}>Cancel</Button>
