@@ -1,0 +1,15 @@
+.questionCard{
+    /* margin: 10px; */
+    transition: .2s;
+    border: .5px solid black; 
+    color: #1E2A49; 
+    font-family: Neue-Helvetica;
+    text-transform:capitalize;
+    margin: 10px 0px;
+}
+
+.questionCard:hover{
+    border: 5px solid #7FC1C5;
+    transition: .2s;
+    cursor: pointer;
+}

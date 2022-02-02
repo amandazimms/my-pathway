@@ -5,6 +5,7 @@ import TestItem from '../TestItem/TestItem';
 import QuestionItem from '../QuestionItem/QuestionItem';
 import { Button } from '@material-ui/core';
 import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
+import Container from "@mui/material/Container"; 
 
 
 function QuestionList(props) {
@@ -53,15 +54,21 @@ function QuestionList(props) {
 
   return (
     <div>
+
       <h2>Here's all the questions</h2>
       {/* <p>all questions stringified: {JSON.stringify(questions)}</p> */}
 
       <Button onClick={addQuestionAboutButterflies}>For testing only ! add question about butterflies</Button>
       <Button onClick={addQuestion}>Add Question</Button>
-
+   
+      <Container>
+        <h2>Questions</h2>
+        <section className="movies">
       {questions.map(question => (
         <QuestionItem question={question} key={question.id}/> 
       ))}
+      </section>
+      </Container>
 
         { showModal?
           <NewQuestionModal onClickClose={()=>closeModal()}/> 

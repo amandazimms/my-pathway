@@ -29,7 +29,7 @@ function TestPage(props) {
 
   return (
     <Box sx={{width: '100%', typography: 'body1'}}> 
-    <TabContext value={value} centered>
+    <TabContext value={value} centered textColor="secondary" indicatorColor="secondary">
       <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
         <TabList onChange={handleChange} centered>
           <Tab label="Test Settings" value="1" /> 
