@@ -79,26 +79,6 @@ function EventPage(props) {
   }
 
 
-
-  const addEvent = () => {
-    console.log('add');
-    //this function should run when user(proctor) has FINISHED entering all of the details for an event, 
-    //and then clicks "Add this event"   
-    let newEvent = {
-      //@Jackie todo or @Amanda todo - change these values to real data from user Input
-      event_name: "eventy mcEventerson",
-      test_id: 7,
-      proctor_id: 1,
-      event_date: Date.now(),
-      event_time: Date.now(),
-      event_end_time: Date.now(),
-
-      last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
-      created_by: user.id, //this is the proctor's id, should be already there in the store 
-    }
-    dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } });
-  };
-
   const updateEvent = () => {
     console.log('update');
 
@@ -106,13 +86,11 @@ function EventPage(props) {
     //and then clicks "update event" 
     let updatedEvent = {
       //@Jackie todo or @Amanda todo - change these values to real data from user Input
-      event_name: "eventy mcEventerson",
-      test_id: 1,
-      proctor_id: 1,
-      event_date: Date.now(),
-      event_time: Date.now(),
-      event_end_time: Date.now(),
-
+      event_name: eventName,
+      proctor_id: eventProctor,
+      test_id: eventTest,
+      event_date_start: eventDateStart,
+      event_date_end: eventDateEnd,
       last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
       id: event.id, //this is also in store already
     }
@@ -165,9 +143,8 @@ function EventPage(props) {
   return (
     <div>
       <br />
-      <button onClick={cheeseburgerEventTest}>For Testing only :) Click to change existing event's title to cheeseburger (Update Test)</button>
+      <Button variant="contained" color="primary" onClick={cheeseburgerEventTest}>For Testing only :) Click to change existing event's title to cheeseburger (Update Test)</Button>
       <br />
-      <p>Props:{JSON.stringify(props)}</p>
       {props.new ?
         <>
           <h2>Create New Event</h2>
@@ -261,26 +238,10 @@ function EventPage(props) {
             who will proctor, and what the test will be.
 
             What is displayed below depends on whether the exam is upcoming, in progress, or completed.
-            <br/>
-            <br />
-            Start Date: {JSON.stringify(new Date(store.event.selected.event_date_start).valueOf())} - {JSON.stringify(new Date(store.event.selected.event_date_start))}
-            <br/>
-            <br />
-            End Date: {JSON.stringify(new Date(store.event.selected.event_date_end).valueOf())} - - {JSON.stringify(new Date(store.event.selected.event_date_end))}
-            <br/>
-            <br />
-            Current Date: {JSON.stringify(new Date().valueOf())} - {JSON.stringify(new Date())}
-            <br />
-            <br />
-            Date.Now: {JSON.stringify(Date.now())}
-          </p>
-          {new Date(store.event.selected.event_date_start).valueOf() < new Date().valueOf()?
-            <p>true</p>:
-            <p>false</p>
-          }      
+          </p>     
 
           {
-            new Date(store.event.selected.event_date_start).valueOf() > new Date().valueOf()
+            event.status==="UPCOMING"
               ?
               <>
                 <h3>This event is UPCOMING!</h3>
@@ -293,43 +254,39 @@ function EventPage(props) {
                 {isNew
                   ? <button onClick={addEvent}>Add This Event</button>
                   : <>
-                    <button onClick={updateEvent}>Update Event</button>
-                    <button onClick={deleteEvent}>Delete Event</button>
+                    <Button onClick={updateEvent}>Update Event</Button>
+                    <Button onClick={deleteEvent}>Delete Event</Button>
                   </>
                 }
               </>
-              : <></>
-          }
-
-          {
-            new Date(store.event.selected.event_date_start).valueOf() < new Date().valueOf() ?
-              <>
-                {new Date().valueOf() < new Date(store.event.selected.event_date_end).valueOf() ?
-                  <>
-                    <h3>This event is IN PROGRESS!</h3>
-                    <p>Here will be a list of students taking the exam. Examples:</p>
-                    <br></br>
-                    <p>Student: Jackie Spiess  |  ID Status: Verified                   |  Assistance: [    ]  |  [Enter Exam Button]</p>
-                    <p>Student: Amanda Zimms   |  ID Status: [Click to Verify Button]   |  Assistance: [Icon]  |  [Enter Exam Button]</p>
-                  </>
-                  : <></>
-                }
-              </>
-              :
+              : 
               <></>
           }
 
           {
-            new Date(store.event.selected.event_date_end).valueOf() < new Date().valueOf()
-              ?
+            event.status === "IN PROGRESS" ?
               <>
-                <h3>This event is COMPLETED</h3>
+                <h3>This event is IN PROGRESS!</h3>
+                <p>Here will be a list of students taking the exam. Examples:</p>
+                <br></br>
+                <p>Student: Jackie Spiess  |  ID Status: Verified                   |  Assistance: [    ]  |  [Enter Exam Button]</p>
+                <p>Student: Amanda Zimms   |  ID Status: [Click to Verify Button]   |  Assistance: [Icon]  |  [Enter Exam Button]</p>
+              </>
+              : 
+              <></>
+          }
+
+          {
+              event.status==="COMPLETE"?
+              <>
+                <h3>This event is COMPLETE</h3>
                 <p>Here will be a list of student exam results. Examples:</p>
                 <br></br>
                 <p>Student: Nickolas C  |  ID #: 1234  |  Exam Started: 2:02pm |  [Details Button]</p>
                 <p>Student: Chris N     |  ID #: 5678  |  Exam Started: 2:04pm |  [Details Button]</p>
               </>
-              : <></>
+              : 
+              <></>
           }
         </>
       }

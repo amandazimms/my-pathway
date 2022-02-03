@@ -88,21 +88,22 @@ function* fetchAllEvents() {
     //I read that comparing date equality (=== / ==) is finnicky (not > / < / <=...), 
     //but the pseudocode below should avoid that.
     const events = response.data;   
-    const now = new Date();
-    
-    for (const event of events){
-      //if now >= (event_end_time with event_date)
-      //  event.status = "completed";
-      //else if now < (event_time with event_date)
-      //  event.status = "upcoming"
-      //else if (now < (event_end_time with event_date)) && now >= (event_time with event_date)
-      //  event.status = "inProgress"
-      //else console log error
+    const now = new Date().valueOf();
 
-      //when above is working, please delete this line, I only used it to test that the final event.status works in component:
-      event.status = "upcoming"
+
+    for (const event of events){
+      event.status = ''
+      if (now >= new Date(event.event_date_end).valueOf()){
+        event.status = 'COMPLETE'
+      }
+      else if (now < new Date(event.event_date_start).valueOf()){
+        event.status = 'UPCOMING'
+      }
+      else if (now > new Date(event.event_date_start).valueOf() && now < new Date(event.event_date_end).valueOf()){
+        console.log('made it here once');
+        event.status = 'IN PROGRESS'
+      }
     }
-    console.log('events:', events);
 
     yield put({ type: 'SET_ALL_EVENTS', payload: events });
   } catch (error) {
