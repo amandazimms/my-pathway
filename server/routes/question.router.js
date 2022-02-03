@@ -46,8 +46,8 @@ router.post('/', (req, res) => {
   console.log('question router, req.query:', req.query);
 
   const id = req.params.test_id 
-  const queryString = `INSERT INTO question (point_value, type, required, question, option_one, option_two, option_three, option_four, option_five, option_six, answer, status, parent_test_id, created_by) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)  RETURNING id, create_date, last_modified_date`;
-  const values = [ req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.status, req.body.parent_test_id, req.body.created_by];
+  const queryString = `INSERT INTO question (point_value, type, required, question, option_one, option_two, option_three, option_four, option_five, option_six, answer, active, parent_test_id, created_by) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)  RETURNING id, create_date, last_modified_date`;
+  const values = [ req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.active, req.body.parent_test_id, req.body.created_by];
    pool.query( queryString, values).then( (results)=>{
     res.send(results.rows[0]);
   }).catch( (err)=>{
@@ -72,12 +72,12 @@ router.put('/:id', (req, res)=> {
   //you don't need to do RETURNING
   //send a status 200 back
   const id = req.params.id
-  const queryString = `UPDATE question SET point_value = $1, type = $2, required = $3, question = $4, option_one = $5, option_two = $6, option_three = $7, option_four = $8, option_five = $9, option_six = $10, answer = $11, status = $12, last_modified_date = CURRENT_TIMESTAMP WHERE id = $13`;
-  const values = [ req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.status, id ];
+  const queryString = `UPDATE question SET point_value = $1, type = $2, required = $3, question = $4, option_one = $5, option_two = $6, option_three = $7, option_four = $8, option_five = $9, option_six = $10, answer = $11, active = $12, last_modified_date = CURRENT_TIMESTAMP WHERE id = $13`;
+  const values = [ req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.active, id ];
    pool.query( queryString, values ).then( (results)=>{
     res.sendStatus(200);
   }).catch( (err)=>{
-    console.log("error put test", err );
+    console.log("error put question", err );
     res.sendStatus( 500 );
   })
   
