@@ -212,8 +212,8 @@ function TestSettings(props) {
       ? <h2>Add Test</h2>
       : <h2>Edit Test</h2>
       }
-      <form className="addMovieForm">
-        <label htmlFor="movieTitle">
+      <form className="testSettingsForm">
+        <label htmlFor="title">
           {" "}
           Test Title: 
           { isNew 
@@ -223,7 +223,7 @@ function TestSettings(props) {
           }
         </label>
 
-        <label htmlFor="movieTitle">
+        <label htmlFor="points">
           {" "}
           Number of Points: 
           { isNew 
@@ -233,7 +233,7 @@ function TestSettings(props) {
           }
         </label>
 
-        <label htmlFor="movieTitle">
+        <label htmlFor="time">
           {" "}
           Time to complete quiz: 
           { isNew 
@@ -243,7 +243,7 @@ function TestSettings(props) {
           }
         </label>
 
-        <label htmlFor="movieTitle">
+        <label htmlFor="questions">
           {" "}
           Order of questions: 
           { isNew 
@@ -253,11 +253,11 @@ function TestSettings(props) {
           }
         </label>
 
-        <label htmlFor="movieTitle">
+        <label htmlFor="attempts">
           {" "}
           Number of attempts allowed: 
           { isNew 
-          ? <input id="movieTitle" onChage={(event)=> setNewTest({...newTest, test_attempt_limit: event.target.value})}/>
+          ? <input id="testAttempts" onChage={(event)=> setNewTest({...newTest, test_attempt_limit: event.target.value})}/>
           :<> {selectedTest.test_attempt_limit}
           </> 
           }
@@ -270,7 +270,7 @@ function TestSettings(props) {
         
           // else (if we arrived at this page via "edit (existing) test")
         : <>
-            <Button variant="contained" onClick={updateTest}>Update Test</Button>
+            <Button variant="contained" color="secondary" onClick={updateTest}>Update Test</Button>
 
             {/* @Jackie or @Amanda todo - delete button may not make the most sense here */}
             <Button variant="contained" onClick={deleteTest}>Delete Test</Button>

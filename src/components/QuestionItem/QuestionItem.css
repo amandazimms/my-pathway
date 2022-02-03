@@ -13,3 +13,7 @@
     transition: .2s;
     cursor: pointer;
 }
+
+.buttonGroup{
+    min-width: 500px !important;
+}

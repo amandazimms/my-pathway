@@ -57,7 +57,6 @@ dispatch({ type: 'ADD_QUESTION',
 
 
 const saveButton=()=>{
-  //dispatch add the question 
   props.onClickClose()
 }
 
