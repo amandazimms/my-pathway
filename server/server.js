@@ -13,7 +13,7 @@ const testRouter = require('./routes/test.router');
 const questionRouter = require('./routes/question.router');
 const messageRouter = require('./routes/message.router');
 const eventRouter = require('./routes/event.router'); 
-const examRouter = require('./routes/event.router');
+const examRouter = require('./routes/exam.router');
 const allUsersRouter = require('./routes/allusers.router');
 const imageRouter = require('./routes/image.router')
 
