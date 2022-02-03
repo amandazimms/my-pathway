@@ -109,12 +109,11 @@ CREATE TABLE event (
     event_name character varying,
     test_id integer REFERENCES test(id) ON DELETE CASCADE ON UPDATE CASCADE,
     proctor_id integer REFERENCES "user"(id) ON DELETE SET NULL ON UPDATE CASCADE,
-    event_date date,
-    event_time time without time zone,
-    event_end_time time without time zone,
     url character varying,
     create_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     created_by integer REFERENCES "user"(id) ON DELETE SET NULL ON UPDATE CASCADE,
     last_modified_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    last_modified_by integer REFERENCES "user"(id) ON DELETE SET NULL ON UPDATE CASCADE
+    last_modified_by integer REFERENCES "user"(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    event_date_start timestamp without time zone,
+    event_date_end timestamp without time zone
 );
