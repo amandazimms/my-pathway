@@ -20,6 +20,7 @@ function TestList(props) {
   }, []);
   
 
+
   return (
     <div>
       {/* <h2>Here's all the tests</h2> */}
@@ -31,9 +32,11 @@ function TestList(props) {
         <Container>
           <h2>
             <div className="newButtonContainer">
+              <Link to="/test-new">
               <button className="addButton">
                 + Add New Test 
               </button>
+              </Link>
             </div>
           </h2>
         </Container>

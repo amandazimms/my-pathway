@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import Container from '@mui/material/Container'; 
 import Button from '@mui/material/Button'; 
 import '../TestSettings/TestSettings.css'; 
+import {Link} from 'react-router-dom'; 
 
 function TestSettings(props) {
   //This is the page a proctor is brought to upon clicking "add test" or "edit test";
@@ -12,7 +13,7 @@ function TestSettings(props) {
   //use isNew to conditionally render things! 
 
   //are we pushing to master?
-  const isNew = props.new; 
+  const isNew = props.isNew; 
 
   const store = useSelector(store => store);
   const user = useSelector(store => store.user);
@@ -198,7 +199,10 @@ function TestSettings(props) {
 
   return (
     <div> 
-    
+    { isNew 
+     ? <p>I'm new!</p>
+     : <p>I'm not new :/</p>
+    }
       {/* <button onClick={tacoTitleTest}>For Testing only :) Click to change existing test's title to taco</button>
       <button onClick={marigoldTestTest}>4 Testing only :P Click to add a new test with title marigold</button> */}
      
@@ -273,7 +277,9 @@ function TestSettings(props) {
             <Button variant="contained" color="secondary" onClick={updateTest}>Update Test</Button>
 
             {/* @Jackie or @Amanda todo - delete button may not make the most sense here */}
+            <Link to="/tests-all">
             <Button variant="contained" onClick={deleteTest}>Delete Test</Button>
+            </Link>
           </>
       }
       </form>

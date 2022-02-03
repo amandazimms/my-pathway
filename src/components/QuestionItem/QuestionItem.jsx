@@ -93,9 +93,9 @@ function QuestionItem(props) {
         {/* when the edit button is clicked, this will move user to the /test page, and set the selectedTest to this one */}
        
        <ButtonGroup className="buttonGroup" vertical>
-       <IconButton aria-label="delete" color="secondary" >
+         
           <DeleteIcon onClick={deleteQuestion} /> 
-         </IconButton> 
+     
          
          <IconButton aria-label="edit" color="primary">
            <MoreHorizIcon /> 

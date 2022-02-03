@@ -29,6 +29,10 @@ function TestPage(props) {
 
   return (
     <Box sx={{width: '100%', typography: 'body1'}}> 
+    { isNew 
+    ? <p>I'm new!</p>
+    : <p>I'm not new :/</p>
+    }
     <TabContext value={value} centered textColor="secondary" indicatorColor="secondary">
       <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
         <TabList onChange={handleChange} centered>
@@ -37,7 +41,7 @@ function TestPage(props) {
         </TabList>
       </Box>
       <TabPanel value="1">
-        <TestSettings /> 
+        <TestSettings isNew={isNew} /> 
       </TabPanel>
       <TabPanel value="2">
         < QuestionList /> 
