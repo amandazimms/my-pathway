@@ -14,12 +14,6 @@ flex-direction: column;
 align-items: center;
 }
   
-  .logInPageContainer {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
   
   .login-h1 {
     text-transform: none;

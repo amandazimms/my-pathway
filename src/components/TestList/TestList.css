@@ -1,0 +1,57 @@
+.testListContainer {
+    padding-bottom: 87px;
+    padding-top: 70px;
+    position: absolute;
+    top: 0px;
+    font-family: HelveticaNeue;
+  }
+  
+  
+  
+  .addNewTest {
+    background-color: #cbd0d6;
+    padding: 20px 0px;
+    margin-bottom: 30px;
+    font-family: HelveticaNeue;
+  }
+  
+  .addButton {
+    background-color: #898B8D;
+    border-color: #898B8D;
+    border: #898B8D;
+    width: 110px;
+    margin-bottom: 16px;
+    color: white;
+    border-radius: 23px;
+    height: 40px;
+    font-family: Helvetica-Neue-Light;
+  }
+  
+  .addButton:focus {
+    background-color: #28590c;
+    border-color: #28590c;
+    border: #28590c;
+  }
+  
+  .newButtonContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .testCardContainer {
+    margin: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .heading {
+      font-family: Helvetica-Neue-Light; 
+      padding: 10px; 
+      margin-bottom: 10px; 
+      
+  }
+
+
+  

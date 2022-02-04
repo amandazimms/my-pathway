@@ -40,3 +40,8 @@
   .navLink:hover {
     background-color: #7FC1CF;
   }
+
+  .logo{
+    width: 80px;
+    max-width: 100%;
+  }

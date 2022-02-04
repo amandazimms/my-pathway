@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
+import KyrosLogo3 from "../../images/KyrosLogo3.png"
 
 
 function Nav() {
@@ -11,7 +12,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Kyros</h2>
+        <img src={KyrosLogo3} alt="logo" className="logo" /> 
       </Link>
       <div>
         {/* If no user is logged in, show these links */}
