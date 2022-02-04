@@ -5,6 +5,13 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
 import EditEvent from '../EditEvent/EditEvent'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 function EventPage(props) {
   //This is the page that displays "one event".
@@ -17,7 +24,6 @@ function EventPage(props) {
   //  If proctor just clicked "add event" from the EventList page, ^ it will also look like that - with isNew=true
 
   //If it's a completed evnet, it will look like wireframe "Proctor view of Individual event results" from figma
-  const isNew = props.new;
   const store = useSelector(store => store);
   const user = useSelector(store => store.user);
   const event = useSelector(store => store.event.selected);
@@ -29,6 +35,7 @@ function EventPage(props) {
   const [eventDateEnd, setEventDateEnd] = useState('')
   const [eventDateStart, setEventDateStart] = useState('')
   const [editEvent, setEditEvent] = useState(false)
+  const [isNew, setIsNew] = useState(props.new)
 
   let eventStartTime = new Date(store.event.selected.event_date_start).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -82,51 +89,12 @@ function EventPage(props) {
   }
 
 
-  const updateEvent = () => {
-    console.log('In updateEvent');
-
-    //this function should run when user(proctor) has FINISHED entering all of the details for an event, 
-    //and then clicks "update event" 
-    let updatedEvent = {
-      //@Jackie todo or @Amanda todo - change these values to real data from user Input
-      /// Sill needs to be done. 
-
-      // event_name: eventName,
-      // proctor_id: eventProctor,
-      // test_id: eventTest,
-      // event_date_start: eventDateStart,
-      // event_date_end: eventDateEnd,
-      // last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
-      // id: event.id, //this is also in store already
-    }
-    // dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } });
-  }
-
   const deleteEvent = () => {
     console.log('delete');
 
     //@Jackie or @Amanda todo: as user first - "are you sure?"
     dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } });
   }
-
-  // const cheeseburgerEventTest = () => {
-  //   console.log('in update test');
-
-  //   let updatedEvent = {
-  //     event_name: "Cheeseburger Event",
-  //     proctor_id: 1, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
-  //     test_id: 1,
-  //     event_date: "1999-02-02",
-  //     //@Chris todo - uncomment below 2 lines and add value:
-  //     // event_time: "19:00",
-  //     // event_end_time: "21:00",
-  //     url: "www.cheeseburger.com",
-  //     last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
-  //     id: event.id,//this is also in store already
-  //   }
-  //   dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } });
-  // }
-
 
 
   const createEvent = () => {
@@ -136,21 +104,16 @@ function EventPage(props) {
       test_id: eventTest,
       event_date_start: eventDateStart,
       event_date_end: eventDateEnd,
-      //@Chris todo - uncomment the next 2 lines and add values:
-      // event_time: "19:00",
-      // event_end_time: "21:00",
-      url: "www.daffodil.com",
+      url: null,
       created_by: user.id, //this is the proctor's id, should be already there in the store 
     }
     dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } });
+    setIsNew(false)
   }
 
   return (
     <div>
-      {/* <br />
-      <Button variant="contained" color="primary" onClick={cheeseburgerEventTest}>For Testing only :) Click to change existing event's title to cheeseburger (Update Test)</Button>
-      <br /> */}
-      {props.new ?
+      {isNew ?
         <>
           <h2>Create New Event</h2>
 
@@ -232,10 +195,10 @@ function EventPage(props) {
           <h3>This event is {event.status}!</h3>
           {editEvent ?
             <>
-            <EditEvent complete={()=>{setEditEvent(false)}} /> 
-            <br />
-            <Button variant="contained" color="primary" onClick={() => { setEditEvent(false)}}>Cancel Changes</Button>
-            </>:
+              <EditEvent complete={() => { setEditEvent(false) }} />
+              <br />
+              <Button variant="contained" color="primary" onClick={() => { setEditEvent(false) }}>Cancel Changes</Button>
+            </> :
             <>
               <p><b>Event Title:</b> {store.event.selected.event_name}</p>
               <p><b>Start Date and Time:</b> {eventStartTime}</p>
@@ -256,7 +219,74 @@ function EventPage(props) {
               }
             </>
           }
-          <p>Register Students: [Decide how to display this - list of all students?]</p>
+          <p>Registered Students: [Decide how to display this - list of all students?]</p>
+          <TableContainer sx={{ minWidth: 500, maxWidth: 1000 }} component={Paper}>
+            <Table sx={{ minWidth: 500, maxWidth: 1000 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  {event.status === 'COMPLETE' || event.status === 'UPCOMING' || event.status === 'IN PROGRESS'?
+                  <>
+                  <TableCell>STUDENT</TableCell>
+                  <TableCell align="left">EMAIL/USERNAME</TableCell>
+                  </>
+                  :
+                  <></>
+                  }
+                  {event.status === 'COMPLETE' || event.status === 'IN PROGRESS'?
+                  <>
+                  <TableCell align="left">ID VERIFIED</TableCell>
+                  <TableCell align="left">ASSISTANCE</TableCell>
+                  <TableCell align="center">EXAM START</TableCell>
+                  <TableCell align="center">EXAM END</TableCell>
+                  <TableCell align="center">NUMBER OF INCIDENTS</TableCell>
+                  </>
+                  :
+                  <></>
+                  }
+
+                  {event.status === 'COMPLETE' || event.status === 'UPCOMING' || event.status === 'IN PROGRESS'?
+                  <>
+                  <TableCell align="center">ACTION</TableCell>
+                  </>
+                  :
+                  <></>
+                  }
+
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {/* {events.map((event) => ( */}
+                  {/* <TableRow
+                    key={event.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {event.event_name}
+                    </TableCell>
+                    <TableCell align="left">{event.status}</TableCell>
+                    <TableCell align="left">{new Date(event.event_date_start).toLocaleDateString([], { month: 'long', year: 'numeric', day: 'numeric' })}</TableCell>
+                    <TableCell align="left">{new Date(event.event_date_start).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</TableCell>
+                    <TableCell align="left">{new Date(event.event_date_end).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</TableCell>
+                    <TableCell align="center">
+                      {event.status === 'UPCOMING' ?
+                        <Button variant="contained" onClick={() => setSelectedEvent(event)} >View Event</Button> :
+                        <></>
+                      }
+                      {event.status === 'IN PROGRESS' ?
+                        <Button variant="contained" onClick={() => setSelectedEvent(event)}>Enter Event</Button> :
+                        <></>
+                      }
+                      {event.status === 'COMPLETE' ?
+                        <Button variant="contained" onClick={() => setSelectedEvent(event)}>View Results</Button> :
+                        <></>
+                      }
+                    </TableCell>
+                  </TableRow> */}
+                {/* ))} */}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
 
           <h3>Upcoming Example</h3>
           <p>Student: Nickolas C  |  ID #: 1234  |  [Edit Button] |  [Remove Button]</p>
