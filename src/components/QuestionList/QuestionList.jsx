@@ -5,7 +5,9 @@ import TestItem from '../TestItem/TestItem';
 import QuestionItem from '../QuestionItem/QuestionItem';
 import { Button } from '@material-ui/core';
 import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Container from "@mui/material/Container"; 
+import IconButton from '@mui/material/IconButton';
 
 
 function QuestionList(props) {
@@ -55,15 +57,19 @@ function QuestionList(props) {
   return (
     <div>
 
-      <h2>Here's all the questions</h2>
+      {/* <h2>Here's all the questions</h2> */}
       {/* <p>all questions stringified: {JSON.stringify(questions)}</p> */}
 
-      <Button onClick={addQuestionAboutButterflies}>For testing only ! add question about butterflies</Button>
-      <Button onClick={addQuestion}>Add Question</Button>
-   
+      {/* <Button onClick={addQuestionAboutButterflies}>For testing only ! add question about butterflies</Button> */}
+    
       <Container>
-        <h2>Questions</h2>
-        <section className="movies">
+      
+      <IconButton helvetica-label="addQuestion" size="medium" onClick={addQuestion} className="addQuestion">
+        <AddCircleOutlineIcon fontSize="large" color="primary"></AddCircleOutlineIcon>
+        &nbsp; Add Question
+      </IconButton>
+      <br></br> 
+        <section className="questions">
       {questions.map(question => (
         <QuestionItem question={question} key={question.id}/> 
       ))}
