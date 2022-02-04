@@ -28,9 +28,9 @@
   }
   
   .addButton:focus {
-    background-color: #28590c;
-    border-color: #28590c;
-    border: #28590c;
+    background-color: #7FC1C5;
+    border-color: #7FC1C5;
+    border: #7FC1C5;
   }
   
   .newButtonContainer {
