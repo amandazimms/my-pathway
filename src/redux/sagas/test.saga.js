@@ -74,6 +74,7 @@ function* addQuestion(action){
   //point_value, type, required, question, option_one (thru six), answer, status, 
   //parent_test_id, created_by
   let question = ap.question;
+  console.log('ap:', ap);
   try {
     const postedQuestion = yield axios.post('/api/question', ap.question );
     question = {...question, id: postedQuestion.data.id, create_date: postedQuestion.data.create_date, last_modified_date: postedQuestion.data.last_modified_date }

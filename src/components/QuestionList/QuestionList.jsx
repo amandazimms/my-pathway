@@ -47,7 +47,7 @@ function QuestionList(props) {
       option_three: "they fly",
       option_four: "flutterbys was already taken",
       answer: "flutterbys was already taken",
-      status: "i'm not sure what to put here",
+      active: true
     }
     dispatch({ type: 'ADD_QUESTION', payload: {question: testerQuestion} })
   } 

@@ -38,7 +38,7 @@ function TestSettings(props) {
   const addTest = ()=> {
     dispatch({
       type: "ADD_TEST", 
-      payload: newTest
+      payload: {test: newTest}
     }); 
   }
   
@@ -221,7 +221,7 @@ function TestSettings(props) {
           {" "}
           Test Title: 
           { isNew 
-          ? <input id="title" onChage={(event)=> setNewTest({...newTest, title: event.target.value})}/>
+          ? <input id="title" onChange={(event)=> setNewTest({...newTest, title: event.target.value})}/>
           :<> {selectedTest.title}
           </> 
           }
@@ -231,7 +231,7 @@ function TestSettings(props) {
           {" "}
           Number of Points: 
           { isNew 
-          ? <input id="pointsPossible" onChage={(event)=> setNewTest({...newTest, points_possible: event.target.value})}/>
+          ? <input id="pointsPossible" onChange={(event)=> setNewTest({...newTest, points_possible: event.target.value})}/>
           :<> {selectedTest.points_possible}
           </> 
           }
@@ -241,7 +241,7 @@ function TestSettings(props) {
           {" "}
           Time to complete quiz: 
           { isNew 
-          ? <input id="timeToComplete" onChage={(event)=> setNewTest({...newTest, test_time_limit: event.target.value})}/>
+          ? <input id="timeToComplete" onChange={(event)=> setNewTest({...newTest, test_time_limit: event.target.value})}/>
           :<> {selectedTest.test_time_limit}
           </> 
           }
@@ -251,7 +251,7 @@ function TestSettings(props) {
           {" "}
           Order of questions: 
           { isNew 
-          ? <input id="questionShuffle" onChage={(event)=> setNewTest({...newTest, question_shuffle: event.target.value})}/>
+          ? <input id="questionShuffle" onChange={(event)=> setNewTest({...newTest, question_shuffle: event.target.value})}/>
           :<> {selectedTest.question_shuffle}
           </> 
           }
@@ -261,7 +261,7 @@ function TestSettings(props) {
           {" "}
           Number of attempts allowed: 
           { isNew 
-          ? <input id="testAttempts" onChage={(event)=> setNewTest({...newTest, test_attempt_limit: event.target.value})}/>
+          ? <input id="testAttempts" onChange={(event)=> setNewTest({...newTest, test_attempt_limit: event.target.value})}/>
           :<> {selectedTest.test_attempt_limit}
           </> 
           }
