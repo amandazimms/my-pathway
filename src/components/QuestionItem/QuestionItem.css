@@ -8,11 +8,11 @@
     margin: 10px 0px;
 }
 
-.questionCard:hover{
+/* .questionCard:hover{
     border: 5px solid #7FC1C5;
     transition: .2s;
     cursor: pointer;
-}
+} */
 
 .buttonGroup{
     min-width: 500px !important;
@@ -20,5 +20,9 @@
 
 .addQuestion {
     font-family: Helvetica-Neue-Light; 
-    color: #1E2A49
+    color: #28324d
+}
+
+.questionIcon:hover {
+    color: #7FC1C5;
 }

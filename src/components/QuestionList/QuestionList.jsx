@@ -62,10 +62,10 @@ function QuestionList(props) {
 
       {/* <Button onClick={addQuestionAboutButterflies}>For testing only ! add question about butterflies</Button> */}
     
-      <Container>
+      <Container className="testPageContainer">
       
-      <IconButton helvetica-label="addQuestion" size="medium" onClick={addQuestion} className="addQuestion">
-        <AddCircleOutlineIcon fontSize="large" color="primary"></AddCircleOutlineIcon>
+      <IconButton helvetica-label="addQuestion" color="primary" size="medium" onClick={addQuestion} className="addQuestion">
+        <AddCircleOutlineIcon fontSize="large"></AddCircleOutlineIcon>
         &nbsp; Add Question
       </IconButton>
       <br></br> 

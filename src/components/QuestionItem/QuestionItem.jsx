@@ -6,18 +6,17 @@ import '../QuestionItem/QuestionItem.css'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Switch from '@mui/material/Switch';
-import { ButtonGroup } from '@mui/material';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-ui/core"; 
 import Box from '@mui/material/Box';
+
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 var cardStyle = {
   display: 'block',
@@ -127,12 +126,18 @@ function QuestionItem(props) {
         
         <CardActions disableSpacing> 
       
-        <DeleteIcon onClick={deleteQuestion} /> 
-
+        <IconButton aria-label="edit" color="primary" onClick={deleteQuestion}>
+        <DeleteIcon className="questionIcon" /> 
+        </IconButton>
 
         <IconButton aria-label="edit" color="primary">
-           <MoreHorizIcon /> 
+           <Switch {...label} defaultChecked className="questionIcon"/> 
          </IconButton>
+
+        <IconButton aria-label="edit" color="primary">
+           <MoreHorizIcon className="questionIcon"/> 
+         </IconButton>
+
         </CardActions>
   
         
