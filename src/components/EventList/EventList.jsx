@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import EventItem from '../EventItem/EventItem';
 import { Button } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 
 function EventList(props) {
@@ -20,6 +27,14 @@ function EventList(props) {
     dispatch({ type: 'FETCH_ALL_EVENTS' }); 
   }, []);
 
+  let history = useHistory()
+
+  const setSelectedEvent = (event) => {
+    console.log('clicked edit event');
+    dispatch({ type: 'SET_SELECTED_EVENT', payload: event });
+    history.push('/event')
+  }
+
   return (
     <div>
         <Link to="/event-new">
@@ -29,11 +44,50 @@ function EventList(props) {
       <br />
       <h2>Here are all the events!</h2>
 
-      {/* <p>all events stringified: {JSON.stringify(events)}</p> */}
-      {events.map(event => (
-        <EventItem event={event} key={event.id}/>
-      ))}
-
+      <TableContainer sx={{ minWidth: 500, maxWidth: 1000 }} component={Paper}>
+      <Table sx={{ minWidth: 500, maxWidth: 1000 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>EVENT NAME</TableCell>
+            <TableCell align="left">STATUS</TableCell>
+            <TableCell align="left">DATE</TableCell>
+            <TableCell align="left">START TIME</TableCell>
+            <TableCell align="center">END TIME</TableCell>
+            <TableCell align="center">ACTION</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {events.map((event) => (
+            <TableRow
+              key={event.id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {event.event_name}
+              </TableCell>
+              <TableCell align="left">{event.status}</TableCell>
+              <TableCell align="left">{new Date(event.event_date_start).toLocaleDateString([], {month: 'long', year: 'numeric', day: 'numeric'})}</TableCell>
+              <TableCell align="left">{new Date(event.event_date_start).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})}</TableCell>
+              <TableCell align="left">{new Date(event.event_date_end).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})}</TableCell>
+              <TableCell align="center">
+                {event.status === 'UPCOMING'?
+                <Button variant="contained" onClick={() => setSelectedEvent(event)} >View Event</Button>:
+                <></>
+                }
+                {event.status === 'IN PROGRESS'?
+                <Button variant="contained" onClick={() => setSelectedEvent(event)}>Enter Event</Button>:
+                <></>
+                }
+                {event.status === 'COMPLETE'?
+                <Button variant="contained" onClick={() => setSelectedEvent(event)}>View Results</Button>:
+                <></>
+                }
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
     
 
     </div>
