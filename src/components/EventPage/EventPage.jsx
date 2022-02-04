@@ -232,7 +232,7 @@ function EventPage(props) {
           <h3>This event is {event.status}!</h3>
           {editEvent ?
             <>
-            <EditEvent /> 
+            <EditEvent complete={()=>{setEditEvent(false)}} /> 
             <br />
             <Button variant="contained" color="primary" onClick={() => { setEditEvent(false)}}>Cancel Changes</Button>
             </>:

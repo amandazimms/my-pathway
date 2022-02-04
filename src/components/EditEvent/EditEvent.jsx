@@ -80,6 +80,7 @@ function EventPage(props) {
       id: event.id, //this is also in store already
     }
     dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } });
+    props.complete()
   }
 
 
