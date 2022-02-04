@@ -16,6 +16,13 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import TodayIcon from '@mui/icons-material/Today';
 import IconButton from '@mui/material/IconButton';
 
+//Card display settings 
+// var cardStyle = {
+//   display: 'block',
+//   width: '60vw',
+//   transitionDuration: '0.3s',
+//   height: '40vw', 
+// }
 
 function TestItem(props) {
 
@@ -38,7 +45,8 @@ function TestItem(props) {
 
 
   return (
-    <Card sx={{maxWidth: 345}} className="testCard" onClick={()=> setSelectedTest(test)}>
+    <div>
+    <Card style={{maxWidth: 345}} className="testCard" onClick={()=> setSelectedTest(test)}>
       <CardMedia
         component="img"
         className="cardImg"
@@ -62,14 +70,15 @@ function TestItem(props) {
         </CardActions>
     </Card>
     
-    // <div>
-    //   <h2>I'm a test</h2>
-    //   <p>stringified test:{JSON.stringify(test)}</p>
+     {/* <div>
+      <h2>I'm a test</h2>
+       <p>stringified test:{JSON.stringify(test)}</p> */}
 
-    //   <Link to="/test" onClick={() => setSelectedTest(test)}>
-    //     {/* when the edit button is clicked, this will move user to the /test page, and set the selectedTest to this one */}
-    //     <button>Edit this test</button>
-    //   </Link>
+       {/* <Link to="/test" onClick={() => setSelectedTest(test)}>
+         {/* when the edit button is clicked, this will move user to the /test page, and set the selectedTest to this one */}
+        {/* <button>Edit this test</button>
+      </Link> */} 
+     </div>
     // </div>
     
   );

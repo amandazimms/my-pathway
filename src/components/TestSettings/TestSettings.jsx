@@ -223,14 +223,14 @@ function TestSettings(props) {
       ? <h2 className="heading">Add Test</h2>
       : <h2 className="heading">Edit Test</h2>
       } */}
+
       <form className="testSettingsForm">
         <label htmlFor="title">
           {" "}
-       
-          {/* Test Title:  */}
+          Test Title: 
           { isNew 
           ? <input id="testTitle" className="loginInput" onChange={(event)=> setNewTest({...newTest, title: event.target.value})}/>
-           
+            
           :<> <div className="container">
               <div className="image">
               <img src={TestIcon} alt="TestIcon" className="TestIcon" />

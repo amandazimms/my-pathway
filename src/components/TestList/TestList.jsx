@@ -5,6 +5,8 @@ import TestItem from '../TestItem/TestItem';
 import { Button } from '@material-ui/core';
 import Container from '@mui/material/Container';
 import '../TestList/TestList.css'; 
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
 
 
 function TestList(props) {
@@ -26,10 +28,11 @@ function TestList(props) {
       {/* <h2>Here's all the tests</h2> */}
       {/* <p>all tests stringified: {JSON.stringify(tests)}</p> */}
       
-      <div className="testListContainer">
+      <div>
 
         <div className="addNewTest">
-        <Container>
+        <Box sx={{flexGrow: 1}}>
+      
           <h2>
             <div className="newButtonContainer">
               <Link to="/test-new">
@@ -39,12 +42,13 @@ function TestList(props) {
               </Link>
             </div>
           </h2>
-        </Container>
+
+        </Box>
       </div>
 
       <Container>
         <div className="heading">
-        <h2 fontFamily="Helvetica-Neue-Light">Recent Tests</h2>
+        <h2 className="heading">Recent Tests</h2>
         </div>
 
         <div className="testCardContainer">
