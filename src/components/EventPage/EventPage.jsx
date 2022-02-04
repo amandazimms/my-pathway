@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
+import EditEvent from '../EditEvent/EditEvent'
 
 function EventPage(props) {
   //This is the page that displays "one event".
@@ -27,14 +28,16 @@ function EventPage(props) {
   const [eventProctor, setEventProctor] = useState('')
   const [eventDateEnd, setEventDateEnd] = useState('')
   const [eventDateStart, setEventDateStart] = useState('')
-  let eventStartTime = new Date(store.event.selected.event_date_start).toLocaleDateString( 'en-US',{
+  const [editEvent, setEditEvent] = useState(false)
+
+  let eventStartTime = new Date(store.event.selected.event_date_start).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit'
   });
-  let eventEndTime = new Date(store.event.selected.event_date_end).toLocaleDateString( 'en-US',{
+  let eventEndTime = new Date(store.event.selected.event_date_end).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -80,21 +83,23 @@ function EventPage(props) {
 
 
   const updateEvent = () => {
-    console.log('update');
+    console.log('In updateEvent');
 
     //this function should run when user(proctor) has FINISHED entering all of the details for an event, 
     //and then clicks "update event" 
     let updatedEvent = {
       //@Jackie todo or @Amanda todo - change these values to real data from user Input
-      event_name: eventName,
-      proctor_id: eventProctor,
-      test_id: eventTest,
-      event_date_start: eventDateStart,
-      event_date_end: eventDateEnd,
-      last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
-      id: event.id, //this is also in store already
+      /// Sill needs to be done. 
+
+      // event_name: eventName,
+      // proctor_id: eventProctor,
+      // test_id: eventTest,
+      // event_date_start: eventDateStart,
+      // event_date_end: eventDateEnd,
+      // last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
+      // id: event.id, //this is also in store already
     }
-    dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } });
+    // dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } });
   }
 
   const deleteEvent = () => {
@@ -104,23 +109,23 @@ function EventPage(props) {
     dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } });
   }
 
-  const cheeseburgerEventTest = () => {
-    console.log('in update test');
+  // const cheeseburgerEventTest = () => {
+  //   console.log('in update test');
 
-    let updatedEvent = {
-      event_name: "Cheeseburger Event",
-      proctor_id: 1, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
-      test_id: 1,
-      event_date: "1999-02-02",
-      //@Chris todo - uncomment below 2 lines and add value:
-      // event_time: "19:00",
-      // event_end_time: "21:00",
-      url: "www.cheeseburger.com",
-      last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
-      id: event.id,//this is also in store already
-    }
-    dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } });
-  }
+  //   let updatedEvent = {
+  //     event_name: "Cheeseburger Event",
+  //     proctor_id: 1, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
+  //     test_id: 1,
+  //     event_date: "1999-02-02",
+  //     //@Chris todo - uncomment below 2 lines and add value:
+  //     // event_time: "19:00",
+  //     // event_end_time: "21:00",
+  //     url: "www.cheeseburger.com",
+  //     last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
+  //     id: event.id,//this is also in store already
+  //   }
+  //   dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } });
+  // }
 
 
 
@@ -142,9 +147,9 @@ function EventPage(props) {
 
   return (
     <div>
-      <br />
+      {/* <br />
       <Button variant="contained" color="primary" onClick={cheeseburgerEventTest}>For Testing only :) Click to change existing event's title to cheeseburger (Update Test)</Button>
-      <br />
+      <br /> */}
       {props.new ?
         <>
           <h2>Create New Event</h2>
@@ -217,77 +222,53 @@ function EventPage(props) {
           <br />
           <br />
           <Button variant="outlined" onClick={createEvent}>Create New Event</Button>
-          <br />
-          <br />
-          <p>
-            Event Name Is: {JSON.stringify(eventName)}
-            <br />
-            Event Start Date Is: {JSON.stringify(eventDateStart)}
-            <br />
-            Event End Date Is: {JSON.stringify(eventDateEnd)}
-            <br />
-            Selected Test ID: {JSON.stringify(eventTest)}
-            <br />
-            Selected Proctor ID: {JSON.stringify(eventProctor)}
-
-          </p>
         </> :
         <>
           <p> Here in the 'header' area will be some details about this event,
             such as what time it starts,
             who will proctor, and what the test will be.
+          </p>
 
-            What is displayed below depends on whether the exam is upcoming, in progress, or completed.
-          </p>     
+          <h3>This event is {event.status}!</h3>
+          {editEvent ?
+            <>
+            <EditEvent /> 
+            <br />
+            <Button variant="contained" color="primary" onClick={() => { setEditEvent(false)}}>Cancel Changes</Button>
+            </>:
+            <>
+              <p><b>Event Title:</b> {store.event.selected.event_name}</p>
+              <p><b>Start Date and Time:</b> {eventStartTime}</p>
+              <p><b>End Date and Time:</b> {eventEndTime}</p>
 
-          {
-            event.status==="UPCOMING"
-              ?
-              <>
-                <h3>This event is UPCOMING!</h3>
-                <p>Here will be inputs /components to edit the event details. Examples:</p>
-                <br></br>
-                <p>Test: {store.event.selected.event_name}</p>
-                <p>Start Date and Time: {eventStartTime}</p>
-                <p>End Date and Time: {eventEndTime}</p>
-                <p>Register Students: [Decide how to display this - list of all students?]</p>
-                {isNew
-                  ? <button onClick={addEvent}>Add This Event</button>
-                  : <>
-                    <Button onClick={updateEvent}>Update Event</Button>
-                    <Button onClick={deleteEvent}>Delete Event</Button>
+              {
+                event.status === "UPCOMING" ?
+                  <>
+                    <Button variant="contained" color="primary" onClick={() => { setEditEvent(true) }}>Update Event</Button>
+                    <br />
+                    <br />
+                    <Button variant="contained" color="primary" onClick={deleteEvent}>Delete Event</Button>
+                    <br />
+                    <br />
                   </>
-                }
-              </>
-              : 
-              <></>
+                  :
+                  <></>
+              }
+            </>
           }
+          <p>Register Students: [Decide how to display this - list of all students?]</p>
 
-          {
-            event.status === "IN PROGRESS" ?
-              <>
-                <h3>This event is IN PROGRESS!</h3>
-                <p>Here will be a list of students taking the exam. Examples:</p>
-                <br></br>
-                <p>Student: Jackie Spiess  |  ID Status: Verified                   |  Assistance: [    ]  |  [Enter Exam Button]</p>
-                <p>Student: Amanda Zimms   |  ID Status: [Click to Verify Button]   |  Assistance: [Icon]  |  [Enter Exam Button]</p>
-              </>
-              : 
-              <></>
-          }
-
-          {
-              event.status==="COMPLETE"?
-              <>
-                <h3>This event is COMPLETE</h3>
-                <p>Here will be a list of student exam results. Examples:</p>
-                <br></br>
-                <p>Student: Nickolas C  |  ID #: 1234  |  Exam Started: 2:02pm |  [Details Button]</p>
-                <p>Student: Chris N     |  ID #: 5678  |  Exam Started: 2:04pm |  [Details Button]</p>
-              </>
-              : 
-              <></>
-          }
+          <h3>Upcoming Example</h3>
+          <p>Student: Nickolas C  |  ID #: 1234  |  [Edit Button] |  [Remove Button]</p>
+          <p>Student: Chris N     |  ID #: 5678  |  [Edit Button] |  [Remove Button]</p>
+          <br />
+          <h3>In Progress Example</h3>
+          <p>Student: Jackie Spiess  |  ID Status: Verified                   |  Assistance: [    ]  |  [Enter Exam Button]</p>
+          <p>Student: Amanda Zimms   |  ID Status: [Click to Verify Button]   |  Assistance: [Icon]  |  [Enter Exam Button]</p>
+          <br />
+          <h3>Completed Example</h3>
+          <p>Student: Nickolas C  |  ID #: 1234  |  Exam Started: 2:02pm |  [Details Button]</p>
+          <p>Student: Chris N     |  ID #: 5678  |  Exam Started: 2:04pm |  [Details Button]</p>
         </>
       }
     </div>

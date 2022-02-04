@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 
 function EventItem(props) {
@@ -48,18 +49,22 @@ function EventItem(props) {
       <p>End Date: {eventEndTime}</p>
       {/* <p>event stringified: {JSON.stringify(event)}</p> */}
 
-      {
+      <Link to="/event" onClick={() => setSelectedEvent(event)}>
+        {/* when the view button is clicked, this will move user to the /event page, and set the selectedEvent to this one */}
+        <Button variant="contained" color="primary">View Event</Button>
+      </Link>
+
+      {/* {
         event.status==="UPCOMING"
         ? <Link to="/event" onClick={() => setSelectedEvent(event)}>
-            {/* when the view button is clicked, this will move user to the /event page, and set the selectedEvent to this one */}
-            <button>View (upcoming) Event</button>
+            <Button variant="contained" color="secondary">View (upcoming) Event</Button>
           </Link>
         : <></>
       }
       {
         event.status==="IN PROGRESS"
         ? <Link to="/event" onClick={() => setSelectedEvent(event)}>
-            {/* when the enter button is clicked, this will move user to the /event page, and set the selectedEvent to this one */}
+
             <button>Enter (in progress) Event</button>
           </Link>
         : <></>
@@ -67,11 +72,11 @@ function EventItem(props) {
       {
         event.status==="COMPLETE"
         ? <Link to="/event" onClick={() => setSelectedEvent(event)}>
-            {/* when the view button is clicked, this will move user to the /event page, and set the selectedEvent to this one */}
+
             <button>View (completed) Event Results</button>
           </Link>
         : <></>
-      }
+      } */}
      
     </div>
   );
