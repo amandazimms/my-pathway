@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 import EventItem from '../EventItem/EventItem';
+import { Button } from '@mui/material';
 
 
 function EventList(props) {
@@ -21,16 +22,19 @@ function EventList(props) {
 
   return (
     <div>
-      <h2>Here is all the events!</h2>
+        <Link to="/event-new">
+        <Button variant="contained" color="secondary">Add a New Event</Button>
+      </Link>
+      <br />
+      <br />
+      <h2>Here are all the events!</h2>
 
-      <p>all events stringified: {JSON.stringify(events)}</p>
+      {/* <p>all events stringified: {JSON.stringify(events)}</p> */}
       {events.map(event => (
         <EventItem event={event} key={event.id}/>
       ))}
 
-      <Link to="/event-new">
-        <button>Add a New Event</button>
-      </Link>
+    
 
     </div>
   );

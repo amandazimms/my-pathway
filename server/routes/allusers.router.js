@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/proctors', (req, res) => {
-  console.log('In GET allUsers');
+  console.log('In GET allProctors');
   const query = `SELECT 
                   "user".first_name AS first_name,
                   "user".last_name AS last_name,

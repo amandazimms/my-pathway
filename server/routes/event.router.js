@@ -63,9 +63,9 @@ router.put('/:id', (req, res)=> {
   //for last_modified_by, do it the same as test.router's .put
   //(no RETURNING)
   //send 200 back :)
-
+  console.log('req.body:', req.body);
   const id = req.params.id
-  const queryString = `UPDATE event SET event_name = $1, test_id = $2, proctor_id = $3, event_date_start = $4, event_date_end = $5, url = $6, last_modified_by = $7
+  const queryString = `UPDATE event SET event_name = $1, test_id = $2, proctor_id = $3, event_date_start = $4, event_date_end = $5, url = $6, last_modified_by = $7, last_modified_date=CURRENT_TIMESTAMP
   WHERE event.id = ${id}`;
   const values = [ req.body.event_name, req.body.test_id, req.body.proctor_id, req.body.event_date_start, req.body.event_date_end, req.body.url, req.body.last_modified_by ];
    pool.query( queryString, values ).then( (results)=>{
