@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import ExamItem from '../ExamItem/ExamItem';
+import '../ExamList/ExamList.css'
 
 
 function ExamList(props) {
@@ -16,7 +17,7 @@ function ExamList(props) {
 
   return (
     <div>
-      <h2>Here is all the exams!</h2>
+      <h2 className="text" id="text">Here is all the exams!</h2>
 
       <p>all exams stringified: {JSON.stringify(exams)}</p>
 

@@ -5,6 +5,12 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button'; 
 import '../TestSettings/TestSettings.css'; 
 import {Link} from 'react-router-dom'; 
+import Divider from '@mui/material/Divider';
+import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
+import IconButton from '@mui/material/IconButton';
+import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-ui/core"; 
+import TestIcon from '../../images/test.svg'; 
+
 
 function TestSettings(props) {
   //This is the page a proctor is brought to upon clicking "add test" or "edit test";
@@ -199,10 +205,10 @@ function TestSettings(props) {
 
   return (
     <div> 
-    { isNew 
+    {/* { isNew 
      ? <p>I'm new!</p>
      : <p>I'm not new :/</p>
-    }
+    } */}
       {/* <button onClick={tacoTitleTest}>For Testing only :) Click to change existing test's title to taco</button>
       <button onClick={marigoldTestTest}>4 Testing only :P Click to add a new test with title marigold</button> */}
      
@@ -212,47 +218,111 @@ function TestSettings(props) {
       <p>test: {JSON.stringify(test)}</p> */}
 
       <Container> 
-      { isNew 
-      ? <h2>Add Test</h2>
-      : <h2>Edit Test</h2>
-      }
+
+      {/* { isNew 
+      ? <h2 className="heading">Add Test</h2>
+      : <h2 className="heading">Edit Test</h2>
+      } */}
+
       <form className="testSettingsForm">
         <label htmlFor="title">
           {" "}
           Test Title: 
           { isNew 
-          ? <input id="title" onChange={(event)=> setNewTest({...newTest, title: event.target.value})}/>
-          :<> {selectedTest.title}
-          </> 
+          ? <input id="testTitle" className="loginInput" onChange={(event)=> setNewTest({...newTest, title: event.target.value})}/>
+            
+          :<> <div className="container">
+              <div className="image">
+              <img src={TestIcon} alt="TestIcon" className="TestIcon" />
+              </div>
+              <div className="text">
+              <h2 className="text">{selectedTest.title}</h2>
+              </div>
+              </div>
+          </>
           }
         </label>
 
+        <h2 className="headingTwo">Score and Time</h2>
+    
+          <Divider light/> 
+
         <label htmlFor="points">
           {" "}
-          Number of Points: 
+          Number of Points 
           { isNew 
-          ? <input id="pointsPossible" onChange={(event)=> setNewTest({...newTest, points_possible: event.target.value})}/>
-          :<> {selectedTest.points_possible}
+          ? <FormControl fullWidth> 
+          <Select 
+          id="title" className="loginInput" 
+          onChange={(event)=> setNewTest({...newTest, points_possible: event.target.value})}>
+            <MenuItem value={50}>50</MenuItem>
+            <MenuItem value={55}>55</MenuItem>
+            <MenuItem value={60}>60</MenuItem>
+            <MenuItem value={65}>65</MenuItem>
+            <MenuItem value={70}>70</MenuItem>
+            <MenuItem value={75}>75</MenuItem>
+            <MenuItem value={80}>80</MenuItem>
+            <MenuItem value={85}>85</MenuItem>
+            <MenuItem value={90}>90</MenuItem>
+            <MenuItem value={95}>95</MenuItem>
+            <MenuItem value={100}>100</MenuItem>
+            </Select>
+          </FormControl>
+          :<><FormControl style={{ m: 1, minWidth: 160}} variant="outlined">
+            <InputLabel id="dropDwn">{selectedTest.points_possible} pts</InputLabel>
+            <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
+            <MenuItem value={1}>{selectedTest.points_possible} pts</MenuItem>
+            </Select> 
+            </FormControl> 
           </> 
           }
         </label>
 
         <label htmlFor="time">
           {" "}
-          Time to complete quiz: 
+          Time to complete quiz 
           { isNew 
-          ? <input id="timeToComplete" onChange={(event)=> setNewTest({...newTest, test_time_limit: event.target.value})}/>
-          :<> {selectedTest.test_time_limit}
+          ?  <FormControl fullWidth>
+          <Select 
+          id="title" className="loginInput" 
+          onChange={(event)=> setNewTest({...newTest, test_time_limit: event.target.value})}>
+            <MenuItem value={45}>00:45:00</MenuItem>
+            <MenuItem value={60}>01:00:00</MenuItem>
+            <MenuItem value={90}>01:30:00</MenuItem>
+            <MenuItem value={105}>01:45:00</MenuItem>
+            <MenuItem value={120}>02:00:00</MenuItem>
+            </Select>
+          </FormControl>
+          :<> <FormControl style={{ m: 1, minWidth: 160}} variant="outlined">
+            <InputLabel id="dropDwn">{selectedTest.test_time_limit} minutes</InputLabel>
+            <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
+            <MenuItem value={1}>{selectedTest.test_time_limit} minutes</MenuItem>
+            </Select> 
+            </FormControl> 
           </> 
           }
         </label>
+
+        <h2 className="headingTwo">Order</h2>
 
         <label htmlFor="questions">
           {" "}
           Order of questions: 
           { isNew 
-          ? <input id="questionShuffle" onChange={(event)=> setNewTest({...newTest, question_shuffle: event.target.value})}/>
-          :<> {selectedTest.question_shuffle}
+          ? <FormControl fullWidth> 
+          <Select 
+          id="title" className="loginInput" 
+          onChange={(event)=> setNewTest({...newTest, question_shuffle: event.target.value})}>
+            <MenuItem value={true}>Shuffle questions</MenuItem>
+            <MenuItem value={false}>Do not shuffle questions</MenuItem>
+            </Select>
+          </FormControl>
+          :<><FormControl style={{ m: 1, minWidth: 160}} variant="outlined">
+            <InputLabel id="dropDwn">{selectedTest.question_shuffle}</InputLabel>
+            <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
+            <MenuItem value={1}>{selectedTest.question_shuffle}</MenuItem>
+            </Select> 
+            </FormControl>  
           </> 
           }
         </label>
@@ -261,8 +331,22 @@ function TestSettings(props) {
           {" "}
           Number of attempts allowed: 
           { isNew 
-          ? <input id="testAttempts" onChange={(event)=> setNewTest({...newTest, test_attempt_limit: event.target.value})}/>
-          :<> {selectedTest.test_attempt_limit}
+          ? <FormControl fullWidth> 
+          <Select 
+          id="title" className="loginInput" 
+          onChange={(event)=> setNewTest({...newTest, test_attempt_limit: event.target.value})}>
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={2}>2</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={4}>4</MenuItem>
+            </Select>
+          </FormControl>
+          :<><FormControl style={{ m: 1, minWidth: 160}} variant="outlined">
+            <InputLabel id="dropDwn">{selectedTest.test_attempt_limit} attempts</InputLabel>
+            <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
+            <MenuItem value={1}>{selectedTest.test_attempt_limit} attempts</MenuItem>
+            </Select> 
+            </FormControl> 
           </> 
           }
         </label>
@@ -270,7 +354,7 @@ function TestSettings(props) {
    
       { isNew
           // if we arrived at this page via "add test..."
-        ? <Button variant="contained" onClick={addTest}>Add This Test</Button>
+        ? <Link to="/tests-all"><Button variant="contained" onClick={addTest}>Add This Test</Button></Link>
         
           // else (if we arrived at this page via "edit (existing) test")
         : <>

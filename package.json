@@ -50,6 +50,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "file-loader": "^6.2.0",
     "nodemon": "^2.0.4"
   },
   "browserslist": [

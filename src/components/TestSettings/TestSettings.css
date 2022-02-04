@@ -3,8 +3,7 @@
     display: flex !important;
     flex-direction: column !important;
     align-items: center;
-    font-family: HelveNeuLigCon; 
-    border: 1px solid black; 
+    font-family: HelveNeuLigCon;  
 }
 
 textarea{
@@ -23,7 +22,7 @@ label{
     margin-bottom: 40px;
     font-size: 15px;
     font-family: HelveticaNeue; 
-    text-transform: uppercase;
+
 }
 
 h2{
@@ -31,5 +30,36 @@ h2{
     justify-content: center;
 }
 
+.container {
+    display: flex;
+    align-items: right;
+    justify-content: right 
+  }
+  
 
+  .headingTwo {
+      font-family: Helvetica-Bold; 
+  }
 
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center
+  }
+  
+  img {
+    width: 65px;
+    max-width: 100%;  
+    max-width: 100%;
+    padding-right: 20px; 
+  }
+  
+  .image {
+    flex-basis: 20%
+  }
+  
+  .text {
+    font-family: HelveticaNeue; 
+    font-size: 30px;
+    padding-left: -30px; 
+  }

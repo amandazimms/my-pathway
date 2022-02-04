@@ -1,11 +1,10 @@
 .cardImg {
     border-radius: 25px 25px 0px 0px;
     height: 187px;
-    object-fit: cover;
+    /* object-fit: cover; */
   }
   
   .testCard {
-    width: 170px;
     background-color: rgba(255, 255, 255, 0);
     border: none;
     margin-top: 0px;
@@ -13,7 +12,7 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border: 0px solid rgba(143, 143, 143, 0.077);
     border-radius: 25px 25px 10px 10px;
-    background-color: #fcfcf6;
+    background-color: white; 
   }
   
   .testCardBody {
@@ -47,7 +46,7 @@
   }
 
   .cardCreateDate {
-    display: flex;
+    /* display: flex; */
     align-items: center;
     color: #898B8D;
   }

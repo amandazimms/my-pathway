@@ -6,17 +6,24 @@ import '../QuestionItem/QuestionItem.css'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Switch from '@mui/material/Switch';
-import { ButtonGroup } from '@mui/material';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-ui/core"; 
+import Box from '@mui/material/Box';
 
 
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
+var cardStyle = {
+  display: 'block',
+  width: '60vw',
+  transitionDuration: '0.3s',
+  height: '40vw', 
+}
 
 function QuestionItem(props) {
   //@Amanda todo - when a question is edited, be sure the new data displays on DOM as well as DB.
@@ -69,48 +76,74 @@ function QuestionItem(props) {
       <Card 
       className="questionCard"
       onClick={() => setSelectedQuestion(question)}
-      styled={{width:"18rem"}}>
+      style={cardStyle}>
+
         <CardContent>
+
+          <Typography className="questionTitle" sx={{fontSize: 25}} gutterBottom>
+            {props.question.question}
+          </Typography> 
+
+            <Box 
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              '& > :not(style)': {m: 1}, }}
+              > 
+          <FormControl style={{ m: 1, minWidth: 120}} variant="outlined">
+          <InputLabel id="dropDwn">{props.question.point_value} pts</InputLabel>
+          <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
+            <MenuItem value={1}>{props.question.point_value} pts</MenuItem>
+          </Select> 
+          </FormControl> 
+          <FormControl style={{ m: 1, minWidth: 160}} variant="outlined">
+          <InputLabel id="dropDwn">{props.question.type}</InputLabel>
+          <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
+            <MenuItem value={1}>{props.question.type} pts</MenuItem>
+          </Select> 
+          </FormControl> 
+          </Box> 
+            <br></br>
           <Typography sx={{fontSize: 20}} gutterBottom>
-          Question: {props.question.question}
+          <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+          {props.question.answer}
           </Typography> 
           <Typography sx={{fontSize: 20}} gutterBottom>
-          Point Value: {props.question.point_value}
+          <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+           {props.question.option_one}
           </Typography> 
           <Typography sx={{fontSize: 20}} gutterBottom>
-          Option One:{props.question.option_one}
+          <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+          {props.question.option_two}
           </Typography> 
           <Typography sx={{fontSize: 20}} gutterBottom>
-          Option Two: {props.question.option_two},
-          </Typography> 
-          <Typography sx={{fontSize: 20}} gutterBottom>
-          Option Three: {props.question.option_three}
-          </Typography> 
-          <Typography sx={{fontSize: 20}} gutterBottom>
-          Option Four: {props.question.option_four}
+          <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+           {props.question.option_three}
           </Typography>
         </CardContent>
       {/* <Link to="/test" onClick={() => setSelectedQuestion(question)}> */}
         {/* when the edit button is clicked, this will move user to the /test page, and set the selectedTest to this one */}
-       
-       <ButtonGroup className="buttonGroup" vertical>
-         
-          <DeleteIcon onClick={deleteQuestion} /> 
-     
-         
-         <IconButton aria-label="edit" color="primary">
-           <MoreHorizIcon /> 
+        
+        <CardActions disableSpacing> 
+      
+        <IconButton aria-label="edit" color="primary" onClick={deleteQuestion}>
+        <DeleteIcon className="questionIcon" /> 
+        </IconButton>
+
+        <IconButton aria-label="edit" color="primary">
+           <Switch {...label} defaultChecked className="questionIcon"/> 
          </IconButton>
 
-        <FormGroup>
-        <FormControlLabel control={<Switch defaultChecked color="default" />} label="Include Question" />
-        </FormGroup>
+        <IconButton aria-label="edit" color="primary">
+           <MoreHorizIcon className="questionIcon"/> 
+         </IconButton>
 
-        </ButtonGroup> 
+        </CardActions>
+  
+        
+         {/* <button>Edit this Question</button>
 
-         <button>Edit this Question</button>
-
-        <button onClick={updateQuestionToStegosaurus}>For Testing - Edit this Question to be about stegosauruses instead</button>
+        <button onClick={updateQuestionToStegosaurus}>For Testing - Edit this Question to be about stegosauruses instead</button> */}
         {/* <button onClick={deleteQuestion}>Delete this Question</button> */}
       {/* </Link> */}
      
