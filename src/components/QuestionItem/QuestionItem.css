@@ -17,3 +17,7 @@
 .buttonGroup{
     min-width: 500px !important;
 }
+
+.questionTitle {
+    font-family: Helvetica-Bold; 
+}

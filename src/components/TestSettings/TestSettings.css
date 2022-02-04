@@ -3,8 +3,7 @@
     display: flex !important;
     flex-direction: column !important;
     align-items: center;
-    font-family: HelveNeuLigCon; 
-    border: 1px solid black; 
+    font-family: HelveNeuLigCon;  
 }
 
 textarea{
@@ -23,7 +22,7 @@ label{
     margin-bottom: 40px;
     font-size: 15px;
     font-family: HelveticaNeue; 
-    text-transform: uppercase;
+  
 }
 
 h2{
