@@ -9,6 +9,7 @@ import Divider from '@mui/material/Divider';
 import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import IconButton from '@mui/material/IconButton';
 import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-ui/core"; 
+import TestIcon from '../../images/test.svg'; 
 
 
 function TestSettings(props) {
@@ -230,12 +231,20 @@ function TestSettings(props) {
           { isNew 
           ? <input id="testTitle" className="loginInput" onChange={(event)=> setNewTest({...newTest, title: event.target.value})}/>
            
-          :<> <h2 className="testName">{selectedTest.title}</h2>
+          :<> <div className="container">
+              <div className="image">
+              <img src={TestIcon} alt="TestIcon" className="TestIcon" />
+              </div>
+              <div className="text">
+              <h2 className="text">{selectedTest.title}</h2>
+              </div>
+              </div>
           </>
           }
         </label>
 
-        <h2 className="heading">Score and Time</h2>
+        <h2 className="headingTwo">Score and Time</h2>
+    
           <Divider light/> 
 
         <label htmlFor="points">
@@ -294,7 +303,7 @@ function TestSettings(props) {
           }
         </label>
 
-        <h2 className="heading">Order</h2>
+        <h2 className="headingTwo">Order</h2>
 
         <label htmlFor="questions">
           {" "}
