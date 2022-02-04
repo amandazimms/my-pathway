@@ -41,9 +41,9 @@ router.post('/', (req, res) => {
   //i did something similar to all that ^^ for solo so can help with any of that if needed!!
   //same with Chris too, I believe
 
-  console.log('question router, req.body:', req.body);
-  console.log('question router, req.params:', req.params);
-  console.log('question router, req.query:', req.query);
+  // console.log('question router, req.body:', req.body);
+  // console.log('question router, req.params:', req.params);
+  // console.log('question router, req.query:', req.query);
 
   const id = req.params.test_id 
   const queryString = `INSERT INTO question (point_value, type, required, question, option_one, option_two, option_three, option_four, option_five, option_six, answer, active, parent_test_id, created_by) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)  RETURNING id, create_date, last_modified_date`;
