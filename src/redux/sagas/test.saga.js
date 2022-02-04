@@ -70,7 +70,6 @@ function* updateQuestion(action){
 // worker Saga: will be fired on "ADD_QUESTION" actions
 function* addQuestion(action){
   const ap = action.payload;
-  console.log('-------------->', ap); 
   //ap.question is the question object to add:
   //point_value, type, required, question, option_one (thru six), answer, status, 
   //parent_test_id, created_by
