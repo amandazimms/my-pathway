@@ -81,6 +81,19 @@ function* fetchEvent(action) {
   }
 }
 
+
+
+function* getEventExams(action) {
+  const ap = action.payload;
+  //ap.event_id is the event id to fetch
+  try {
+    const response = yield axios.get('/api/event/exams', { params: {event_id: ap.event_id} });
+    yield put({ type: 'SET_EVENT_EXAMS', payload: response.data });
+  } catch (error) {
+    console.log('getEventExams request failed', error);
+  }
+}
+
 // worker Saga: will be fired on "FETCH_ALL_EVENTS" actions
 function* fetchAllEvents() {
   try {

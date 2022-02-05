@@ -225,9 +225,10 @@ function EventPage(props) {
               }
             </>
           }
-          <p>Registered Students: [Decide how to display this - list of all students?]</p>
-          <TableContainer sx={{ minWidth: 500, maxWidth: 1000 }} component={Paper}>
-            <Table sx={{ minWidth: 500, maxWidth: 1000 }} aria-label="simple table">
+          <br />
+          <h2>Registered Students</h2>
+          <TableContainer sx={{ minWidth: 500, maxWidth: 1200 }} component={Paper}>
+            <Table sx={{ minWidth: 500, maxWidth: 1200 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   {event.status === 'COMPLETE' || event.status === 'UPCOMING' || event.status === 'IN PROGRESS'?
@@ -241,13 +242,26 @@ function EventPage(props) {
                   {event.status === 'COMPLETE' || event.status === 'IN PROGRESS'?
                   <>
                   <TableCell align="left">ID VERIFIED</TableCell>
-                  <TableCell align="left">ASSISTANCE</TableCell>
-                  <TableCell align="center">EXAM START</TableCell>
-                  <TableCell align="center">EXAM END</TableCell>
-                  <TableCell align="center">NUMBER OF INCIDENTS</TableCell>
                   </>
                   :
                   <></>
+                  }
+                  {event.status === 'IN PROGRESS' ?
+                    <TableCell align="left">ASSISTANCE</TableCell> :
+                    <></>
+                  }
+                  {event.status === 'COMPLETE' || event.status === 'IN PROGRESS'?
+                  <>
+                  <TableCell align="center">EXAM START</TableCell>
+                  <TableCell align="center">EXAM END</TableCell>
+
+                  </>
+                  :
+                  <></>
+                  }
+                  {event.status === 'IN PROGRESS' ?
+                  <TableCell align="center">NUMBER OF INCIDENTS</TableCell> :
+                    <></>
                   }
 
                   {event.status === 'COMPLETE' || event.status === 'UPCOMING' || event.status === 'IN PROGRESS'?
@@ -261,50 +275,100 @@ function EventPage(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* {events.map((event) => ( */}
-                  {/* <TableRow
-                    key={event.id}
+                {store.event.exams.map((exam) => (
+                  <TableRow
+                    key={exam.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {event.event_name}
+                      {exam.first_name} {exam.last_name}
                     </TableCell>
-                    <TableCell align="left">{event.status}</TableCell>
-                    <TableCell align="left">{new Date(event.event_date_start).toLocaleDateString([], { month: 'long', year: 'numeric', day: 'numeric' })}</TableCell>
-                    <TableCell align="left">{new Date(event.event_date_start).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</TableCell>
-                    <TableCell align="left">{new Date(event.event_date_end).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</TableCell>
+                    <TableCell align="left">{exam.username}</TableCell>
+                    {event.status === 'COMPLETE' || event.status === 'IN PROGRESS' ?
+                      <>
+                        <TableCell align="left">{
+                          exam.id_confirmed === null || exam.id_confirmed === false  ?
+                            'FALSE' :
+                            'TRUE'
+                        }
+                        </TableCell>
+                      </>
+                      :
+                      <></>
+                    }
+                    {event.status === 'IN PROGRESS' ?
+                      <>
+                        <TableCell align="left">{
+                          exam.help === null || exam.help === false ?
+                            'FALSE' :
+                            'TRUE'
+                        }
+                        </TableCell>
+                      </>
+                      :
+                      <></>
+                    }
+                  {event.status === 'IN PROGRESS' || event.status === 'COMPLETE'?
+                      <>
+                        <TableCell align="left">
+                          {exam.exam_time_start === null ?
+                            'NOT STARTED' :
+                            new Date(exam.exam_time_start).toLocaleString('en-US', {
+                              year: 'numeric',
+                              month: 'numeric',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })
+                          }
+                        </TableCell>
+                        <TableCell align="left">{
+                        exam.exam_time_end === null ?
+                        'INCOMPLETE' :
+                        new Date(exam.exam_time_end).toLocaleString('en-US', {
+                          year: 'numeric',
+                          month: 'numeric',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })
+                        }
+                        </TableCell>
+                      </>
+                  :
+                  <></>
+                  }
+                    {event.status === 'IN PROGRESS' ?
+                      <>
+                        <TableCell align="center">{
+                          exam.incident === null?
+                            0 :
+                            exam.incident
+                        }
+                        </TableCell>
+                      </>
+                      :
+                      <></>
+                    }
                     <TableCell align="center">
                       {event.status === 'UPCOMING' ?
-                        <Button variant="contained" onClick={() => setSelectedEvent(event)} >View Event</Button> :
+                        <Button variant="contained" onClick={() => {alert('need to build this')}} >REMOVE STUDENT</Button> :
                         <></>
                       }
                       {event.status === 'IN PROGRESS' ?
-                        <Button variant="contained" onClick={() => setSelectedEvent(event)}>Enter Event</Button> :
+                        <Button variant="contained" onClick={() => {alert('need to build this')}}>ENTER EXAM</Button> :
                         <></>
                       }
                       {event.status === 'COMPLETE' ?
-                        <Button variant="contained" onClick={() => setSelectedEvent(event)}>View Results</Button> :
+                        <Button variant="contained" onClick={() => {alert('need to build this')}}>VIEW RESULTS</Button> :
                         <></>
                       }
                     </TableCell>
-                  </TableRow> */}
-                {/* ))} */}
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
-
-
-          <h3>Upcoming Example</h3>
-          <p>Student: Nickolas C  |  ID #: 1234  |  [Edit Button] |  [Remove Button]</p>
-          <p>Student: Chris N     |  ID #: 5678  |  [Edit Button] |  [Remove Button]</p>
-          <br />
-          <h3>In Progress Example</h3>
-          <p>Student: Jackie Spiess  |  ID Status: Verified                   |  Assistance: [    ]  |  [Enter Exam Button]</p>
-          <p>Student: Amanda Zimms   |  ID Status: [Click to Verify Button]   |  Assistance: [Icon]  |  [Enter Exam Button]</p>
-          <br />
-          <h3>Completed Example</h3>
-          <p>Student: Nickolas C  |  ID #: 1234  |  Exam Started: 2:02pm |  [Details Button]</p>
-          <p>Student: Chris N     |  ID #: 5678  |  Exam Started: 2:04pm |  [Details Button]</p>
         </>
       }
     </div>
