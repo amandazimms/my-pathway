@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import './Compare.css'
 import { Button } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 
 // Basic functional component structure for React with default state
@@ -105,12 +106,19 @@ function compareFunction(props) {
       });
   };
 
+  const history = useHistory();
+  
   const validateStudent = () =>{
     console.log('STUDENT APPROVED');
     dispatch({
       type: 'CONFIRM_STUDENT_ID',
       payload: {
-        id_confirmed:true
+        id_confirmed:true,
+        exam_id:store.exam.selected.id,
+        user_id:store.user.id,
+        done:()=>{
+          history.push('/events-all')
+        }
       }
     })
   }
@@ -120,7 +128,12 @@ function compareFunction(props) {
     dispatch({
       type: 'CONFIRM_STUDENT_ID',
       payload: {
-        id_confirmed:false
+        id_confirmed:false,
+        exam_id:store.exam.selected.id,
+        user_id:store.user.id,
+        done:()=>{
+          history.push('/events-all')
+        }
       }
     })
   }
