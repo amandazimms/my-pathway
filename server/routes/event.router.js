@@ -7,7 +7,8 @@ router.get('/search', (req,res) => {
   //req.query.search_text
   //req.query.event_id 
 
-  const queryString = `SELECT "user".id AS "user_id", username, profile_picture, first_name, last_name, event_id
+  const queryString = `SELECT "user".id AS "user_id", username, profile_picture, 
+                        first_name, last_name, event_id
           FROM "user"
           LEFT JOIN exam ON exam.student_id="user".id
 

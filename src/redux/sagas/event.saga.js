@@ -28,6 +28,8 @@ function* registerStudentToEvent(action){
 
   try {
     yield axios.post('/api/exam', {student_id: ap.student_id, proctor_id: ap.proctor_id, event_id: ap.event_id} );  
+    
+    
     //todo set something (else)? yield put({ type: 'SET_SELECTED_EVENT', payload: event }); 
 
   } catch (error) {

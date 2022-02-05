@@ -19,16 +19,22 @@ function EventRegisterStudents(props) {
   const selectedEvent = useSelector(store => store.event.selected);
   const dispatch = useDispatch();
 
-  const [searchText, setSearchText] = useState(props.text || '');
+  const [searchText, setSearchText] = useState();
 
-  const doSearch = (event) => {
-    dispatch({  type:'SEARCH_FOR_STUDENTS', 
-                payload: {search_text: event.target.value, event_id: selectedEvent.id} });
+  const handleSearchInputChange = async (event) => {
+    await setSearchText(event.target.value);
+    doSearch(event.target.value);
   }
 
-  const registerStudent = (student) => {
-    dispatch({ type:'REGISTER_STUDENT_TO_EVENT', 
+  const doSearch = (textToSearch) => {
+    dispatch({  type:'SEARCH_FOR_STUDENTS', 
+                payload: {search_text: textToSearch, event_id: selectedEvent.id} });
+  }
+
+  const registerStudent = async (student) => {
+    await dispatch({ type:'REGISTER_STUDENT_TO_EVENT', 
                 payload: {student_id: student.user_id, proctor_id: user.id, event_id: selectedEvent.id} })
+    await doSearch(searchText);
   }
 
   return (
@@ -37,7 +43,7 @@ function EventRegisterStudents(props) {
       <p>searched registered results: {JSON.stringify(searchedRegedStudents)}</p>
       <p>searched unregistered results: {JSON.stringify(searchedUnregedStudents)}</p>
 
-      <input className="loginInput" type="text" placeholder="Enter student to search for" onChange={ (event) => doSearch(event) }></input>
+      <input className="loginInput" type="text" placeholder="Enter student to search for" onChange={ (event) => handleSearchInputChange(event) }></input>
       
       <TableContainer sx={{ minWidth: 500, maxWidth: 800 }} component={Paper}>
       <Table sx={{ minWidth: 500, maxWidth: 800 }} aria-label="simple table">
@@ -50,6 +56,7 @@ function EventRegisterStudents(props) {
           </TableRow>
         </TableHead>
         <TableBody>
+          {/* table part 1: first display a list of all unregistered students from this search */}
           {searchedUnregedStudents.map((student) => (
             <TableRow
               key={student.id}
@@ -65,6 +72,7 @@ function EventRegisterStudents(props) {
               </TableCell>
             </TableRow>
           ))}
+          {/* table part 2: below the unregistered, display a list of all registered students */}
           {searchedRegedStudents.map((student) => (
             <TableRow
               key={student.id}
