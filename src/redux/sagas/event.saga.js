@@ -12,6 +12,9 @@ function* eventSaga() {
     //dispatch({ type: 'DELETE_EVENT', payload: { event_id: putSomethingHere } }); 
   yield takeLatest('UPDATE_EVENT_SETTINGS', updateEventSettings);//updates any/all of the columns in the event table in the db.
     //dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
+  yield takeLatest('FETCH_EVENT_EXAMS', getEventExams);//return all exams associated with the event.
+
+    
  }
 
 
@@ -75,6 +78,19 @@ function* fetchEvent(action) {
     yield put({ type: 'SET_SELECTED_EVENT', payload: response.data });
   } catch (error) {
     console.log('get event request failed', error);
+  }
+}
+
+
+
+function* getEventExams(action) {
+  const ap = action.payload;
+  //ap.event_id is the event id to fetch
+  try {
+    const response = yield axios.get('/api/event/exams', { params: {event_id: ap.event_id} });
+    yield put({ type: 'SET_EVENT_EXAMS', payload: response.data });
+  } catch (error) {
+    console.log('getEventExams request failed', error);
   }
 }
 
