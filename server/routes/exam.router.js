@@ -39,7 +39,21 @@ router.put('/photo', (req, res)=> {
   RETURNING *`;
   const values = [ req.body.url, req.body.user_id ];
    pool.query( queryString, values ).then( (results)=>{
-    res.sendStatus(200);
+    res.send(results.rows[0]);
+  }).catch( (err)=>{
+    console.log("error put exam photo", err );
+    res.sendStatus( 500 );
+  })
+});
+
+router.put('/id-image', (req, res)=> {
+  console.log('body', req.body);
+  const queryString = `UPDATE exam SET id_image = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
+  WHERE exam.id = ${req.body.exam_id}
+  RETURNING *`;
+  const values = [ req.body.url, req.body.user_id ];
+   pool.query( queryString, values ).then( (results)=>{
+    res.send(results.rows[0]);
   }).catch( (err)=>{
     console.log("error put exam photo", err );
     res.sendStatus( 500 );

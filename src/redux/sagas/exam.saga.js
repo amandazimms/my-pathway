@@ -2,7 +2,9 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function* eventSaga() {
-  yield takeLatest('SET_EXAM_PHOTO', setExamPhoto);//fetches all the info for a single Event. 
+  yield takeLatest('SET_EXAM_PHOTO', setExamPhoto);//fetches all the info for a single Event.
+  yield takeLatest('SET_ID_PHOTO', setIdPhoto);//fetches all the info for a single Event. 
+  
   //TODO all of these
   //TODO all of these
   //TODO all of these
@@ -24,15 +26,35 @@ function* eventSaga() {
   //including event_name, test_id, proctor_id, event_date, event_time
   //event_end_time, url, last_modified_by, and id
   try {
-    yield axios({
+    const response = yield axios({
       method: 'PUT',
       url:`/api/exam/photo`,
       data: ap
     });
-    yield put({ type: 'SET_SELECTED_EXAM', payload: ap.event });
+    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+      console.log('');
       //todo ^ @Amanda - definitely need to verify that this works correctly
   } catch (error) {
     console.log('setExamPhoto failed', error);
+  }
+}
+
+function* setIdPhoto(action){
+  const ap = action.payload;
+  //ap.event is the event object to update, 
+  //including event_name, test_id, proctor_id, event_date, event_time
+  //event_end_time, url, last_modified_by, and id
+  try {
+    const response = yield axios({
+      method: 'PUT',
+      url:`/api/exam/id-image`,
+      data: ap
+    });
+    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+      ap.done()
+      //todo ^ @Amanda - definitely need to verify that this works correctly
+  } catch (error) {
+    console.log('setIdPhoto failed', error);
   }
 }
 

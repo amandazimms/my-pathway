@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import PhotoCapture from '../PhotoCapture/PhotoCapture';
 import { Button } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -49,6 +50,8 @@ function validateFunction(props) {
     })
     setPhotoComplete(true)
   }
+  
+  const history = useHistory()
 
   const setIdPhoto = async () => {
     console.log('in setExamPhoto');
@@ -57,11 +60,10 @@ function validateFunction(props) {
       type: 'SET_ID_PHOTO',
       payload: {
         url: store.image.url.split('?')[0],
-        data: store.image.data,
-        exam: 1, //replace with line below when exams are working
-        // exam: store.exam.selected.id,
+        user_id: store.user.id,
+        exam_id: store.exam.selected.id,
         done: () => {
-          history.pushState('/compare')
+          history.push('/compare')
         }
       }
     })

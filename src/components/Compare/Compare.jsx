@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useSelector} from 'react-redux';
+import './Compare.css'
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -10,7 +11,7 @@ function compareFunction(props) {
   const store = useSelector((store) => store);
   const [photoToCompare, setPhotoToCompare] = useState('/images/profile_default.png')
   const [idToCompare, setIdToCompare] = useState('/images/profile_default.png')
-  const [heading, setHeading] = useState('Compare Component');
+  const [heading, setHeading] = useState('Compare Images');
 
   useEffect( () => {
     getPhotoToCompare()
@@ -104,6 +105,8 @@ function compareFunction(props) {
   return (
     <div>
       <h2>{heading}</h2>
+      <img src={photoToCompare} className='compareImage' />
+      <img src={idToCompare} className='compareImage' />
     </div>
   );
 }
