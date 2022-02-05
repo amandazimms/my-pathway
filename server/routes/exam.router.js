@@ -30,6 +30,36 @@ router.post('/', (req, res) => {
     })
 });
 
+router.put('/photo', (req, res)=> {
+  console.log('query', req.query);
+  console.log('body', req.body);
+  console.log('params', req.params);
+  const queryString = `UPDATE exam SET face_image = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
+  WHERE exam.id = ${req.body.exam_id}
+  RETURNING *`;
+  const values = [ req.body.url, req.body.user_id ];
+   pool.query( queryString, values ).then( (results)=>{
+    res.send(results.rows[0]);
+  }).catch( (err)=>{
+    console.log("error put exam photo", err );
+    res.sendStatus( 500 );
+  })
+});
+
+router.put('/id-image', (req, res)=> {
+  console.log('body', req.body);
+  const queryString = `UPDATE exam SET id_image = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
+  WHERE exam.id = ${req.body.exam_id}
+  RETURNING *`;
+  const values = [ req.body.url, req.body.user_id ];
+   pool.query( queryString, values ).then( (results)=>{
+    res.send(results.rows[0]);
+  }).catch( (err)=>{
+    console.log("error put exam photo", err );
+    res.sendStatus( 500 );
+  })
+});
+
 router.put('/:id', (req, res)=> {
     const id = req.params.id
     const queryString = `UPDATE exam SET event_id = $1, student_id = $2, incident = $3, score = $4, pass = $5, exam_time_start = $6, status = $7, active_question_id = $8, exam_time_end = $9, created_by = $10, create_date = $11, last_modified_by = $12, last_modified_date = $13, face_image = $14, id_image = $15, id_confirmed = $16, present = $17, help = $18, privacy_terms = $19
@@ -42,6 +72,8 @@ router.put('/:id', (req, res)=> {
       res.sendStatus( 500 );
     })
 });
+
+
 
 router.delete('/:id', (req,res)=> {
     const id = req.params.id

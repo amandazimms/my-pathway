@@ -22,10 +22,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserManagement from '../UserManagement/UserManagement'
 import TestList from '../TestList/TestList';
 import TestPage from '../TestPage/TestPage';
-import ExamList from '../ExamList/ExamList'
-import ExamPage from '../ExamPage/ExamPage'
-import EventList from '../EventList/EventList'
-import EventPage from '../EventPage/EventPage'
+import ExamList from '../ExamList/ExamList';
+import ExamPage from '../ExamPage/ExamPage';
+import EventList from '../EventList/EventList';
+import EventPage from '../EventPage/EventPage';
+import Validation from '../Validation/Validation';
+import Compare from '../Compare/Compare'
 
 const theme = createTheme({
 
@@ -103,6 +105,16 @@ function App() {
             <ProtectedRoute exact path="/message_session" >
               {/* // logged in shows UserPage else shows LoginPage */}
               <MessageSession />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/validation" >
+              {/* // logged in shows UserPage else shows LoginPage */}
+              <Validation />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/compare" >
+              {/* // logged in shows UserPage else shows LoginPage */}
+              <Compare />
             </ProtectedRoute>
 
             {/* //TESTS ----------------------------- */}
