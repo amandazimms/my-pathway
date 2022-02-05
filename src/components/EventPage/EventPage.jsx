@@ -12,6 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import EventRegisterStudents from '../EventRegisterStudents/EventRegisterStudents';
 
 function EventPage(props) {
   //This is the page that displays "one event".
@@ -113,6 +114,9 @@ function EventPage(props) {
 
   return (
     <div>
+
+      <EventRegisterStudents/>
+
       {isNew ?
         <>
           <h2>Create New Event</h2>
@@ -187,11 +191,6 @@ function EventPage(props) {
           <Button variant="outlined" onClick={createEvent}>Create New Event</Button>
         </> :
         <>
-          <p> Here in the 'header' area will be some details about this event,
-            such as what time it starts,
-            who will proctor, and what the test will be.
-          </p>
-
           <h3>This event is {event.status}!</h3>
           {editEvent ?
             <>
@@ -288,7 +287,7 @@ function EventPage(props) {
           </TableContainer>
 
 
-          <h3>Upcoming Example</h3>
+          {/* <h3>Upcoming Example</h3>
           <p>Student: Nickolas C  |  ID #: 1234  |  [Edit Button] |  [Remove Button]</p>
           <p>Student: Chris N     |  ID #: 5678  |  [Edit Button] |  [Remove Button]</p>
           <br />
@@ -298,7 +297,7 @@ function EventPage(props) {
           <br />
           <h3>Completed Example</h3>
           <p>Student: Nickolas C  |  ID #: 1234  |  Exam Started: 2:02pm |  [Details Button]</p>
-          <p>Student: Chris N     |  ID #: 5678  |  Exam Started: 2:04pm |  [Details Button]</p>
+          <p>Student: Chris N     |  ID #: 5678  |  Exam Started: 2:04pm |  [Details Button]</p> */}
         </>
       }
     </div>

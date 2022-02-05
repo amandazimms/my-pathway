@@ -2,6 +2,24 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+
+router.get('/search', (req,res) => {
+  //req.query.search_text is search text
+
+  const queryString = `SELECT username, profile_picture, first_name, last_name
+          FROM "user"
+          WHERE "username" ILIKE '%${req.query.search_text}%'
+          OR first_name ILIKE '%${req.query.search_text}%'
+          OR last_name ILIKE '%${req.query.search_text}%';`
+  pool.query(queryString).then((results)=>{
+    res.send(results.rows);
+
+  }).catch((err)=>{
+    console.log('error with search students GET:', err);
+    res.sendStatus(500);
+  })
+});
+
 router.get('/selected', (req, res) => {
   //@nickolas todo (from Amanda - thanks)
   //select * from event from the db WHERE id is req.params.event_id
@@ -41,10 +59,16 @@ router.post('/', (req, res) => {
   //finally plz send back results.rows[0] rather than results.rows
 
   // console.log('req.params:', req.params);
-  console.log('req.body:', req.body);
+  //console.log('req.body:', req.body);
 
-  const queryString = `INSERT INTO event (event_name, test_id, proctor_id, event_date_start, event_date_end, url, created_by, last_modified_by ) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8)  RETURNING id, create_date, last_modified_date`;
-  const values = [ req.body.event_name, req.body.test_id, req.body.proctor_id, req.body.event_date_start, req.body.event_date_end, req.body.url, req.body.created_by, req.body.created_by];
+  const queryString = `INSERT INTO event 
+      (event_name, test_id, proctor_id, event_date_start, 
+      event_date_end, url, created_by, last_modified_by ) 
+      VALUES ( $1, $2, $3, $4, $5, $6, $7, $8)  
+      RETURNING id, create_date, last_modified_date`;
+  const values = [ req.body.event_name, req.body.test_id, req.body.proctor_id, 
+      req.body.event_date_start, req.body.event_date_end, req.body.url, 
+      req.body.created_by, req.body.created_by];
    pool.query( queryString, values).then( (results)=>{
     res.send(results.rows[0]);
   }).catch( (err)=>{

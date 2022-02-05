@@ -12,9 +12,26 @@ function* eventSaga() {
     //dispatch({ type: 'DELETE_EVENT', payload: { event_id: putSomethingHere } }); 
   yield takeLatest('UPDATE_EVENT_SETTINGS', updateEventSettings);//updates any/all of the columns in the event table in the db.
     //dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
+
+  yield takeLatest('SEARCH_FOR_STUDENTS', searchForStudents)
+    //dispatch({ type:'SEARCH_FOR_STUDENTS', payload: {search_text: event.target.value} });
  }
 
+ // worker Saga: will be fired on "SEARCH_FOR_STUDENTS" actions
+ function* searchForStudents(action) {
+  const ap = action.payload;
+  //ap.search_text is the search text
 
+  try {  
+    const search = yield axios.get('/api/event/search',
+        {params: {search_text: ap.search_text} })
+
+    yield put({ type: 'SET_SEARCHED_STUDENTS', payload: search.data });
+    } 
+    catch (error) {
+      console.log('student search request failed', error);
+    }     
+  };
 
 // worker Saga: will be fired on "UPDATE_EVENT_SETTINGS" actions
 function* updateEventSettings(action){
