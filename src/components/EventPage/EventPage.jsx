@@ -61,6 +61,12 @@ function EventPage(props) {
     dispatch({
       type: "FETCH_ALL_PROCTORS"
     })
+    dispatch({
+      type: "FETCH_EVENT_EXAMS",
+      payload:{
+        event_id:store.event.selected.id
+      }
+    })
   }, [])
 
   const handleDateStartChange = (event) => {

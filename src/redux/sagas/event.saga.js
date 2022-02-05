@@ -12,6 +12,9 @@ function* eventSaga() {
     //dispatch({ type: 'DELETE_EVENT', payload: { event_id: putSomethingHere } }); 
   yield takeLatest('UPDATE_EVENT_SETTINGS', updateEventSettings);//updates any/all of the columns in the event table in the db.
     //dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
+  yield takeLatest('FETCH_EVENT_EXAMS', getEventExams);//return all exams associated with the event.
+
+    
  }
 
 
