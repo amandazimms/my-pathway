@@ -22,32 +22,19 @@ const proctorsOnly = (state = [], action) => {
   }
 };
 
-const searchedRegdStudents = (state = [], action) => {
+const searchedStudents = (state = [], action) => {
   switch (action.type) {
-    case 'SET_SEARCHED_REGD_STUDENTS':
+    case 'SET_SEARCHED_STUDENTS':
       return action.payload;
-    case 'UNSET_SEARCHED_REGD_STUDENTS':
+    case 'UNSET_SEARCHED_STUDENTS':
       return [];
     default:
       return state;
   }
 };
-
-const searchedUnregdStudents = (state = [], action) => {
-  switch (action.type) {
-    case 'SET_SEARCHED_UNREGD_STUDENTS':
-      return action.payload;
-    case 'UNSET_SEARCHED_UNREGD_STUDENTS':
-      return [];
-    default:
-      return state;
-  }
-};
-
 
 export default combineReducers({
   all,
   proctorsOnly,
-  searchedRegdStudents,
-  searchedUnregdStudents,
+  searchedStudents,
 });

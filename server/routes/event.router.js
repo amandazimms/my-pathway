@@ -7,16 +7,22 @@ router.get('/search', (req,res) => {
   //req.query.search_text
   //req.query.event_id 
 
-  const queryString = `SELECT "user".id AS "user_id", username, profile_picture, 
-                        first_name, last_name, event_id
-          FROM "user"
-          LEFT JOIN exam ON exam.student_id="user".id
-
-          WHERE "username" ILIKE '%${req.query.search_text}%'
-          OR first_name ILIKE '%${req.query.search_text}%'
-          OR last_name ILIKE '%${req.query.search_text}%'
-
-          AND "user".role='STUDENT';`
+  const queryString = `SELECT CASE WHEN y.in_event=1 
+                THEN true ELSE false END AS 
+                  registered, y.total_registered, y.in_event,y.username, 
+                  y.first_name, y.last_name, y.user_id, y.profile_picture
+                FROM
+                  (SELECT COUNT (event_id) AS total_registered, 
+                      SUM (CASE WHEN event_id=1 THEN 1 ELSE 0 END) 
+                        AS in_event, username, first_name, last_name, "user".id AS user_id, profile_picture
+                  FROM "user" 
+                  LEFT JOIN "exam" ON exam.student_id="user".id
+                  WHERE ("username" ILIKE '%${req.query.search_text}%' 
+                          OR first_name ILIKE '%${req.query.search_text}%' 
+                          OR last_name ILIKE '%${req.query.search_text}%')
+                  AND "user".role='STUDENT'
+                  GROUP BY user_id, username, first_name, last_name, profile_picture) 
+                AS y;`
 
   pool.query(queryString).then((results)=>{
     res.send(results.rows);
@@ -71,11 +77,13 @@ router.post('/', (req, res) => {
   const queryString = `INSERT INTO event 
       (event_name, test_id, proctor_id, event_date_start, 
       event_date_end, url, created_by, last_modified_by ) 
+     
       VALUES ( $1, $2, $3, $4, $5, $6, $7, $8)  
       RETURNING id, create_date, last_modified_date`;
   const values = [ req.body.event_name, req.body.test_id, req.body.proctor_id, 
       req.body.event_date_start, req.body.event_date_end, req.body.url, 
       req.body.created_by, req.body.created_by];
+      
    pool.query( queryString, values).then( (results)=>{
     res.send(results.rows[0]);
   }).catch( (err)=>{

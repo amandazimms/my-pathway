@@ -14,8 +14,7 @@ import { Button } from '@mui/material';
 function EventRegisterStudents(props) {
 
   const user = useSelector(store => store.user);
-  const searchedRegedStudents = useSelector(store => store.allUsers.searchedRegdStudents);
-  const searchedUnregedStudents = useSelector(store => store.allUsers.searchedUnregdStudents);
+  const searchedStudents = useSelector(store => store.allUsers.searchedStudents);
   const selectedEvent = useSelector(store => store.event.selected);
   const dispatch = useDispatch();
 
@@ -40,8 +39,7 @@ function EventRegisterStudents(props) {
   return (
     <div>
       <p>Register Student to Event:</p>
-      <p>searched registered results: {JSON.stringify(searchedRegedStudents)}</p>
-      <p>searched unregistered results: {JSON.stringify(searchedUnregedStudents)}</p>
+      <p>searched students: {JSON.stringify(searchedStudents)}</p>
 
       <input className="loginInput" type="text" placeholder="Enter student to search for" onChange={ (event) => handleSearchInputChange(event) }></input>
       
@@ -57,7 +55,7 @@ function EventRegisterStudents(props) {
         </TableHead>
         <TableBody>
           {/* table part 1: first display a list of all unregistered students from this search */}
-          {searchedUnregedStudents.map((student) => (
+          {searchedStudents.map((student) => (
             <TableRow
               key={student.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -68,22 +66,11 @@ function EventRegisterStudents(props) {
               <TableCell align="left">{student.first_name}</TableCell>
               <TableCell align="left">{student.last_name}</TableCell>
               <TableCell align="center">
+                {
+                  
+                }
                 <Button variant="outlined" onClick={ () => {registerStudent(student)} }>Register Student</Button>
               </TableCell>
-            </TableRow>
-          ))}
-          {/* table part 2: below the unregistered, display a list of all registered students */}
-          {searchedRegedStudents.map((student) => (
-            <TableRow
-              key={student.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {student.username}
-              </TableCell>
-              <TableCell align="left">{student.first_name}</TableCell>
-              <TableCell align="left">{student.last_name}</TableCell>
-              <TableCell align="center">Already Registered!</TableCell>
             </TableRow>
           ))}
         </TableBody>

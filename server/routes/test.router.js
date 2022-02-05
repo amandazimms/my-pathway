@@ -50,8 +50,10 @@ router.post('/', (req, res) => {
   const id = req.params.id;                                                                                                                                                               
   const queryString = `INSERT INTO test (title, points_possible, test_time_limit, question_shuffle, 
       test_attempt_limit, created_by, last_modified_by) 
+    
     VALUES ( $1, $2, $3, $4, $5, $6, $7 ) 
     RETURNING id, create_date, last_modified_date;`;
+
   const values = [ req.body.title, req.body.points_possible, req.body.test_time_limit, req.body.question_shuffle, 
       req.body.test_attempt_limit, req.body.created_by, req.body.last_modified_by ];
    pool.query( queryString, values).then( (results)=>{

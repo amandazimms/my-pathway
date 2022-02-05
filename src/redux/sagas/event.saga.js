@@ -42,35 +42,10 @@ function* registerStudentToEvent(action){
   const ap = action.payload;
   //ap.search_text 
   //ap.event_id
-
   try {  
     const search = yield axios.get('/api/event/search',
         {params: {search_text: ap.search_text, event_id: ap.event_id} });
-
-    let registeredStudents = [];
-    let unregisteredStudents = [];
-
-    for (const student of search.data){      
-      if (!student.event_id){
-        //if this student hasn't registered for anything ever, we know they're un
-        unregisteredStudents.push(student);
-      } 
-      else if (student.event_id === ap.event_id){
-        //if exact match, we know they're registered
-        registeredStudents.push(student);
-      } 
-      else if (unregisteredStudents.filter(i => i.user_id === student.user_id).length === 0 
-              && registeredStudents.filter(i => i.user_id === student.user_id).length === 0) {
-        //if they're registered for OTHER tests, they should go to unregistered, 
-        //... but only once per student, and only if they're not already registered to a test.
-        //filter thru students we've already pushed into unregistered...
-        //... if none of their usernames match this one, push it in
-        unregisteredStudents.push(student);
-      }
-    }
-
-    yield put({ type: 'SET_SEARCHED_REGD_STUDENTS', payload: registeredStudents });
-    yield put({ type: 'SET_SEARCHED_UNREGD_STUDENTS', payload: unregisteredStudents });
+    yield put({ type: 'SET_SEARCHED_STUDENTS', payload: search.data });
     } 
     catch (error) {
       console.log('student search request failed', error);
