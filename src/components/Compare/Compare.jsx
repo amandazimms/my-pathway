@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import './Compare.css'
+import { Button } from '@mui/material';
+import { useHistory } from 'react-router-dom';
+
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -9,6 +12,7 @@ function compareFunction(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
+  const dispatch = useDispatch()
   const [photoToCompare, setPhotoToCompare] = useState('/images/profile_default.png')
   const [idToCompare, setIdToCompare] = useState('/images/profile_default.png')
   const [heading, setHeading] = useState('Compare Images');
@@ -102,11 +106,47 @@ function compareFunction(props) {
       });
   };
 
+  const history = useHistory();
+  
+  const validateStudent = () =>{
+    console.log('STUDENT APPROVED');
+    dispatch({
+      type: 'CONFIRM_STUDENT_ID',
+      payload: {
+        id_confirmed:true,
+        exam_id:store.exam.selected.id,
+        user_id:store.user.id,
+        done:()=>{
+          history.push('/events-all')
+        }
+      }
+    })
+  }
+
+  const denyStudent = () =>{
+    console.log('STUDENT DENIED');
+    dispatch({
+      type: 'CONFIRM_STUDENT_ID',
+      payload: {
+        id_confirmed:false,
+        exam_id:store.exam.selected.id,
+        user_id:store.user.id,
+        done:()=>{
+          history.push('/events-all')
+        }
+      }
+    })
+  }
+
   return (
     <div>
       <h2>{heading}</h2>
       <img src={photoToCompare} className='compareImage' />
       <img src={idToCompare} className='compareImage' />
+      <br />
+      <br />
+      <Button variant="contained" color="error" onClick={denyStudent}>Deny</Button>
+      <Button variant="contained" color="success" onClick={validateStudent}>Approve</Button>
     </div>
   );
 }
