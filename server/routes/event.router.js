@@ -4,13 +4,19 @@ const router = express.Router();
 
 
 router.get('/search', (req,res) => {
-  //req.query.search_text is search text
+  //req.query.search_text
+  //req.query.event_id 
 
-  const queryString = `SELECT username, profile_picture, first_name, last_name
+  const queryString = `SELECT "user".id AS "user_id", username, profile_picture, first_name, last_name, event_id
           FROM "user"
+          LEFT JOIN exam ON exam.student_id="user".id
+
           WHERE "username" ILIKE '%${req.query.search_text}%'
           OR first_name ILIKE '%${req.query.search_text}%'
-          OR last_name ILIKE '%${req.query.search_text}%';`
+          OR last_name ILIKE '%${req.query.search_text}%'
+
+          AND "user".role='STUDENT';`
+
   pool.query(queryString).then((results)=>{
     res.send(results.rows);
 

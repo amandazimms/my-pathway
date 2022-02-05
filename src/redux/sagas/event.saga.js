@@ -15,18 +15,60 @@ function* eventSaga() {
 
   yield takeLatest('SEARCH_FOR_STUDENTS', searchForStudents)
     //dispatch({ type:'SEARCH_FOR_STUDENTS', payload: {search_text: event.target.value} });
+  yield takeLatest('REGISTER_STUDENT_TO_EVENT', registerStudentToEvent)  
+    //dispatch({ type:'REGISTER_STUDENT_TO_EVENT', payload: {student: student} })
  }
+
+// worker Saga: will be fired on "REGISTER_STUDENT_TO_EVENT" actions
+function* registerStudentToEvent(action){
+  const ap = action.payload;
+  //ap.student_id
+  //ap.proctor_id
+  //ap.event_id
+
+  try {
+    yield axios.post('/api/exam', {student_id: ap.student_id, proctor_id: ap.proctor_id, event_id: ap.event_id} );  
+    //todo set something (else)? yield put({ type: 'SET_SELECTED_EVENT', payload: event }); 
+
+  } catch (error) {
+    console.log('POST student registration to exam failed', error);
+  }
+}
 
  // worker Saga: will be fired on "SEARCH_FOR_STUDENTS" actions
  function* searchForStudents(action) {
   const ap = action.payload;
-  //ap.search_text is the search text
+  //ap.search_text 
+  //ap.event_id
 
   try {  
     const search = yield axios.get('/api/event/search',
-        {params: {search_text: ap.search_text} })
+        {params: {search_text: ap.search_text, event_id: ap.event_id} });
 
-    yield put({ type: 'SET_SEARCHED_STUDENTS', payload: search.data });
+    let registeredStudents = [];
+    let unregisteredStudents = [];
+
+    for (const student of search.data){      
+      if (!student.event_id){
+        //if this student hasn't registered for anything ever, we know they're un
+        unregisteredStudents.push(student);
+      } 
+      else if (student.event_id === ap.event_id){
+        //if exact match, we know they're registered
+        registeredStudents.push(student);
+      } 
+      else if (unregisteredStudents.filter(i => i.user_id === student.user_id).length === 0 
+              && registeredStudents.filter(i => i.user_id === student.user_id).length === 0) {
+        //if they're registered for OTHER tests, they should go to unregistered, 
+        //... but only once per student, and only if they're not already registered to a test.
+        //filter thru students we've already pushed into unregistered...
+        //... if none of their usernames match this one, push it in
+        unregisteredStudents.push(student);
+      }
+    }
+
+    yield put({ type: 'SET_SEARCHED_REGD_STUDENTS', payload: registeredStudents });
+    yield put({ type: 'SET_SEARCHED_UNREGD_STUDENTS', payload: unregisteredStudents });
     } 
     catch (error) {
       console.log('student search request failed', error);
