@@ -44,10 +44,18 @@ router.get('/all', (req, res) => {
 });
 
 router.get('/selected', (req, res) => {
-  const id = req.params.exam_id
-  const queryString = `SELECT * FROM exam WHERE id = $1` ;
+  const id = req.query.exam_id
+  const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
+	    incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
+      exam.status AS exam_status
+    FROM exam 
+    JOIN "event" ON "event".id=exam.event_id
+    JOIN test ON test.id="event".test_id
+    JOIN "user" ON exam.student_id="user".id
+    WHERE exam.id = $1`;
   pool.query( queryString, [id] ).then( (results)=>{
-    res.send( results.rows );
+    console.log('results.rows:', results.rows);
+    res.send( results.rows[0] );
   }).catch( (err)=>{
     console.log("error get selected exam", err );
     res.sendStatus( 500 );

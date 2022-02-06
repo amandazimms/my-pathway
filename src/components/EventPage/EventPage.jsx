@@ -125,8 +125,7 @@ function EventPage(props) {
   }
   
   const setSelectedExam = (exam) => {
-    console.log('set selected exam:', exam);
-    dispatch({ type: 'SET_SELECTED_EXAM', payload: {exam: exam} }); 
+    dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: exam.exam_id} }); 
   }
 
   return (
