@@ -105,6 +105,10 @@ function EventPage(props) {
     dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } });
   }
 
+  const unregisterStudent = (student) => {
+    dispatch({ type:'UNREGISTER_STUDENT_TO_EVENT', 
+      payload: {exam_id: student.exam_id, event_id: event.id} });
+  }
 
   const createEvent = () => {
     let newEvent = {
@@ -226,6 +230,7 @@ function EventPage(props) {
                     mode={event.status} 
                     rows={exams} 
                     headerText={"STUDENTS"}
+                    onUnregisterStudent={ (student)=>unregisterStudent(student)}
                   />
                 </>
               : <>
