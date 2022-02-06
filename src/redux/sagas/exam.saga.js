@@ -6,21 +6,21 @@ function* eventSaga() {
   yield takeLatest('SET_ID_PHOTO', setIdPhoto);//inputs the id card image url into exam table. 
   yield takeLatest('CONFIRM_STUDENT_ID', confirmId);//updates the value of confirm_id in exam table. 
   
-  
-  //TODO all of these
-  //TODO all of these
-  //TODO all of these
-  // yield takeLatest('FETCH_EVENT', fetchEvent);//fetches all the info for a single Event. 
-  //   //dispatch({ type: 'FETCH_EVENT', payload: {event_id: putSomethingHere} }); 
-  // yield takeLatest('FETCH_ALL_EVENTS', fetchAllEvents);//fetches ALL Events in DB. 
-  //   //dispatch({ type: 'FETCH_ALL_EVENTS' }); 
-  // yield takeLatest('ADD_EVENT', addEvent);//posts a new event to the db.
-  //   //dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } }); 
-  // yield takeLatest('DELETE_EVENT', deleteEvent);//deletes a event from the db.
-  //   //dispatch({ type: 'DELETE_EVENT', payload: { event_id: putSomethingHere } }); 
-  // yield takeLatest('UPDATE_EVENT_SETTINGS', updateEventSettings);//updates any/all of the columns in the event table in the db.
-  //   //dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
+  yield takeLatest('FETCH_SELECTED_EXAM', fetchSelectedExam);//fetches all the info for a single Exam. 
+    //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
  }
+
+ // worker Saga: will be fired on "FETCH_SELECTED_EXAM" actions
+function* fetchSelectedExam(action) {
+  const ap = action.payload;
+  //ap.exam_id is the exam id to fetch
+  try {
+    const response = yield axios.get('/api/exam/selected', { params: {exam_id: ap.exam_id} });
+    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+  } catch (error) {
+    console.log('get selected exam request failed', error);
+  }
+}
 
  function* setExamPhoto(action){
   const ap = action.payload;
@@ -54,7 +54,6 @@ function* setIdPhoto(action){
     });
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
       ap.done()
-      //todo ^ @Amanda - definitely need to verify that this works correctly
   } catch (error) {
     console.log('setIdPhoto failed', error);
   }
@@ -75,7 +74,6 @@ function* confirmId(action){
     });
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
       ap.done()
-      //todo ^ @Amanda - definitely need to verify that this works correctly
   } catch (error) {
     console.log('confirmId failed', error);
   }
@@ -139,21 +137,6 @@ function* confirmId(action){
 
 //   } catch (error) {
 //     console.log('POST event failed', error);
-//   }
-// }
-
-// // worker Saga: will be fired on "FETCH_EVENT" actions
-// function* fetchEvent(action) {
-//   //TODO all of these
-//   //TODO all of these
-//   //TODO all of these
-//   const ap = action.payload;
-//   //ap.event_id is the event id to fetch
-//   try {
-//     const response = yield axios.get('/api/event/selected', { params: {event_id: ap.event_id} });
-//     yield put({ type: 'SET_SELECTED_EVENT', payload: response.data });
-//   } catch (error) {
-//     console.log('get event request failed', error);
 //   }
 // }
 

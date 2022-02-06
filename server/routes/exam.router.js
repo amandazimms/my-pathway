@@ -42,6 +42,18 @@ router.get('/all', (req, res) => {
       res.sendStatus( 500 );
     })
 });
+
+router.get('/selected', (req, res) => {
+  const id = req.params.exam_id
+  const queryString = `SELECT * FROM exam WHERE id = $1` ;
+  pool.query( queryString, [id] ).then( (results)=>{
+    res.send( results.rows );
+  }).catch( (err)=>{
+    console.log("error get selected exam", err );
+    res.sendStatus( 500 );
+  })
+});
+
 router.post('/', (req, res) => {
 
 //.post notes
