@@ -9,15 +9,17 @@ router.get('/selected', (req, res) => {
   //this will be used when a proctor is viewing a test that's already been created
   //use variable req.params.test_id for the test id value
   //send back the results.rows
-
-  const queryString = `SELECT * FROM test INNER JOIN question ON test.id=question.parent_test_id` ;
+  console.log('req.query', req.query);
+  const queryString = `SELECT * FROM test WHERE id=${req.query.test_id}` ;
   pool.query( queryString ).then( (results)=>{
-    res.send( results.rows );
+    res.send( results.rows[0] );
   }).catch( (err)=>{
     console.log("error get test", err );
     res.sendStatus( 500 );
   })
 });
+
+
 router.get('/all', (req, res) => {
   //@nickolas todo (from Amanda - thanks)
   //get * from the tests table

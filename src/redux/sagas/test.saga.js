@@ -77,9 +77,9 @@ function* addQuestion(action){
   console.log('ap:', ap);
   try {
     const postedQuestion = yield axios.post('/api/question', ap.question );
-    question = {...question, id: postedQuestion.data.id, create_date: postedQuestion.data.create_date, last_modified_date: postedQuestion.data.last_modified_date }
     yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: question.parent_test_id} });
-    yield put({ type: 'SET_SELECTED_QUESTION', payload: {question} })
+    yield put({ type: 'SET_SELECTED_QUESTION', payload: postedQuestion.data })
+    yield put({ type: 'FETCH_TEST', payload: {test_id:question.parent_test_id} })
   } catch (error) {
     console.log('POST question failed', error);
   }

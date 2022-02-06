@@ -22,6 +22,10 @@ function QuestionList(props) {
   // const [heading, setHeading] = useState('Functional Component');
 
   const [showModal, setShowModal] = useState(false); 
+  const [testValue, setTestValue] = useState(0)
+
+
+
 
   useEffect(() => {
     dispatch({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: test.id} }); 

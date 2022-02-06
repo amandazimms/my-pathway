@@ -40,10 +40,10 @@ const [questionAnswer, setQuestionAnswer] = useState('')
 const [optionOne, setOptionOne] = useState('')
 const [optionTwo, setOptionTwo] = useState('')
 const [optionThree, setOptionThree] = useState('')
-const [testValue, setTestValue] = (0)
+const [testValue, setTestValue] = useState(0)
 
 const findTestValue = () => {
-  result = 0
+  let result = 0
   for(let i=0; i<store.question.all.length; i++){
     result += store.question.all[i].point_value
   }
@@ -54,6 +54,7 @@ const findTestValue = () => {
 
 const addQuestion = (event) => {
   let question = {
+  test_value: (testValue+questionValue),
   point_value: questionValue,
   type: questionType, 
   // required: requried, 
@@ -64,7 +65,9 @@ const addQuestion = (event) => {
   // option_four: optionFour,
   answer: questionAnswer,
   parent_test_id: selectedTest.id, 
-  // status: status,
+  active: true,
+  user_id: store.user.id,
+  required: true
   }
   console.log('in add question');
   console.log(questionValue); 
@@ -89,7 +92,7 @@ open={open}
 // onClose={handleClose}
 >
 <Box>
-<p>Calculated Test Value: {JSON.stringify(testValue)}</p>
+
 <form className="formPanel">
 
 

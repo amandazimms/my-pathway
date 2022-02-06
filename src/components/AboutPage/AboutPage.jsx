@@ -12,9 +12,9 @@ function AboutPage() {
   const dispatch = useDispatch();
   const store = useSelector((store) => store);
 
-  useEffect(()=>{
-    dispatch( {type: 'FETCH_TEST'})
-  }, [])
+  // useEffect(()=>{
+  //   dispatch( {type: 'FETCH_TEST'})
+  // }, [])
 
   return (
     <div className="container">
