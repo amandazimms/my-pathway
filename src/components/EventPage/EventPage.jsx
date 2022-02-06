@@ -226,12 +226,6 @@ function EventPage(props) {
                   <p>You are now viewing Registration 'tab'</p>
                   <Button onClick={() => setShowRegistration(false)}>Show Setttings Tab Instead</Button>
                   <EventRegisterStudents/> 
-                  <ExamTable 
-                    mode={event.status} 
-                    rows={exams} 
-                    headerText={"STUDENTS"}
-                    onUnregisterStudent={ (student)=>unregisterStudent(student)}
-                  />
                 </>
               : <>
                   <p>You are now viewing Settings 'tab'</p>
@@ -251,6 +245,13 @@ function EventPage(props) {
           </>
         : <></> 
       }
+
+      <ExamTable 
+        mode={event.status} 
+        rows={exams} 
+        headerText={"STUDENTS"}
+        onUnregisterStudent={ (student)=>unregisterStudent(student)}
+      />
 
       
 
