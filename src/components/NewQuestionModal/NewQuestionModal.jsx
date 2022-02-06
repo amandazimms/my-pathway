@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-ui/core"; 
 import { FormControlLabel } from '@material-ui/core';
@@ -22,6 +22,10 @@ const selectedQuestion = useSelector(store => store.question.selected)
 
 const selectedTest = useSelector(store => store.test.selected)
 
+useEffect(() => {
+  findTestValue()
+},[])
+
 const handleChange = (event) => {
   setNewQuestion(...newQuestion, event.target.value)
   console.log('question:', event.target.value)
@@ -36,6 +40,16 @@ const [questionAnswer, setQuestionAnswer] = useState('')
 const [optionOne, setOptionOne] = useState('')
 const [optionTwo, setOptionTwo] = useState('')
 const [optionThree, setOptionThree] = useState('')
+const [testValue, setTestValue] = (0)
+
+const findTestValue = () => {
+  result = 0
+  for(let i=0; i<store.question.all.length; i++){
+    result += store.question.all[i].point_value
+  }
+  setTestValue(result)
+  return result
+}
 
 
 const addQuestion = (event) => {
@@ -75,7 +89,9 @@ open={open}
 // onClose={handleClose}
 >
 <Box>
+<p>Calculated Test Value: {JSON.stringify(testValue)}</p>
 <form className="formPanel">
+
 
 <h2>Question</h2>
 <FormControl fullWidth>
