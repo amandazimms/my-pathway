@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {useHistory} from "react-router-dom"; 
@@ -20,8 +20,13 @@ function EventRegisterStudents(props) {
 
   const [searchText, setSearchText] = useState();
 
-  const handleSearchInputChange = async (event) => {
-    await setSearchText(event.target.value);
+  useEffect(() => {
+   dispatch({ type:'UNSET_SEARCHED_STUDENTS'});
+  }, []);
+  
+
+  const handleSearchInputChange = (event) => {
+    setSearchText(event.target.value);
     doSearch(event.target.value);
   }
 
@@ -30,10 +35,9 @@ function EventRegisterStudents(props) {
                 payload: {search_text: textToSearch, event_id: selectedEvent.id} });
   }
 
-  const registerStudent = async (student) => {
-    await dispatch({ type:'REGISTER_STUDENT_TO_EVENT', 
-                payload: {student_id: student.user_id, proctor_id: user.id, event_id: selectedEvent.id} })
-    await doSearch(searchText);
+  const registerStudent = (student) => {
+    dispatch({ type:'REGISTER_STUDENT_TO_EVENT', 
+                payload: {student_id: student.user_id, proctor_id: user.id, event_id: selectedEvent.id, search_text: searchText} });
   }
 
   return (
@@ -67,9 +71,10 @@ function EventRegisterStudents(props) {
               <TableCell align="left">{student.last_name}</TableCell>
               <TableCell align="center">
                 {
-                  
+                  student.registered
+                  ? <p>Already Registered</p>
+                  : <Button variant="outlined" onClick={ () => {registerStudent(student)} }>Register Student</Button>
                 }
-                <Button variant="outlined" onClick={ () => {registerStudent(student)} }>Register Student</Button>
               </TableCell>
             </TableRow>
           ))}

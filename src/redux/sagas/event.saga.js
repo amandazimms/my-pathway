@@ -22,16 +22,10 @@ function* eventSaga() {
 // worker Saga: will be fired on "REGISTER_STUDENT_TO_EVENT" actions
 function* registerStudentToEvent(action){
   const ap = action.payload;
-  //ap.student_id
-  //ap.proctor_id
-  //ap.event_id
-
+  //ap.student_id, ap.proctor_id, ap.event_id, ap.search_text
   try {
     yield axios.post('/api/exam', {student_id: ap.student_id, proctor_id: ap.proctor_id, event_id: ap.event_id} );  
-    
-    
-    //todo set something (else)? yield put({ type: 'SET_SELECTED_EVENT', payload: event }); 
-
+    yield put({  type:'SEARCH_FOR_STUDENTS', payload: {search_text: ap.search_text, event_id: ap.event_id} });
   } catch (error) {
     console.log('POST student registration to exam failed', error);
   }
