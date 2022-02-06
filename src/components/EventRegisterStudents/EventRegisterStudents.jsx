@@ -37,7 +37,6 @@ function EventRegisterStudents(props) {
   }
 
   const registerStudent = (student) => {
-    console.log('registering student:', student);
     dispatch({ type:'REGISTER_STUDENT_TO_EVENT', 
                 payload: {student_id: student.user_id, proctor_id: user.id, event_id: selectedEvent.id, search_text: searchText} });
   }

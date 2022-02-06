@@ -13,7 +13,8 @@ router.get('/search', (req,res) => {
                 FROM
                   (SELECT COUNT (event_id) AS total_registered, 
                       SUM (CASE WHEN event_id=${req.query.event_id} THEN 1 ELSE 0 END) 
-                        AS in_event, username, first_name, last_name, "user".id AS user_id, profile_picture
+                        AS in_event, username, first_name, last_name, 
+                        "user".id AS user_id, profile_picture
                   FROM "user" 
                   LEFT JOIN "exam" ON exam.student_id="user".id
                   WHERE ("username" ILIKE '%${req.query.search_text}%' 

@@ -17,10 +17,25 @@ function* eventSaga() {
     //dispatch({ type:'SEARCH_FOR_STUDENTS', payload: {search_text: event.target.value} });
   yield takeLatest('REGISTER_STUDENT_TO_EVENT', registerStudentToEvent)  
     //dispatch({ type:'REGISTER_STUDENT_TO_EVENT', payload: {student: student} })
+  yield takeLatest('UNREGISTER_STUDENT_TO_EVENT', unregisterStudentToEvent)  
+    //dispatch({ type:'UNREGISTER_STUDENT_TO_EVENT', payload: {student: student} })
+  
   yield takeLatest('FETCH_EVENT_EXAMS', getEventExams);//return all exams associated with the event.
-
     
  }
+
+ // worker Saga: will be fired on "UNREGISTER_STUDENT_TO_EVENT" actions
+function* unregisterStudentToEvent(action){
+  const ap = action.payload;
+  //ap.exam_id, ap.event_id
+  try {
+    yield axios.delete(`/api/exam/${ap.exam_id}`);  
+    yield put({ type:'FETCH_EVENT_EXAMS', payload: {event_id: ap.event_id} });
+
+  } catch (error) {
+    console.log('POST student registration to exam failed', error);
+  }
+}
 
 // worker Saga: will be fired on "REGISTER_STUDENT_TO_EVENT" actions
 function* registerStudentToEvent(action){
@@ -30,7 +45,6 @@ function* registerStudentToEvent(action){
     yield axios.post('/api/exam', {student_id: ap.student_id, proctor_id: ap.proctor_id, event_id: ap.event_id} );  
     yield put({  type:'SEARCH_FOR_STUDENTS', payload: {search_text: ap.search_text, event_id: ap.event_id} });
     yield put({ type:'FETCH_EVENT_EXAMS', payload: {event_id: ap.event_id} });
-
   } catch (error) {
     console.log('POST student registration to exam failed', error);
   }
