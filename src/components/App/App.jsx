@@ -22,7 +22,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserManagement from '../UserManagement/UserManagement'
 import TestList from '../TestList/TestList';
 import TestPage from '../TestPage/TestPage';
-import ExamList from '../ExamList/ExamList';
 import ExamPage from '../ExamPage/ExamPage';
 import EventList from '../EventList/EventList';
 import EventPage from '../EventPage/EventPage';
@@ -154,13 +153,6 @@ function App() {
               {/* // logged in shows ExamPage else shows LoginPage */}
               <ExamPage />
             </ProtectedRoute>
-
-            <ProtectedRoute exact path="/exams-all" >
-              {/* // logged in shows ExamList else shows LoginPage */}
-              <ExamList />
-            </ProtectedRoute>
-
-
 
 
 

@@ -29,6 +29,8 @@ function* registerStudentToEvent(action){
   try {
     yield axios.post('/api/exam', {student_id: ap.student_id, proctor_id: ap.proctor_id, event_id: ap.event_id} );  
     yield put({  type:'SEARCH_FOR_STUDENTS', payload: {search_text: ap.search_text, event_id: ap.event_id} });
+    yield put({ type:'FETCH_EVENT_EXAMS', payload: {event_id: ap.event_id} });
+
   } catch (error) {
     console.log('POST student registration to exam failed', error);
   }
@@ -40,7 +42,7 @@ function* registerStudentToEvent(action){
   //ap.search_text 
   //ap.event_id
   try {  
-    const search = yield axios.get('/api/event/search',
+    const search = yield axios.get('/api/exam/search',
         {params: {search_text: ap.search_text, event_id: ap.event_id} });
     yield put({ type: 'SET_SEARCHED_STUDENTS', payload: search.data });
     } 
@@ -146,7 +148,6 @@ function* fetchAllEvents() {
         event.status = 'UPCOMING'
       }
       else if (now > new Date(event.event_date_start).valueOf() && now < new Date(event.event_date_end).valueOf()){
-        console.log('made it here once');
         event.status = 'IN PROGRESS'
       }
     }

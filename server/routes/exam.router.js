@@ -2,6 +2,35 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+router.get('/search', (req,res) => {
+  //req.query.search_text
+  //req.query.event_id 
+
+  const queryString = `SELECT CASE WHEN y.in_event=1 
+                THEN true ELSE false END AS 
+                  registered, y.total_registered, y.in_event,y.username, 
+                  y.first_name, y.last_name, y.user_id, y.profile_picture
+                FROM
+                  (SELECT COUNT (event_id) AS total_registered, 
+                      SUM (CASE WHEN event_id=${req.query.event_id} THEN 1 ELSE 0 END) 
+                        AS in_event, username, first_name, last_name, "user".id AS user_id, profile_picture
+                  FROM "user" 
+                  LEFT JOIN "exam" ON exam.student_id="user".id
+                  WHERE ("username" ILIKE '%${req.query.search_text}%' 
+                          OR first_name ILIKE '%${req.query.search_text}%' 
+                          OR last_name ILIKE '%${req.query.search_text}%')
+                  AND "user".role='STUDENT'
+                  GROUP BY user_id, username, first_name, last_name, profile_picture) 
+                AS y;`
+
+  pool.query(queryString).then((results)=>{
+    res.send(results.rows);
+
+  }).catch((err)=>{
+    console.log('error with search students GET:', err);
+    res.sendStatus(500);
+  })
+});
 
 router.get('/all', (req, res) => {
     const queryString = `SELECT * FROM exam`;
