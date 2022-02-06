@@ -124,6 +124,9 @@ function EventPage(props) {
     setIsNew(false)
   }
   
+  const setSelectedExam = (exam) => {
+    dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: exam.exam_id} }); 
+  }
 
   return (
     <div>
@@ -251,6 +254,7 @@ function EventPage(props) {
         rows={exams} 
         headerText={"STUDENTS"}
         onUnregisterStudent={ (student)=>unregisterStudent(student)}
+        onSetSelectedExam={ (exam)=>setSelectedExam(exam) }
       />
 
       

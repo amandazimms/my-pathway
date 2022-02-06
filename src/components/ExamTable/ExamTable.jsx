@@ -35,6 +35,10 @@ function ExamTable(props) {
     props.onUnregisterStudent(student);
   }
 
+  const setSelectedExam = (exam) => {
+    props.onSetSelectedExam(exam);
+  }
+
   return (
   <>
     <h3>{headerText}</h3>
@@ -110,7 +114,9 @@ function ExamTable(props) {
                   : <></>
                 }
                 { mode === 'COMPLETE' 
-                  ? <Button variant="contained" onClick={() => {alert('need to build this')}}>VIEW RESULTS</Button> 
+                  ? <Link to="/proctor-exam-complete">
+                      <Button variant="contained" onClick={() =>setSelectedExam(row) }>VIEW RESULTS</Button> 
+                    </Link>
                   : <></>
                 }
                 { mode === 'SEARCH' 
