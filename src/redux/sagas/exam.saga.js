@@ -2,6 +2,11 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function* eventSaga() {
+  yield takeLatest('SET_EXAM_PHOTO', setExamPhoto);//inputs the student photo url into exam table
+  yield takeLatest('SET_ID_PHOTO', setIdPhoto);//inputs the id card image url into exam table. 
+  yield takeLatest('CONFIRM_STUDENT_ID', confirmId);//updates the value of confirm_id in exam table. 
+  
+  
   //TODO all of these
   //TODO all of these
   //TODO all of these
@@ -17,6 +22,64 @@ function* eventSaga() {
   //   //dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
  }
 
+ function* setExamPhoto(action){
+  const ap = action.payload;
+  //ap.event is the event object to update, 
+  //including event_name, test_id, proctor_id, event_date, event_time
+  //event_end_time, url, last_modified_by, and id
+  try {
+    const response = yield axios({
+      method: 'PUT',
+      url:`/api/exam/photo`,
+      data: ap
+    });
+    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+      console.log('');
+      //todo ^ @Amanda - definitely need to verify that this works correctly
+  } catch (error) {
+    console.log('setExamPhoto failed', error);
+  }
+}
+
+function* setIdPhoto(action){
+  const ap = action.payload;
+  //ap.event is the event object to update, 
+  //including event_name, test_id, proctor_id, event_date, event_time
+  //event_end_time, url, last_modified_by, and id
+  try {
+    const response = yield axios({
+      method: 'PUT',
+      url:`/api/exam/id-image`,
+      data: ap
+    });
+    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+      ap.done()
+      //todo ^ @Amanda - definitely need to verify that this works correctly
+  } catch (error) {
+    console.log('setIdPhoto failed', error);
+  }
+}
+
+
+
+function* confirmId(action){
+  const ap = action.payload;
+  //ap.event is the event object to update, 
+  //including event_name, test_id, proctor_id, event_date, event_time
+  //event_end_time, url, last_modified_by, and id
+  try {
+    const response = yield axios({
+      method: 'PUT',
+      url:`/api/exam/confirm-id`,
+      data: ap
+    });
+    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+      ap.done()
+      //todo ^ @Amanda - definitely need to verify that this works correctly
+  } catch (error) {
+    console.log('confirmId failed', error);
+  }
+}
 
 
 // // worker Saga: will be fired on "UPDATE_EVENT_SETTINGS" actions

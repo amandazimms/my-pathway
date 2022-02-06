@@ -28,8 +28,24 @@ const all = (state = [], action) => {
   }
 };
 
+const exams = (state = [], action) => {
+  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
+  //const allEvents = useSelector(store => store.event.all);
+  switch (action.type) {
+    case 'SET_EVENT_EXAMS':
+      return action.payload;
+    case 'UNSET_EVENT_EXAMS':
+      return [];
+    default:
+      return state;
+  }
+};
+
+
+
 export default combineReducers({
   selected,
   all,
+  exams
 });
 

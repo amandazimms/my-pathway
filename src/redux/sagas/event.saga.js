@@ -17,6 +17,9 @@ function* eventSaga() {
     //dispatch({ type:'SEARCH_FOR_STUDENTS', payload: {search_text: event.target.value} });
   yield takeLatest('REGISTER_STUDENT_TO_EVENT', registerStudentToEvent)  
     //dispatch({ type:'REGISTER_STUDENT_TO_EVENT', payload: {student: student} })
+  yield takeLatest('FETCH_EVENT_EXAMS', getEventExams);//return all exams associated with the event.
+
+    
  }
 
 // worker Saga: will be fired on "REGISTER_STUDENT_TO_EVENT" actions
@@ -105,6 +108,19 @@ function* fetchEvent(action) {
     yield put({ type: 'SET_SELECTED_EVENT', payload: response.data });
   } catch (error) {
     console.log('get event request failed', error);
+  }
+}
+
+
+
+function* getEventExams(action) {
+  const ap = action.payload;
+  //ap.event_id is the event id to fetch
+  try {
+    const response = yield axios.get('/api/event/exams', { params: {event_id: ap.event_id} });
+    yield put({ type: 'SET_EVENT_EXAMS', payload: response.data });
+  } catch (error) {
+    console.log('getEventExams request failed', error);
   }
 }
 

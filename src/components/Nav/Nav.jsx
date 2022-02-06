@@ -47,6 +47,10 @@ function Nav() {
               All Exams
             </Link>
 
+            <Link className="navLink" to="/validation">
+              Validation
+            </Link>
+
             <Link className="navLink" to="/question">
               Question Form
               {/* this whole link will eventually be removed from Nav - here for quick testing purposes now */}
