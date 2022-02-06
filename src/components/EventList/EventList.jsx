@@ -30,7 +30,6 @@ function EventList(props) {
   let history = useHistory()
 
   const setSelectedEvent = (event) => {
-    console.log('clicked edit event');
     dispatch({ type: 'SET_SELECTED_EVENT', payload: event });
     history.push('/event')
   }

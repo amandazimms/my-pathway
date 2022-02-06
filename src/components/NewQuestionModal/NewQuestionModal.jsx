@@ -52,16 +52,14 @@ const addQuestion = (event) => {
   parent_test_id: selectedTest.id, 
   // status: status,
   }
-console.log('in add question');
-console.log(questionValue); 
-event.preventDefault(); 
-dispatch({ type: 'ADD_QUESTION', 
- payload: {
- question: question 
- }
-}); 
-console.log(questionValue, questionType)
-props.onClickClose()
+  console.log('in add question');
+  console.log(questionValue); 
+  event.preventDefault(); 
+  dispatch({ type: 'ADD_QUESTION', 
+    payload: { question: question }
+  }); 
+  console.log(questionValue, questionType)
+  props.onClickClose()
 }; //end addQuestion 
 
 

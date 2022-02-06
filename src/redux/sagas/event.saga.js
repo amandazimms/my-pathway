@@ -12,12 +12,44 @@ function* eventSaga() {
     //dispatch({ type: 'DELETE_EVENT', payload: { event_id: putSomethingHere } }); 
   yield takeLatest('UPDATE_EVENT_SETTINGS', updateEventSettings);//updates any/all of the columns in the event table in the db.
     //dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
+
+  yield takeLatest('SEARCH_FOR_STUDENTS', searchForStudents)
+    //dispatch({ type:'SEARCH_FOR_STUDENTS', payload: {search_text: event.target.value} });
+  yield takeLatest('REGISTER_STUDENT_TO_EVENT', registerStudentToEvent)  
+    //dispatch({ type:'REGISTER_STUDENT_TO_EVENT', payload: {student: student} })
   yield takeLatest('FETCH_EVENT_EXAMS', getEventExams);//return all exams associated with the event.
 
     
  }
 
+// worker Saga: will be fired on "REGISTER_STUDENT_TO_EVENT" actions
+function* registerStudentToEvent(action){
+  const ap = action.payload;
+  //ap.student_id, ap.proctor_id, ap.event_id, ap.search_text
+  try {
+    yield axios.post('/api/exam', {student_id: ap.student_id, proctor_id: ap.proctor_id, event_id: ap.event_id} );  
+    yield put({  type:'SEARCH_FOR_STUDENTS', payload: {search_text: ap.search_text, event_id: ap.event_id} });
+    yield put({ type:'FETCH_EVENT_EXAMS', payload: {event_id: ap.event_id} });
 
+  } catch (error) {
+    console.log('POST student registration to exam failed', error);
+  }
+}
+
+ // worker Saga: will be fired on "SEARCH_FOR_STUDENTS" actions
+ function* searchForStudents(action) {
+  const ap = action.payload;
+  //ap.search_text 
+  //ap.event_id
+  try {  
+    const search = yield axios.get('/api/exam/search',
+        {params: {search_text: ap.search_text, event_id: ap.event_id} });
+    yield put({ type: 'SET_SEARCHED_STUDENTS', payload: search.data });
+    } 
+    catch (error) {
+      console.log('student search request failed', error);
+    }     
+  };
 
 // worker Saga: will be fired on "UPDATE_EVENT_SETTINGS" actions
 function* updateEventSettings(action){
@@ -116,7 +148,6 @@ function* fetchAllEvents() {
         event.status = 'UPCOMING'
       }
       else if (now > new Date(event.event_date_start).valueOf() && now < new Date(event.event_date_end).valueOf()){
-        console.log('made it here once');
         event.status = 'IN PROGRESS'
       }
     }
