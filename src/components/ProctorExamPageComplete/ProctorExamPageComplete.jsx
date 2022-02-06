@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 
 function ProctorExamPageComplete(props) {
   const exam = useSelector(store => store.exam.selected);
+  const dispatch = useDispatch();
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" }
@@ -21,11 +22,11 @@ function ProctorExamPageComplete(props) {
   const prettyEventTime = formatTime(exam.event_date);
 
   const approveExam = () => {
-    
+    dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
   }
 
   const rejectExam = () => {
-    
+    dispatch({ type:'REJECT_EXAM', payload: {exam_id: exam.exam_id} })
   }
 
   return (

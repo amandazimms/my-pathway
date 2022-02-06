@@ -8,7 +8,37 @@ function* eventSaga() {
   
   yield takeLatest('FETCH_SELECTED_EXAM', fetchSelectedExam);//fetches all the info for a single Exam. 
     //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
+  yield takeLatest('APPROVE_EXAM', approveExam);
+    //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
+  yield takeLatest('REJECT_EXAM', rejectExam);
+    //dispatch({ type:'REJECT_EXAM', payload: {exam_id: exam.exam_id} })
+
  }
+
+ // worker Saga: will be fired on "APPROVE_EXAM" actions
+ function* approveExam(action){
+  const ap = action.payload;
+  //ap.exam_id
+  try {
+    yield axios.put(`/api/exam/status/${ap.exam_id}`, {status: "APPROVED"} );
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: {exam_status: "APPROVED"}  });
+  } catch (error) {
+    console.log('update exam failed', error);
+  }
+}
+
+ // worker Saga: will be fired on "REJECT_EXAM" actions
+function* rejectExam(action){
+  const ap = action.payload;
+  //ap.exam_id
+  try {
+    yield axios.put(`/api/exam/status/${ap.exam_id}`, {status: "REJECTED"} );
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: {exam_status: "REJECTED"}  });
+  } catch (error) {
+    console.log('update exam failed', error);
+  }
+}
+
 
  // worker Saga: will be fired on "FETCH_SELECTED_EXAM" actions
 function* fetchSelectedExam(action) {
