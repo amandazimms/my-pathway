@@ -10,6 +10,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box'; 
+import '../EventList/EventList.css'; 
 
 
 function EventList(props) {
@@ -41,9 +43,11 @@ function EventList(props) {
       </Link>
       <br />
       <br />
-      <h2>Here are all the events!</h2>
-
-      <TableContainer sx={{ minWidth: 500, maxWidth: 1000 }} component={Paper}>
+      <h2 className="heading">Events</h2>
+      
+      <Box display="flex"
+      justifyContent="center">
+      <TableContainer sx={{ minWidth: 500, maxWidth: 1000 }} component={Paper} >
       <Table sx={{ minWidth: 500, maxWidth: 1000 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -87,9 +91,9 @@ function EventList(props) {
         </TableBody>
       </Table>
     </TableContainer>
-    
-
-    </div>
+    </Box>
+  
+</div>
   );
 }
 

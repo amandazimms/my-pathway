@@ -15,6 +15,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
+
 function EventPage(props) {
   //This is the page that displays "one event".
 
@@ -218,10 +219,14 @@ function EventPage(props) {
                 <Button variant="contained" color="primary" onClick={() => { setEditEvent(false) }}>Cancel Changes</Button>
               </> :
               <>
+             
                 <p><b>Event Title:</b> {store.event.selected.event_name}</p>
+              
                 <p><b>Start Date and Time:</b> {eventStartTime}</p>
+               
                 <p><b>End Date and Time:</b> {eventEndTime}</p>
-              </>
+             
+             </> 
             }
         </div>   
       }
@@ -238,7 +243,7 @@ function EventPage(props) {
                       <Tab label="Event Registration" value="2" /> 
                     </TabList>
                   </Box>
-              {/* showRegistration  */}
+            
                <>
                 <TabPanel value="2">
                   {/* <Button onClick={() => setShowRegistration(false)}>Show Setttings Tab Instead</Button> */}
