@@ -29,6 +29,7 @@ import EventPage from '../EventPage/EventPage';
 import Validation from '../Validation/Validation';
 import Compare from '../Compare/Compare'
 import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
+import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
 
 const theme = createTheme({
 
@@ -164,6 +165,11 @@ function App() {
             <ProtectedRoute exact path="/before-begin" >
               {/* // logged in shows ExamList else shows LoginPage */}
               <BeforeYouBeginPage />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/terms" >
+              {/* // logged in shows ExamList else shows LoginPage */}
+              <TermsPage />
             </ProtectedRoute>
 
 

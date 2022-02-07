@@ -11,9 +11,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import MicIcon from '@mui/icons-material/Mic';
 import FilterNoneOutlinedIcon from '@mui/icons-material/FilterNoneOutlined';
-import { ClassNames } from '@emotion/react';
 import '../BeforeYouBeingPage/BeforeYouBeginPage.css'
-import { Mic } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -48,7 +47,7 @@ function BeforeYouBeginPage(props) {
 
     <Grid item xs={10}>
         <Item>
-    <Avatar className="avatar" style={{ backgroundColor: '#1E2A49', fontSize: 150}} >
+    <Avatar className="avatar" style={{ backgroundColor: '#1E2A49'}} >
         <FeaturedVideoIcon className="beginIcon" fontSize="large"/> 
         </Avatar>
      <h2 className='subheading'>Have a valid photo ID with you</h2>
@@ -96,16 +95,20 @@ function BeforeYouBeginPage(props) {
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
          </Item>
      </Grid> 
-
-     <Grid item xs={3} justifyContent="flex-end">
+</Grid> 
+<br></br>
+<Grid container justifyContent="center" spacing={1}> 
+     <Grid item xs={1} justifyContent="flex-end">
          <Item className="btn">
-     <Button> {'<'} &nbsp; &nbsp; Back</Button>
+     <Button> {'<'}</Button>
      </Item>
     </Grid> 
 
      <Grid item xs={3} justifyContent="flex-end">
          <Item className="btn">
-     <Button>Next  &nbsp; &nbsp;  {'>'}</Button>
+     <Link to="/terms"> 
+     <Button>Next  &nbsp; &nbsp;  {'>'}</Button> 
+    </Link>
      </Item>
    </Grid> 
       </Grid>
