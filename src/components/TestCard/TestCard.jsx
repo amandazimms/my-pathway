@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {useHistory} from "react-router-dom"; 
 import testHeader from "../../images/testHeader.png"; 
-import "../TestItem/TestItem.css"; 
+import "../TestCard/TestCard.css"
 import SimpleDateTime  from 'react-simple-timestamp-to-date';
 
 //Material-UI imports 
@@ -24,7 +24,7 @@ import IconButton from '@mui/material/IconButton';
 //   height: '40vw', 
 // }
 
-function TestItem(props) {
+function TestCard(props) {
 
   const store = useSelector(store => store);
   const [test, setTest] = useState(props.test);
@@ -84,4 +84,4 @@ function TestItem(props) {
   );
 }
 
-export default TestItem;
+export default TestCard;

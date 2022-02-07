@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
-import TestItem from '../TestItem/TestItem';
+import TestCard from '../TestCard/TestCard'
 import { Button } from '@material-ui/core';
 import Container from '@mui/material/Container';
 import '../TestList/TestList.css'; 
@@ -53,7 +53,7 @@ function TestList(props) {
 
         <div className="testCardContainer">
         {tests.map(test => (
-        <TestItem test={test} key={test.id}/>
+        <TestCard test={test} key={test.id}/>
       ))}
         </div>
       </Container>
