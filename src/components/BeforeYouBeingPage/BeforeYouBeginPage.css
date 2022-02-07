@@ -10,7 +10,6 @@
 
 .avatar{
     background-color: #1E2A49;
-    color: #1E2A49; 
 }
 
 .beginIcon{
@@ -19,4 +18,12 @@
 
 .pageHeading{
     text-align: center; 
+}
+
+.btn:hover{
+ background-color: #7fc2c55e; 
+}
+
+.btn{
+border: 1.5px solid #1E2A49;
 }

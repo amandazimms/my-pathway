@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {useSelector} from 'react-redux';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button'; 
@@ -20,12 +19,12 @@ const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    // color: theme.palette.text.secondary,
   }));
 
   const useStyles = makeStyles((theme) => ({
     avatar: {
-    //   backgroundColor: theme.palette.grey[50],
+      backgroundColor: '#1E2A49',
       border: `1px solid ${theme.palette.info.main}`,
     //   color: theme.palette.info.main
     }
@@ -40,71 +39,76 @@ function BeforeYouBeginPage(props) {
   return (
     <div>
 
-    <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+    <Grid container justifyContent="center" spacing={1}>
      
-      <Box gridColumn="span 12">
+     <Grid item xs={12}>
       <h1 className="pageHeading">BEFORE YOU BEGIN...</h1>
-      </Box>
+     </Grid> 
       
 
-      <Box gridColumn="span 10">
-          <Item> 
-          <Avatar className="avatar">
-            <FeaturedVideoIcon className="beginIcon" fontSize="large"/> 
+    <Grid item xs={10}>
+        <Item>
+    <Avatar className="avatar" style={{ backgroundColor: '#1E2A49', fontSize: 150}} >
+        <FeaturedVideoIcon className="beginIcon" fontSize="large"/> 
         </Avatar>
-          <h2 className='subheading'>Have a valid photo ID with you</h2>
+     <h2 className='subheading'>Have a valid photo ID with you</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
-        </Item>
-      </Box>
+         </Item>
+     </Grid> 
 
-      <Box gridColumn="span 10">
+      <Grid item xs={10}>
           <Item>
-          <Avatar className="avatar">
+          <Avatar className="avatar" style={{ backgroundColor: '#1E2A49' }}>
             <RemoveRedEyeIcon className="beginIcon"/> 
         </Avatar>
           <h2 className='subheading'>Keep your eyes on the test</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
-        </Item>
-      </Box>
+         </Item>
+     </Grid> 
 
-      <Box gridColumn="span 10">
+      <Grid item xs={10}>
           <Item>
-          <Avatar className="avatar">
+          <Avatar className="avatar" style={{ backgroundColor: '#1E2A49' }}>
             <VolumeOffIcon className="beginIcon"/> 
         </Avatar>
           <h2 className='subheading'>Ensure a quiet enviornment</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
-        </Item>
-      </Box>
+     </Item>
+     </Grid> 
 
-      <Box gridColumn="span 10">
+      <Grid item xs={10}>
           <Item>
-          <Avatar className="avatar">
+          <Avatar className="avatar" style={{ backgroundColor: '#1E2A49' }}>
             <MicIcon className="beginIcon"/> 
         </Avatar>
           <h2 className='subheading'>Turn your microphone on</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
-        </Item>
-      </Box>
+         </Item>
+     </Grid> 
 
 
-      <Box gridColumn="span 10">
+      <Grid item xs={10}>
           <Item>
-          <Avatar className="avatar">
+          <Avatar className="avatar" style={{ backgroundColor: '#1E2A49' }}>
             <FilterNoneOutlinedIcon className="beginIcon"/> 
         </Avatar>
           <h2 className='subheading'>Do not open new tabs or aplications</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
-        </Item>
-      </Box>
+         </Item>
+     </Grid> 
 
-     <Box gridColumn="span 6">
-     <Button>Back</Button>
-     </Box>
-     <Box gridColumn="span 6">
-     <Button>Next</Button>
-    </Box>
-      </Box>
+     <Grid item xs={3} justifyContent="flex-end">
+         <Item className="btn">
+     <Button> {'<'} &nbsp; &nbsp; Back</Button>
+     </Item>
+    </Grid> 
+
+     <Grid item xs={3} justifyContent="flex-end">
+         <Item className="btn">
+     <Button>Next  &nbsp; &nbsp;  {'>'}</Button>
+     </Item>
+   </Grid> 
+      </Grid>
      
     </div>
   );
