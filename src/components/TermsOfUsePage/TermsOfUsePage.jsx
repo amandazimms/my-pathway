@@ -44,7 +44,7 @@ function TermsPage(props) {
    </Grid> 
 
   <Grid item xs={7}>
-    <IconButton className="checkBox">
+    <IconButton helvetica-label="checkbox" className="checkBox">
     <CheckBoxOutlineBlankIcon className="beginIcon"/> 
     <h4 className="iAgree">I have read and agree to Pathway's privacy policy and terms of use</h4>
     </IconButton>
@@ -55,6 +55,7 @@ function TermsPage(props) {
 <br></br>
 <br></br>
 <br></br>
+
 <Grid container justifyContent="center" spacing={1}> 
      <Grid item xs={1} justifyContent="flex-end">
          <Item className="btn">
