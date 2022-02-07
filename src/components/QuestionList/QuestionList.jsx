@@ -8,10 +8,11 @@ import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Container from "@mui/material/Container"; 
 import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
 
 
 function QuestionList(props) {
-
+  const store = useSelector(store => store);
   const user = useSelector(store => store.user);
   const test = useSelector(store => store.test.selected);
   const questions = useSelector(store => store.question.all);
@@ -21,6 +22,10 @@ function QuestionList(props) {
   // const [heading, setHeading] = useState('Functional Component');
 
   const [showModal, setShowModal] = useState(false); 
+  const [testValue, setTestValue] = useState(0)
+
+
+
 
   useEffect(() => {
     dispatch({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: test.id} }); 
@@ -63,7 +68,9 @@ function QuestionList(props) {
       {/* <Button onClick={addQuestionAboutButterflies}>For testing only ! add question about butterflies</Button> */}
     
       <Container className="testPageContainer">
-      
+
+      <Box component="span" sx={{ display: 'block' }}>TOTAL TEST POINTS: {store.test.selected.points_possible}</Box>
+      <br />
       <IconButton helvetica-label="addQuestion" color="primary" size="medium" onClick={addQuestion} className="addQuestion">
         <AddCircleOutlineIcon fontSize="large"></AddCircleOutlineIcon>
         &nbsp; Add Question

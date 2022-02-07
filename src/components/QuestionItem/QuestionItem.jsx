@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../QuestionItem/QuestionItem.css'
@@ -36,6 +36,20 @@ function QuestionItem(props) {
   
   const dispatch = useDispatch();
   const [heading, setHeading] = useState('Functional Component');
+  const [testValue, setTestValue] = useState(0)
+
+  useEffect(() => {
+    findTestValue()
+  },[])
+
+  const findTestValue = () => {
+    let result = 0
+    for(let i=0; i<store.question.all.length; i++){
+      result += store.question.all[i].point_value
+    }
+    setTestValue(result)
+    return result
+  }
   
   const selectedQuestion = useSelector(store => store.question.selected);
 
@@ -45,7 +59,14 @@ function QuestionItem(props) {
   }
 
   const deleteQuestion = () => {
-    dispatch({ type: 'DELETE_QUESTION', payload: { question_id: question.id, parent_test_id: test.id } }); 
+    dispatch({ 
+      type: 'DELETE_QUESTION', 
+    payload: { 
+      test_value: (testValue-question.point_value),
+      question_id: question.id, 
+      parent_test_id: test.id,
+      user_id:store.user.id
+       } }); 
   }
 
   const updateQuestionToStegosaurus = () => {
