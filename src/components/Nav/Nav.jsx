@@ -43,9 +43,10 @@ function Nav() {
               All Events
             </Link>
 
-            <Link className="navLink" to="/exams-all">
+            {/* todo we will still use a similar link for student login - add to app.js */}
+            {/* <Link className="navLink" to="/exams-all">
               All Exams
-            </Link>
+            </Link> */}
 
             <Link className="navLink" to="/validation">
               Validation

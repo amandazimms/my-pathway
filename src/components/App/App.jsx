@@ -29,7 +29,6 @@ import Validation from '../Validation/Validation';
 import Compare from '../Compare/Compare'
 import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
 import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
-import ExamList from '../ExamList/ExamList'; 
 
 const theme = createTheme({
 
@@ -158,11 +157,6 @@ function App() {
             <ProtectedRoute exact path="/proctor-exam-complete" >
               {/* // logged in shows ProctorExamPageComplete else shows LoginPage */}
               <ProctorExamPageComplete />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/exams-all" >
-              {/* // logged in shows ExamList else shows LoginPage */}
-              <ExamList />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/before-begin" >
