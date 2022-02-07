@@ -105,6 +105,10 @@ function EventPage(props) {
     dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } });
   }
 
+  const unregisterStudent = (student) => {
+    dispatch({ type:'UNREGISTER_STUDENT_TO_EVENT', 
+      payload: {exam_id: student.exam_id, event_id: event.id} });
+  }
 
   const createEvent = () => {
     let newEvent = {
@@ -120,6 +124,9 @@ function EventPage(props) {
     setIsNew(false)
   }
   
+  const setSelectedExam = (exam) => {
+    dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: exam.exam_id} }); 
+  }
 
   return (
     <div>
@@ -222,11 +229,6 @@ function EventPage(props) {
                   <p>You are now viewing Registration 'tab'</p>
                   <Button onClick={() => setShowRegistration(false)}>Show Setttings Tab Instead</Button>
                   <EventRegisterStudents/> 
-                  <ExamTable 
-                    mode={event.status} 
-                    rows={exams} 
-                    headerText={"STUDENTS"}
-                  />
                 </>
               : <>
                   <p>You are now viewing Settings 'tab'</p>
@@ -246,6 +248,14 @@ function EventPage(props) {
           </>
         : <></> 
       }
+
+      <ExamTable 
+        mode={event.status} 
+        rows={exams} 
+        headerText={"STUDENTS"}
+        onUnregisterStudent={ (student)=>unregisterStudent(student)}
+        onSetSelectedExam={ (exam)=>setSelectedExam(exam) }
+      />
 
       
 

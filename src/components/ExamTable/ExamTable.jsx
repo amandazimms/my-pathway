@@ -28,8 +28,15 @@ function ExamTable(props) {
     :   [];
   
   const registerStudent = (student) => {
-    console.log('compoent register student:', student);
     props.onRegisterStudent(student);
+  }
+  
+  const unregisterStudent = (student) => {
+    props.onUnregisterStudent(student);
+  }
+
+  const setSelectedExam = (exam) => {
+    props.onSetSelectedExam(exam);
   }
 
   return (
@@ -99,7 +106,7 @@ function ExamTable(props) {
           {/* ==== ACTION BUTTON ===================== */}       
               <TableCell>
                 { mode === 'UPCOMING' 
-                  ? <Button variant="contained" onClick={() => {alert('need to build this')}} >REMOVE STUDENT</Button> 
+                  ? <Button variant="contained" onClick={ ()=>unregisterStudent(row) }>UNREGISTER STUDENT</Button> 
                   : <></>
                 }
                 { mode === 'IN PROGRESS' 
@@ -107,14 +114,17 @@ function ExamTable(props) {
                   : <></>
                 }
                 { mode === 'COMPLETE' 
-                  ? <Button variant="contained" onClick={() => {alert('need to build this')}}>VIEW RESULTS</Button> 
+                  ? <Link to="/proctor-exam-complete">
+                      <Button variant="contained" onClick={() =>setSelectedExam(row) }>VIEW RESULTS</Button> 
+                    </Link>
                   : <></>
                 }
                 { mode === 'SEARCH' 
                   ? <>
                       { row.registered
-                        ? <Button variant="outlined" onClick={() => {alert('need to build this')}} >REMOVE STUDENT</Button> 
-                        : <Button variant="contained" onClick={ () => {registerStudent(row)} }>REGISTER STUDENT</Button>
+                        ? <p>ALREADY REGISTERED</p> 
+                        : <Button variant="contained" 
+                              onClick={ () => {registerStudent(row)} }>REGISTER STUDENT</Button>
                       } 
                     </>
                   : <></>                 

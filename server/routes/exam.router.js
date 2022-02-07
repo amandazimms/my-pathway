@@ -13,7 +13,8 @@ router.get('/search', (req,res) => {
                 FROM
                   (SELECT COUNT (event_id) AS total_registered, 
                       SUM (CASE WHEN event_id=${req.query.event_id} THEN 1 ELSE 0 END) 
-                        AS in_event, username, first_name, last_name, "user".id AS user_id, profile_picture
+                        AS in_event, username, first_name, last_name, 
+                        "user".id AS user_id, profile_picture
                   FROM "user" 
                   LEFT JOIN "exam" ON exam.student_id="user".id
                   WHERE ("username" ILIKE '%${req.query.search_text}%' 
@@ -41,6 +42,25 @@ router.get('/all', (req, res) => {
       res.sendStatus( 500 );
     })
 });
+
+router.get('/selected', (req, res) => {
+  const id = req.query.exam_id
+  const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
+	    incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
+      exam.status AS exam_status, exam.id AS exam_id
+    FROM exam 
+    JOIN "event" ON "event".id=exam.event_id
+    JOIN test ON test.id="event".test_id
+    JOIN "user" ON exam.student_id="user".id
+    WHERE exam.id = $1`;
+  pool.query( queryString, [id] ).then( (results)=>{
+    res.send( results.rows[0] );
+  }).catch( (err)=>{
+    console.log("error get selected exam", err );
+    res.sendStatus( 500 );
+  })
+});
+
 router.post('/', (req, res) => {
 
 //.post notes
@@ -107,6 +127,20 @@ router.put('/confirm-id', (req, res)=> {
     res.send(results.rows[0]);
   }).catch( (err)=>{
     console.log("error put exam photo", err );
+    res.sendStatus( 500 );
+  })
+});
+
+router.put('/status/:id', (req, res)=> {
+  //req.body.status is REJECTED or APPROVED
+  //req.params.id is the id
+  const queryString = `UPDATE exam SET status = $1
+    WHERE exam.id = ${req.params.id}`;
+  const values = [req.body.status]  
+  pool.query( queryString, values ).then( (results)=>{
+    res.sendStatus(200);
+  }).catch( (err)=>{
+    console.log("error put exam status", err );
     res.sendStatus( 500 );
   })
 });
