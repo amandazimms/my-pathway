@@ -43,7 +43,7 @@ app.use(express.static('build'));
 
 // App Set //
 const PORT = process.env.PORT || 5001;
-const DB_PORT = process.env.DB_PORT || 5433
+const DB_PORT = process.env.DB_PORT || 5432
 
 /** Listen * */
 app.listen(PORT, () => {
