@@ -15,7 +15,6 @@ function EventItem(props) {
   const selectedEvent = useSelector(store => store.event.selected);
 
   const setSelectedEvent = (_event) => {
-    console.log('clicked edit event');
     dispatch({ type: 'SET_SELECTED_EVENT', payload: _event });
   }
   let eventCreateDate = new Date(event.create_date).toLocaleDateString( 'en-US',{

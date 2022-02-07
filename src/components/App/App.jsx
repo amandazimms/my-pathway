@@ -22,14 +22,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserManagement from '../UserManagement/UserManagement'
 import TestList from '../TestList/TestList';
 import TestPage from '../TestPage/TestPage';
-import ExamList from '../ExamList/ExamList';
-import ExamPage from '../ExamPage/ExamPage';
+import ProctorExamPageComplete from '../ProctorExamPageComplete/ProctorExamPageComplete';
 import EventList from '../EventList/EventList';
 import EventPage from '../EventPage/EventPage';
 import Validation from '../Validation/Validation';
 import Compare from '../Compare/Compare'
 import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
 import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
+import ExamList from '../ExamList/ExamList'; 
 
 const theme = createTheme({
 
@@ -98,6 +98,7 @@ function App() {
               <UserManagement />
             </ProtectedRoute>
 
+
             {/* //CHAT ----------------------------- */}
             <ProtectedRoute exact path="/chat" >
               {/* // logged in shows UserPage else shows LoginPage */}
@@ -119,6 +120,7 @@ function App() {
               <Compare />
             </ProtectedRoute>
 
+
             {/* //TESTS ----------------------------- */}
             <ProtectedRoute exact path="/test-new" >
               {/* // logged in shows TestPage (with new = true as props) else shows LoginPage */}
@@ -134,6 +136,7 @@ function App() {
               {/* // logged in shows TestList else shows LoginPage */}
               <TestList />
             </ProtectedRoute>
+
 
             {/* //EVENTS ----------------------------- */}
             <ProtectedRoute exact path="/event-new" >
@@ -152,9 +155,9 @@ function App() {
             </ProtectedRoute>
 
             {/* //EXAMS ----------------------------- */}
-            <ProtectedRoute exact path="/exam" >
-              {/* // logged in shows ExamPage else shows LoginPage */}
-              <ExamPage />
+            <ProtectedRoute exact path="/proctor-exam-complete" >
+              {/* // logged in shows ProctorExamPageComplete else shows LoginPage */}
+              <ProctorExamPageComplete />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/exams-all" >
@@ -171,6 +174,7 @@ function App() {
               {/* // logged in shows ExamList else shows LoginPage */}
              <TermsPage />
             </ProtectedRoute>
+
 
 
             {/* //LOGIN/REGISTRATION ----------------------------- */}
