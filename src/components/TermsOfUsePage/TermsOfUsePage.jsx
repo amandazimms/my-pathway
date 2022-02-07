@@ -30,10 +30,6 @@ function TermsPage(props) {
     setAgree(!agree);
   }
 
-  // When the button is clicked
-  const btnHandler = () => {
-    alert('The buttion is clickable!');
-  };
 
   return (
     <div className="formValidation">
@@ -78,7 +74,7 @@ function TermsPage(props) {
 
      <Grid item xs={3} justifyContent="flex-end">
     <Item className="btn">
-     <Button disabled={!agree} className="btn" onClick={btnHandler}>Next  &nbsp; &nbsp;  {'>'}</Button>
+    <Button disabled={!agree} className="btn">Next  &nbsp; &nbsp;  {'>'}</Button>
      </Item>
    </Grid> 
       </Grid> 
