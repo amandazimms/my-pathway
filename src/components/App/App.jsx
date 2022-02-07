@@ -167,14 +167,10 @@ function App() {
               <BeforeYouBeginPage />
             </ProtectedRoute>
 
-            <ProtectedRoute exact path="/terms" >
+            <ProtectedRoute exact path="/terms-of-use" >
               {/* // logged in shows ExamList else shows LoginPage */}
-              <TermsPage />
+             <TermsPage />
             </ProtectedRoute>
-
-
-
-
 
 
             {/* //LOGIN/REGISTRATION ----------------------------- */}
