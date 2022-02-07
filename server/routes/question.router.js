@@ -106,10 +106,23 @@ router.delete('/:id', (req,res)=> {
   //@nickolas todo (from Amanda - thanks)
   //delete the question with id req.params.id
   //send back status 200
+  console.log('req.query', req.query);
   const id = req.params.id
   const queryString =  `DELETE FROM question WHERE id = $1`;
   pool.query(queryString, [id])
-  .then(() => res.sendStatus(200))
+  .then(() => {
+    console.log('req.query', req.query);
+    const id = req.query.parent_test_id
+    const queryString = `
+    UPDATE test
+    SET points_possible = $1,
+    last_modified_by = $2,
+    last_modified_date = CURRENT_TIMESTAMP
+    WHERE id=${id};`
+    const values = [req.query.test_value, req.query.user_id]
+    pool.query(queryString, values)
+    .then(()=> res.sendStatus(201)) 
+  })
   .catch( (err)=>{
     console.log("error delete question", err );
     res.sendStatus( 500 );
