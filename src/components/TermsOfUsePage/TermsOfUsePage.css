@@ -9,3 +9,11 @@
     font-family: HelveticaNeue; 
     font-size: small; 
 }
+
+.checkboxDiv{
+    width: 100%; 
+    height: 100%; 
+    display: flex;
+    justify-content: center;
+   
+}

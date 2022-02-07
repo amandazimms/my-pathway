@@ -22,9 +22,22 @@ function TermsPage(props) {
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Functional Component');
 
+  const [agree, setAgree] = useState(false);
+
+  const checkboxHandler = () => {
+    // if agree === true, it will be set to false
+    // if agree === false, it will be set to true
+    setAgree(!agree);
+  }
+
+  // When the button is clicked
+  const btnHandler = () => {
+    alert('The buttion is clickable!');
+  };
+
   return (
-    <div>
-    <Grid container justifyContent="center" spacing={3}>
+    <div className="formValidation">
+    <Grid container justifyContent="center" alignItems="center" spacing={3}>
 
         <Grid item xs={8}>
         <h1 className="pageHeading">Terms of Use</h1>
@@ -43,11 +56,11 @@ function TermsPage(props) {
      </Item>
    </Grid> 
 
-  <Grid item xs={7}>
-    <IconButton helvetica-label="checkbox" className="checkBox">
-    <CheckBoxOutlineBlankIcon className="beginIcon"/> 
-    <h4 className="iAgree">I have read and agree to Pathway's privacy policy and terms of use</h4>
-    </IconButton>
+  <Grid item xs={12} justifyContent="center" alignItems="center">
+    <div className="checkboxDiv">
+   <input type="checkbox" id="agree" onChange={checkboxHandler} />  
+   <label htmlFor="agree" style={{ marginLeft: '.5rem' }} > I have read and agree to Pathway's privacy policy and terms of use.</label>  
+   </div>
     </Grid>
 
 </Grid> 
@@ -64,8 +77,8 @@ function TermsPage(props) {
     </Grid> 
 
      <Grid item xs={3} justifyContent="flex-end">
-         <Item className="btn">
-     <Button>Next  &nbsp; &nbsp;  {'>'}</Button>
+    <Item className="btn">
+     <Button disabled={!agree} className="btn" onClick={btnHandler}>Next  &nbsp; &nbsp;  {'>'}</Button>
      </Item>
    </Grid> 
       </Grid> 
