@@ -5,15 +5,15 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
 import EditEvent from '../EditEvent/EditEvent'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import EventRegisterStudents from '../EventRegisterStudents/EventRegisterStudents';
 import ExamTable from '../ExamTable/ExamTable';
+import AboutPage from '../AboutPage/AboutPage';
+
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
 function EventPage(props) {
   //This is the page that displays "one event".
@@ -30,6 +30,7 @@ function EventPage(props) {
   const user = useSelector(store => store.user);
   const event = useSelector(store => store.event.selected);
   const exams = useSelector(store => store.event.exams);
+
 
   const [eventName, setEventName] = useState('')
   const [eventTest, setEventTest] = useState('')
@@ -97,6 +98,10 @@ function EventPage(props) {
     setEventProctor(event.target.value)
   }
 
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const [value, setValue] = React.useState('1');
 
   const deleteEvent = () => {
     console.log('delete');
@@ -220,34 +225,50 @@ function EventPage(props) {
             }
         </div>   
       }
-
+      
       { event.status === "UPCOMING" 
+
         ? <>
             {
-              showRegistration 
-              ? <>
-                  <p>You are now viewing Registration 'tab'</p>
-                  <Button onClick={() => setShowRegistration(false)}>Show Setttings Tab Instead</Button>
+                <Box sx={{width: '100%', typography: 'body1'}}> 
+                <TabContext value={value} centered textColor="secondary" indicatorColor="secondary">
+                  <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
+                    <TabList onChange={handleTabChange} centered>
+                      <Tab label="Event Settings" value="1" /> 
+                      <Tab label="Event Registration" value="2" /> 
+                    </TabList>
+                  </Box>
+              {/* showRegistration  */}
+               <>
+                <TabPanel value="2">
+                  {/* <Button onClick={() => setShowRegistration(false)}>Show Setttings Tab Instead</Button> */}
                   <EventRegisterStudents/> 
+                  </TabPanel>
                 </>
-              : <>
-                  <p>You are now viewing Settings 'tab'</p>
-                  <Button onClick={() => setShowRegistration(true)}>Show Registration Tab Instead</Button>
+               <>
+                  <TabPanel value="1"> 
+                  {/* <Button onClick={() => setShowRegistration(true)}>Show Registration Tab Instead</Button>
                   <br />
-                  <br />
+                  <br /> */}
                   <Button variant="contained" color="primary" onClick={() => { setEditEvent(true) }}>Update Event</Button>
                   <br />
                   <br />
                   <Button variant="contained" color="primary" onClick={deleteEvent}>Delete Event</Button>
                   <br />
                   <br />
+                  </TabPanel>
+
                 
-                
-                </>  
+                </> 
+                </TabContext>
+                </Box>
             }
           </>
+        
         : <></> 
+       
       }
+  
 
       <ExamTable 
         mode={event.status} 
@@ -256,6 +277,7 @@ function EventPage(props) {
         onUnregisterStudent={ (student)=>unregisterStudent(student)}
         onSetSelectedExam={ (exam)=>setSelectedExam(exam) }
       />
+      
 
       
 

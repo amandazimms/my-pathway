@@ -2,7 +2,16 @@ import {Form} from 'react-bootstrap'
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import EventRegisterStudents from '../EventRegisterStudents/EventRegisterStudents';
 
+
+//MUI Imports: 
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import {Button} from '@mui/material'; 
 // This is one of our simplest components
 // It doesn't have local state,
 // It doesn't dispatch any redux actions or display any part of redux state
@@ -11,18 +20,12 @@ import { useDispatch } from 'react-redux';
 function AboutPage() {
   const dispatch = useDispatch();
   const store = useSelector((store) => store);
+ 
 
-  // useEffect(()=>{
-  //   dispatch( {type: 'FETCH_TEST'})
-  // }, [])
+
 
   return (
-    <div className="container">
-      <div>
-        <p>This about page is for anyone to read!</p>
-        <h1>{JSON.stringify(store.test)}</h1>
-      </div> 
-    </div>
+   <>About</> 
   );
 }
 
