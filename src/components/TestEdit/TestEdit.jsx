@@ -26,7 +26,7 @@ function TestEdit(props) {
   const [testName, setTestName] = useState(test.title)
   const [testTimeLimit, setTestTimeLimit] = useState(test.test_time_limit)
   const [shuffleQuestions, setShuffleQuestions] = useState(test.question_shuffle)
-  const [attemptsAllowed, setAttempsAllowed] = useState(test.test_attempt_limit)
+  const [attemptsAllowed, setAttemptsAllowed] = useState(test.test_attempt_limit)
   const [isEditMode, setIsEditMode] = useState(false)
 
   const dispatch = useDispatch();
@@ -61,8 +61,6 @@ function TestEdit(props) {
   }
 
   const updateTest = () => {
-    console.log('In updateTest');
-
     //this function should run when user(proctor) has FINISHED entering all of the details for an event, 
     //and then clicks "update event" 
     let updatedTest = {
@@ -74,7 +72,7 @@ function TestEdit(props) {
       last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
       id: test.id, //this is also in store already
     }
-    dispatch({ type: 'UPDATE_TEST_SETTINGS', payload: { event: updatedTest } });
+    dispatch({ type: 'UPDATE_TEST_SETTINGS', payload: { test: updatedTest } });
     setIsEditMode(false);  
   }
 
@@ -83,7 +81,7 @@ function TestEdit(props) {
 
  { isEditMode ?
     <div> 
-          <h2>Edit Event</h2>
+          <h2 className="heading">Edit Test</h2>
           <TextField
             required
             id="outlined-required"
@@ -125,10 +123,11 @@ function TestEdit(props) {
           </TextField>
           <br />
           <br />
+          
           <TextField
             id="outlined-select-required"
             label="Number of Attempts Allowed"
-            type="integer"
+            select
             value={attemptsAllowed}
             sx={{ minWidth: 300 }}
             InputLabelProps={{
@@ -139,7 +138,7 @@ function TestEdit(props) {
             <MenuItem value={2}>2</MenuItem>
             <MenuItem value={3}>3</MenuItem>
             <MenuItem value={4}>4</MenuItem> 
-            </TextField>
+          </TextField>
           <br />
           <br />
        
@@ -147,7 +146,7 @@ function TestEdit(props) {
           <br></br>
           <br></br>
         </div> 
-        : 
+    : 
         <>
        
         <Grid container spacing={2}> 
@@ -158,7 +157,7 @@ function TestEdit(props) {
         <TextField
             id="outlined-required"
             label="Test Name"
-            value={testName}
+            value={test.title}
             sx={{ minWidth: 300 }}
           />
         </Grid>
@@ -166,7 +165,7 @@ function TestEdit(props) {
         <TextField
             id="outlined-select-required"
             label="Time Alotted"
-            value={testTimeLimit}
+            value={test.test_time_limit}
             sx={{ minWidth: 300 }}
             /> 
         </Grid>
@@ -174,7 +173,7 @@ function TestEdit(props) {
         <TextField
             id="outlined-select-required"
             label="Order of questions"
-            value={shuffleQuestions}
+            value={test.question_shuffle ? "Shuffle questions" : "Do not shuffle questions"}
             sx={{ minWidth: 300 }}
           />
           </Grid> 
@@ -182,7 +181,7 @@ function TestEdit(props) {
         <TextField  id="outlined-select-required"
             label="Number of Attempts Allowed"
             type="integer"
-            value={attemptsAllowed}
+            value={test.test_attempt_limit}
             sx={{ minWidth: 300 }}
             InputLabelProps={{
               shrink: true,

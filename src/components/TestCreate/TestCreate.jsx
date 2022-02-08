@@ -7,12 +7,13 @@ import { Button } from '@mui/material';
 import './TestCreate.css'
 import { Link } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
+import { v4 as uuid } from 'uuid';
 
 function TestCreate(props) {
 
-const store = useSelector(store => store);
-const user = useSelector(store => store.user);
-const test = useSelector(store => store.test.selected);
+  const store = useSelector(store => store);
+  const user = useSelector(store => store.user);
+  const test = useSelector(store => store.test.selected);
 
   const [testName, setTestName] = useState('')
   const [shuffleQuestions, setShuffleQuestions] = useState(false)
@@ -63,7 +64,7 @@ const test = useSelector(store => store.test.selected);
       type: "ADD_TEST",
       payload:{test: newTest}
     }); 
-    setIsNew(false)
+    props.onClickCreate();
   }
 
   const setSelectedTest= (test) => {
@@ -95,11 +96,11 @@ return(
                 sx={{ minWidth: 300 }}
                 onChange={handleTimeLimitChange}
               >
-            <MenuItem key={test.id} value={45}>00:45:00</MenuItem>
-            <MenuItem key={test.id} value={60}>01:00:00</MenuItem>
-            <MenuItem key={test.id} value={90}>01:30:00</MenuItem>
-            <MenuItem key={test.id} value={105}>01:45:00</MenuItem>
-            <MenuItem key={test.id} value={120}>02:00:00</MenuItem>
+            <MenuItem key={uuid.v4} value={45}>00:45:00</MenuItem>
+            <MenuItem key={uuid.v4} value={60}>01:00:00</MenuItem>
+            <MenuItem key={uuid.v4} value={90}>01:30:00</MenuItem>
+            <MenuItem key={uuid.v4} value={105}>01:45:00</MenuItem>
+            <MenuItem key={uuid.v4} value={120}>02:00:00</MenuItem>
           </TextField>
           <br></br>
           <br></br>
