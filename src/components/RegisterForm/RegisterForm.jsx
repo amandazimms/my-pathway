@@ -36,7 +36,7 @@ function RegisterForm() {
   }
 
   const registerUser = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     try{
       const url = store.image.url.split('?')[0];
       console.log('line 39 url = ', url);        
@@ -68,8 +68,43 @@ function RegisterForm() {
     }
   }; // end registerUser
 
+  const validateUser = () => {
+    // console.log(
+    //   'firstName', firstName,
+    //       'lastName', lastName,
+    //       'username', username,
+    //       'password', password,
+    //       'addressOne', addressOne,
+    //       'addressTwo', addressTwo,
+    //       'city', city,
+    //       'state', state,
+    //       'zipCode', zipCode
+    // )
+    if (firstName === "") {
+      alert("First name is required.");
+    } else if (lastName === "") {
+      alert("Last name is required.");
+    } else if (!username.includes("@")||!username.includes(".")) {
+      alert("Email invalid.");
+    } else if (password.length < 8) {
+      alert("Password must be at least 8 characters.");
+    } else if (addressOne === "") {
+      alert("Address line 1 is required.");
+    } else if (city === "") {
+      alert("City is required.");
+    } else if ((state.length != 2)) {
+      alert("State must be a valid 2 character abbreviation");
+    } else if ((zipCode.length != 5)) {
+      alert("Zip code must be 5 characters.");
+    } else {
+      registerUser();
+    }
+  };
+ 
+
+
   return (
-    <form className="formPanel" onSubmit={registerUser}>
+    <form className="formPanel" onSubmit={validateUser}>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
@@ -171,7 +206,7 @@ function RegisterForm() {
       <br /> 
 
       <div>
-        <Button className="btn-primary registerButton" variant="contained" onClick={registerUser}>
+        <Button className="btn-primary registerButton" variant="contained" onClick={validateUser}>
           Register
         </Button>
       </div>
