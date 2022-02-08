@@ -22,7 +22,7 @@ var cardStyle = {
   display: 'block',
   width: '60vw',
   transitionDuration: '0.3s',
-  height: '40vw', 
+  height: '53vw', 
 }
 
 function QuestionItem(props) {
@@ -105,26 +105,38 @@ function QuestionItem(props) {
             {props.question.question}
           </Typography> 
 
-            <Box 
+          <Box 
             sx={{
               display: 'flex',
               alignItems: 'center',
-              '& > :not(style)': {m: 1}, }}
-              > 
-          <FormControl style={{ m: 1, minWidth: 120}} variant="outlined">
-          <InputLabel id="dropDwn">{props.question.point_value} pts</InputLabel>
-          <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
-            <MenuItem value={1}>{props.question.point_value} pts</MenuItem>
-          </Select> 
-          </FormControl> 
-          <FormControl style={{ m: 1, minWidth: 160}} variant="outlined">
-          <InputLabel id="dropDwn">{props.question.type}</InputLabel>
-          <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
-            <MenuItem value={1}>{props.question.type} pts</MenuItem>
-          </Select> 
-          </FormControl> 
+              '& > :not(style)': {m: 1}, 
+            }}
+          > 
+
+            <Typography sx={{fontSize: 20}} gutterBottom>
+              {props.question.point_value} pts
+            </Typography>
+          
+            {/* <FormControl style={{ m: 1, minWidth: 120}} variant="outlined">
+              <p></p>
+              <InputLabel id="dropDwn">{props.question.point_value} pts</InputLabel>
+              <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
+                <MenuItem value={1}>{props.question.point_value} pts</MenuItem>
+              </Select> 
+            </FormControl>  */}
+          
+            {/* partially built - ability to display question type (multiple choice, ___) */}
+            {/* <FormControl style={{ m: 1, minWidth: 160}} variant="outlined">
+              <InputLabel id="dropDwn">{props.question.type}</InputLabel>
+              <Select sx={{fontSize: 20}} autoWidth className="dropDwn">
+                <MenuItem value={1}>{props.question.type} pts</MenuItem>
+              </Select> 
+            </FormControl>  */}
+          
           </Box> 
-            <br></br>
+
+          <br></br>
+
           <Typography sx={{fontSize: 20}} gutterBottom>
           <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
           {props.question.answer}
@@ -141,6 +153,10 @@ function QuestionItem(props) {
           <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
            {props.question.option_three}
           </Typography>
+          <Typography sx={{fontSize: 20}} gutterBottom>
+          <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+           {props.question.option_four}
+          </Typography>
         </CardContent>
       {/* <Link to="/test" onClick={() => setSelectedQuestion(question)}> */}
         {/* when the edit button is clicked, this will move user to the /test page, and set the selectedTest to this one */}
@@ -148,18 +164,18 @@ function QuestionItem(props) {
         <CardActions disableSpacing> 
       
         <IconButton aria-label="edit" color="primary" onClick={deleteQuestion}>
-        <DeleteIcon className="questionIcon" /> 
+          <DeleteIcon className="questionIcon" /> 
         </IconButton>
 
-        <IconButton aria-label="edit" color="primary">
-           <Switch {...label} defaultChecked className="questionIcon"/> 
-         </IconButton>
+        {/* <IconButton aria-label="edit" color="primary">
+          <Switch {...label} defaultChecked className="questionIcon"/> 
+        </IconButton> */}
 
-        <IconButton aria-label="edit" color="primary">
-           <MoreHorizIcon className="questionIcon"/> 
-         </IconButton>
+        {/* <IconButton aria-label="edit" color="primary">
+          <MoreHorizIcon className="questionIcon"/> 
+        </IconButton> */}
 
-        </CardActions>
+      </CardActions>
   
         
          {/* <button>Edit this Question</button>

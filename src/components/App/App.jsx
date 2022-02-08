@@ -160,12 +160,12 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/before-begin" >
-              {/* // logged in shows ExamList else shows LoginPage */}
+              {/* // logged in shows BeforeYouBeginPage else shows LoginPage */}
               <BeforeYouBeginPage />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/terms-of-use" >
-              {/* // logged in shows ExamList else shows LoginPage */}
+              {/* // logged in shows TermsPage else shows LoginPage */}
              <TermsPage />
             </ProtectedRoute>
 

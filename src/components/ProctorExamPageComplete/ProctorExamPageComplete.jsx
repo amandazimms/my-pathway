@@ -34,8 +34,6 @@ function ProctorExamPageComplete(props) {
       <h2>EXAM RESULTS</h2>
       <h3>{exam.test_title} - {prettyEventDate} - {prettyEventTime}</h3>
       <h3>{exam.first_name} {exam.last_name} - {exam.username}</h3>
-
-      <p>{JSON.stringify(exam)}</p>
       
       <TableContainer component={Paper}>
         <Table sx={{ maxWidth: 650 }} aria-label="simple table">

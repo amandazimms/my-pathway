@@ -9,6 +9,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Box } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Modal } from '@mui/material';
 
@@ -33,13 +34,14 @@ const handleChange = (event) => {
   console.log('newquestion:', newQuestion ); 
 }; 
 
-const [questionValue, setQuestionValue] = useState(0)
-const [questionType, setQuestionType] = useState('')
+const [questionValue, setQuestionValue] = useState(2)
+const [questionType, setQuestionType] = useState('multiple choice')
 const [questionTitle, setQuestionTitle] = useState('')
 const [questionAnswer, setQuestionAnswer] = useState('')
 const [optionOne, setOptionOne] = useState('')
 const [optionTwo, setOptionTwo] = useState('')
 const [optionThree, setOptionThree] = useState('')
+const [optionFour, setOptionFour] = useState('')
 const [testValue, setTestValue] = useState(0)
 
 const findTestValue = () => {
@@ -54,111 +56,114 @@ const findTestValue = () => {
 
 const addQuestion = (event) => {
   let question = {
-  test_value: (testValue+questionValue),
-  point_value: questionValue,
-  type: questionType, 
-  // required: requried, 
-  question: questionTitle,
-  option_one: optionOne,
-  option_two: optionTwo,
-  option_three: optionThree,
-  // option_four: optionFour,
-  answer: questionAnswer,
-  parent_test_id: selectedTest.id, 
-  active: true,
-  user_id: store.user.id,
-  required: true
+    test_value: (testValue+questionValue),
+    point_value: questionValue,
+    type: questionType, 
+    // required: requried, 
+    question: questionTitle,
+    option_one: optionOne,
+    option_two: optionTwo,
+    option_three: optionThree,
+    option_four: optionFour,
+    answer: questionAnswer,
+    parent_test_id: selectedTest.id, 
+    active: true,
+    user_id: store.user.id,
+    required: true
   }
-  console.log('in add question');
-  console.log(questionValue); 
   event.preventDefault(); 
   dispatch({ type: 'ADD_QUESTION', 
     payload: { question: question }
   }); 
-  console.log(questionValue, questionType)
   props.onClickClose()
 }; //end addQuestion 
 
-
-const saveButton=()=>{
-  addQuestion(); 
-  // props.onClickClose()
+const cancelQuestion=()=>{
+  props.onClickClose()
 }
 
 return (
-<>
-<Modal 
-open={open}
+<Modal open={open}
 // onClose={handleClose}
 >
-<Box>
+  <Box>
+    <form className="formPanel">
 
-<form className="formPanel">
+      <h2 className="heading">QUESTION</h2>
+      
+      <FormControl fullWidth>
+        <TextField  onChange={(event)=>setQuestionTitle(event.target.value)} id="outlined-basic" label="Question" variant="outlined"/> 
+      </FormControl>
 
+      <FormControl fullWidth> 
+        <InputLabel id="pointSelect">Point Value</InputLabel>
+        <Select
+          name="point_value"
+          value={questionValue}
+          label="Point Value"
+          onChange={(event)=>setQuestionValue(event.target.value)} >
+          <MenuItem value={1}>1 pt</MenuItem>
+          <MenuItem value={2}>2 pt</MenuItem>
+          <MenuItem value={3}>3 pt</MenuItem>
+          <MenuItem value={4}>4 pt</MenuItem>
+        </Select>
+      </FormControl>
 
-<h2>Question</h2>
-<FormControl fullWidth>
-<TextField  onChange={(event)=>setQuestionTitle(event.target.value)} id="outlined-basic" label="Question" variant="outlined"/> 
-</FormControl>
-
-<FormControl fullWidth> 
-<InputLabel id="pointSelect">Point Value</InputLabel>
-<Select
-     name="point_value"
-    //  value={pointValue}
-     label="Point Value"
-     onChange={(event)=>setQuestionValue(event.target.value)} >
-     <MenuItem value={1}>1 pt</MenuItem>
-     <MenuItem value={2}>2 pt</MenuItem>
-     <MenuItem value={3}>3 pt</MenuItem>
-     <MenuItem value={4}>4 pt</MenuItem>
-    </Select>
-</FormControl>
-
-<FormControl fullWidth> 
-<InputLabel id="questionFormat">Question Format</InputLabel>
-<Select
-     name="Multiple Choice"
-    //  value={type}
-     label="Question Format"
-     onChange={(event)=>setQuestionType(event.target.value)} >
-     <MenuItem value={'multiple choice'}>Multiple Choice</MenuItem>
-     <MenuItem value={'short answer'}>Short Answer</MenuItem>
-     <MenuItem value={'fill in the blank'}>Fill in the Blank</MenuItem>
-     <MenuItem value={'essay'}>Essay</MenuItem>
-    </Select>
-</FormControl>
+      {/* Partially built alternate format option - no FE exists for options other than Multiple Choice */}
+      {/* <FormControl fullWidth> 
+        <InputLabel id="questionFormat">Question Format</InputLabel>
+        <Select
+          name="Multiple Choice"
+          //  value={type}
+          label="Question Format"
+          onChange={(event)=>setQuestionType(event.target.value)} >
+          <MenuItem value={'multiple choice'}>Multiple Choice</MenuItem>
+          <MenuItem value={'short answer'}>Short Answer</MenuItem>
+          <MenuItem value={'fill in the blank'}>Fill in the Blank</MenuItem>
+          <MenuItem value={'essay'}>Essay</MenuItem>
+        </Select>
+      </FormControl> */}
      
-<Box sx={{display: 'flex', alignItems: 'flex-end'}}>
-<RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-<TextField  onChange={(event)=>setQuestionAnswer(event.target.value)} id="input-with-sx" label="Correct Answer" variant="standard"/>
-</Box>
+      <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+        <RadioButtonCheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+        <TextField  
+          onChange={(event)=>setQuestionAnswer(event.target.value)} 
+          id="input-with-sx" 
+          label="Correct Answer" 
+          variant="standard"
+          sx={{ fontWeight: "bold" }}
+        />
+      </Box>
 
-<Box sx={{display: 'flex', alignItems: 'flex-end'}}>
-<RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-<TextField  onChange={(event)=>setOptionOne(event.target.value)} id="input-with-sx" label="Option 1" variant="standard"/>
-</Box>
+      <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+        <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+        <TextField  onChange={(event)=>setOptionOne(event.target.value)} id="input-with-sx" label="Option 1" variant="standard"/>
+      </Box>
 
-<Box sx={{display: 'flex', alignItems: 'flex-end'}}>
-<RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-<TextField  onChange={(event)=>setOptionTwo(event.target.value)} id="input-with-sx" label="Option 2" variant="standard"/>
-</Box>
+      <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+        <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+        <TextField  onChange={(event)=>setOptionTwo(event.target.value)} id="input-with-sx" label="Option 2" variant="standard"/>
+      </Box>      
 
-<Box sx={{display: 'flex', alignItems: 'flex-end'}}>
-<RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-<TextField  onChange={(event)=>setOptionThree(event.target.value)} id="input-with-sx" label="Option 3" variant="standard"/>
-</Box>
+      <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+        <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+        <TextField  onChange={(event)=>setOptionThree(event.target.value)} id="input-with-sx" label="Option 3" variant="standard"/>
+      </Box>
 
-<FormGroup>
-      <FormControlLabel control={<Switch defaultChecked />} label="" />  
-      <Button onClick={addQuestion}>Save</Button>
-</FormGroup>
+      <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+        <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+        <TextField  onChange={(event)=>setOptionFour(event.target.value)} id="input-with-sx" label="Option 4" variant="standard"/>
+      </Box>
 
+      {/* Partially built toggle for whether question appears on tests - needs BE */}
+      {/* <FormControlLabel control={<Switch defaultChecked />} label="" />   */}
+      
+      <Button onClick={cancelQuestion} variant="outlined">CANCEL</Button>
+      <Button onClick={addQuestion} variant="conatined" color="primary">SAVE</Button>
 
-</form>
-</Box> 
+    </form>
+  </Box> 
 </Modal>
-</>
   );
 }
 export default NewQuestionModal;
