@@ -33,7 +33,6 @@ function QuestionList(props) {
   
   const addQuestion=()=> {
     setShowModal(!showModal)
-    console.log(showModal); 
   }
 
   const closeModal=()=>{

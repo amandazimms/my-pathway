@@ -90,6 +90,7 @@ function* addQuestion(action){
 // worker Saga: will be fired on "UPDATE_TEST_SETTINGS" actions
 function* updateTestSettings(action){
   const ap = action.payload;
+  console.log('update test settings! ap:', ap);
    //ap.test is the test object to update, 
   //  including id, title, points_possible, test_time_limit, question_shuffle,
   //  test_attempt_limit, and .last_modified_by
