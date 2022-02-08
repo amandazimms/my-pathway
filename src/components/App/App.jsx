@@ -30,6 +30,7 @@ import Compare from '../Compare/Compare'
 import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
 import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
 
+
 const theme = createTheme({
 
   palette: {
@@ -158,7 +159,6 @@ function App() {
               {/* // logged in shows ProctorExamPageComplete else shows LoginPage */}
               <ProctorExamPageComplete />
             </ProtectedRoute>
-
             <ProtectedRoute exact path="/before-begin" >
               {/* // logged in shows BeforeYouBeginPage else shows LoginPage */}
               <BeforeYouBeginPage />
