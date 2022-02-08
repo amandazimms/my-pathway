@@ -48,7 +48,7 @@ function TestList(props) {
 
       <Container>
         <div className="heading">
-        <h2 className="heading">Recent Tests</h2>
+        <h2 className="heading">RECENT TESTS</h2>
         </div>
 
         <div className="testCardContainer">

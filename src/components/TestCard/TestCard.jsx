@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { Link } from 'react-router-dom';
 import {useHistory} from "react-router-dom"; 
 import testHeader from "../../images/testHeader.png"; 
 import "../TestCard/TestCard.css"
@@ -42,8 +41,7 @@ function TestCard(props) {
     history.push("/test")
   }
 
-
-
+  
   return (
     <div>
     <Card style={{maxWidth: 345}} className="testCard" onClick={()=> setSelectedTest(test)}>

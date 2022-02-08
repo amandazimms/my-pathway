@@ -29,7 +29,7 @@ import Validation from '../Validation/Validation';
 import Compare from '../Compare/Compare'
 import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
 import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
-
+import TestSettingsItem from '../TestCreate/TestCreate';
 
 const theme = createTheme({
 

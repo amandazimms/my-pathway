@@ -43,7 +43,7 @@ function EventList(props) {
       </Link>
       <br />
       <br />
-      <h2 className="heading">Events</h2>
+      <h2 className="heading">EVENTS</h2>
       
       <Box display="flex"
       justifyContent="center">

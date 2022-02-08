@@ -81,7 +81,7 @@ function validateFunction(props) {
       {photoComplete ?
         <></> :
         <>
-          <h2>Capture Photo</h2>
+          <h2 className="heading">Capture Photo</h2>
           <PhotoCapture />
           {store.image.url === "/images/profile_default.png" ?
             <></> :
