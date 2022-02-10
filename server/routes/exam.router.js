@@ -34,6 +34,7 @@ router.get('/search', (req,res) => {
 });
 
 router.get('/all', (req, res) => {
+  console.log('-------------------------------------------------here?');
     const queryString = `SELECT * FROM exam`;
     pool.query( queryString ).then( (results)=>{
       res.send( results.rows );

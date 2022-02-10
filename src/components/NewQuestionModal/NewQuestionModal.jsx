@@ -38,7 +38,6 @@ const [questionValue, setQuestionValue] = useState(2)
 const [questionType, setQuestionType] = useState('multiple choice')
 const [questionTitle, setQuestionTitle] = useState('')
 const [questionAnswer, setQuestionAnswer] = useState('')
-const [optionOne, setOptionOne] = useState('')
 const [optionTwo, setOptionTwo] = useState('')
 const [optionThree, setOptionThree] = useState('')
 const [optionFour, setOptionFour] = useState('')
@@ -61,7 +60,7 @@ const addQuestion = (event) => {
     type: questionType, 
     // required: requried, 
     question: questionTitle,
-    option_one: optionOne,
+    option_one: questionAnswer,
     option_two: optionTwo,
     option_three: optionThree,
     option_four: optionFour,
@@ -133,11 +132,6 @@ return (
           variant="standard"
           sx={{ fontWeight: "bold" }}
         />
-      </Box>
-
-      <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
-        <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-        <TextField  onChange={(event)=>setOptionOne(event.target.value)} id="input-with-sx" label="Option 1" variant="standard"/>
       </Box>
 
       <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
