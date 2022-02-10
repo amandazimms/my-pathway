@@ -29,6 +29,14 @@ function ProctorExamPageComplete(props) {
     dispatch({ type:'REJECT_EXAM', payload: {exam_id: exam.exam_id} })
   }
 
+  const passExam = () => {
+    dispatch({ type:'PASS_EXAM', payload: {exam_id: exam.exam_id} })
+  }
+
+  const failExam = () => {
+    dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
+  }
+
   return (
     <div>
       <h2>EXAM RESULTS</h2>
@@ -62,11 +70,14 @@ function ProctorExamPageComplete(props) {
 
             <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row">PASS/FAIL</TableCell>
-                {   exam.pass === "TRUE" 
+                {   exam.pass === "PASS" 
                   ? <TableCell align="right" style={{ color:"#308713" }}>PASS</TableCell>
-                  : exam.pass === "FALSE"
+                  : exam.pass === "FAIL"
                   ? <TableCell align="right" style={{ color:"#871313" }}>FAIL</TableCell>
-                  : <TableCell align="right" style={{ color:"#871313" }}>ERROR</TableCell>
+                  : <TableCell align="right" style={{ color:"#871313" }}>
+                      <Button onClick={failExam} variant="outlined">MARK AS FAIL</Button>
+                      <Button onClick={passExam} variant="contained">MARK AS PASS</Button>
+                    </TableCell>
                 } 
             </TableRow> 
 

@@ -38,7 +38,7 @@ router.get('/exams', (req, res) => {
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{
-    console.log("error get events", err );
+    console.log("error get exams", err );
     res.sendStatus( 500 );
   })
 });

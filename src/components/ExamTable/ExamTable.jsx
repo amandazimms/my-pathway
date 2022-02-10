@@ -10,6 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
+import { v4 as uuid } from 'uuid';
 
 function ExamTable(props) {
   const mode = props.mode
@@ -48,8 +49,8 @@ function ExamTable(props) {
     {/* ==== HEAD ===================== */}
         <TableHead>
           <TableRow>
-            {headers.map((header, i) => (
-              <TableCell key={i}>{header}</TableCell>
+            {headers.map((header) => (
+              <TableCell key={uuid.v4}>{header}</TableCell>
             ))}
           </TableRow> 
         </TableHead>
@@ -57,7 +58,7 @@ function ExamTable(props) {
     {/* ==== BODY ===================== */}
         <TableBody>
           {rows.map((row) => (
-          <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
+          <TableRow key={uuid.v4} sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               
           {/* ==== NAMES (ALL CASES) ===================== */}
               <TableCell component="th" scope="row">{row.first_name}</TableCell>

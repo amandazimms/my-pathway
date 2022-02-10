@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Switch from '@mui/material/Switch';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-ui/core"; 
 import Box from '@mui/material/Box';
 
@@ -69,26 +70,6 @@ function QuestionItem(props) {
        } }); 
   }
 
-  const updateQuestionToStegosaurus = () => {
-    let testUpdateQuestion = {
-      parent_test_id: test.id, //<--keep this the same :)
-      created_by: user.id,  //<--keep this the same :)
-      id: question.id,
-      point_value: 8675309,
-      type: "singular choice", 
-      required: false, 
-      question: "why are stegosauruses called that?",
-      option_one: "it's powerful",
-      option_two: "they're very steggy",
-      option_three: "brontosaurus was taken",
-      option_four: "it means 'spikey one'.",
-      answer: "it means 'spikey one'.",
-      active: false
-    }
-    dispatch({ type: 'UPDATE_QUESTION', payload: {question: testUpdateQuestion} })
-  }
-
-
   return (
     <div>
       {/* <h2>I'm a question</h2>
@@ -138,25 +119,25 @@ function QuestionItem(props) {
           <br></br>
 
           <Typography sx={{fontSize: 20}} gutterBottom>
-          <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+          <RadioButtonCheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
           {props.question.answer}
           </Typography> 
-          <Typography sx={{fontSize: 20}} gutterBottom>
-          <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-           {props.question.option_one}
-          </Typography> 
+          
           <Typography sx={{fontSize: 20}} gutterBottom>
           <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
           {props.question.option_two}
           </Typography> 
+
           <Typography sx={{fontSize: 20}} gutterBottom>
           <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
            {props.question.option_three}
           </Typography>
+
           <Typography sx={{fontSize: 20}} gutterBottom>
           <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
            {props.question.option_four}
           </Typography>
+
         </CardContent>
       {/* <Link to="/test" onClick={() => setSelectedQuestion(question)}> */}
         {/* when the edit button is clicked, this will move user to the /test page, and set the selectedTest to this one */}
