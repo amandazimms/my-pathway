@@ -12,8 +12,38 @@ function* eventSaga() {
     //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
   yield takeLatest('REJECT_EXAM', rejectExam);
     //dispatch({ type:'REJECT_EXAM', payload: {exam_id: exam.exam_id} })
+  yield takeLatest('PASS_EXAM', passExam);
+    //dispatch({ type:'PASS_EXAM', payload: {exam_id: exam.exam_id} })
+  yield takeLatest('FAIL_EXAM', failExam);
+    //dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
 
  }
+
+
+// worker Saga: will be fired on "PASS_EXAM" actions
+function* passExam(action){
+  const ap = action.payload;
+  //ap.exam_id
+  try {
+    yield axios.put(`/api/exam/passFail/${ap.exam_id}`, {pass: "PASS"} );
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: {pass: "PASS"}  });
+  } catch (error) {
+    console.log('update pass exam failed', error);
+  }
+}
+
+ // worker Saga: will be fired on "FAIL_EXAM" actions
+function* failExam(action){
+  const ap = action.payload;
+  //ap.exam_id
+  try {
+    yield axios.put(`/api/exam/passFail/${ap.exam_id}`, {pass: "FAIL"} );
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: {pass: "FAIL"}  });
+  } catch (error) {
+    console.log('update fail exam failed', error);
+  }
+}
+
 
  // worker Saga: will be fired on "APPROVE_EXAM" actions
  function* approveExam(action){

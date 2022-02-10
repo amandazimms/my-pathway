@@ -34,7 +34,6 @@ router.get('/search', (req,res) => {
 });
 
 router.get('/all', (req, res) => {
-  console.log('-------------------------------------------------here?');
     const queryString = `SELECT * FROM exam`;
     pool.query( queryString ).then( (results)=>{
       res.send( results.rows );
@@ -128,6 +127,20 @@ router.put('/confirm-id', (req, res)=> {
     res.send(results.rows[0]);
   }).catch( (err)=>{
     console.log("error put exam photo", err );
+    res.sendStatus( 500 );
+  })
+});
+
+router.put('/passFail/:id', (req, res)=> {
+  //req.body.status is PASS or FAIL
+  //req.params.id is the id
+  const queryString = `UPDATE exam SET pass = $1
+    WHERE exam.id = ${req.params.id}`;
+  const values = [req.body.pass]  
+  pool.query( queryString, values ).then( (results)=>{
+    res.sendStatus(200);
+  }).catch( (err)=>{
+    console.log("error put exam pass", err );
     res.sendStatus( 500 );
   })
 });
