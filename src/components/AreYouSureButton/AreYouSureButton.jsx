@@ -15,11 +15,11 @@ function AreYouSureButton(props) {
   // <AreYouSureButton
   //   beginningText={"Next"}
   //   areYouSureText={"Are you sure?"}
-  //   onButtonClick={console.log('clickity')}
+  //   onButtonClick={doTheThingFunction}
   //   beginningVariant={"outlined"}
   //   areYouSureVariant={"contained"}
   // />
-  
+
   const [showWarning, setShowWarning] = useState(false);
 
   return (

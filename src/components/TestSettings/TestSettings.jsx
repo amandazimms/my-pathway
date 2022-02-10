@@ -44,16 +44,9 @@ function TestSettings(props) {
   const createTest = () => {
     setIsNew(false);
   }
-    
+
   return (
     <div> 
-      <AreYouSureButton
-        beginningText={"Next"}
-        areYouSureText={"Are you sure?"}
-        onButtonClick={console.log('clickity')}
-        beginningVariant={"outlined"}
-        areYouSureVariant={"contained"}
-      />
    { isNew 
       ? <TestCreate 
           onClickCreate={ ()=>createTest() }
