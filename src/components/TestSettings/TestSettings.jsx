@@ -41,6 +41,10 @@ function TestSettings(props) {
     dispatch({ type: 'DELETE_TEST', payload: { test_id: test.id } }); 
   }
 
+  const createTest = () => {
+    setIsNew(false);
+  }
+    
   return (
     <div> 
       <AreYouSureButton
