@@ -273,6 +273,7 @@ function EventPage(props) {
         : <></> 
        
       }
+      
       <ExamTable 
         mode={event.status} 
         rows={exams} 

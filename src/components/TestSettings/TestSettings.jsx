@@ -12,6 +12,7 @@ import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-u
 import TestIcon from '../../images/test.svg'; 
 import TestCreate from '../TestCreate/TestCreate';
 import TestEdit from '../TestEdit/TestEdit';
+import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 
 function TestSettings(props) {
   //This is the page a proctor is brought to upon clicking "add test" or "edit test";
@@ -43,9 +44,16 @@ function TestSettings(props) {
   const createTest = () => {
     setIsNew(false);
   }
-
+    
   return (
     <div> 
+      <AreYouSureButton
+        beginningText={"Next"}
+        areYouSureText={"Are you sure?"}
+        onButtonClick={console.log('clickity')}
+        beginningVariant={"outlined"}
+        areYouSureVariant={"contained"}
+      />
    { isNew 
       ? <TestCreate 
           onClickCreate={ ()=>createTest() }
