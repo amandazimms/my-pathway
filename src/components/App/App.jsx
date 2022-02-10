@@ -29,6 +29,8 @@ import Validation from '../Validation/Validation';
 import Compare from '../Compare/Compare'
 import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
 import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
+import ExamQuestion from '../ExamQuestion/ExamQuestion'; 
+import ExamRoomPage from '../ExamRoomPage/ExamRoomPage';
 
 
 const theme = createTheme({
@@ -137,6 +139,11 @@ function App() {
               <TestList />
             </ProtectedRoute>
 
+            <ProtectedRoute exact path="/exam-question">
+              {/* // logged in shows TestList else shows LoginPage */}
+              <ExamQuestion/>
+            </ProtectedRoute>
+
 
             {/* //EVENTS ----------------------------- */}
             <ProtectedRoute exact path="/event-new" >
@@ -167,6 +174,11 @@ function App() {
             <ProtectedRoute exact path="/terms-of-use" >
               {/* // logged in shows TermsPage else shows LoginPage */}
              <TermsPage />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/exam-room" >
+              {/* // logged in shows TermsPage else shows LoginPage */}
+             <ExamRoomPage />
             </ProtectedRoute>
 
 

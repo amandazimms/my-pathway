@@ -15,6 +15,8 @@ function* testSaga() {
  
   yield takeLatest('FETCH_ALL_QUESTIONS', fetchAllQuestions);//fetches all questions for the selected test.
     // dispatch({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: test.id} });
+    yield takeLatest('FETCH_ALL_EXAM_QUESTIONS', fetchAllExamQuestions);//fetches all questions for the selected test.
+    // dispatch({ type: 'FETCH_ALL_EXAM_QUESTIONS', payload: {parent_test_id: test.id} });
   yield takeLatest('ADD_QUESTION', addQuestion); //posts a new question to the db.
     //dispatch({ type: '', payload: { question: newQuestion} }
   yield takeLatest('UPDATE_QUESTION', updateQuestion); //updates an existing question in the db
@@ -48,6 +50,20 @@ function* fetchAllQuestions(action) {
   try {
     const response = yield axios.get('/api/question/all', { params: {parent_test_id: ap.parent_test_id} } );
     yield put({ type: 'SET_ALL_QUESTIONS', payload: response.data });
+  } catch (error) {
+    console.log('get questions request failed', error);
+  }
+}
+
+// worker Saga: will be fired on "FETCH_ALL_EXAM_QUESTIONS" actions
+function* fetchAllExamQuestions(action) {
+  const ap = action.payload;
+  console.log('fetch all, ap:', ap)
+  //ap.parent_test_id 
+  try {
+    const response = yield axios.get('/api/question/all', { params: {parent_test_id: ap.parent_test_id} } );
+    yield put({ type: 'SET_ALL_EXAM_QUESTIONS', payload: response.data });
+    yield put({ type: 'SET_SELECTED_EXAM_QUESTIONS', payload: response.data[0] });
   } catch (error) {
     console.log('get questions request failed', error);
   }

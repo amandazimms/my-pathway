@@ -83,13 +83,7 @@ function EventPage(props) {
     props.complete()
   }
 
-
-
-
-
-
-
-  return (
+return (
     <div>
 
           <h2>Edit Event</h2>
