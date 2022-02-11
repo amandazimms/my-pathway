@@ -162,10 +162,16 @@ function TestEdit(props) {
     : 
         <>
        
-      
+      <Grid item>
         <h2 className="heading">Current Test</h2> 
+        </Grid>
        <Grid item> 
         <TextField
+            color="primary"
+            InputProps={{
+              readOnly: true,
+            }}
+            focused 
             id="outlined-required"
             label="Test Name"
             value={test.title}
@@ -174,6 +180,24 @@ function TestEdit(props) {
         </Grid> 
         <Grid item> 
         <TextField
+            color="primary"
+            InputProps={{
+              readOnly: true,
+            }}
+            focused 
+            id="outlined-required"
+            label="Number of Points"
+            value={test.points_possible}
+            sx={{ minWidth: 300 }}
+          />
+        </Grid>
+        <Grid item> 
+        <TextField
+             color="primary"
+             InputProps={{
+               readOnly: true,
+             }}
+             focused 
             id="outlined-select-required"
             label="Time Alotted"
             value={test.test_time_limit}
@@ -182,6 +206,11 @@ function TestEdit(props) {
       </Grid> 
       <Grid item> 
         <TextField
+           color="primary"
+           InputProps={{
+             readOnly: true,
+           }}
+           focused 
             id="outlined-select-required"
             label="Order of questions"
             value={test.question_shuffle ? "Shuffle questions" : "Do not shuffle questions"}
@@ -189,7 +218,13 @@ function TestEdit(props) {
           />
         </Grid>
         <Grid item> 
-        <TextField  id="outlined-select-required"
+        <TextField  
+           color="primary"
+           InputProps={{
+             readOnly: true,
+           }}
+           focused 
+          id="outlined-select-required"
             label="Number of Attempts Allowed"
             type="integer"
             value={test.test_attempt_limit}

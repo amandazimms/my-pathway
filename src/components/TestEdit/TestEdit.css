@@ -5,3 +5,7 @@
     display: grid; 
  
 }
+
+.outlined-required {
+    color: red; 
+}

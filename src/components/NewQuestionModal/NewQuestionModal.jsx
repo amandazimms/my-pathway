@@ -93,7 +93,8 @@ return (
       <FormControl fullWidth>
         <TextField  onChange={(event)=>setQuestionTitle(event.target.value)} id="outlined-basic" label="Question" variant="outlined"/> 
       </FormControl>
-
+      <br></br>
+      <br></br>
       <FormControl fullWidth> 
         <InputLabel id="pointSelect">Point Value</InputLabel>
         <Select
@@ -151,9 +152,9 @@ return (
 
       {/* Partially built toggle for whether question appears on tests - needs BE */}
       {/* <FormControlLabel control={<Switch defaultChecked />} label="" />   */}
-      
+      <br></br>
       <Button onClick={cancelQuestion} variant="outlined">CANCEL</Button>
-      <Button onClick={addQuestion} variant="conatined" color="primary">SAVE</Button>
+      <Button onClick={addQuestion} variant="contained" color="primary">SAVE</Button>
 
     </form>
   </Box> 
