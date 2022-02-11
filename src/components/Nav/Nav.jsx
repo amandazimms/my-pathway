@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux';
 import KyrosLogo3 from "../../images/KyrosLogo3.png"
 
 
+
 function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
+
     <div className="nav">
       <Link to="/home">
         <img src={KyrosLogo3} alt="logo" className="logo" /> 
