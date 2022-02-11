@@ -8,6 +8,7 @@ import './TestCreate.css'
 import { Link } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import { v4 as uuid } from 'uuid';
+import Grid from '@mui/material/Grid'; 
 
 function TestCreate(props) {
 
@@ -74,7 +75,13 @@ function TestCreate(props) {
 return(
 <div> 
 <div className="container">
- 
+
+ <Grid container
+ spacing={0}
+ direction="column"
+ alignItems="center"
+ justifyContent="center"
+>
   <div className="form-check">
               <h2 className="heading">Create New Test</h2>
 
@@ -135,12 +142,12 @@ return(
           <br />
 
         
-          <Button variant="outlined" onClick={addTest}>
+          <Button variant="contained" onClick={addTest}>
             Create New Test
           </Button>
         
-
-    </div>:    
+    </div>:   
+    </Grid>  
     </div> 
     </div>
 
