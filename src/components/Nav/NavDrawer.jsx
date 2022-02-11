@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import '../Nav/Nav.css'; 
 import KyrosLogo3 from "../../images/KyrosLogo3.png"; 
 import { useSelector } from 'react-redux';
+import LogOutButton from '../LogOutButton/LogOutButton';
 
 import {
     Drawer, 
@@ -14,7 +15,8 @@ import {
     List,  
     ListItemIcon, 
     ListItemText,
-    Typography 
+    Typography ,
+    Divider
 } from '@material-ui/core'; 
 
 //MUI Icons
@@ -75,9 +77,9 @@ const user = useSelector((store) => store.user);
 
 const proctorMenuItems = [
 {
-        text: 'User Management',
-        icon: <AdminPanelSettingsOutlinedIcon color="secondary"/>, 
-        path: '/user_management', 
+    text: 'User Management',
+    icon: <AdminPanelSettingsOutlinedIcon color="secondary"/>, 
+    path: '/user_management', 
  },
 {
     text: 'Create and View Tests',
@@ -156,7 +158,10 @@ const proctorList = (anchor) => (
         </ListItem>
         ))}
 </List>
-  
+<Divider/> 
+<List> 
+<ListItem> <LogOutButton/></ListItem>
+</List> 
 </Drawer>
 </div> 
 );
@@ -195,7 +200,10 @@ const studentList = (anchor) => (
         </ListItem>
         ))}
 </List>
-  
+<List> 
+<Divider/> 
+<ListItem> <LogOutButton variant="outlined" /></ListItem>
+</List> 
 </Drawer>
 </div> 
 ); 
@@ -212,7 +220,7 @@ const studentList = (anchor) => (
     
     {/* if user is logged in as a proctor */}
     <div> 
-    {user.role === "PROCTOR" && (
+    {user.role === "PROCTOR" || "STUDENT" && (
           <Button onClick={toggleDrawer('left', true)}><MenuIcon style={{color: 'white'}} /></Button>
             )}
     {user.role === "PROCTOR" && (
@@ -221,13 +229,8 @@ const studentList = (anchor) => (
           </Drawer>
     )} 
          </div> 
-         
 
-
-     <div className='nav-hamburger'>
-    {user.role === "STUDENT" && ( 
-    <Button onClick={toggleDrawer('left', true)}><MenuIcon style={{color: 'white'}} /></Button>
-    )}
+    <div>
     {user.role === "STUDENT" && (
     <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
     {studentList('left')}
