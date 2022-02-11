@@ -68,7 +68,7 @@ function QuestionList(props) {
     
       <Container className="testPageContainer">
 
-      <Box component="span" sx={{ display: 'block' }}>TOTAL TEST POINTS: {store.test.selected.points_possible}</Box>
+      <Box component="span" sx={{ display: 'block' }}>TOTAL TEST POINTS: {store.test.selected.points_possible}pts</Box>
       <br />
       <IconButton helvetica-label="addQuestion" color="primary" size="medium" onClick={addQuestion} className="addQuestion">
         <AddCircleOutlineIcon fontSize="large"></AddCircleOutlineIcon>

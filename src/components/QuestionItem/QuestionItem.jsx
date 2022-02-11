@@ -9,22 +9,28 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import Switch from '@mui/material/Switch';
+import Avatar from '@mui/material/Avatar';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-ui/core"; 
-import Box from '@mui/material/Box';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
+import CardHeader from '@mui/material/CardHeader';
+import { styled } from '@mui/material/styles';
 
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-var cardStyle = {
-  display: 'block',
-  width: '60vw',
-  transitionDuration: '0.3s',
-  height: '53vw', 
-}
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 function QuestionItem(props) {
   //@Amanda todo - when a question is edited, be sure the new data displays on DOM as well as DB.
@@ -70,33 +76,32 @@ function QuestionItem(props) {
        } }); 
   }
 
+//expanding question 
+const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <div>
       {/* <h2>I'm a question</h2>
       <p>stringified question:{JSON.stringify(question)}</p> */}
   
-      <Card 
+      <Card sx={{maxWidth: 745 }}
       className="questionCard"
       onClick={() => setSelectedQuestion(question)}
-      style={cardStyle}>
-
+      >
+  
         <CardContent>
-
           <Typography className="questionTitle" sx={{fontSize: 25}} gutterBottom>
             {props.question.question}
           </Typography> 
-
-          <Box 
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              '& > :not(style)': {m: 1}, 
-            }}
-          > 
-
-            <Typography sx={{fontSize: 20}} gutterBottom>
+            <Typography sx={{fontSize: 15}} gutterBottom>
               {props.question.point_value} pts
             </Typography>
+          </CardContent>
+           
           
             {/* <FormControl style={{ m: 1, minWidth: 120}} variant="outlined">
               <p></p>
@@ -114,35 +119,34 @@ function QuestionItem(props) {
               </Select> 
             </FormControl>  */}
           
-          </Box> 
+          {/* </Box>  */}
 
-          <br></br>
-
-          <Typography sx={{fontSize: 20}} gutterBottom>
+<CardContent> 
+          <Typography sx={{fontSize: 18}} >
           <RadioButtonCheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
           {props.question.answer}
           </Typography> 
           
-          <Typography sx={{fontSize: 20}} gutterBottom>
+          <Typography sx={{fontSize: 18}}>
           <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
           {props.question.option_two}
           </Typography> 
 
-          <Typography sx={{fontSize: 20}} gutterBottom>
+          <Typography sx={{fontSize: 18}}>
           <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
            {props.question.option_three}
           </Typography>
 
-          <Typography sx={{fontSize: 20}} gutterBottom>
+          <Typography sx={{fontSize: 18}}>
           <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
            {props.question.option_four}
           </Typography>
 
         </CardContent>
+     
       {/* <Link to="/test" onClick={() => setSelectedQuestion(question)}> */}
         {/* when the edit button is clicked, this will move user to the /test page, and set the selectedTest to this one */}
         
-        <CardActions disableSpacing> 
       
         <IconButton aria-label="edit" color="primary" onClick={deleteQuestion}>
           <DeleteIcon className="questionIcon" /> 
@@ -156,7 +160,7 @@ function QuestionItem(props) {
           <MoreHorizIcon className="questionIcon"/> 
         </IconButton> */}
 
-      </CardActions>
+
   
         
          {/* <button>Edit this Question</button>
