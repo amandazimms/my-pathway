@@ -41,15 +41,23 @@ function EventRegisterStudents(props) {
                 payload: {student_id: student.user_id, proctor_id: user.id, event_id: selectedEvent.id, search_text: searchText} });
   }
 
+  const clearResults = () => {
+    dispatch({ type:'UNSET_SEARCHED_STUDENTS'});
+  }
+
   return (
     <div>
-      <input className="loginInput" type="text" placeholder="Enter student to search for" onChange={ (event) => handleSearchInputChange(event) }></input>
-      
+      <div className="fullWidthDiv">
+        <input className="loginInput fakeAutocompleteInput" type="text" placeholder="Enter student to search for" onChange={ (event) => handleSearchInputChange(event) }></input>
+        <Button className="buttonInsideInput" variant="contained" onClick={clearResults}>x</Button>
+      </div>
+
       <ExamTable
         mode={"SEARCH"}
         rows={searchedStudents}
-        headerText={"SEARCH RESULTS:"}
         onRegisterStudent={ (student)=>registerStudent(student) }
+        customClassName="fakeAutocompleteResults"
+        parentCustomClassName="fakeAutocompleteResultsDiv"
       />
 
     </div>

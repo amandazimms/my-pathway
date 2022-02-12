@@ -15,7 +15,6 @@ import { v4 as uuid } from 'uuid';
 function ExamTable(props) {
   const mode = props.mode
   const rows = props.rows;
-  const headerText = props.headerText;
 
   const dispatch = useDispatch();
 
@@ -45,20 +44,24 @@ function ExamTable(props) {
     setSelectedExam(exam);
     dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.exam_id} });
   }
+
   return (
-  <>
-    <h3>{headerText}</h3>
-    <TableContainer sx={{ minWidth: 500, maxWidth: 1200 }} component={Paper}>
+  <div>
+    <TableContainer sx={{ minWidth: 500, maxWidth: 1200}} component={Paper}>
       <Table sx={{ minWidth: 500, maxWidth: 1200 }} aria-label="simple table">
        
-    {/* ==== HEAD ===================== */}
-        <TableHead>
-          <TableRow>
-            {headers.map((header) => (
-              <TableCell key={uuid.v4}>{header}</TableCell>
-            ))}
-          </TableRow> 
-        </TableHead>
+    {/* ==== HEADER (don't display for search)===================== */}
+        {   mode !== 'SEARCH' 
+          ? <TableHead>
+              <TableRow>
+                {headers.map((header) => (
+                  <TableCell key={uuid.v4}>{header}</TableCell>
+                ))}
+              </TableRow> 
+            </TableHead>
+          : <></>
+        }
+        
     
     {/* ==== BODY ===================== */}
         <TableBody>
@@ -150,7 +153,7 @@ function ExamTable(props) {
       </Table>
 
     </TableContainer>
-  </>  
+  </div>  
   );
 }
 

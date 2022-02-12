@@ -245,16 +245,22 @@ function EventPage(props) {
                   </Box>
             
                <>
+                {/* ==== REGISTRATION TAB ==== */}
                 <TabPanel value="2">
-                  {/* <Button onClick={() => setShowRegistration(false)}>Show Setttings Tab Instead</Button> */}
                   <EventRegisterStudents/> 
+                  <div className="a100pxSpacer"></div>
+                  <h3 className="heading">REGISTERED STUDENTS</h3>
+                  <ExamTable 
+                    mode={event.status} 
+                    rows={exams} 
+                    onUnregisterStudent={ (student)=>unregisterStudent(student)}
+                    onSetSelectedExam={ (exam)=>setSelectedExam(exam) }
+                  />
                   </TabPanel>
                 </>
                <>
+                 {/* ==== SETTINGS TAB ==== */}
                   <TabPanel value="1"> 
-                  {/* <Button onClick={() => setShowRegistration(true)}>Show Registration Tab Instead</Button>
-                  <br />
-                  <br /> */}
                   <Button variant="contained" color="primary" onClick={() => { setEditEvent(true) }}>Update Event</Button>
                   <br />
                   <br />
@@ -262,29 +268,23 @@ function EventPage(props) {
                   <br />
                   <br />
                   </TabPanel>
-
-                
                 </> 
                 </TabContext>
                 </Box>
             }
           </>
         
-        : <></> 
+        : <>
+            <h3 className="heading">REGISTERED STUDENTS</h3>
+            <ExamTable 
+              mode={event.status} 
+              rows={exams} 
+              onUnregisterStudent={ (student)=>unregisterStudent(student)}
+              onSetSelectedExam={ (exam)=>setSelectedExam(exam) }
+            />
+          </> 
        
       }
-      
-      <ExamTable 
-        mode={event.status} 
-        rows={exams} 
-        headerText={"STUDENTS"}
-        onUnregisterStudent={ (student)=>unregisterStudent(student)}
-        onSetSelectedExam={ (exam)=>setSelectedExam(exam) }
-      />
-      
-
-      
-
     </div>
   );
 }
