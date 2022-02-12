@@ -34,8 +34,16 @@ router.get('/search', (req,res) => {
 });
 
 router.get('/all', (req, res) => {
-    const queryString = `SELECT * FROM exam`;
-    pool.query( queryString ).then( (results)=>{
+  const id = req.query.exam.student_id
+    const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
+    incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
+    exam.status AS exam_status, exam.id AS exam_id
+  FROM exam 
+  JOIN "event" ON "event".id=exam.event_id
+  JOIN test ON test.id="event".test_id
+  JOIN "user" ON exam.student_id="user".id
+  WHERE exam.student_id = $1`;
+    pool.query( queryString, [id] ).then( (results)=>{
       res.send( results.rows );
     }).catch( (err)=>{
       console.log("error get exam", err );
