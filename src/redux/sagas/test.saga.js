@@ -58,8 +58,7 @@ function* fetchAllQuestions(action) {
 // worker Saga: will be fired on "FETCH_ALL_EXAM_QUESTIONS" actions
 function* fetchAllExamQuestions(action) {
   const ap = action.payload;
-  console.log('fetch all, ap:', ap)
-  //ap.parent_test_id 
+  console.log('THIS IS IT ------- fetch all, ap:', ap)
   try {
     const response = yield axios.get('/api/question/all', { params: {parent_test_id: ap.parent_test_id} } );
     yield put({ type: 'SET_ALL_EXAM_QUESTIONS', payload: response.data });
