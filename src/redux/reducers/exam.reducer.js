@@ -15,6 +15,19 @@ const selected = (state = {}, action) => {
   }
 };
 
+const selectedQuestionProctor = (state = {}, action) => {
+  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
+  //const selectedExam = useSelector(store => store.exam.selected);
+  switch (action.type) {
+    case 'SET_SELECTED_EXAM_QUESTION_PROCTOR':
+      return action.payload;
+    case 'UNSET_SELECTED_EXAM_QUESTION_PROCTOR':             // while "sets" return a totally new state
+      return {};                            // this was done to avoid overlap with other UPDATE dispatches that make DB calls rather than reducer alterations
+    default:
+      return state;  
+  }
+};
+
 const all = (state = [], action) => {
   //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
   //const allExams = useSelector(store => store.exam.all);
@@ -30,6 +43,7 @@ const all = (state = [], action) => {
 
 export default combineReducers({
   selected,
+  selectedQuestionProctor,
   all,
 });
 
