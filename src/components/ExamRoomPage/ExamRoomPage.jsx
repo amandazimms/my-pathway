@@ -56,6 +56,14 @@ function ExamRoomPage(props) {
                 question_id: store.question.examSelected.id
             }
         })
+        dispatch({
+            type: 'UPDATE_ACTIVE_EXAM_QUESTION',
+            payload: {
+                user_id: store.user.id,
+                exam_id: store.exam.selected.exam_id,
+                question_id: store.question.examSelected.id
+            }
+        })
     }
 
     const setSelection = (answer) => {
@@ -78,12 +86,28 @@ function ExamRoomPage(props) {
         } else {
             setSelectedQuestionIndex(selectedQuestionIndex + 1)
             setSelectedAnswer('')
-            dispatch({
-                type: 'SET_SELECTED_EXAM_QUESTIONS',
-                payload: store.question.examAll[selectedQuestionIndex + 1]
-            })
+            updateQuestionIndex() 
             createExamDetailRecord()
+            updateActiveQuestion()
         }
+    }
+
+    const updateActiveQuestion = () => {
+        dispatch({
+            type: 'UPDATE_ACTIVE_EXAM_QUESTION',
+            payload: {
+                user_id: store.user.id,
+                exam_id: store.exam.selected.exam_id,
+                question_id: store.question.examAll[selectedQuestionIndex + 1].id
+            }
+        })
+    }
+
+    const updateQuestionIndex = () => {
+        dispatch({
+            type: 'SET_SELECTED_EXAM_QUESTIONS',
+            payload: store.question.examAll[selectedQuestionIndex + 1]
+        })
     }
     
     const createExamDetailRecord = () => {
