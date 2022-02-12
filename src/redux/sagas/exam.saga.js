@@ -16,8 +16,22 @@ function* eventSaga() {
     //dispatch({ type:'PASS_EXAM', payload: {exam_id: exam.exam_id} })
   yield takeLatest('FAIL_EXAM', failExam);
     //dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
+  yield takeLatest('FETCH_EXAM_QUESTION_PROCTOR', fetchExamQuestionProctor);
+    
 
  }
+
+ // worker Saga: will be fired on "FETCH_EXAM_QUESTION_PROCTOR" actions
+function* fetchExamQuestionProctor(action){
+  const ap = action.payload;
+  //ap.exam_id
+  try {
+    const response = yield axios.get('/api/exam/question', { params: {exam_id: ap.exam_id} });
+    yield put({ type: 'SET_SELECTED_EXAM_QUESTION', payload: response.data });
+  } catch (error) {
+    console.log('fetch exam question failed', error);
+  }
+}
 
 
 // worker Saga: will be fired on "PASS_EXAM" actions

@@ -17,6 +17,9 @@ function ExamTable(props) {
   const rows = props.rows;
   const headerText = props.headerText;
 
+  const dispatch = useDispatch();
+
+
   const headers = 
       mode === "COMPLETE"  
     ?   ['FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
@@ -40,6 +43,10 @@ function ExamTable(props) {
     props.onSetSelectedExam(exam);
   }
 
+  const setExamAndQuestion = (exam) => {
+    setSelectedExam(exam);
+    dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.id} })
+  }
   return (
   <>
     <h3>{headerText}</h3>
@@ -112,7 +119,7 @@ function ExamTable(props) {
                 }
                 { mode === 'IN PROGRESS' 
                   ? <Link to="/proctor-exam-in-progress">
-                      <Button variant="contained" onClick={ () => setSelectedExam(row) }>ENTER EXAM</Button> 
+                      <Button variant="contained" onClick={ setExamAndQuestion(row) }>ENTER EXAM</Button> 
                     </Link> 
                   : <></>
                 }
