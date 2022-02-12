@@ -29,7 +29,7 @@ function ExamRoomPage(props) {
             type: 'FETCH_ALL_EXAM_QUESTIONS',
             payload: {
                 parent_test_id: 5, // need to replace with event.test_id
-
+                // taco:'taco'
             }
         })
         //below may not be needed once this is tied into larger application

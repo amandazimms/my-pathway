@@ -9,7 +9,6 @@ function* eventSaga() {
   yield takeLatest('FETCH_SELECTED_EXAM', fetchSelectedExam);//fetches all the info for a single Exam. 
   yield takeLatest('CREATE_EXAM_DETAIL_RECORD', createExamDetailRecord);//created new exam detail record shell. 
   yield takeLatest('UPDATE_ACTIVE_EXAM_QUESTION', updateActiveExamQuestion);//created new exam detail record shell.
-  
   //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
   yield takeLatest('APPROVE_EXAM', approveExam);
   //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
@@ -138,17 +137,7 @@ function* rejectExam(action) {
 }
 
 
-// worker Saga: will be fired on "FETCH_SELECTED_EXAM" actions
-function* fetchSelectedExam(action) {
-  const ap = action.payload;
-  //ap.exam_id is the exam id to fetch
-  try {
-    const response = yield axios.get('/api/exam/selected', { params: { exam_id: ap.exam_id } });
-    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
-  } catch (error) {
-    console.log('get selected exam request failed', error);
-  }
-}
+
 
 function* setExamPhoto(action) {
   const ap = action.payload;
