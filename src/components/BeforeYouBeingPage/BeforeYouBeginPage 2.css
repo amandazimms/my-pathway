@@ -1,0 +1,29 @@
+.subheading {
+    font-family: HelveticaNeue; 
+    color: #1E2A49; 
+    text-align: left; 
+}
+
+.body {
+    text-align: left; 
+}
+
+.avatar{
+    background-color: #1E2A49;
+}
+
+.beginIcon{
+    color: #7FC1C5; 
+}
+
+.pageHeading{
+    text-align: center; 
+}
+
+.btn:hover{
+ background-color: #7fc2c55e; 
+}
+
+.btn{
+border: 1.5px solid #1E2A49;
+}

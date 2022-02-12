@@ -1,14 +1,14 @@
-import React, { useState, useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import Paper from '@mui/material/Paper'; 
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container'; 
+import Container from '@mui/material/Container';
 import FormControl from '@mui/material/FormControl'
 import { FormLabel } from '@material-ui/core';
-import {Button, FormControlLabel} from '@mui/material'; 
-import RadioGroup from '@mui/material/RadioGroup'; 
-import Radio from '@mui/material/Radio'; 
-import Grid from '@mui/material/Grid'; 
+import { Button, FormControlLabel } from '@mui/material';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
@@ -27,56 +27,56 @@ function ExamQuestion(props) {
   //loop through detail records, compare to total number
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Functional Component');
- 
+
+
   const test = useSelector(store => store.test.selected);
   const question = props.question;
   const questions = useSelector(store => store.question.selected);
   const dispatch = useDispatch();
 
-//if selected answer === answer let correct = true 
-//total points possible 
-//question gets graded in the post to the db
-//at the end of the exam, student gets graded as a whole 
+  //if selected answer === answer let correct = true 
+  //total points possible 
+  //question gets graded in the post to the db
+  //at the end of the exam, student gets graded as a whole 
 
- const handleChange = (event) => {
+  const handleChange = (event) => {
     props.setSelection(event.target.value)
-    console.log('testing btn'); 
- } 
+    console.log('testing btn');
+  }
 
- return (
-    <Grid container spacing={4}> 
-     <Grid item xs={8}>
-         <ThemeProvider>
-             <Box 
-             sx={{
-                 p: 2,
-                 bgcolor: 'background.default',
-                 display: 'grid',
-                 gridtemplateColumns: {md: '1fr 1fr'},
-                 gap: 2,
-             }}
-             >
-    <FormControl>
-    <Typography className="questionTitle" sx={{fontSize: 25}} gutterBottom>
-            {store.question.examSelected.question}
-        </Typography> 
+  return (
+    <Grid container spacing={4}>
+      <Grid item xs={8}>
+        <ThemeProvider>
+          <Box
+            sx={{
+              p: 2,
+              bgcolor: 'background.default',
+              display: 'grid',
+              gridtemplateColumns: { md: '1fr 1fr' },
+              gap: 2,
+            }}
+          >
+            <FormControl>
+              <Typography className="questionTitle" sx={{ fontSize: 25 }} gutterBottom>
+                {store.question.examSelected.question}
+              </Typography>
 
-      <RadioGroup
-        aria-labelledby="radio-buttons-group-label"
-        name="radio-buttons-group"
-        onChange={() => {handleChange(event)}}>
-    <FormControlLabel value={store.question.examSelected.option_one} control={<Radio/>} label={store.question.examSelected.option_one}/> 
-    <FormControlLabel value={store.question.examSelected.option_two} control={<Radio/>} label={store.question.examSelected.option_two}/> 
-    <FormControlLabel value={store.question.examSelected.option_three} control={<Radio/>} label={store.question.examSelected.option_three}/> 
-    <FormControlLabel value={store.question.examSelected.option_four} control={<Radio/>} label={store.question.examSelected.option_four}/> 
+              <RadioGroup
+                aria-labelledby="radio-buttons-group-label"
+                name="radio-buttons-group"
+                onChange={() => { handleChange(event) }}>
+                <FormControlLabel value={store.question.examSelected.option_one} control={<Radio />} label={store.question.examSelected.option_one} checked={store.question.examSelected.option_one === props.selectedAnswer} />
+                <FormControlLabel value={store.question.examSelected.option_two} control={<Radio />} label={store.question.examSelected.option_two} checked={store.question.examSelected.option_two === props.selectedAnswer} />
+                <FormControlLabel value={store.question.examSelected.option_three} control={<Radio />} label={store.question.examSelected.option_three} checked={store.question.examSelected.option_three === props.selectedAnswer} />
+                <FormControlLabel value={store.question.examSelected.option_four} control={<Radio />} label={store.question.examSelected.option_four} checked={store.question.examSelected.option_four === props.selectedAnswer} />
+              </RadioGroup>
+            </FormControl>
+          </Box>
+        </ThemeProvider>
+      </Grid>
 
-  </RadioGroup>
-  </FormControl>
-            </Box>
-         </ThemeProvider>
-     </Grid>
- 
- </Grid>
+    </Grid>
   );
 }
 
