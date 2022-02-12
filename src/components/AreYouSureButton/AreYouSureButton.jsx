@@ -22,12 +22,22 @@ function AreYouSureButton(props) {
 
   const [showWarning, setShowWarning] = useState(false);
 
+  const launchWarning = () => {
+    setShowWarning(true)
+    setTimeout(()=>setShowWarning(false), 5000 )
+  }
+
+  const proceed = () => {
+    props.onButtonClick()
+    setShowWarning(false)
+  }
+
   return (
   <>
     {
         showWarning 
-      ? <Button onClick={()=>props.onButtonClick()} variant={props.areYouSureVariant || "contained"}>{props.areYouSureText || "Are you sure?"}</Button>
-      : <Button onClick={()=>setShowWarning(true)} variant={props.beginningVariant || "outlined"}>{props.beginningText || "Next"}</Button>
+      ? <Button onClick={proceed} variant={props.areYouSureVariant || "contained"}>{props.areYouSureText || "Are you sure?"}</Button>
+      : <Button onClick={launchWarning} variant={props.beginningVariant || "outlined"}>{props.beginningText || "Next"}</Button>
     }
 
    
