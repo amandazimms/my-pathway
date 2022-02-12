@@ -10,7 +10,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { Theme, createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,

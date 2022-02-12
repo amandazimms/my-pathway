@@ -6,6 +6,7 @@ import MessageSession from '../Chat/MessageSession'
 import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import '../ExamRoomPage/ExamRoomPage.css'
+import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -21,30 +22,42 @@ function ExamRoomPage(props) {
     const [selectedAnswer, setSelectedAnswer] = useState('');
     const [examBegin, setExamBegin] = useState(false);
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
-    const [checked, setChecked] = useState(false)
 
     useEffect(() => {
         dispatch({
             type: 'FETCH_ALL_EXAM_QUESTIONS',
             payload: {
-                parent_test_id: 5,
+                parent_test_id: 5, // need to replace with event.test_id
 
             }
         })
     }, [])
+
+    const beginExam = () => {
+        setExamBegin(true)
+        dispatch({
+            type: 'BEGIN_EXAM',
+            payload:{
+                exam_id:1 //need to replace with active exam ID
+            }
+        })
+    }
 
     const setSelection = (answer) => {
         setSelectedAnswer(answer);
     }
 
     const nextQuestion = () => {
-        setSelectedQuestionIndex(selectedQuestionIndex + 1)
-        setSelectedAnswer('')
-        dispatch({
-            type: 'SET_SELECTED_EXAM_QUESTIONS',
-            payload: store.question.examAll[selectedQuestionIndex + 1]
-        })
-        setChecked(null)
+        if (selectedAnswer === '') {
+            alert('No answer Slected')
+        } else {
+            setSelectedQuestionIndex(selectedQuestionIndex + 1)
+            setSelectedAnswer('')
+            dispatch({
+                type: 'SET_SELECTED_EXAM_QUESTIONS',
+                payload: store.question.examAll[selectedQuestionIndex + 1]
+            })
+        }
     }
 
     const completeExam = () => {
@@ -53,15 +66,12 @@ function ExamRoomPage(props) {
 
     return (
         <div>
-            {!examBegin
-
-                ?
-
+            {!examBegin ?
                 <Grid container justifyContent="center" className="formPanel" alignItems="center" >
                     <div>
                         <h2 className="instructions"> Please take your time on each question, once you have selected an answer and clicked 'next' you will not be able to return to that question. Please double check your answers before moving on. Once you click on the 'Begin Exam' button your time will begin. </h2>
                     </div>
-                    <Button onClick={() => { setExamBegin(true) }} size="large" variant="contained" className="beginBtn">Begin Exam</Button>
+                    <Button onClick={beginExam} size="large" variant="contained" className="beginBtn">Begin Exam</Button>
                 </Grid>
 
                 : <>
@@ -71,8 +81,23 @@ function ExamRoomPage(props) {
                         selectedAnswer={selectedAnswer}
                     />
                     {selectedQuestionIndex != store.question.examAll.length - 1 ?
-                        <Button onClick={nextQuestion}>Next</Button> :
-                        <Button onClick={completeExam}>Complete Exam</Button>
+                        // <Button onClick={nextQuestion}>Next</Button> 
+                        <AreYouSureButton
+                            beginningText={"Next"}
+                            areYouSureText={"Are you sure?, Click to Proceed"}
+                            onButtonClick={nextQuestion}
+                            beginningVariant={"outlined"}
+                            areYouSureVariant={"contained"}
+                        />
+                        :
+                        // <Button onClick={completeExam}>Complete Exam</Button>
+                        <AreYouSureButton
+                            beginningText={"Complete Exam"}
+                            areYouSureText={"Are you sure?, Click to Proceed"}
+                            onButtonClick={completeExam}
+                            beginningVariant={"outlined"}
+                            areYouSureVariant={"contained"}
+                        />
                     }
                     {!helpNeeded
                         ?

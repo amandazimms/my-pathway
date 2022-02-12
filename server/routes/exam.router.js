@@ -167,6 +167,19 @@ router.put('/passFail/:id', (req, res)=> {
   })
 });
 
+router.put('/begin-exam/:id', (req, res)=> {
+  const queryString = `UPDATE exam SET exam_time_start = CURRENT_TIMESTAMP
+    WHERE exam.id = ${req.params.id}
+    RETURNING *`;
+  pool.query( queryString ).then( (results)=>{
+    console.log('Back with these results:', results.rows[0]);
+    res.send(results.rows[0]);
+  }).catch( (err)=>{
+    console.log("error put exam pass", err );
+    res.sendStatus( 500 );
+  })
+});
+
 router.put('/status/:id', (req, res)=> {
   //req.body.status is REJECTED or APPROVED
   //req.params.id is the id
