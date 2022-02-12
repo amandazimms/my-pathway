@@ -27,8 +27,6 @@ function ExamTable(props) {
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
     : mode === "UPCOMING"
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ACTION']
-    : mode === "SEARCH"
-    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'REGISTER']
     :   [];
   
   const registerStudent = (student) => {
