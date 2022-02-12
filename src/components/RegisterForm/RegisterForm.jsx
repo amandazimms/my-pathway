@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PhotoCapture from '../PhotoCapture/PhotoCapture';
 import Button from '@mui/material/Button';
-
+import Footer from '../Footer/Footer';
 
 
 
@@ -101,6 +101,16 @@ function RegisterForm() {
     }
   };
  
+  const setDefaults = () => {
+    setFirstName( 'Student' );
+    setLastName( 'User' );
+    setUsername( 'studentuser@gmail.com' );
+    setPassword( 'password' );
+    setAddressOne( '1251 Avenue of the Americas' );
+    setCity( 'New York' );
+    setState( 'NY' );
+    setZipCode( '10020' );
+  }
 
 
   return (
@@ -208,6 +218,11 @@ function RegisterForm() {
       <div>
         <Button className="btn-primary registerButton" variant="contained" onClick={validateUser}>
           Register
+        </Button>
+      </div>
+      <div>
+      <Button className="autofill-registration" variant="contained" onClick={setDefaults}>
+          Auto Fill
         </Button>
       </div>
     </form>

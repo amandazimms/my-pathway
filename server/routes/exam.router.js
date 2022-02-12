@@ -51,6 +51,20 @@ router.get('/all', (req, res) => {
     })
 });
 
+router.get('/question', (req, res) => {
+  const id = req.query.exam.student_id
+    const queryString = `SELECT * FROM exam 
+  JOIN "question" ON question.id=exam.active_question_id
+  WHERE exam.active_question_id = ${req.query.active_question_id}`; 
+    pool.query( queryString, [id] ).then( (results)=>{
+      res.send( results.rows );
+    }).catch( (err)=>{
+      console.log("error get exam", err );
+      res.sendStatus( 500 );
+    })
+});
+
+
 router.get('/selected', (req, res) => {
   const id = req.query.exam_id
   const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
