@@ -17,7 +17,7 @@ function* eventSaga() {
   yield takeLatest('FAIL_EXAM', failExam);
     //dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
   yield takeLatest('FETCH_EXAM_QUESTION_PROCTOR', fetchExamQuestionProctor);
-    
+    //dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.id} });
 
  }
 
@@ -27,12 +27,23 @@ function* fetchExamQuestionProctor(action){
   //ap.exam_id
   try {
     const response = yield axios.get('/api/exam/question', { params: {exam_id: ap.exam_id} });
-    yield put({ type: 'SET_SELECTED_EXAM_QUESTION', payload: response.data });
+    yield put({ type: 'SET_SELECTED_EXAM_QUESTION_PROCTOR', payload: response.data });
   } catch (error) {
     console.log('fetch exam question failed', error);
   }
 }
 
+ // worker Saga: will be fired on "FETCH_SELECTED_EXAM" actions
+ function* fetchSelectedExam(action) {
+  const ap = action.payload;
+  //ap.exam_id is the exam id to fetch
+  try {
+    const response = yield axios.get('/api/exam/selected', { params: {exam_id: ap.exam_id} });
+    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+  } catch (error) {
+    console.log('get selected exam request failed', error);
+  }
+}
 
 // worker Saga: will be fired on "PASS_EXAM" actions
 function* passExam(action){
@@ -80,19 +91,6 @@ function* rejectExam(action){
     yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: {exam_status: "REJECTED"}  });
   } catch (error) {
     console.log('update exam failed', error);
-  }
-}
-
-
- // worker Saga: will be fired on "FETCH_SELECTED_EXAM" actions
-function* fetchSelectedExam(action) {
-  const ap = action.payload;
-  //ap.exam_id is the exam id to fetch
-  try {
-    const response = yield axios.get('/api/exam/selected', { params: {exam_id: ap.exam_id} });
-    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
-  } catch (error) {
-    console.log('get selected exam request failed', error);
   }
 }
 

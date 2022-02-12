@@ -22,13 +22,13 @@ function ExamTable(props) {
 
   const headers = 
       mode === "COMPLETE"  
-    ?   ['FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
     : mode === "IN PROGRESS" 
-    ?   ['FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
     : mode === "UPCOMING"
-    ?   ['FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ACTION']
     : mode === "SEARCH"
-    ?   ['FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'REGISTER']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'REGISTER']
     :   [];
   
   const registerStudent = (student) => {
@@ -45,7 +45,7 @@ function ExamTable(props) {
 
   const setExamAndQuestion = (exam) => {
     setSelectedExam(exam);
-    dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.id} })
+    dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.exam_id} });
   }
   return (
   <>
@@ -67,6 +67,9 @@ function ExamTable(props) {
           {rows.map((row) => (
           <TableRow key={uuid.v4} sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               
+          {/* ==== PIC (ALL CASES) ===================== */}
+            <TableCell component="th" scope="row">{row.profile_picture}</TableCell>
+
           {/* ==== NAMES (ALL CASES) ===================== */}
               <TableCell component="th" scope="row">{row.first_name}</TableCell>
               <TableCell component="th" scope="row">{row.last_name}</TableCell>
@@ -119,13 +122,13 @@ function ExamTable(props) {
                 }
                 { mode === 'IN PROGRESS' 
                   ? <Link to="/proctor-exam-in-progress">
-                      <Button variant="contained" onClick={ setExamAndQuestion(row) }>ENTER EXAM</Button> 
+                      <Button variant="contained" onClick={ ()=>setExamAndQuestion(row) }>ENTER EXAM</Button> 
                     </Link> 
                   : <></>
                 }
                 { mode === 'COMPLETE' 
                   ? <Link to="/proctor-exam-complete">
-                      <Button variant="contained" onClick={ () =>setSelectedExam(row) }>VIEW RESULTS</Button> 
+                      <Button variant="contained" onClick={ ()=>setSelectedExam(row) }>VIEW RESULTS</Button> 
                     </Link>
                   : <></>
                 }

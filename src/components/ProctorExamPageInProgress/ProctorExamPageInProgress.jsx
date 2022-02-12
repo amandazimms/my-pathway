@@ -6,44 +6,54 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 function ProctorExamPageInProgress() {
   const exam = useSelector(store => store.exam.selected);
+  const question = useSelector(store => store.exam.selectedQuestionProctor)
 
  return (
     <>
-      <p>exam in progress for: {JSON.stringify(exam)}</p>
+      {/* <p>exam in progress for: {JSON.stringify(exam)}</p>
+      <p>question: {JSON.stringify(question)}</p> */}
+      
+      <h3 className="heading">Student: {exam.first_name} {exam.last_name}</h3>
+      {/* profile pic here ( {exam.profile_picture} ) */}
 
-      <Card sx={{maxWidth: 745 }}
-      className="questionCard"
-      onClick={() => setSelectedQuestion(question)}
-      >
+      <Card sx={{maxWidth: 745 }} className="questionCard" >
+          
           <CardContent>
             <Typography className="questionTitle" sx={{fontSize: 25}} gutterBottom>
-              {props.question.question}
+              {question.question}
             </Typography> 
             <Typography sx={{fontSize: 15}} gutterBottom>
-              {props.question.point_value} pts
+              {question.point_value} pts
             </Typography>
+            <Typography>Note: Choices appear in a randomized order to the student</Typography>
           </CardContent>
            
 
           <CardContent> 
             <Typography sx={{fontSize: 18}} >
-            <RadioButtonCheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-            {props.question.answer}
+            <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+            {question.answer}
             </Typography> 
             
             <Typography sx={{fontSize: 18}}>
             <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-            {props.question.option_two}
+            {question.option_two}
             </Typography> 
 
             <Typography sx={{fontSize: 18}}>
             <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-            {props.question.option_three}
+            {question.option_three}
             </Typography>
 
             <Typography sx={{fontSize: 18}}>
             <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-            {props.question.option_four}
+            {question.option_four}
+            </Typography>
+          </CardContent>
+
+          <CardContent>
+            <Typography sx={{fontSize: 18}}>
+            Answer: {question.answer}
             </Typography>
           </CardContent>
 
