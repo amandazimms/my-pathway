@@ -7,6 +7,7 @@ function* eventSaga() {
   yield takeLatest('CONFIRM_STUDENT_ID', confirmId);//updates the value of confirm_id in exam table. 
   yield takeLatest('BEGIN_EXAM', beginExam);//updates the value of confirm_id in exam table. 
   yield takeLatest('FETCH_SELECTED_EXAM', fetchSelectedExam);//fetches all the info for a single Exam. 
+  yield takeLatest('CREATE_EXAM_DETAIL_RECORD', createExamDetailRecord);//created new exam detail record shell. 
   //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
   yield takeLatest('APPROVE_EXAM', approveExam);
   //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
@@ -19,6 +20,22 @@ function* eventSaga() {
 
 }
 
+function* createExamDetailRecord(action) {
+  const ap = action.payload;
+  //ap.event is the event object to update, 
+  //including event_name, test_id, proctor_id, event_date, event_time
+  //event_end_time, url, last_modified_by, and id
+  try {
+    const response = yield axios({
+      method: 'POST',
+      url: `/api/exam/detail`,
+      data: ap
+    });
+    yield put({ type: 'SET_SELECTED_EXAM_DETAIL', payload: response.data });
+  } catch (error) {
+    console.log('setExamPhoto failed', error);
+  }
+}
 
 function* beginExam(action) {
   const ap = action.payload;

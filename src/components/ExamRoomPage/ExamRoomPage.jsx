@@ -20,6 +20,7 @@ function ExamRoomPage(props) {
     const dispatch = useDispatch();
     const examQuestions = useSelector(store => store);
     const [selectedAnswer, setSelectedAnswer] = useState('');
+    const [answerCorrect, setAnswerCorrect] = useState(false);
     const [examBegin, setExamBegin] = useState(false);
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
 
@@ -29,6 +30,13 @@ function ExamRoomPage(props) {
             payload: {
                 parent_test_id: 5, // need to replace with event.test_id
 
+            }
+        })
+        //below may not be needed once this is tied into larger application
+        dispatch({
+            type: 'FETCH_SELECTED_EXAM',
+            payload:{
+                exam_id:1 //need to replace with active exam ID
             }
         })
     }, [])
@@ -41,10 +49,27 @@ function ExamRoomPage(props) {
                 exam_id:1 //need to replace with active exam ID
             }
         })
+        dispatch({
+            type: 'CREATE_EXAM_DETAIL_RECORD',
+            payload: {
+                exam_id:store.exam.selected.exam_id,
+                question_id: store.question.examSelected.id
+            }
+        })
     }
 
     const setSelection = (answer) => {
         setSelectedAnswer(answer);
+        checkAnswer(answer)
+    }
+
+    const checkAnswer = (answer) => {
+        if(answer === store.question.examSelected.answer){
+            setAnswerCorrect(true)
+       }
+       else{
+           setAnswerCorrect(false) 
+       }
     }
 
     const nextQuestion = () => {
@@ -57,7 +82,31 @@ function ExamRoomPage(props) {
                 type: 'SET_SELECTED_EXAM_QUESTIONS',
                 payload: store.question.examAll[selectedQuestionIndex + 1]
             })
+            createExamDetailRecord()
         }
+    }
+    
+    const createExamDetailRecord = () => {
+        console.log('createExamDetailRecord');
+        dispatch({
+            type: 'CREATE_EXAM_DETAIL_RECORD',
+            payload: {
+                exam_id:store.exam.selected.exam_id,
+                question_id: store.question.examAll[selectedQuestionIndex + 1].id
+            }
+        })
+    }
+
+    const commitAnswer = () => {
+        dispatch({
+            type: 'COMMIT_ANSWER',
+            payload: {
+                exam_id:store.exam.selected.id,
+                question_id: store.question.examSelected.id,
+                selected_answer: selectedAnswer,
+                correct: answerCorrect
+            }
+        })
     }
 
     const completeExam = () => {

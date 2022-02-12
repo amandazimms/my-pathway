@@ -41,13 +41,12 @@ function ExamQuestion(props) {
 
   const handleChange = (event) => {
     props.setSelection(event.target.value)
-    console.log('testing btn');
   }
 
   return (
     <Grid container spacing={4}>
       <Grid item xs={8}>
-        <ThemeProvider>
+        {/* <ThemeProvider> */}
           <Box
             sx={{
               p: 2,
@@ -73,7 +72,7 @@ function ExamQuestion(props) {
               </RadioGroup>
             </FormControl>
           </Box>
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       </Grid>
 
     </Grid>
