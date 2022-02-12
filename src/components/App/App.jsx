@@ -31,7 +31,7 @@ import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
 import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
 import ExamQuestion from '../ExamQuestion/ExamQuestion'; 
 import ExamRoomPage from '../ExamRoomPage/ExamRoomPage';
-
+import NavDrawer from '../Nav/NavDrawer';
 
 const theme = createTheme({
 
@@ -74,6 +74,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <div>
+          <NavDrawer /> 
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}

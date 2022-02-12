@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
-import Container from '@mui/material/Container'; 
 import Button from '@mui/material/Button'; 
 import '../TestSettings/TestSettings.css'; 
 import {Link} from 'react-router-dom'; 
-import Divider from '@mui/material/Divider';
-import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
-import IconButton from '@mui/material/IconButton';
-import {Select, MenuItem, FormControl, InputLabel, makeStyles} from "@material-ui/core"; 
-import TestIcon from '../../images/test.svg'; 
+import Grid from '@mui/material/Grid'; 
 import TestCreate from '../TestCreate/TestCreate';
 import TestEdit from '../TestEdit/TestEdit';
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
@@ -48,15 +43,24 @@ function TestSettings(props) {
   return (
     <div> 
    { isNew 
-      ? <TestCreate 
+      ? 
+      <>
+      <TestCreate 
           onClickCreate={ ()=>createTest() }
         /> 
+        </> 
       : <>
           <TestEdit /> 
 
+          <Grid container
+         alignItems="center"
+         justifyContent="center" > 
+         <Grid item> 
           <Link to="/tests-all">
             <Button variant="outlined" onClick={deleteTest}>Delete Test</Button>
           </Link>
+          </Grid> 
+          </Grid> 
         </> 
     }
     </div> 

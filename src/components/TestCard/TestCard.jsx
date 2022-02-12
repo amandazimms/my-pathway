@@ -27,6 +27,7 @@ function TestCard(props) {
 
   const store = useSelector(store => store);
   const [test, setTest] = useState(props.test);
+  const tests = useSelector(store => store.test.selected);
   const history = useHistory(); 
 
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ function TestCard(props) {
             <SimpleDateTime dateFormat="DMY" dateSeparator="/" timeSeparator=":">{props.test.create_date}</SimpleDateTime>
           </div>
         </CardContent>
-        
+
         
         <CardActions disableSpacing>
           <IconButton aria-label="edit test">

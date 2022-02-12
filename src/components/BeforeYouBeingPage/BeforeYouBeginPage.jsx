@@ -48,7 +48,7 @@ function BeforeYouBeginPage(props) {
     <Grid item xs={10}>
         <Item>
     <Avatar className="avatar" style={{ backgroundColor: '#1E2A49'}} >
-        <FeaturedVideoIcon className="beginIcon" fontSize="large"/> 
+        <FeaturedVideoIcon className="beginIcon" fontSize="large" style={{color: '#7FC1C5'}}/> 
         </Avatar>
      <h2 className='subheading'>Have a valid photo ID with you</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
@@ -58,7 +58,7 @@ function BeforeYouBeginPage(props) {
       <Grid item xs={10}>
           <Item>
           <Avatar className="avatar" style={{ backgroundColor: '#1E2A49' }}>
-            <RemoveRedEyeIcon className="beginIcon"/> 
+            <RemoveRedEyeIcon className="beginIcon" style={{color: '#7FC1C5'}}/> 
         </Avatar>
           <h2 className='subheading'>Keep your eyes on the test</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
@@ -68,7 +68,7 @@ function BeforeYouBeginPage(props) {
       <Grid item xs={10}>
           <Item>
           <Avatar className="avatar" style={{ backgroundColor: '#1E2A49' }}>
-            <VolumeOffIcon className="beginIcon"/> 
+            <VolumeOffIcon className="beginIcon" style={{color: '#7FC1C5'}}/> 
         </Avatar>
           <h2 className='subheading'>Ensure a quiet enviornment</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
@@ -78,7 +78,7 @@ function BeforeYouBeginPage(props) {
       <Grid item xs={10}>
           <Item>
           <Avatar className="avatar" style={{ backgroundColor: '#1E2A49' }}>
-            <MicIcon className="beginIcon"/> 
+            <MicIcon className="beginIcon" style={{color: '#7FC1C5'}}/> 
         </Avatar>
           <h2 className='subheading'>Turn your microphone on</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
@@ -89,7 +89,7 @@ function BeforeYouBeginPage(props) {
       <Grid item xs={10}>
           <Item>
           <Avatar className="avatar" style={{ backgroundColor: '#1E2A49' }}>
-            <FilterNoneOutlinedIcon className="beginIcon"/> 
+            <FilterNoneOutlinedIcon className="beginIcon" style={{color: '#7FC1C5'}}/> 
         </Avatar>
           <h2 className='subheading'>Do not open new tabs or aplications</h2>
          <h3 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h3>
@@ -106,7 +106,7 @@ function BeforeYouBeginPage(props) {
 
      <Grid item xs={3} justifyContent="flex-end">
          <Item className="btn">
-     <Link to="/terms"> 
+     <Link to="/terms-of-use"> 
      <Button>Next  &nbsp; &nbsp;  {'>'}</Button> 
     </Link>
      </Item>

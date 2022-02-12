@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
 import {Grid} from '@mui/material'; 
-
+import '../TestEdit/TestEdit.css'
 function TestEdit(props) {
   //This is the page that displays "one event".
 
@@ -78,10 +78,17 @@ function TestEdit(props) {
 
   return (
     <div>
+  <Grid container
+ spacing={2}
+ direction="column"
+ alignItems="center"
+ justifyContent="center"
+>
 
  { isEditMode ?
     <div> 
           <h2 className="heading">Edit Test</h2>
+          <Grid item> 
           <TextField
             required
             id="outlined-required"
@@ -90,8 +97,9 @@ function TestEdit(props) {
             sx={{ minWidth: 300 }}
             onChange={handleTestTitleChange}
           />
+          </Grid>
           <br />
-          <br />
+          <Grid item> 
           <TextField
             id="outlined-select-required"
             required
@@ -107,8 +115,10 @@ function TestEdit(props) {
             <MenuItem value={105}>01:45:00</MenuItem>
             <MenuItem value={120}>02:00:00</MenuItem>
           </TextField>
+          </Grid>
           <br />
-          <br />
+  
+          <Grid item> 
           <TextField
             id="outlined-select-required"
             required
@@ -121,9 +131,10 @@ function TestEdit(props) {
             <MenuItem value={true}>Shuffle questions</MenuItem>
             <MenuItem value={false}>Do not shuffle questions</MenuItem>
           </TextField>
+          </Grid> 
           <br />
-          <br />
-          
+        
+          <Grid item> 
           <TextField
             id="outlined-select-required"
             label="Number of Attempts Allowed"
@@ -139,46 +150,81 @@ function TestEdit(props) {
             <MenuItem value={3}>3</MenuItem>
             <MenuItem value={4}>4</MenuItem> 
           </TextField>
+          </Grid> 
           <br />
-          <br />
+     
+          <Grid item> 
+          <Button className="saveChangesBtn" variant="contained" onClick={updateTest}>Save Changes</Button>
+          </Grid> 
+          <br></br>
        
-          <Button variant="outlined" onClick={updateTest}>Save Changes</Button>
-          <br></br>
-          <br></br>
         </div> 
     : 
         <>
        
-        <Grid container spacing={2}> 
-        <Grid item xs={2}>
+      <Grid item>
         <h2 className="heading">Current Test</h2> 
         </Grid>
-        <Grid item xs={12}>
+       <Grid item> 
         <TextField
+            color="primary"
+            InputProps={{
+              readOnly: true,
+            }}
+            focused 
             id="outlined-required"
             label="Test Name"
             value={test.title}
             sx={{ minWidth: 300 }}
           />
-        </Grid>
-        <Grid item xs={8}> 
+        </Grid> 
+        <Grid item> 
         <TextField
+            color="primary"
+            InputProps={{
+              readOnly: true,
+            }}
+            focused 
+            id="outlined-required"
+            label="Number of Points"
+            value={test.points_possible}
+            sx={{ minWidth: 300 }}
+          />
+        </Grid>
+        <Grid item> 
+        <TextField
+             color="primary"
+             InputProps={{
+               readOnly: true,
+             }}
+             focused 
             id="outlined-select-required"
             label="Time Alotted"
             value={test.test_time_limit}
             sx={{ minWidth: 300 }}
             /> 
-        </Grid>
-        <Grid item xs={8}> 
+      </Grid> 
+      <Grid item> 
         <TextField
+           color="primary"
+           InputProps={{
+             readOnly: true,
+           }}
+           focused 
             id="outlined-select-required"
             label="Order of questions"
             value={test.question_shuffle ? "Shuffle questions" : "Do not shuffle questions"}
             sx={{ minWidth: 300 }}
           />
-          </Grid> 
-          <Grid item xs={8}> 
-        <TextField  id="outlined-select-required"
+        </Grid>
+        <Grid item> 
+        <TextField  
+           color="primary"
+           InputProps={{
+             readOnly: true,
+           }}
+           focused 
+          id="outlined-select-required"
             label="Number of Attempts Allowed"
             type="integer"
             value={test.test_attempt_limit}
@@ -186,15 +232,14 @@ function TestEdit(props) {
             InputLabelProps={{
               shrink: true,
             }}></TextField>
-            </Grid>
-        <Grid item xs={5}> 
-        <Button variant="outlined" onClick={()=> setIsEditMode(true)}>Edit Test</Button> 
-        <br></br>
-        <br></br>
+          </Grid> 
+          <Grid item> 
+        <Button variant="contained" onClick={()=> setIsEditMode(true)}>Edit Test</Button> 
         </Grid> 
-        </Grid> 
+        <br></br>
         </> 
     } 
+    </Grid>
     </div>
   );
 }

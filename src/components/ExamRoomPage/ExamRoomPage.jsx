@@ -4,6 +4,8 @@ import ExamQuestion from '../ExamQuestion/ExamQuestion';
 import Button from '@mui/material/Button'
 import MessageSession from '../Chat/MessageSession'
 import { useEffect } from 'react';
+import Grid from '@mui/material/Grid'; 
+import '../ExamRoomPage/ExamRoomPage.css'
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -37,7 +39,14 @@ function ExamRoomPage(props) {
         <div>
             { !examBegin
             
-           ? <Button onClick={() => { setExamBegin(true) }}>Begin Exam</Button>
+           ? 
+
+              <Grid container justifyContent="center" className="formPanel" alignItems="center" >
+                  <div> 
+                      <h2 className="instructions"> Please take your time on each question, once you have selected an answer and clicked 'next' you will not be able to return to that question. Please double check your answers before moving on. Once you click on the 'Begin Exam' button your time will begin. </h2> 
+                  </div>
+               <Button onClick={() => { setExamBegin(true) }} size="large" variant="contained" className="beginBtn">Begin Exam</Button>
+               </Grid> 
             
            : <>
            <Button>End Exam</Button>
