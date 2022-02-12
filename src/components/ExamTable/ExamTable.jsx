@@ -111,12 +111,14 @@ function ExamTable(props) {
                   : <></>
                 }
                 { mode === 'IN PROGRESS' 
-                  ? <Button variant="contained" onClick={() => {alert('need to build this')}}>ENTER EXAM</Button> 
+                  ? <Link to="/proctor-exam-in-progress">
+                      <Button variant="contained" onClick={ () => setSelectedExam(row) }>ENTER EXAM</Button> 
+                    </Link> 
                   : <></>
                 }
                 { mode === 'COMPLETE' 
                   ? <Link to="/proctor-exam-complete">
-                      <Button variant="contained" onClick={() =>setSelectedExam(row) }>VIEW RESULTS</Button> 
+                      <Button variant="contained" onClick={ () =>setSelectedExam(row) }>VIEW RESULTS</Button> 
                     </Link>
                   : <></>
                 }

@@ -32,6 +32,7 @@ import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
 import ExamQuestion from '../ExamQuestion/ExamQuestion'; 
 import ExamRoomPage from '../ExamRoomPage/ExamRoomPage';
 import NavDrawer from '../Nav/NavDrawer';
+import ProctorExamPageInProgress from '../ProctorExamPageInProgress/ProctorExamPageInProgress';
 
 const theme = createTheme({
 
@@ -167,6 +168,12 @@ function App() {
               {/* // logged in shows ProctorExamPageComplete else shows LoginPage */}
               <ProctorExamPageComplete />
             </ProtectedRoute>
+
+            <ProtectedRoute exact path="/proctor-exam-in-progress" >
+              {/* // logged in shows ProctorExamPageInProgress else shows LoginPage */}
+              <ProctorExamPageInProgress />
+            </ProtectedRoute>
+
             <ProtectedRoute exact path="/before-begin" >
               {/* // logged in shows BeforeYouBeginPage else shows LoginPage */}
               <BeforeYouBeginPage />
