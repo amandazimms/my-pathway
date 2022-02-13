@@ -12,6 +12,7 @@ function IncidentCounter(props) {
   const dispatch = useDispatch();
 
   const markIncident = () => {
+    console.log("mark incident button clicked");
     dispatch({ type:'ADD_INCIDENT', payload: {exam_detail: exam_detail} });
   }
 

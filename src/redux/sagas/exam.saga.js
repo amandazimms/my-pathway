@@ -29,9 +29,10 @@ function* eventSaga() {
 function* addIncident(action) {
   const ap = action.payload;
   //ap.exam_detail
-  console.log('ap:', ap);
+  console.log('Add incident : saga action.payload:', ap);
   try {
     const response = yield axios.put(`/api/exam/addIncident/${ap.exam_detail}`);
+    console.log('add incident saga received this back from db: ', response.data);
     yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: { incident: response.data } });
   } catch (error) {
     console.log('update increment incident failed', error);
@@ -64,6 +65,7 @@ function* updateActiveExamQuestion(action) {
       url: `/api/exam/active-question`,
       data: ap
     });
+    console.log('response.data from update active exam q:', response.data);
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
   } catch (error) {
     console.log('setExamPhoto failed', error);

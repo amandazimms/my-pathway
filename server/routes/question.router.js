@@ -21,7 +21,7 @@ router.get('/all', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log('req.body', req.body);
+  // console.log('req.body', req.body);
   const id = req.body.parent_test_id
   const queryString = `
   UPDATE test
@@ -66,7 +66,7 @@ router.put('/:id', (req, res)=> {
   //and don't do anything with create_date or created_by
   //you don't need to do RETURNING
   //send a status 200 back
-  console.log('req.body', req.body);
+  // console.log('req.body', req.body);
   const id = req.params.id
   const queryString = `UPDATE question 
   SET point_value = $1, 
@@ -86,7 +86,7 @@ router.put('/:id', (req, res)=> {
   WHERE id = $14`;
   const values = [ req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.active, req.body.user_id, id ];
    pool.query( queryString, values ).then( (results)=>{
-     console.log('req.body', req.body);
+    //  console.log('req.body', req.body);
     const queryString = `
     UPDATE test
     SET points_possible = $1,
@@ -107,12 +107,12 @@ router.delete('/:id', (req,res)=> {
   //@nickolas todo (from Amanda - thanks)
   //delete the question with id req.params.id
   //send back status 200
-  console.log('req.query', req.query);
+  // console.log('req.query', req.query);
   const id = req.params.id
   const queryString =  `DELETE FROM question WHERE id = $1`;
   pool.query(queryString, [id])
   .then(() => {
-    console.log('req.query', req.query);
+    // console.log('req.query', req.query);
     const id = req.query.parent_test_id
     const queryString = `
     UPDATE test

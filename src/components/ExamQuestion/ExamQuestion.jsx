@@ -21,18 +21,49 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function ExamQuestion(props) {
-
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  //loop through detail records, compare to total number
   const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('Functional Component');
-
 
   const test = useSelector(store => store.test.selected);
-  const question = props.question;
-  const questions = useSelector(store => store.question.selected);
+  // const question = props.question;
+  const question = useSelector(store => store.question.examSelected);
+  // const questions = useSelector(store => store.question.selected);
   const dispatch = useDispatch();
+
+  const [opt, setOpt] = useState({
+    one: question.option_one,
+    two: question.option_two,
+    three: question.option_three,
+    four: question.option_four,
+  })
+  // const [opt, setOpt] = useState([
+  //   question.option_one,
+  //   question.option_two,
+  //   question.option_three,
+  //   question.option_four,
+  // ])
+
+  const [randOpt, setRandOpt] = useState([]);
+
+  // useEffect(() => {
+  //   randomizeOrder();
+  // }, []);
+
+
+  // const randomizeOrder = () => {
+  //   let originalOptionsCopy = opt;
+  //   let newRandOptionsTemp = []
+
+  //   while(originalOptionsCopy.length){
+  //     let randomIndex = Math.floor(Math.random() * originalOptionsCopy.length);
+  //     let randomItem = originalOptionsCopy[randomIndex];
+  //     originalOptionsCopy.splice(randomIndex, 1);
+  //     newRandOptionsTemp.push(randomItem);
+  //   }
+  //   console.log('originalOptionsCopy:', originalOptionsCopy);
+  //   console.log('newRandOptionsTemp:', newRandOptionsTemp);
+   
+  //   setRandOpt(newRandOptionsTemp);
+  // }
 
   //if selected answer === answer let correct = true 
   //total points possible 
@@ -47,31 +78,36 @@ function ExamQuestion(props) {
     <Grid container spacing={4}>
       <Grid item xs={8}>
         {/* <ThemeProvider> */}
-          <Box
-            sx={{
-              p: 2,
-              bgcolor: 'background.default',
-              display: 'grid',
-              gridtemplateColumns: { md: '1fr 1fr' },
-              gap: 2,
-            }}
-          >
-            <FormControl>
-              <Typography className="questionTitle" sx={{ fontSize: 25 }} gutterBottom>
-                {store.question.examSelected.question}
-              </Typography>
+        <Box
+          sx={{
+            p: 2,
+            bgcolor: 'background.default',
+            display: 'grid',
+            gridtemplateColumns: { md: '1fr 1fr' },
+            gap: 2,
+          }}
+        >
+          <FormControl>
+            <Typography className="questionTitle" sx={{ fontSize: 25 }} gutterBottom>
+              {question.question}
+            </Typography>
 
-              <RadioGroup
-                aria-labelledby="radio-buttons-group-label"
-                name="radio-buttons-group"
-                onChange={() => { handleChange(event) }}>
-                <FormControlLabel value={store.question.examSelected.option_one} control={<Radio />} label={store.question.examSelected.option_one} checked={store.question.examSelected.option_one === props.selectedAnswer} />
-                <FormControlLabel value={store.question.examSelected.option_two} control={<Radio />} label={store.question.examSelected.option_two} checked={store.question.examSelected.option_two === props.selectedAnswer} />
-                <FormControlLabel value={store.question.examSelected.option_three} control={<Radio />} label={store.question.examSelected.option_three} checked={store.question.examSelected.option_three === props.selectedAnswer} />
-                <FormControlLabel value={store.question.examSelected.option_four} control={<Radio />} label={store.question.examSelected.option_four} checked={store.question.examSelected.option_four === props.selectedAnswer} />
-              </RadioGroup>
-            </FormControl>
-          </Box>
+            <RadioGroup
+              aria-labelledby="radio-buttons-group-label"
+              name="radio-buttons-group"
+              onChange={() => { handleChange(event) }}>
+              <FormControlLabel value={opt.one} control={<Radio />} label={opt.one} checked={opt.one === props.selectedAnswer} />
+              <FormControlLabel value={opt.two} control={<Radio />} label={opt.two} checked={opt.two === props.selectedAnswer} />
+              <FormControlLabel value={opt.three} control={<Radio />} label={opt.three} checked={opt.three === props.selectedAnswer} />
+              <FormControlLabel value={opt.four} control={<Radio />} label={opt.four} checked={opt.four === props.selectedAnswer} />
+              {/* <FormControlLabel value={randOpt[0]} control={<Radio />} label={randOpt[0]} checked={randOpt[0] === props.selectedAnswer} />
+              <FormControlLabel value={randOpt[1]} control={<Radio />} label={randOpt[1]} checked={randOpt[1] === props.selectedAnswer} />
+              <FormControlLabel value={randOpt[2]} control={<Radio />} label={randOpt[2]} checked={randOpt[2] === props.selectedAnswer} />
+              <FormControlLabel value={randOpt[3]} control={<Radio />} label={randOpt[3]} checked={randOpt[3] === props.selectedAnswer} /> */}
+           
+            </RadioGroup>
+          </FormControl>
+        </Box>
         {/* </ThemeProvider> */}
       </Grid>
 

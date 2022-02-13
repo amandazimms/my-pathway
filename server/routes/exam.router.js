@@ -159,7 +159,11 @@ router.put('/addIncident/:id', (req, res)=> {
 
   //The other parts are built out, so you *should* theoretically be able to test this by going to:
   //All events > Enter an In Progress event > Enter an exam > Mark Incident (are you sure = click again)
+  //    this should increment the incident/incident count for both tables
   //and the total number (from exam table) should display above this button
+  // ^^ remember that you need data in your DB for all these to work:
+  //   - create an exam that starts ~2 min from now, then quickly register at least 1 student to it
+  //   - once it's in progress, that student should appear in the exam list, and you can enter their exam
 });
 
 router.put('/id-image', (req, res)=> {

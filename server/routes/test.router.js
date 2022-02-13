@@ -9,7 +9,7 @@ router.get('/selected', (req, res) => {
   //this will be used when a proctor is viewing a test that's already been created
   //use variable req.params.test_id for the test id value
   //send back the results.rows
-  console.log('req.query', req.query);
+  // console.log('req.query', req.query);
   const queryString = `SELECT * FROM test WHERE id=${req.query.test_id}` ;
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows[0] );
