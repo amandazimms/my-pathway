@@ -5,10 +5,12 @@ function* eventSaga() {
   yield takeLatest('SET_EXAM_PHOTO', setExamPhoto);//inputs the student photo url into exam table
   yield takeLatest('SET_ID_PHOTO', setIdPhoto);//inputs the id card image url into exam table. 
   yield takeLatest('CONFIRM_STUDENT_ID', confirmId);//updates the value of confirm_id in exam table. 
-  yield takeLatest('BEGIN_EXAM', beginExam);//updates the value of confirm_id in exam table. 
+  yield takeLatest('BEGIN_EXAM', beginExam);//updates the value of confirm_id in exam table.
+  yield takeLatest('END_EXAM', endExam);//updates the value of confirm_id in exam table.
   yield takeLatest('FETCH_SELECTED_EXAM', fetchSelectedExam);//fetches all the info for a single Exam. 
   yield takeLatest('CREATE_EXAM_DETAIL_RECORD', createExamDetailRecord);//created new exam detail record shell. 
-  yield takeLatest('UPDATE_ACTIVE_EXAM_QUESTION', updateActiveExamQuestion);//created new exam detail record shell.
+  yield takeLatest('UPDATE_ACTIVE_EXAM_QUESTION', updateActiveExamQuestion);//update exam with students active question id.
+  yield takeLatest('CAPTURE_ANSWER', captureAnswer);//updates exam_detail record with answer and graded outcome.
   //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
   yield takeLatest('APPROVE_EXAM', approveExam);
   //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
@@ -72,6 +74,20 @@ function* updateActiveExamQuestion(action) {
   }
 }
 
+function* captureAnswer(action) {
+  const ap = action.payload;
+  try {
+    const response = yield axios({
+      method: 'PUT',
+      url: `/api/exam/answer`,
+      data: ap
+    });
+    // yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+  } catch (error) {
+    console.log('setExamPhoto failed', error);
+  }
+}
+
  // worker Saga: will be fired on "FETCH_EXAM_QUESTION_PROCTOR" actions
 function* fetchExamQuestionProctor(action){
   const ap = action.payload;
@@ -105,6 +121,19 @@ function* beginExam(action) {
     console.log('update pass exam failed', error);
   }
 }
+
+function* endExam(action) {
+  const ap = action.payload;
+  try {
+    const exam = yield axios.put(`/api/exam/end-exam/${ap.exam_id}`);
+    yield put({ type: 'UNSET_SELECTED_EXAM'});
+    yield put({ type: 'UNSET_SELECTED_EXAM_DETAIL'});
+    yield ap.done()
+  } catch (error) {
+    console.log('update pass exam failed', error);
+  }
+}
+
 // worker Saga: will be fired on "PASS_EXAM" actions
 function* passExam(action) {
   const ap = action.payload;
