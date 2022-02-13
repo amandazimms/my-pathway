@@ -85,6 +85,26 @@ router.get('/selected', (req, res) => {
   })
 });
 
+router.get('/my-exams', (req, res) => {
+  console.log('In GET My-Exams with:', req.query);
+  const id = req.query.student_id
+  const queryString = `SELECT 
+	    event.event_name AS event_name, test.title AS test_title, "event".event_date_start AS event_date_start, "event".event_date_end AS event_date_end,
+      exam.status AS exam_status, exam.id AS exam_id, event.id AS event_id, test.id AS test_id, test.title AS test_title, 
+      exam.incident, test.points_possible, exam.score, exam.pass, "user".first_name, "user".last_name, "user".username, exam.exam_time_end
+    FROM exam 
+    JOIN "event" ON "event".id=exam.event_id
+    JOIN test ON test.id="event".test_id
+    JOIN "user" ON exam.student_id="user".id
+    WHERE exam.student_id = $1`;
+  pool.query(queryString, [id]).then((results) => {
+    res.send(results.rows);
+  }).catch((err) => {
+    console.log("error get selected exam", err);
+    res.sendStatus(500);
+  })
+});
+
 router.post('/', (req, res) => {
 
   //.post notes
@@ -245,11 +265,21 @@ router.put('/end-exam/:id', (req, res) => {
   const queryString = `UPDATE exam SET exam_time_end = CURRENT_TIMESTAMP
   WHERE exam.id = ${req.params.id}`;
   pool.query(queryString).then((results) => {
-    res.sendStatus(201);
-  }).catch((err) => {
-    console.log("error put exam photo", err);
-    res.sendStatus(500);
+    const queryString = `  SELECT exam_detail.id AS exam_detail_id, question.point_value, exam_detail.question_id, exam_detail.exam_id, exam_detail.correct
+    FROM exam_detail
+    JOIN exam ON exam.id=exam_detail.exam_id
+    JOIN event ON event.id=exam.event_id
+    JOIN test ON test.id=event.test_id
+    JOIN question ON question.id=exam_detail.question_id
+    WHERE exam_detail.exam_id=${req.params.id};`;
+    pool.query(queryString).then((results) => {
+      res.send(results.rows)
+    })
   })
+    .catch((err) => {
+      console.log("error end exam put router", err);
+      res.sendStatus(500);
+    })
 });
 
 router.put('/active-question', (req, res) => {
@@ -276,6 +306,19 @@ router.put('/active-question', (req, res) => {
   })
 });
 
+router.put('/score-exam', (req, res) => {
+  //req.body.status is REJECTED or APPROVED
+  //req.params.id is the id
+  const queryString = `UPDATE exam SET score = $1
+    WHERE exam.id = ${req.body.exam_id}`;
+  const values = [req.body.score]
+  pool.query(queryString, values).then((results) => {
+    res.sendStatus(200);
+  }).catch((err) => {
+    console.log("error score exam update", err);
+    res.sendStatus(500);
+  })
+});
 
 
 router.put('/status/:id', (req, res) => {

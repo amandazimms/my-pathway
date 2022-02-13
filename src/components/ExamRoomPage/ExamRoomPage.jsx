@@ -20,23 +20,6 @@ function ExamRoomPage(props) {
     const [examBegin, setExamBegin] = useState(false);
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
 
-    useEffect(() => {
-        dispatch({
-            type: 'FETCH_ALL_EXAM_QUESTIONS',
-            payload: {
-                parent_test_id: 16, // need to replace with event.test_id
-                // taco:'taco'
-            }
-        })
-        //below may not be needed once this is tied into larger application
-        dispatch({
-            type: 'FETCH_SELECTED_EXAM',
-            payload:{
-                exam_id:76 //need to replace with active exam ID
-            }
-        })
-    }, [])
-
     const beginExam = () => {
         setExamBegin(true)
         dispatch({
@@ -147,6 +130,20 @@ function ExamRoomPage(props) {
         }
     }
 
+    const abortExam = () => {
+        if(confirm('Are you sure you want to abort this exam? It cannot be undone, and you cannot return to the exam later. If you are unsure, please contact your proctor before proceeding.')){
+            dispatch({
+                type: 'END_EXAM',
+                payload:{
+                    exam_id:store.exam.selected.exam_id,
+                    done: () => {
+                        history.push('/home')
+                    }
+                }
+            })
+            }
+    }
+
     return (
         <div>
             {!examBegin ?
@@ -158,7 +155,7 @@ function ExamRoomPage(props) {
                 </Grid>
 
                 : <>
-                    <Button>End Exam</Button>
+                    <Button onClick={abortExam}>Abort Exam</Button>
                     <ExamQuestion
                         setSelection={setSelection}
                         selectedAnswer={selectedAnswer}
