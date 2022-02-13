@@ -90,8 +90,12 @@ function EventList(props) {
                 <Button variant="contained" disabled >Enter Event</Button>:
                 <></>
                 }
-                {exam.exam_status === 'IN PROGRESS'?
+                {exam.exam_status === 'IN PROGRESS' && exam.exam_time_end === null?
                 <Button variant="contained" onClick={() => setSelectedExam(exam)}>Enter Event</Button>:
+                <></>
+                }
+                {exam.exam_status === 'IN PROGRESS' && exam.exam_time_end != null?
+                <p>Exam Completed/Aborted</p>:
                 <></>
                 }
                 {exam.exam_status === 'COMPLETE'?

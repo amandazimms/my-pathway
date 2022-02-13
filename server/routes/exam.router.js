@@ -91,7 +91,7 @@ router.get('/my-exams', (req, res) => {
   const queryString = `SELECT 
 	    event.event_name AS event_name, test.title AS test_title, "event".event_date_start AS event_date_start, "event".event_date_end AS event_date_end,
       exam.status AS exam_status, exam.id AS exam_id, event.id AS event_id, test.id AS test_id, test.title AS test_title, 
-      exam.incident, test.points_possible, exam.score, exam.pass, "user".first_name, "user".last_name, "user".username
+      exam.incident, test.points_possible, exam.score, exam.pass, "user".first_name, "user".last_name, "user".username, exam.exam_time_end
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id

@@ -136,6 +136,20 @@ function ExamRoomPage(props) {
         }
     }
 
+    const abortExam = () => {
+        if(confirm('Are you sure you want to abort this exam? It cannot be undone, and you cannot return to the exam later. If you are unsure, please contact your proctor before proceeding.')){
+            dispatch({
+                type: 'END_EXAM',
+                payload:{
+                    exam_id:store.exam.selected.exam_id,
+                    done: () => {
+                        history.push('/home')
+                    }
+                }
+            })
+            }
+    }
+
     return (
         <div>
             {!examBegin ?
@@ -147,7 +161,7 @@ function ExamRoomPage(props) {
                 </Grid>
 
                 : <>
-                    <Button>End Exam</Button>
+                    <Button onClick={abortExam}>Abort Exam</Button>
                     <ExamQuestion
                         setSelection={setSelection}
                         selectedAnswer={selectedAnswer}
