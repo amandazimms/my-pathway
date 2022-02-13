@@ -125,9 +125,9 @@ router.post('/detail', (req, res) => {
   });
 
 router.put('/photo', (req, res)=> {
-  console.log('query', req.query);
-  console.log('body', req.body);
-  console.log('params', req.params);
+  // console.log('query', req.query);
+  // console.log('body', req.body);
+  // console.log('params', req.params);
   const queryString = `UPDATE exam SET face_image = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
   WHERE exam.id = ${req.body.exam_id}
   RETURNING *`;
@@ -138,6 +138,28 @@ router.put('/photo', (req, res)=> {
     console.log("error put exam photo", err );
     res.sendStatus( 500 );
   })
+});
+
+
+router.put('/addIncident/:id', (req, res)=> {
+  //@Nickolas please write this route:
+
+  //req.params.id is the exam_detail.id
+
+  //need to increment the incident_count column of this table by one
+  //(WHERE exam_detail.id = req.params.id)
+  //   I think you can do column_name = column_name+1, try searching that. 
+  //  use RETURNING to return the exam_id from this row of the exam_detail table as well.
+
+  //THEN make another call to the db - this can be a nested query or there might be other ways if you want
+  //in this call, we need to increment the "incident" column in the exam table that matches this exam id.
+  //This is why I had you return the exam_id above - your 2nd query here would look something like:
+  // (do the increment on incident) WHERE exam_id = (the exam id that you got).
+  //Finally, in that 2nd query, please use RETURNING to send me back the new incident count (from exam table)
+
+  //The other parts are built out, so you *should* theoretically be able to test this by going to:
+  //All events > Enter an In Progress event > Enter an exam > Mark Incident (are you sure = click again)
+  //and the total number (from exam table) should display above this button
 });
 
 router.put('/id-image', (req, res)=> {

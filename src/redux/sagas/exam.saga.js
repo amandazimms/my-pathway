@@ -20,6 +20,22 @@ function* eventSaga() {
   //dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
   yield takeLatest('FETCH_EXAM_QUESTION_PROCTOR', fetchExamQuestionProctor);
   //dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.id} });
+  yield takeLatest('ADD_INCIDENT', addIncident);
+  //dispatch({ type:'ADD_INCIDENT', payload: {exam_detail: exam_detail} });
+
+}
+
+// worker Saga: will be fired on "ADD_INCIDENT" actions
+function* addIncident(action) {
+  const ap = action.payload;
+  //ap.exam_detail
+  console.log('ap:', ap);
+  try {
+    const response = yield axios.put(`/api/exam/addIncident/${ap.exam_detail}`);
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: { incident: response.data } });
+  } catch (error) {
+    console.log('update increment incident failed', error);
+  }
 }
 
 function* createExamDetailRecord(action) {
