@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useDispatch, useSelector} from 'react-redux';
+import { Box } from '@mui/material';
 
 
 
@@ -12,11 +13,11 @@ function UserPage() {
 
   useEffect( () => {
     getProfilePicture()
-}, []);
+  }, []);
 
   const getProfilePicture = () =>{
     const url = store.user.profile_picture
-    console.log("----------->Image Path Being Used:", url );
+    // console.log("----------->Image Path Being Used:", url );
     if (url != '/images/profile_default.png'){
       fetch(url)
       .then(response => response.body)
@@ -65,12 +66,14 @@ function UserPage() {
 
 
   return (
-    <div className="container">
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
-      <img src={store.image.profilePicture} alt="" />
-      <br />
-      <LogOutButton className="btn" />
+    <div className="flexParent">
+      <Box sx={{ width: 300, height: 300}} className="flexParentVertical">
+        <h2 className="heading">Welcome, {user.first_name}!</h2>
+        <p>Username: {user.username}</p>
+        <img src={store.image.profilePicture} alt="" />
+        <br />
+        <LogOutButton className="btn" />
+      </Box>
     </div>
   );
 }

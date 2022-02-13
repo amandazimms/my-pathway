@@ -142,7 +142,7 @@ const proctorList = (anchor) => (
         onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}>
     
-        <Link to="/home">
+        <Link to="/">
         <img src={KyrosLogo3} alt="logo" className="logo" /> 
         </Link>
         </div>
@@ -184,7 +184,7 @@ const studentList = (anchor) => (
         onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}>
     
-        <Link to="/home">
+        <Link to="/">
         <img src={KyrosLogo3} alt="logo" className="logo" /> 
         </Link>
         </div>

@@ -11,13 +11,18 @@ function chatFunction(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const store = useSelector((store) => store);
+  const messageSession = useSelector(store => store.message.availableMessageSession);
+
   const [heading, setHeading] = useState('Chat Component');
   const [examId, setExamId] = useState(null)
   const [openChat, setOpenChat] = useState(false)
    
   useEffect(() => {
-  const getSessionsTimer = setInterval(() => {getSessions()}, 15000);
-    return () => clearInterval(getSessionsTimer)
+    //need this
+    //either get the message session and set that as the active one,
+    //or if that doesn't exist, create one and set that as active
+    const getSessionsTimer = setInterval(() => {getSessions()}, 15000);
+      return () => clearInterval(getSessionsTimer)
   },[])
 
   const history = useHistory()
@@ -72,27 +77,30 @@ function chatFunction(props) {
       <h2>{heading}</h2>
       {/* <p>{JSON.stringify(store.message)}</p> */}
       <h5>{store.user.first_name} {store.user.last_name} - {store.user.role}</h5>
-      <label htmlFor="examId">Enter Exam ID:</label><input type="text" id='examId' value={examId} onChange={handleExamId}/>
-      <br />
+      <label htmlFor="examId">Enter Exam ID:</label>
+      <input type="text" id='examId' value={examId} onChange={handleExamId}/>
+        <br />
       <button onClick={getSessions}>Find Active Chats</button>
-      <br />
-      {store.message.availableMessageSession.length === 0 && openChat === true?
-      <>
-      <h6><b>NO ACTIVE CHATS FOUND</b></h6>
-      <button onClick={newChat}>Start New Chat</button>
-      </>:
-      <>
-      {store.message.availableMessageSession.map(session => (
-              <div key={session.message_session_id} > 
-                <p>
-                  Chat Between {session.proctor_first_name} and {session.student_first_name} 
-                </p>
-                <p>
-                 Chat ID: {session.message_session_id} 
-                </p>
-                
-                <button value={session.message_session_id} onClick={resumeChat}>Join Chat</button></div>))}
-      </>
+        <br />
+
+      { messageSession.length === 0 && openChat === true
+        ?
+          <>
+          <h6><b>NO ACTIVE CHATS FOUND</b></h6>
+          <button onClick={newChat}>Start New Chat</button>
+          </>
+        :
+        <>
+          { messageSession.map(session => (
+            <div key={session.message_session_id} > 
+              <p>
+                Chat Between {session.proctor_first_name} and {session.student_first_name} 
+              </p>
+              <p>Chat ID: {session.message_session_id}</p>
+              <button value={session.message_session_id} onClick={resumeChat}>Join Chat</button>
+            </div>
+            ))}
+        </>
       }
 
     </div>

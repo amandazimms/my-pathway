@@ -205,36 +205,43 @@ function App() {
 
             {/* //LOGIN/REGISTRATION ----------------------------- */}
             <Route exact path="/login" >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect to the /user page
-                <Redirect to="/user" />
-                // Otherwise, show the login page
-                : <LoginPage />
-              }
+                {   user.id  && user.role === "STUDENT"
+                  ?
+                    // If the user is already logged in, 
+                    // redirect them to the /user page
+                    <Redirect to="/my-exams" />
+                    //todo change /about to wherever we want the user to land
+                  :   
+                    user.id && user.role === "PROCTOR"
+                  ? <Redirect to="/events-all" />
+                  : <LoginPage />
+                }
             </Route>
 
             <Route exact path="/registration" >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect them to the /user page
-                <Redirect to="/user" />
-                // Otherwise, show the registration page
-                : <RegisterPage />
-              }
+                {   user.id  && user.role === "STUDENT"
+                  ?
+                    // If the user is already logged in, 
+                    // redirect them to the /user page
+                    <Redirect to="/my-exams" />
+                    //todo change /about to wherever we want the user to land
+                  : 
+                    user.id && user.role === "PROCTOR"
+                  ? <Redirect to="/events-all" />
+                  : <RegisterPage />
+                }
             </Route>
 
             <Route exact path="/home">
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect them to the /user page
-                <Redirect to="/user" />
-                // Otherwise, show the Landing page
-                : <LandingPage />
+              {   user.id && user.role === "STUDENT"
+                ? <Redirect to="/my-exams" />
+                //todo change /about to wherever we want the user to land
+                :  
+                  user.id && user.role === "PROCTOR"
+                ? <Redirect to="/events-all" />
+                : <RegisterPage />
               }
-            </Route>
-
-
+          </Route>
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>

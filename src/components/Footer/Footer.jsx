@@ -1,13 +1,24 @@
 import React from 'react';
 import './Footer.css';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import IconButton from '@mui/material/IconButton';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
 
 function Footer() {
-  return <footer>&copy; Prime Digital Academy</footer>;
+  return (
+    <footer>
+      <a className="socialFooterIcon" target="_blank" href="https://www.facebook.com/PathwaysMinneapolis/"><FacebookIcon /></a>
+      <a className="socialFooterIcon" target="_blank" href="https://www.youtube.com/user/MinneapolisPathways"><YouTubeIcon /></a>
+      <a className="socialFooterIcon" target="_blank" href="https://twitter.com/Pathways_Mpls"><TwitterIcon /></a>
+      <a className="socialFooterIcon" target="_blank" href="https://www.instagram.com/pathwaysminneapolis/"><InstagramIcon /></a>
+      <p>www.kyros.care</p>
+    </footer>
+  );
 }
 
 export default Footer;

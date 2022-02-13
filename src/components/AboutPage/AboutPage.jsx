@@ -16,6 +16,21 @@ function AboutPage(props) {
 
   return (
    <div> 
+     <h3 className="heading">Technologies Used</h3>
+     <ul>
+       <li>PostgreSQL</li>
+       <li>Express.Js</li>
+       <li>React.Js</li>
+       <li>Node.Js</li>
+     </ul>
+      <br></br>
+     <h3 className="heading">Team</h3>
+     <ul>
+       <li>Amanda Zimmerman</li>
+       <li>Chris Nelson</li>
+       <li>Jackie Spiess</li>
+       <li>Nickolas Cunningham</li>
+     </ul>
   </div> 
   );
 }
