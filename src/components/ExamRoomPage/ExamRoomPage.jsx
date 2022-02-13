@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import '../ExamRoomPage/ExamRoomPage.css'
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
+import { useHistory } from 'react-router-dom';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -133,20 +134,21 @@ function ExamRoomPage(props) {
         })
     }
 
-    const commitAnswer = () => {
-        dispatch({
-            type: 'COMMIT_ANSWER',
-            payload: {
-                exam_id:store.exam.selected.id,
-                question_id: store.question.examSelected.id,
-                selected_answer: selectedAnswer,
-                correct: answerCorrect
-            }
-        })
-    }
+    const history = useHistory()
 
     const completeExam = () => {
-        confirm('Are you sure you want to complete the exam?')
+        if(confirm('Are you sure you want to complete the exam?')){
+        captureAnswer()
+        dispatch({
+            type: 'END_EXAM',
+            payload:{
+                exam_id:store.exam.selected.exam_id,
+                done: () => {
+                    history.push('/home')
+                }
+            }
+        })
+        }
     }
 
     return (

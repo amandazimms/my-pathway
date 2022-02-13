@@ -215,6 +215,17 @@ router.put('/begin-exam/:id', (req, res) => {
   })
 });
 
+router.put('/end-exam/:id', (req, res) => {
+  const queryString = `UPDATE exam SET exam_time_end = CURRENT_TIMESTAMP
+  WHERE exam.id = ${req.params.id}`;
+  pool.query(queryString).then((results) => {
+    res.sendStatus(201);
+  }).catch((err) => {
+    console.log("error put exam photo", err);
+    res.sendStatus(500);
+  })
+});
+
 router.put('/active-question', (req, res) => {
   const queryString = `UPDATE exam SET active_question_id = $1, last_modified_date=CURRENT_TIMESTAMP, last_modified_by=$2
     WHERE exam.id = ${req.body.exam_id}`;
