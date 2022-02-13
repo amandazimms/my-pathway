@@ -150,22 +150,6 @@ function* fetchAllEvents() {
     //I read that comparing date equality (=== / ==) is finnicky (not > / < / <=...), 
     //but the pseudocode below should avoid that.
     const events = response.data;   
-    const now = new Date().valueOf();
-
-
-    for (const event of events){
-      event.status = ''
-      if (now >= new Date(event.event_date_end).valueOf()){
-        event.status = 'COMPLETE'
-      }
-      else if (now < new Date(event.event_date_start).valueOf()){
-        event.status = 'UPCOMING'
-      }
-      else if (now > new Date(event.event_date_start).valueOf() && now < new Date(event.event_date_end).valueOf()){
-        event.status = 'IN PROGRESS'
-      }
-    }
-
     yield put({ type: 'SET_ALL_EVENTS', payload: events });
   } catch (error) {
     console.log('get all events request failed', error);

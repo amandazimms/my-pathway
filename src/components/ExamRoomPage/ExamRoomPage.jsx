@@ -9,12 +9,7 @@ import '../ExamRoomPage/ExamRoomPage.css'
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 import { useHistory } from 'react-router-dom';
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
 function ExamRoomPage(props) {
-    // Using hooks we're creating local state for a "heading" variable with
-    // a default value of 'Functional Component'
     const store = useSelector((store) => store);
     const [heading, setHeading] = useState('Functional Component');
     const [helpNeeded, setHelpNeeded] = useState(false);
@@ -24,7 +19,6 @@ function ExamRoomPage(props) {
     const [answerCorrect, setAnswerCorrect] = useState(false);
     const [examBegin, setExamBegin] = useState(false);
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
-
 
     const beginExam = () => {
         setExamBegin(true)

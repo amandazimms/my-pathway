@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Button, Card, CardContent, Typography } from '@mui/material'; 
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import IncidentCounter from '../IncidentCounter/IncidentCounter';
 
 
 function ProctorExamPageInProgress() {
@@ -10,9 +11,6 @@ function ProctorExamPageInProgress() {
 
  return (
     <>
-      {/* <p>exam in progress for: {JSON.stringify(exam)}</p>
-      <p>question: {JSON.stringify(question)}</p> */}
-      
       <h3 className="heading">Student: {exam.first_name} {exam.last_name}</h3>
       {/* profile pic here ( {exam.profile_picture} ) */}
 
@@ -58,6 +56,8 @@ function ProctorExamPageInProgress() {
           </CardContent>
 
       </Card>
+
+      <IncidentCounter exam={exam}/>
     </>
   );
 }
