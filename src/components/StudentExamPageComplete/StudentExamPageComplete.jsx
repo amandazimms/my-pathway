@@ -55,9 +55,9 @@ function studentExamPageComplete(props) {
 
             <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row">PASS/FAIL</TableCell>
-                {   exam.pass === true 
+                {   exam.pass === 'PASS' 
                   ? <TableCell align="right" style={{ color:"#308713" }}>PASS</TableCell>
-                  : exam.pass === false
+                  : exam.pass === 'FAIL'
                   ? <TableCell align="right" style={{ color:"#871313" }}>FAIL</TableCell>
                   : <TableCell align="right" style={{ color:"#871313" }}>RESULT PENDING</TableCell>
                 } 

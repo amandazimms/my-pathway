@@ -12,6 +12,7 @@ function* eventSaga() {
   yield takeLatest('CREATE_EXAM_DETAIL_RECORD', createExamDetailRecord);//created new exam detail record shell. 
   yield takeLatest('UPDATE_ACTIVE_EXAM_QUESTION', updateActiveExamQuestion);//update exam with students active question id.
   yield takeLatest('CAPTURE_ANSWER', captureAnswer);//updates exam_detail record with answer and graded outcome.
+  yield takeLatest('SCORE_EXAM', scoreExam);
   //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
   yield takeLatest('APPROVE_EXAM', approveExam);
   //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
@@ -139,11 +140,41 @@ function* endExam(action) {
   const ap = action.payload;
   try {
     const exam = yield axios.put(`/api/exam/end-exam/${ap.exam_id}`);
+    yield console.log('exam_deatil_results', exam.data);
+    const score = yield () => {
+     let scoreSum = 0
+    for(let i=0; i<exam.data.length; i++){
+      console.log('point value:', exam.data[i].point_value, 'correct:', exam.data[i].correct );
+      if(exam.data[i].correct === true){
+        scoreSum += exam.data[i].point_value
+      }
+    }
+    return scoreSum
+  }
+    yield put({ 
+      type: 'SCORE_EXAM', 
+      payload: {
+        exam_id:ap.exam_id,
+        score: score()
+    }});
     yield put({ type: 'UNSET_SELECTED_EXAM'});
     yield put({ type: 'UNSET_SELECTED_EXAM_DETAIL'});
     yield ap.done()
   } catch (error) {
-    console.log('update pass exam failed', error);
+    console.log('update end exam put failed', error);
+  }
+}
+
+function* scoreExam(action) {
+  const ap = action.payload;
+  try {
+    const response = yield axios({
+      method: 'PUT',
+      url: `/api/exam/score-exam`,
+      data: ap
+    });
+  } catch (error) {
+    console.log('setExamPhoto failed', error);
   }
 }
 
