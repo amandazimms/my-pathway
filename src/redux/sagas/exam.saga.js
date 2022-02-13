@@ -61,6 +61,7 @@ function* createExamDetailRecord(action) {
 
 function* updateActiveExamQuestion(action) {
   const ap = action.payload;
+  console.log('$$----------ap:', ap);
   try {
     const response = yield axios({
       method: 'PUT',

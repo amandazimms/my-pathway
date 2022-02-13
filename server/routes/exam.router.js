@@ -253,9 +253,14 @@ router.put('/end-exam/:id', (req, res) => {
 });
 
 router.put('/active-question', (req, res) => {
+  console.log('$$---------------------------req.body.exam_id:', req.body.exam_id);
+  console.log('req.body.question_id:', req.body.question_id);
+  console.log('req.body.user_id:', req.body.user_id);
+
   const queryString = `UPDATE exam SET active_question_id = $1, last_modified_date=CURRENT_TIMESTAMP, last_modified_by=$2
     WHERE exam.id = ${req.body.exam_id}`;
   const values = [req.body.question_id, req.body.user_id]
+
   pool.query(queryString, values).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
@@ -265,10 +270,11 @@ router.put('/active-question', (req, res) => {
     JOIN test ON test.id="event".test_id
     JOIN "user" ON exam.student_id="user".id
     WHERE exam.id = ${req.body.exam_id}`;
+
     pool.query(queryString).then((results) => {
       res.send(results.rows[0])
     }).catch((err) => {
-      console.log("error put exam pass", err);
+      console.log("error put exam active question", err);
       res.sendStatus(500);
     })
   })

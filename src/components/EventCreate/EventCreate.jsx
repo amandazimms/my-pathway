@@ -62,7 +62,7 @@ function EventCreate(props) {
       created_by: user.id, //this is the proctor's id, should be already there in the store 
     }
     dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } });
-    setIsNew(false)
+    props.onSetIsNewFalse();
   }
 
 return (

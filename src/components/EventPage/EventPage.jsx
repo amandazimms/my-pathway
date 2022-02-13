@@ -35,9 +35,23 @@ function EventPage(props) {
 
   const [isNew, setIsNew] = useState(props.new)
   const [showRegistration, setShowRegistration] = useState(false);
-  const [tabValue, setTabValue] = useState(event.status === 'UPCOMING' ? '1' : '2');
+  // const [selectedTab, setSelectedTab] = useState('1');
 
   const dispatch = useDispatch();
+
+  const setDefaultTab = () => {
+    if (!event.status) { //if this value is falsy, it's a not-yet-created event
+      return '1';
+    }
+    else if (event.status === "UPCOMING") {
+      return '1';
+    } 
+    else {
+      return '2';
+    }
+  }
+  const [selectedTab, setSelectedTab] = useState( ()=>setDefaultTab() );
+
 
   let eventStartTime = new Date(event.event_date_start).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -48,7 +62,7 @@ function EventPage(props) {
   });
 
   const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
+    setSelectedTab(newValue);
   };
 
   return (
@@ -57,7 +71,7 @@ function EventPage(props) {
       <h3 className="heading">{event.event_name}: {eventStartTime}</h3>
 
       <Box sx={{width: '100%', typography: 'body1'}}> 
-        <TabContext value={tabValue} centered textColor="secondary" indicatorColor="secondary">
+        <TabContext value={selectedTab} centered textColor="secondary" indicatorColor="secondary">
           <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
             <TabList onChange={handleTabChange} centered>
               <Tab label="Details" value="1" /> 

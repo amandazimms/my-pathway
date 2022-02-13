@@ -5,6 +5,7 @@ import {useHistory} from "react-router-dom";
 import { Button } from '@mui/material';
 import ExamTable from '../ExamTable/ExamTable';
 import EditEvent from '../EditEvent/EditEvent'
+import EventCreate from '../EventCreate/EventCreate';
 
 
 function EventDetailsTab(props) {
@@ -61,7 +62,9 @@ function EventDetailsTab(props) {
       }
 
       {   isNew 
-        ? <EventCreate/> 
+        ? <EventCreate
+            onSetIsNewFalse={()=>setIsNew(false)}
+          /> 
         : <></> 
       }
     </>

@@ -9,7 +9,7 @@ router.get('/all', (req, res) => {
   const id = req.query.parent_test_id 
   const queryString = `SELECT * FROM question WHERE parent_test_id = $1`
   pool.query( queryString, [id] ).then( (results)=>{
-    console.log('Questions for Exam:', results.rows);
+    // console.log('Questions for Exam:', results.rows);
     res.send( results.rows );
   }).catch( (err)=>{
     console.log("error get all questions", err );
