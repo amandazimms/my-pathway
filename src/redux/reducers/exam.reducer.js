@@ -15,6 +15,17 @@ const selected = (state = {}, action) => {
   }
 };
 
+const myExams = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_MY_EXAMS':
+      return action.payload;
+    case 'UNSET_MY_EXAMS':   
+      return [];
+    default:
+      return state;  
+  }
+};
+
 const detail = (state = {}, action) => {
   //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
   //const selectedExam = useSelector(store => store.exam.selected);
@@ -59,5 +70,6 @@ export default combineReducers({
   selectedQuestionProctor,
   all,
   detail,
+  myExams,
 });
 

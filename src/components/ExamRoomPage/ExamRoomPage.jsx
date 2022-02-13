@@ -25,21 +25,6 @@ function ExamRoomPage(props) {
     const [examBegin, setExamBegin] = useState(false);
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
 
-    useEffect(() => {
-        dispatch({
-            type: 'FETCH_ALL_EXAM_QUESTIONS',
-            payload: {
-                parent_test_id: 5, // need to replace with event.test_id
-            }
-        })
-        //below may not be needed once this is tied into larger application
-        dispatch({
-            type: 'FETCH_SELECTED_EXAM',
-            payload:{
-                exam_id:1 //need to replace with active exam ID
-            }
-        })
-    }, [])
 
     const beginExam = () => {
         setExamBegin(true)

@@ -7,6 +7,7 @@ function* eventSaga() {
   yield takeLatest('CONFIRM_STUDENT_ID', confirmId);//updates the value of confirm_id in exam table. 
   yield takeLatest('BEGIN_EXAM', beginExam);//updates the value of confirm_id in exam table.
   yield takeLatest('END_EXAM', endExam);//updates the value of confirm_id in exam table.
+  yield takeLatest('FETCH_MY_EXAMS', fetchMyExams);//fetches all the info for a single Exam. 
   yield takeLatest('FETCH_SELECTED_EXAM', fetchSelectedExam);//fetches all the info for a single Exam. 
   yield takeLatest('CREATE_EXAM_DETAIL_RECORD', createExamDetailRecord);//created new exam detail record shell. 
   yield takeLatest('UPDATE_ACTIVE_EXAM_QUESTION', updateActiveExamQuestion);//update exam with students active question id.
@@ -91,6 +92,36 @@ function* fetchExamQuestionProctor(action){
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
   } catch (error) {
     console.log('get selected exam request failed', error);
+  }
+}
+
+ // worker Saga: will be fired on "FETCH_MY_EXAMS" actions
+ function* fetchMyExams(action) {
+  const ap = action.payload;
+  console.log(ap);
+  try {
+    const response = yield axios.get('/api/exam/my-exams', { params: {student_id: ap.student_id} });
+
+    const myExams = response.data;   
+    const now = new Date().valueOf();
+
+
+    for (const myExams of myExams){
+      myExams.exam_status = ''
+      if (now >= new Date(myExams.event_date_end).valueOf()){
+        myExams.exam_status = 'COMPLETE'
+      }
+      else if (now < new Date(myExams.event_date_start).valueOf()){
+        myExams.exam_status = 'UPCOMING'
+      }
+      else if (now > new Date(myExams.event_date_start).valueOf() && now < new Date(myExams.event_date_end).valueOf()){
+        myExams.exam_status = 'IN PROGRESS'
+      }
+    }
+
+    yield put({ type: 'SET_MY_EXAMS', payload: myExams });
+  } catch (error) {
+    console.log('get my exams request failed', error);
   }
 }
 
