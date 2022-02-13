@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import '../ExamRoomPage/ExamRoomPage.css'
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
+import { useHistory } from 'react-router-dom';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -29,7 +30,6 @@ function ExamRoomPage(props) {
             type: 'FETCH_ALL_EXAM_QUESTIONS',
             payload: {
                 parent_test_id: 5, // need to replace with event.test_id
-                // taco:'taco'
             }
         })
         //below may not be needed once this is tied into larger application
@@ -46,7 +46,7 @@ function ExamRoomPage(props) {
         dispatch({
             type: 'BEGIN_EXAM',
             payload:{
-                exam_id:1 //need to replace with active exam ID
+                exam_id:store.exam.selected.exam_id
             }
         })
         dispatch({
@@ -89,7 +89,20 @@ function ExamRoomPage(props) {
             updateQuestionIndex() 
             createExamDetailRecord()
             updateActiveQuestion()
+            captureAnswer()
         }
+    }
+
+    const captureAnswer = () => {
+        console.log('Capturing answer!');
+        dispatch({
+            type: 'CAPTURE_ANSWER',
+            payload: {
+                exam_detail_id: store.exam.detail.id,
+                selected_answer: selectedAnswer,
+                correct: answerCorrect
+            }
+        })
     }
 
     const updateActiveQuestion = () => {
@@ -121,20 +134,21 @@ function ExamRoomPage(props) {
         })
     }
 
-    const commitAnswer = () => {
-        dispatch({
-            type: 'COMMIT_ANSWER',
-            payload: {
-                exam_id:store.exam.selected.id,
-                question_id: store.question.examSelected.id,
-                selected_answer: selectedAnswer,
-                correct: answerCorrect
-            }
-        })
-    }
+    const history = useHistory()
 
     const completeExam = () => {
-        confirm('Are you sure you want to complete the exam?')
+        if(confirm('Are you sure you want to complete the exam?')){
+        captureAnswer()
+        dispatch({
+            type: 'END_EXAM',
+            payload:{
+                exam_id:store.exam.selected.exam_id,
+                done: () => {
+                    history.push('/home')
+                }
+            }
+        })
+        }
     }
 
     return (
