@@ -17,30 +17,48 @@ import '../EventList/EventList.css';
 function EventList(props) {
   //this is a page that displays all events; it's wireframe "Proctor View - Events" from figma
   const events = useSelector(store => store.event.all);
-
-  // const events = [
-  //   {name: "fakeEvent1", status: "upcoming", date: '2487'},
-  //   {name: "fakeEvent2", status: "inProgress", date: '2022'},
-  //   {name: "fakeEvent3", status: "completed", date: '1999'},
-  // ]
   const dispatch = useDispatch();
+  let history = useHistory()
+
+
+  //TODO remove this example before final build
+  let startArray = ["hi","hello","howdy", "greetings", "HEY"];
+  let randArray = []
+  
+
+  const randomize = () => {
+    while(startArray.length){
+      let randomIndex = Math.floor(Math.random() * startArray.length);
+      let randomItem = startArray[randomIndex];
+      startArray.splice(randomIndex, 1);
+      randArray.push(randomItem);
+    }
+    console.log('startArray:', startArray);
+    console.log('randArray:', randArray);
+  }
 
   useEffect(() => {
     dispatch({ type: 'FETCH_ALL_EVENTS' }); 
   }, []);
 
-  let history = useHistory()
 
   const setSelectedEvent = (event) => {
     dispatch({ type: 'SET_SELECTED_EVENT', payload: event });
     history.push('/event')
   }
+  
+  const unsetSelectedEvent = () => {
+    dispatch({ type: 'UNSET_SELECTED_EVENT' });
+  }
 
   return (
     <div>
+        {/* //TODO remove this example before final build */}
+      <button onClick={randomize}>Randomize</button>
+
         <Link to="/event-new">
-        <Button variant="contained" color="secondary">Add a New Event</Button>
-      </Link>
+          <Button variant="contained" color="secondary" onClick={unsetSelectedEvent}>Add a New Event</Button>
+        </Link>
       <br />
       <br />
       <h2 className="heading">EVENTS</h2>

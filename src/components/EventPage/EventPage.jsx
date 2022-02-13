@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
-import EditEvent from '../EditEvent/EditEvent'
 import EventRegisterStudents from '../EventRegisterStudents/EventRegisterStudents';
 import ExamTable from '../ExamTable/ExamTable';
 import AboutPage from '../AboutPage/AboutPage';
@@ -14,6 +13,9 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import EventCreate from '../EventCreate/EventCreate';
+import EventStudentsTab from '../EventStudentsTab/EventStudentsTab';
+import EventDetailsTab from '../EventDetailsTab/EventDetailsTab';
 
 
 function EventPage(props) {
@@ -30,261 +32,73 @@ function EventPage(props) {
   const store = useSelector(store => store);
   const user = useSelector(store => store.user);
   const event = useSelector(store => store.event.selected);
-  const exams = useSelector(store => store.event.exams);
 
-
-  const [eventName, setEventName] = useState('')
-  const [eventTest, setEventTest] = useState('')
-  const [eventProctor, setEventProctor] = useState('')
-  const [eventDateEnd, setEventDateEnd] = useState('')
-  const [eventDateStart, setEventDateStart] = useState('')
-  const [editEvent, setEditEvent] = useState(false)
   const [isNew, setIsNew] = useState(props.new)
   const [showRegistration, setShowRegistration] = useState(false);
-
-  let eventStartTime = new Date(store.event.selected.event_date_start).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-  let eventEndTime = new Date(store.event.selected.event_date_end).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+  // const [selectedTab, setSelectedTab] = useState('1');
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({
-      type: "FETCH_ALL_TESTS"
-    })
-    dispatch({
-      type: "FETCH_ALL_PROCTORS"
-    })
-    dispatch({
-      type: "FETCH_EVENT_EXAMS",
-      payload:{
-        event_id:store.event.selected.id
-      }
-    })
-  }, [])
-
-  const handleDateStartChange = (event) => {
-    // console.log('Int   const handleDateStartChange = (event) => {
-    setEventDateStart(event.target.value)
+  const setDefaultTab = () => {
+    if (!event.status) { //if this value is falsy, it's a not-yet-created event
+      return '1';
+    }
+    else if (event.status === "UPCOMING") {
+      return '1';
+    } 
+    else {
+      return '2';
+    }
   }
+  const [selectedTab, setSelectedTab] = useState( ()=>setDefaultTab() );
 
-  const handleDateEndChange = (event) => {
-    // console.log('Int handleDateEndChange', event.target.value);
-    setEventDateEnd(event.target.value)
-  }
 
-  const handleNameChange = (event) => {
-    // console.log('Int handleNameChange', event.target.value);
-    setEventName(event.target.value)
-  }
-
-  const handleTestChange = (event) => {
-    // console.log('Int handleTestChange', event.target.value);
-    setEventTest(event.target.value)
-  }
-
-  const handleProctorChange = (event) => {
-    // console.log('Int handleProctorChange', event.target.value);
-    setEventProctor(event.target.value)
-  }
+  let eventStartTime = new Date(event.event_date_start).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
 
   const handleTabChange = (event, newValue) => {
-    setValue(newValue);
+    setSelectedTab(newValue);
   };
-  const [value, setValue] = React.useState('1');
-
-  const deleteEvent = () => {
-    console.log('delete');
-
-    //@Jackie or @Amanda todo: as user first - "are you sure?"
-    dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } });
-  }
-
-  const unregisterStudent = (student) => {
-    dispatch({ type:'UNREGISTER_STUDENT_TO_EVENT', 
-      payload: {exam_id: student.exam_id, event_id: event.id} });
-  }
-
-  const createEvent = () => {
-    let newEvent = {
-      event_name: eventName,
-      proctor_id: store.user.id, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
-      test_id: eventTest,
-      event_date_start: eventDateStart,
-      event_date_end: eventDateEnd,
-      url: null,
-      created_by: user.id, //this is the proctor's id, should be already there in the store 
-    }
-    dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } });
-    setIsNew(false)
-  }
-  
-  const setSelectedExam = (exam) => {
-    dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: exam.exam_id} }); 
-  }
 
   return (
     <div>
-      
-      {isNew ?
-        <div>
-              <h2>Create New Event</h2>
 
-              <TextField
-                required
-                id="outlined-required"
-                label="Event Name"
-                sx={{ minWidth: 300 }}
-                onChange={handleNameChange}
-              />
-              <br />
-              <br />
-              <TextField
-                id="outlined-select-required"
-                required
-                select
-                label="Test"
-                value={eventTest}
-                sx={{ minWidth: 300 }}
-                onChange={handleTestChange}
-              >
-                {store.test.all.map((test) => (
-                  <MenuItem key={test.id} value={test.id}>
-                    {test.title} - {test.test_time_limit} Minutes
-                  </MenuItem>
-                ))}
-              </TextField>
-              <br />
-              <br />
-              <TextField
-                id="outlined-select-required"
-                required
-                select
-                label="Proctor"
-                value={eventProctor}
-                sx={{ minWidth: 300 }}
-                onChange={handleProctorChange}
-              >
-                {store.allUsers.proctorsOnly.map((proctor) => (
-                  <MenuItem key={proctor.id} value={proctor.id}>
-                    {proctor.first_name} {proctor.last_name}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <br />
-              <br />
-              <TextField
-                id="datetime-local"
-                label="Event Start Date/Time"
-                type="datetime-local"
-                sx={{ minWidth: 300 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={handleDateStartChange}
-              />
-              <br />
-              <br />
-              <TextField
-                id="datetime-local"
-                label="Event End Date/Time"
-                type="datetime-local"
-                sx={{ minWidth: 300 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={handleDateEndChange}
-              />
-              <br />
-              <br />
-              <Button variant="outlined" onClick={createEvent}>Create New Event</Button>
-        </div> :
-        <div>
-            <h3>This event is {event.status}!</h3>
-            {editEvent ?
-              <>
-                <EditEvent complete={() => { setEditEvent(false) }} />
-                <br />
-                <Button variant="contained" color="primary" onClick={() => { setEditEvent(false) }}>Cancel Changes</Button>
-              </> :
-              <>
-             
-                <p><b>Event Title:</b> {store.event.selected.event_name}</p>
-              
-                <p><b>Start Date and Time:</b> {eventStartTime}</p>
-               
-                <p><b>End Date and Time:</b> {eventEndTime}</p>
-             
-             </> 
-            }
-        </div>   
-      }
-      
-      { event.status === "UPCOMING" 
+      <h3 className="heading">{event.event_name}: {eventStartTime}</h3>
 
-        ? <>
-            {
-                <Box sx={{width: '100%', typography: 'body1'}}> 
-                <TabContext value={value} centered textColor="secondary" indicatorColor="secondary">
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
-                    <TabList onChange={handleTabChange} centered>
-                      <Tab label="Event Settings" value="1" /> 
-                      <Tab label="Event Registration" value="2" /> 
-                    </TabList>
-                  </Box>
-            
-               <>
-                <TabPanel value="2">
-                  {/* <Button onClick={() => setShowRegistration(false)}>Show Setttings Tab Instead</Button> */}
-                  <EventRegisterStudents/> 
-                  </TabPanel>
-                </>
-               <>
-                  <TabPanel value="1"> 
-                  {/* <Button onClick={() => setShowRegistration(true)}>Show Registration Tab Instead</Button>
-                  <br />
-                  <br /> */}
-                  <Button variant="contained" color="primary" onClick={() => { setEditEvent(true) }}>Update Event</Button>
-                  <br />
-                  <br />
-                  <Button variant="contained" color="primary" onClick={deleteEvent}>Delete Event</Button>
-                  <br />
-                  <br />
-                  </TabPanel>
+      <Box sx={{width: '100%', typography: 'body1'}}> 
+        <TabContext value={selectedTab} centered textColor="secondary" indicatorColor="secondary">
+          <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
+            <TabList onChange={handleTabChange} centered>
+              <Tab label="Details" value="1" /> 
+              <Tab label="Students" value="2" disabled={isNew}/> 
+            </TabList>
+          </Box>
 
-                
-                </> 
-                </TabContext>
-                </Box>
-            }
-          </>
-        
-        : <></> 
-       
-      }
-      
-      <ExamTable 
-        mode={event.status} 
-        rows={exams} 
-        headerText={"STUDENTS"}
-        onUnregisterStudent={ (student)=>unregisterStudent(student)}
-        onSetSelectedExam={ (exam)=>setSelectedExam(exam) }
-      />
-      
+          {/* --- DETAILS TAB --- */}
+          <TabPanel value="1"> 
+            <EventDetailsTab
+              event={event}
+              isNew={isNew}
+              onSetIsNewFalse={()=>setIsNew(false)}
+            />
+          </TabPanel>
 
+          {/* --- STUDENTS TAB --- */}
+          <TabPanel value="2">
+            <EventStudentsTab
+              event={event}
+              isNew={isNew}
+            />
+          </TabPanel>
+         
+        </TabContext>
+      </Box>
       
-
     </div>
   );
 }

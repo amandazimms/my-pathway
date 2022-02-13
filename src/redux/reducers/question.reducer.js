@@ -41,14 +41,39 @@ const examAll = (state = [], action) => {
   }
 };
 
-const examSelected = (state = [], action) => {
+const randomizeOrder = (question) => {
+  let options = [
+    question.option_one, 
+    question.option_two, 
+    question.option_three, 
+    question.option_four, 
+  ]
+
+  let randomizedOptions = [];
+
+  while (options.length) {
+    let randomIndex = Math.floor(Math.random() * options.length);
+    let randomItem = options[randomIndex];
+    options.splice(randomIndex, 1);
+    randomizedOptions.push(randomItem);
+  }
+
+  question.option_one = randomizedOptions[0];
+  question.option_two = randomizedOptions[1];
+  question.option_three = randomizedOptions[2];
+  question.option_four = randomizedOptions[3];
+
+  return question;
+}
+
+const examSelected = (state = {}, action) => {
   //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
   //const allQuestions = useSelector(store => store);
   switch (action.type) {
     case 'SET_SELECTED_EXAM_QUESTIONS':
-      return action.payload;
+      return randomizeOrder(action.payload);
     case 'UNSET_SELECTED_EXAM_QUESTIONS':
-      return [];
+      return {};
     default:
       return state;
   }

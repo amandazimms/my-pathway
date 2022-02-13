@@ -80,13 +80,12 @@ function EventPage(props) {
       id: event.id, //this is also in store already
     }
     dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } });
-    props.complete()
+    props.onExit()
   }
 
 return (
     <div>
-
-          <h2>Edit Event</h2>
+          <h2 className="heading">Edit Event</h2>
           <TextField
             required
             id="outlined-required"
@@ -158,6 +157,8 @@ return (
           <br />
           <br />
           <Button variant="outlined" onClick={updateEvent}>Save Changes</Button>
+          <br/><br/>
+          <Button variant="contained" color="primary" onClick={ ()=>props.onExit() }>Cancel Changes</Button>
     </div>
   );
 }

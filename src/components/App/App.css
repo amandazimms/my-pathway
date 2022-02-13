@@ -150,3 +150,23 @@ label:focus,
   border: 1px solid rgb(199, 199, 199) !important;
   border-right: none !important;
 }
+
+.fullWidthDiv {
+  width: 100%;
+}
+
+.fakeAutocompleteInput {
+  margin-bottom: 0;
+  width: 88%;
+  padding-right: 80px;
+
+}
+
+.a100pxSpacer {
+  height: 100px;
+}
+
+.buttonInsideInput {
+  margin-left: -70px !important;
+  width: 10px !important;
+}

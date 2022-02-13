@@ -22,6 +22,23 @@ function* eventSaga() {
   //dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
   yield takeLatest('FETCH_EXAM_QUESTION_PROCTOR', fetchExamQuestionProctor);
   //dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.id} });
+  yield takeLatest('ADD_INCIDENT', addIncident);
+  //dispatch({ type:'ADD_INCIDENT', payload: {exam_detail: exam_detail} });
+
+}
+
+// worker Saga: will be fired on "ADD_INCIDENT" actions
+function* addIncident(action) {
+  const ap = action.payload;
+  //ap.exam_detail
+  console.log('Add incident : saga action.payload:', ap);
+  try {
+    const response = yield axios.put(`/api/exam/addIncident/${ap.exam_detail}`);
+    console.log('add incident saga received this back from db: ', response.data);
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: { incident: response.data } });
+  } catch (error) {
+    console.log('update increment incident failed', error);
+  }
 }
 
 function* createExamDetailRecord(action) {
@@ -37,7 +54,7 @@ function* createExamDetailRecord(action) {
     });
     yield put({ type: 'SET_SELECTED_EXAM_DETAIL', payload: response.data });
   } catch (error) {
-    console.log('setExamPhoto failed', error);
+    console.log('setExamDetail failed', error);
   }
 }
 
@@ -224,79 +241,5 @@ function* confirmId(action) {
     console.log('confirmId failed', error);
   }
 }
-
-
-// // worker Saga: will be fired on "UPDATE_EVENT_SETTINGS" actions
-// function* updateEventSettings(action){
-//   //TODO all of these
-//   //TODO all of these
-//   //TODO all of these
-//   const ap = action.payload;
-//   //ap.event is the event object to update, 
-//   //including event_name, test_id, proctor_id, event_date, event_time
-//   //event_end_time, url, last_modified_by, and id
-//   try {
-//     yield axios.put(`/api/event/${ap.event.id}`, ap.event);
-//     yield put({ type: 'SET-UPDATE_SELECTED_EVENT', payload: ap.event });
-//       //todo ^ @Amanda - definitely need to verify that this works correctly
-//   } catch (error) {
-//     console.log('update event failed', error);
-//   }
-// }
-
-// // worker Saga: will be fired on "DELETE_EVENT" actions
-// function* deleteEvent(action){
-//   //TODO all of these
-//   //TODO all of these
-//   //TODO all of these
-//   const ap = action.payload;
-//   //ap.event_id 
-//   try {
-//     yield axios.delete(`/api/event/${ap.event_id}`);
-//     yield put({ type: 'UNSET_SELECTED_EVENT' });
-//     //note - unsure if we need to fetch_all_EVENTs here... I suppose deleting a event would bring
-//     //the proctor back to the "all events" type view, but that should be doing its own 
-//     //fetch_all_EVENTs already. if needed we can add one here!
-//   } catch (error) {
-//     console.log('DELETE event failed', error);
-//   }
-// }
-
-// // worker Saga: will be fired on "ADD_EVENT" actions
-// function* addEvent(action){
-//   //TODO all of these
-//   //TODO all of these
-//   //TODO all of these
-//   const ap = action.payload;
-//   //ap.event is the event object to update, 
-//   //including event_name, test_id, proctor_id, event_date, event_time
-//   //event_end_time, url, last_modified_by
-
-//   let event = ap.event;  //first declare event obj with all the event data from ap. 
-//   try {
-//     const postedEvent = yield axios.post('/api/event', ap.event );  //now add to that event object the id & dates that were created when it was posted to DB
-//     event = {...event, id: postedEvent.id, create_date: postedEvent.create_date, last_modified_date: postedEvent.last_modified_date }
-//     yield put({ type: 'SET_SELECTED_EVENT', payload: event }); //finally send the 'complete' event object to the reducer
-//     //note - I did not put a fetch_all_EVENTs here since when a proctor creates a event, they are
-//     // necessarily now selecting that event. if they navigate back to the 'all events' type view,
-//     // there a fetch_all_EVENTs will be triggered anwyay. If needed we can add one of those here too.
-
-//   } catch (error) {
-//     console.log('POST event failed', error);
-//   }
-// }
-
-// // worker Saga: will be fired on "FETCH_ALL_EVENTS" actions
-// function* fetchAllEvents() {
-//   //TODO all of these
-//   //TODO all of these
-//   //TODO all of these
-//   try {
-//     const response = yield axios.get('/api/event/all');
-//     yield put({ type: 'SET_ALL_EVENTS', payload: response.data });
-//   } catch (error) {
-//     console.log('get all events request failed', error);
-//   }
-// }
 
 export default eventSaga;

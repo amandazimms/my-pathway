@@ -36,11 +36,22 @@ function AreYouSureButton(props) {
   <>
     {
         showWarning 
-      ? <Button onClick={proceed} variant={props.areYouSureVariant || "contained"}>{props.areYouSureText || "Are you sure?"}</Button>
-      : <Button onClick={launchWarning} variant={props.beginningVariant || "outlined"}>{props.beginningText || "Next"}</Button>
-    }
+      ?
+        <Button 
+          onClick={proceed} 
+          variant={props.areYouSureVariant || "contained"}
+        >
+          {props.areYouSureText || "Are you sure?"}
+        </Button>
 
-   
+      :
+        <Button 
+          onClick={launchWarning} 
+          variant={props.beginningVariant || "outlined"}
+        >
+          {props.beginningText || "Next"}
+        </Button>
+    } 
   </>  
   );
 }
