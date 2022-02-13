@@ -170,3 +170,19 @@ label:focus,
   margin-left: -70px !important;
   width: 10px !important;
 }
+
+.flexParent {
+  display: flex;
+  justify-content: center;
+}
+
+.flexParentVertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.socialFooterIcon {
+  margin: 0 5px;
+}

@@ -221,7 +221,7 @@ function RegisterForm() {
         </Button>
       </div>
       <div>
-      <Button className="autofill-registration" variant="contained" onClick={setDefaults}>
+        <Button className="autofill-registration" variant="contained" onClick={setDefaults}>
           Auto Fill
         </Button>
       </div>

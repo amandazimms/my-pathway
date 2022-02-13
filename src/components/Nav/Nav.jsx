@@ -13,7 +13,7 @@ function Nav() {
   return (
 
     <div className="nav">
-      <Link to="/home">
+      <Link to="/">
         <img src={KyrosLogo3} alt="logo" className="logo" /> 
       </Link>
       <div>
@@ -34,7 +34,7 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/user">
-              Home
+              Profile
             </Link>
 
             <Link className="navLink" to="/tests-all">
