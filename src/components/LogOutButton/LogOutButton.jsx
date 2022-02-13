@@ -5,6 +5,11 @@ import { Link } from 'react-router-dom';
 
 function LogOutButton(props) {
   const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch({ type:'UNSET_USER' }); 
+    dispatch({ type: 'LOGOUT' });
+  }
   return (
     <Link to="/login">
       <Button
@@ -12,7 +17,7 @@ function LogOutButton(props) {
         // because it's styled differently depending on where it is used, the className
         // is passed to it from it's parents through React props
         className={props.className}
-        onClick={() => dispatch({ type: 'LOGOUT' })}
+        onClick={logout}
         variant='outlined'
         color="secondary"
       >
