@@ -66,12 +66,15 @@ function EventPage(props) {
     dispatch({
       type: "FETCH_ALL_PROCTORS"
     })
-    dispatch({
-      type: "FETCH_EVENT_EXAMS",
-      payload:{
-        event_id:store.event.selected.id
-      }
-    })
+    
+    if (!isNew){
+      dispatch({
+        type: "FETCH_EVENT_EXAMS",
+        payload:{
+          event_id:store.event.selected.id
+        }
+      })
+    } 
   }, [])
 
   const handleDateStartChange = (event) => {
@@ -138,6 +141,7 @@ function EventPage(props) {
     <div>
       
       {isNew ?
+      // ==== NEW EVENT (arrived here via clicking "add new event" button) ========
         <div>
               <h2>Create New Event</h2>
 
@@ -209,17 +213,23 @@ function EventPage(props) {
               <br />
               <br />
               <Button variant="outlined" onClick={createEvent}>Create New Event</Button>
-        </div> :
+        </div> 
+        :
+       // ==== EXISTING EVENT  ============================================
         <div>
             <h3>This event is {event.status}!</h3>
-            {editEvent ?
+            {
+              editEvent 
+              ?
+              // --- are we currently editing the event? ----
               <>
                 <EditEvent complete={() => { setEditEvent(false) }} />
                 <br />
                 <Button variant="contained" color="primary" onClick={() => { setEditEvent(false) }}>Cancel Changes</Button>
-              </> :
+              </> 
+              :
+              // --- are we NOT currently editing the event? ----
               <>
-             
                 <p><b>Event Title:</b> {store.event.selected.event_name}</p>
               
                 <p><b>Start Date and Time:</b> {eventStartTime}</p>
@@ -232,7 +242,7 @@ function EventPage(props) {
       }
       
       { event.status === "UPCOMING" 
-
+      //=== UPCOMING EVENT ========================================
         ? <>
             {
                 <Box sx={{width: '100%', typography: 'body1'}}> 
@@ -240,12 +250,12 @@ function EventPage(props) {
                   <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
                     <TabList onChange={handleTabChange} centered>
                       <Tab label="Event Settings" value="1" /> 
-                      <Tab label="Event Registration" value="2" /> 
+                      <Tab label="Event Registration" value="2" disabled={isNew}/> 
                     </TabList>
                   </Box>
             
                <>
-                {/* ==== REGISTRATION TAB ==== */}
+                {/* --- REGISTRATION TAB --- */}
                 <TabPanel value="2">
                   <EventRegisterStudents/> 
                   <div className="a100pxSpacer"></div>
@@ -256,10 +266,11 @@ function EventPage(props) {
                     onUnregisterStudent={ (student)=>unregisterStudent(student)}
                     onSetSelectedExam={ (exam)=>setSelectedExam(exam) }
                   />
+                  
                   </TabPanel>
                 </>
                <>
-                 {/* ==== SETTINGS TAB ==== */}
+                 {/* --- SETTINGS TAB --- */}
                   <TabPanel value="1"> 
                   <Button variant="contained" color="primary" onClick={() => { setEditEvent(true) }}>Update Event</Button>
                   <br />
@@ -273,17 +284,8 @@ function EventPage(props) {
                 </Box>
             }
           </>
-        
-        : <>
-            <h3 className="heading">REGISTERED STUDENTS</h3>
-            <ExamTable 
-              mode={event.status} 
-              rows={exams} 
-              onUnregisterStudent={ (student)=>unregisterStudent(student)}
-              onSetSelectedExam={ (exam)=>setSelectedExam(exam) }
-            />
-          </> 
-       
+        : 
+        <></> 
       }
     </div>
   );

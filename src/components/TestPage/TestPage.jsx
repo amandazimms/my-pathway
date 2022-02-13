@@ -17,11 +17,8 @@ function TestPage(props) {
   //if we arrive here by clicking "add" a new test, props.new will be true (see app.jsx, routes).
   //if we arrive by clicking "edit" an existing test, props.new will be false.
   //use isNew to conditionally render things! 
-
-  //are we pushing to master?
-  const isNew = props.new; 
-
-  const [value, setValue] = React.useState('1');
+  const [isNew, setIsNew] = useState(props.new); 
+  const [value, setValue] = useState('1');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -29,24 +26,29 @@ function TestPage(props) {
 
   return (
     <Box sx={{width: '100%', typography: 'body1'}}> 
-    {/* { isNew 
-    ? <p>I'm new!</p>
-    : <p>I'm not new :/</p>
-    } */}
-    <TabContext value={value} centered textColor="secondary" indicatorColor="secondary">
-      <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
-        <TabList onChange={handleChange} centered>
-          <Tab label="Test Settings" value="1" /> 
-          <Tab label="Test Questions" value="2" /> 
-        </TabList>
-      </Box>
-      <TabPanel value="1">
-        <TestSettings isNew={isNew} /> 
-      </TabPanel>
-      <TabPanel value="2">
-        < QuestionList /> 
-      </TabPanel>
-    </TabContext>
+    <p>is new? {JSON.stringify(isNew)}</p>
+      <TabContext value={value} centered textColor="secondary" indicatorColor="secondary">
+        
+        <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
+          <TabList onChange={handleChange} centered>
+            <Tab label="Test Settings" value="1" /> 
+            <Tab label="Test Questions" value="2" disabled={isNew} />  
+            {/* if isNew = true, we haven't created the test yet, so disable the ability to add questions to it. */}
+          </TabList>
+        </Box>
+
+        <TabPanel value="1">
+          <TestSettings 
+            isNew={isNew} 
+            onClickCreate={ ()=>setIsNew(false) } 
+          /> 
+        </TabPanel>
+
+        <TabPanel value="2">
+          <QuestionList/> 
+        </TabPanel>
+        
+      </TabContext>
     </Box>
   );
 }

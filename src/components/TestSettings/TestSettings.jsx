@@ -38,6 +38,7 @@ function TestSettings(props) {
 
   const createTest = () => {
     setIsNew(false);
+    props.onClickCreate();
   }
 
   return (

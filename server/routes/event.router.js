@@ -31,10 +31,11 @@ router.get('/exams', (req, res) => {
   //select * from events
   const queryString = 
   `SELECT
-  exam.id AS exam_id, student_id, first_name, last_name, username, id_confirmed, help, exam_time_start, exam_time_end, incident
+    exam.id AS exam_id, student_id, first_name, last_name, username, id_confirmed, 
+    help, exam_time_start, exam_time_end, incident
   FROM exam
   JOIN "user" ON exam.student_id="user".id  
-  WHERE event_id=${req.query.event_id}` ;
+  WHERE event_id=${req.query.event_id}`;
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{

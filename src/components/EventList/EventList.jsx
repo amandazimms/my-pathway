@@ -35,11 +35,15 @@ function EventList(props) {
     dispatch({ type: 'SET_SELECTED_EVENT', payload: event });
     history.push('/event')
   }
+  
+  const unsetSelectedEvent = () => {
+    dispatch({ type: 'UNSET_SELECTED_EVENT' });
+  }
 
   return (
     <div>
         <Link to="/event-new">
-        <Button variant="contained" color="secondary">Add a New Event</Button>
+        <Button variant="contained" color="secondary" onClick={unsetSelectedEvent}>Add a New Event</Button>
       </Link>
       <br />
       <br />
