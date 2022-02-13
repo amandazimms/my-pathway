@@ -14,6 +14,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import EventCreate from '../EventCreate/EventCreate';
 
 
 function EventPage(props) {
@@ -33,14 +34,10 @@ function EventPage(props) {
   const exams = useSelector(store => store.event.exams);
 
 
-  const [eventName, setEventName] = useState('')
-  const [eventTest, setEventTest] = useState('')
-  const [eventProctor, setEventProctor] = useState('')
-  const [eventDateEnd, setEventDateEnd] = useState('')
-  const [eventDateStart, setEventDateStart] = useState('')
   const [editEvent, setEditEvent] = useState(false)
   const [isNew, setIsNew] = useState(props.new)
   const [showRegistration, setShowRegistration] = useState(false);
+  const [value, setValue] = React.useState('1');
 
   let eventStartTime = new Date(store.event.selected.event_date_start).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -60,13 +57,6 @@ function EventPage(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({
-      type: "FETCH_ALL_TESTS"
-    })
-    dispatch({
-      type: "FETCH_ALL_PROCTORS"
-    })
-    
     if (!isNew){
       dispatch({
         type: "FETCH_EVENT_EXAMS",
@@ -77,39 +67,12 @@ function EventPage(props) {
     } 
   }, [])
 
-  const handleDateStartChange = (event) => {
-    // console.log('Int   const handleDateStartChange = (event) => {
-    setEventDateStart(event.target.value)
-  }
-
-  const handleDateEndChange = (event) => {
-    // console.log('Int handleDateEndChange', event.target.value);
-    setEventDateEnd(event.target.value)
-  }
-
-  const handleNameChange = (event) => {
-    // console.log('Int handleNameChange', event.target.value);
-    setEventName(event.target.value)
-  }
-
-  const handleTestChange = (event) => {
-    // console.log('Int handleTestChange', event.target.value);
-    setEventTest(event.target.value)
-  }
-
-  const handleProctorChange = (event) => {
-    // console.log('Int handleProctorChange', event.target.value);
-    setEventProctor(event.target.value)
-  }
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
-  const [value, setValue] = React.useState('1');
 
   const deleteEvent = () => {
-    console.log('delete');
-
     //@Jackie or @Amanda todo: as user first - "are you sure?"
     dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } });
   }
@@ -117,20 +80,6 @@ function EventPage(props) {
   const unregisterStudent = (student) => {
     dispatch({ type:'UNREGISTER_STUDENT_TO_EVENT', 
       payload: {exam_id: student.exam_id, event_id: event.id} });
-  }
-
-  const createEvent = () => {
-    let newEvent = {
-      event_name: eventName,
-      proctor_id: store.user.id, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
-      test_id: eventTest,
-      event_date_start: eventDateStart,
-      event_date_end: eventDateEnd,
-      url: null,
-      created_by: user.id, //this is the proctor's id, should be already there in the store 
-    }
-    dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } });
-    setIsNew(false)
   }
   
   const setSelectedExam = (exam) => {
@@ -143,76 +92,7 @@ function EventPage(props) {
       {isNew ?
       // ==== NEW EVENT (arrived here via clicking "add new event" button) ========
         <div>
-              <h2>Create New Event</h2>
-
-              <TextField
-                required
-                id="outlined-required"
-                label="Event Name"
-                sx={{ minWidth: 300 }}
-                onChange={handleNameChange}
-              />
-              <br />
-              <br />
-              <TextField
-                id="outlined-select-required"
-                required
-                select
-                label="Test"
-                value={eventTest}
-                sx={{ minWidth: 300 }}
-                onChange={handleTestChange}
-              >
-                {store.test.all.map((test) => (
-                  <MenuItem key={test.id} value={test.id}>
-                    {test.title} - {test.test_time_limit} Minutes
-                  </MenuItem>
-                ))}
-              </TextField>
-              <br />
-              <br />
-              <TextField
-                id="outlined-select-required"
-                required
-                select
-                label="Proctor"
-                value={eventProctor}
-                sx={{ minWidth: 300 }}
-                onChange={handleProctorChange}
-              >
-                {store.allUsers.proctorsOnly.map((proctor) => (
-                  <MenuItem key={proctor.id} value={proctor.id}>
-                    {proctor.first_name} {proctor.last_name}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <br />
-              <br />
-              <TextField
-                id="datetime-local"
-                label="Event Start Date/Time"
-                type="datetime-local"
-                sx={{ minWidth: 300 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={handleDateStartChange}
-              />
-              <br />
-              <br />
-              <TextField
-                id="datetime-local"
-                label="Event End Date/Time"
-                type="datetime-local"
-                sx={{ minWidth: 300 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={handleDateEndChange}
-              />
-              <br />
-              <br />
-              <Button variant="outlined" onClick={createEvent}>Create New Event</Button>
+          <EventCreate/>
         </div> 
         :
        // ==== EXISTING EVENT  ============================================
