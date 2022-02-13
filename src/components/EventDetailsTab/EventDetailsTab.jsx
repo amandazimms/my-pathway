@@ -12,7 +12,8 @@ function EventDetailsTab(props) {
   const [isNew, setIsNew] = useState(props.isNew);
   const [editMode, setEditMode] = useState(false)
   const event = props.event;
-  
+  const dispatch = useDispatch();
+
   let eventStartTime = new Date(event.event_date_start).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -34,6 +35,11 @@ function EventDetailsTab(props) {
     dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } });
   }
 
+  const setIsNewToFalse = () => {
+    setIsNew(false);
+    props.onSetIsNewFalse();
+  }
+
   return (
     <>
       {   editMode // --- if we're currently editing the event ----
@@ -51,11 +57,11 @@ function EventDetailsTab(props) {
         ? 
           <>
             <Button variant="contained" color="primary" onClick={()=>{setEditMode(true)}}>Edit Event</Button>
-            <br />
-            <br />
-            <Button variant="outlined" color="primary" onClick={deleteEvent}>Delete Event</Button>
-            <br />
-            <br />
+              <br /><br />
+            <Link to="/events-all">
+              <Button variant="outlined" color="primary" onClick={deleteEvent}>Delete Event</Button>
+            </Link>
+              <br /><br />
           </>
         : <></>
 
@@ -63,7 +69,7 @@ function EventDetailsTab(props) {
 
       {   isNew 
         ? <EventCreate
-            onSetIsNewFalse={()=>setIsNew(false)}
+            onSetIsNewFalse={setIsNewToFalse}
           /> 
         : <></> 
       }

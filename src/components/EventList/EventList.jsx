@@ -17,17 +17,14 @@ import '../EventList/EventList.css';
 function EventList(props) {
   //this is a page that displays all events; it's wireframe "Proctor View - Events" from figma
   const events = useSelector(store => store.event.all);
-
-  // const events = [
-  //   {name: "fakeEvent1", status: "upcoming", date: '2487'},
-  //   {name: "fakeEvent2", status: "inProgress", date: '2022'},
-  //   {name: "fakeEvent3", status: "completed", date: '1999'},
-  // ]
   const dispatch = useDispatch();
+  let history = useHistory()
+
 
   //TODO remove this example before final build
   let startArray = ["hi","hello","howdy", "greetings", "HEY"];
   let randArray = []
+  
 
   const randomize = () => {
     while(startArray.length){
@@ -44,7 +41,6 @@ function EventList(props) {
     dispatch({ type: 'FETCH_ALL_EVENTS' }); 
   }, []);
 
-  let history = useHistory()
 
   const setSelectedEvent = (event) => {
     dispatch({ type: 'SET_SELECTED_EVENT', payload: event });

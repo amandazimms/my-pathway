@@ -32,7 +32,7 @@ function ExamRoomPage(props) {
         dispatch({
             type: 'FETCH_SELECTED_EXAM',
             payload:{
-                exam_id:1 //need to replace with active exam ID
+                exam_id:76 //need to replace with active exam ID
             }
         })
     }, [])

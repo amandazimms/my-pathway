@@ -253,10 +253,6 @@ router.put('/end-exam/:id', (req, res) => {
 });
 
 router.put('/active-question', (req, res) => {
-  console.log('$$---------------------------req.body.exam_id:', req.body.exam_id);
-  console.log('req.body.question_id:', req.body.question_id);
-  console.log('req.body.user_id:', req.body.user_id);
-
   const queryString = `UPDATE exam SET active_question_id = $1, last_modified_date=CURRENT_TIMESTAMP, last_modified_by=$2
     WHERE exam.id = ${req.body.exam_id}`;
   const values = [req.body.question_id, req.body.user_id]

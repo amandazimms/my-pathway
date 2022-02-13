@@ -29,41 +29,7 @@ function ExamQuestion(props) {
   // const questions = useSelector(store => store.question.selected);
   const dispatch = useDispatch();
 
-  const [opt, setOpt] = useState({
-    one: question.option_one,
-    two: question.option_two,
-    three: question.option_three,
-    four: question.option_four,
-  })
-  // const [opt, setOpt] = useState([
-  //   question.option_one,
-  //   question.option_two,
-  //   question.option_three,
-  //   question.option_four,
-  // ])
-
   const [randOpt, setRandOpt] = useState([]);
-
-  // useEffect(() => {
-  //   randomizeOrder();
-  // }, []);
-
-
-  // const randomizeOrder = () => {
-  //   let originalOptionsCopy = opt;
-  //   let newRandOptionsTemp = []
-
-  //   while(originalOptionsCopy.length){
-  //     let randomIndex = Math.floor(Math.random() * originalOptionsCopy.length);
-  //     let randomItem = originalOptionsCopy[randomIndex];
-  //     originalOptionsCopy.splice(randomIndex, 1);
-  //     newRandOptionsTemp.push(randomItem);
-  //   }
-  //   console.log('originalOptionsCopy:', originalOptionsCopy);
-  //   console.log('newRandOptionsTemp:', newRandOptionsTemp);
-   
-  //   setRandOpt(newRandOptionsTemp);
-  // }
 
   //if selected answer === answer let correct = true 
   //total points possible 
@@ -96,15 +62,12 @@ function ExamQuestion(props) {
               aria-labelledby="radio-buttons-group-label"
               name="radio-buttons-group"
               onChange={() => { handleChange(event) }}>
-              <FormControlLabel value={opt.one} control={<Radio />} label={opt.one} checked={opt.one === props.selectedAnswer} />
-              <FormControlLabel value={opt.two} control={<Radio />} label={opt.two} checked={opt.two === props.selectedAnswer} />
-              <FormControlLabel value={opt.three} control={<Radio />} label={opt.three} checked={opt.three === props.selectedAnswer} />
-              <FormControlLabel value={opt.four} control={<Radio />} label={opt.four} checked={opt.four === props.selectedAnswer} />
-              {/* <FormControlLabel value={randOpt[0]} control={<Radio />} label={randOpt[0]} checked={randOpt[0] === props.selectedAnswer} />
-              <FormControlLabel value={randOpt[1]} control={<Radio />} label={randOpt[1]} checked={randOpt[1] === props.selectedAnswer} />
-              <FormControlLabel value={randOpt[2]} control={<Radio />} label={randOpt[2]} checked={randOpt[2] === props.selectedAnswer} />
-              <FormControlLabel value={randOpt[3]} control={<Radio />} label={randOpt[3]} checked={randOpt[3] === props.selectedAnswer} /> */}
-           
+              
+              <FormControlLabel value={question.option_one} control={<Radio />} label={question.option_one} checked={question.option_one === props.selectedAnswer} />
+              <FormControlLabel value={question.option_two} control={<Radio />} label={question.option_two} checked={question.option_two === props.selectedAnswer} />
+              <FormControlLabel value={question.option_three} control={<Radio />} label={question.option_three} checked={question.option_three === props.selectedAnswer} />
+              <FormControlLabel value={question.option_four} control={<Radio />} label={question.option_four} checked={question.option_four === props.selectedAnswer} />
+             
             </RadioGroup>
           </FormControl>
         </Box>

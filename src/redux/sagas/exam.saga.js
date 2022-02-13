@@ -54,21 +54,19 @@ function* createExamDetailRecord(action) {
     });
     yield put({ type: 'SET_SELECTED_EXAM_DETAIL', payload: response.data });
   } catch (error) {
-    console.log('setExamPhoto failed', error);
+    console.log('setExamDetail failed', error);
   }
 }
 
 
 function* updateActiveExamQuestion(action) {
   const ap = action.payload;
-  console.log('$$----------ap:', ap);
   try {
     const response = yield axios({
       method: 'PUT',
       url: `/api/exam/active-question`,
       data: ap
     });
-    console.log('response.data from update active exam q:', response.data);
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
   } catch (error) {
     console.log('setExamPhoto failed', error);

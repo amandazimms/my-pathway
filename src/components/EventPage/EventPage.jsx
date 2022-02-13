@@ -84,6 +84,7 @@ function EventPage(props) {
             <EventDetailsTab
               event={event}
               isNew={isNew}
+              onSetIsNewFalse={()=>setIsNew(false)}
             />
           </TabPanel>
 
