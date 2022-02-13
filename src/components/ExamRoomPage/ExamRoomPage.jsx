@@ -29,7 +29,6 @@ function ExamRoomPage(props) {
             type: 'FETCH_ALL_EXAM_QUESTIONS',
             payload: {
                 parent_test_id: 5, // need to replace with event.test_id
-                // taco:'taco'
             }
         })
         //below may not be needed once this is tied into larger application
@@ -46,7 +45,7 @@ function ExamRoomPage(props) {
         dispatch({
             type: 'BEGIN_EXAM',
             payload:{
-                exam_id:1 //need to replace with active exam ID
+                exam_id:store.exam.selected.exam_id
             }
         })
         dispatch({
@@ -89,7 +88,20 @@ function ExamRoomPage(props) {
             updateQuestionIndex() 
             createExamDetailRecord()
             updateActiveQuestion()
+            captureAnswer()
         }
+    }
+
+    const captureAnswer = () => {
+        console.log('Capturing answer!');
+        dispatch({
+            type: 'CAPTURE_ANSWER',
+            payload: {
+                exam_detail_id: store.exam.detail.id,
+                selected_answer: selectedAnswer,
+                correct: answerCorrect
+            }
+        })
     }
 
     const updateActiveQuestion = () => {
