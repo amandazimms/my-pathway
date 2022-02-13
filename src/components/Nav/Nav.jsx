@@ -54,18 +54,8 @@ function Nav() {
               Validation
             </Link>
 
-            <Link className="navLink" to="/question">
-              Question Form
-              {/* this whole link will eventually be removed from Nav - here for quick testing purposes now */}
-            </Link>
-
             <Link className="navLink" to="/chat">
               Chat
-              {/* this whole link will eventually be removed from Nav - here for quick testing purposes now */}
-            </Link>
-
-            <Link className="navLink" to="/test">
-              Create Tests
               {/* this whole link will eventually be removed from Nav - here for quick testing purposes now */}
             </Link>
 
