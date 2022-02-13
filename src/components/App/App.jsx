@@ -34,6 +34,7 @@ import ExamRoomPage from '../ExamRoomPage/ExamRoomPage';
 import NavDrawer from '../Nav/NavDrawer';
 import ProctorExamPageInProgress from '../ProctorExamPageInProgress/ProctorExamPageInProgress';
 import MyExams from '../MyExams/MyExams';
+import StudentExamPageComplete from '../StudentExamPageComplete/StudentExamPageComplete';
 
 const theme = createTheme({
 
@@ -170,6 +171,11 @@ function App() {
               <ProctorExamPageComplete />
             </ProtectedRoute>
 
+            <ProtectedRoute exact path="/student-exam-complete" >
+              {/* // logged in shows ProctorExamPageComplete else shows LoginPage */}
+              <StudentExamPageComplete />
+            </ProtectedRoute>
+
             <ProtectedRoute exact path="/proctor-exam-in-progress" >
               {/* // logged in shows ProctorExamPageInProgress else shows LoginPage */}
               <ProctorExamPageInProgress />
@@ -192,7 +198,7 @@ function App() {
 
             <ProtectedRoute exact path="/my-exams" >
               {/* // logged in shows TermsPage else shows LoginPage */}
-              <MyExams />
+             <MyExams />
             </ProtectedRoute>
 
 
