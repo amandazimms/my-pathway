@@ -60,6 +60,8 @@ function EventRegisterStudents(props) {
         parentCustomClassName="fakeAutocompleteResultsDiv"
       />
 
+      <div className="a100pxSpacer"></div>
+
     </div>
   );
 }

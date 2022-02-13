@@ -45,22 +45,22 @@ function TestSettings(props) {
     <div> 
    { isNew 
       ? 
-      <>
-      <TestCreate 
-          onClickCreate={ ()=>createTest() }
-        /> 
+        <>
+          <TestCreate 
+            onClickCreate={ ()=>createTest() }
+          /> 
         </> 
       : <>
           <TestEdit /> 
 
           <Grid container
-         alignItems="center"
-         justifyContent="center" > 
-         <Grid item> 
-          <Link to="/tests-all">
-            <Button variant="outlined" onClick={deleteTest}>Delete Test</Button>
-          </Link>
-          </Grid> 
+            alignItems="center"
+            justifyContent="center" > 
+            <Grid item> 
+              <Link to="/tests-all">
+                <Button variant="outlined" onClick={deleteTest}>Delete Test</Button>
+              </Link>
+            </Grid> 
           </Grid> 
         </> 
     }
