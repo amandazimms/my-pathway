@@ -26,7 +26,6 @@ function TestPage(props) {
 
   return (
     <Box sx={{width: '100%', typography: 'body1'}}> 
-    <p>is new? {JSON.stringify(isNew)}</p>
       <TabContext value={value} centered textColor="secondary" indicatorColor="secondary">
         
         <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
