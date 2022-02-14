@@ -21,6 +21,7 @@ function ExamTable(props) {
   const dispatch = useDispatch();
 
 
+
   const headers = 
       mode === "COMPLETE"  
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
@@ -38,8 +39,8 @@ function ExamTable(props) {
     props.onUnregisterStudent(student);
   }
 
-  const setSelectedExam = (exam) => {
-    props.onSetSelectedExam(exam);
+  const setSelectedExam = async (exam) => {
+    await props.onSetSelectedExam(exam);
   }
 
   const setExamAndQuestion = (exam) => {
@@ -47,9 +48,10 @@ function ExamTable(props) {
     dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.exam_id} });
   }
 
-  const setExamAndShowModal = (row) => {
-    setShowCompareModal(true);
-    setSelectedExam(row);
+  const setExamAndShowModal = async (row) => {
+    await setSelectedExam(row);
+    await setShowCompareModal(true);
+    
   }
 
   return (

@@ -38,8 +38,7 @@ function validateFunction(props) {
       payload: {
         url: store.image.url.split('?')[0],
         user_id: store.user.id,
-        exam_id: 1 //replace with line below when exams are working
-        // exam: store.exam.selected.id
+        exam_id: store.exam.selected.exam_id
       }
     })
     dispatch({
@@ -61,9 +60,9 @@ function validateFunction(props) {
       payload: {
         url: store.image.url.split('?')[0],
         user_id: store.user.id,
-        exam_id: store.exam.selected.id,
+        exam_id: store.exam.selected.exam_id,
         done: () => {
-          history.push('/compare')
+          history.push('/exam-room')
         }
       }
     })
