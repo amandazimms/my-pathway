@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
+import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -26,21 +27,18 @@ function userManagementFunction(props) {
   }, [])
 
   const updateUserRole = (id) => {
-    console.log('In updateUserRole with User:', store.user.id);
-    if (confirm('Change user to a PROCTOR role?')) {
-      dispatch({
+    dispatch({
         type: 'UPDATE_USER_ROLE',
         payload: {
           user_id: store.user.id,
           update_id: id
         }
-      })
-    }
+    });
   }
 
   return (
     <div>
-      <h2>{heading}</h2>
+      <h3 className="heading">{heading}</h3>
       {/* <p>{JSON.stringify(store.allUsers.setAllUsers)}</p> */}
       <TableContainer sx={{ minWidth: 500, maxWidth: 800 }} component={Paper}>
       <Table sx={{ minWidth: 500, maxWidth: 800 }} aria-label="simple table">
@@ -68,7 +66,13 @@ function userManagementFunction(props) {
               <TableCell align="center">
                 {row.role === 'PROCTOR'?
                 <Button variant="outlined" disabled>Make Proctor</Button>:
-                <Button variant="outlined" onClick={() => {updateUserRole(row.id)}} >Make Proctor</Button>
+                <AreYouSureButton
+                  beginningText={"Make Proctor"}
+                  areYouSureText={"Confirm - Make user a PROCTOR?"}
+                  onButtonClick={()=>updateUserRole(row.id)}
+                  beginningVariant={"outlined"}
+                  areYouSureVariant={"contained"}
+                />
                 }
               </TableCell>
             </TableRow>
