@@ -9,12 +9,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
+import { Button, Modal } from '@mui/material';
+import Compare from '../Compare/Compare';
 import { v4 as uuid } from 'uuid';
 
 function ExamTable(props) {
   const mode = props.mode
   const rows = props.rows;
+  const [showCompareModal, setShowCompareModal] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -45,8 +47,22 @@ function ExamTable(props) {
     dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.exam_id} });
   }
 
+  const setExamAndShowModal = (row) => {
+    setShowCompareModal(true);
+    setSelectedExam(row);
+  }
+
   return (
   <div>
+      <Modal
+        open={showCompareModal} 
+        onClose={ ()=>setShowCompareModal(false) } 
+        className="compareModal flexParentVertical"
+        hideBackdrop={true}
+      >
+        <Compare />
+      </Modal>
+
     <TableContainer sx={{ minWidth: 500, maxWidth: 1200}} component={Paper}>
       <Table sx={{ minWidth: 500, maxWidth: 1200 }} aria-label="simple table">
        
@@ -84,10 +100,9 @@ function ExamTable(props) {
                     ? 'YES' 
                     : row.id_confirmed === "FALSE" 
                     ? 'NO'
-                    : <Link to="/compare">
-                        <Button variant="contained" onClick={ ()=>setSelectedExam(row) }>CLICK TO VERIFY</Button>
-                      </Link>
+                    : <Button onClick={ ()=>setExamAndShowModal(row) } variant="contained">CLICK TO VERIFY ID</Button>
                   }
+
                 </TableCell>
               : <></> }
 

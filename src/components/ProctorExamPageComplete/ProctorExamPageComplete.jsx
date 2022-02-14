@@ -41,16 +41,6 @@ function ProctorExamPageComplete(props) {
     dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
   }
 
-  const setAndLogCompareTrue = () => {
-    console.log('show:', showCompareModal);
-    setShowCompareModal(true);
-  }
-
-  const setAndLogCompareFalse = () => {
-    console.log('show:', showCompareModal);
-    setShowCompareModal(false);
-  }
-
   return (
     <>
       <Modal 
@@ -99,9 +89,7 @@ function ProctorExamPageComplete(props) {
                 :  exam.id_confirmed === "FALSE"
                 ? <TableCell align="right" style={{ color:"#871313" }}>NO</TableCell>
                 : <TableCell align="right">
-                    {/* <Link to="/compare"> */}
-                      <Button onClick={ ()=>setShowCompareModal(true) }>CLICK TO VERIFY ID</Button>
-                    {/* </Link> */}
+                    <Button onClick={ ()=>setShowCompareModal(true) }>CLICK TO VERIFY ID</Button>
                   </TableCell>
               }
             </TableRow> 
