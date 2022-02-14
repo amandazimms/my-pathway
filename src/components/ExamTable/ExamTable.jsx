@@ -9,21 +9,23 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
+import { Button, Modal } from '@mui/material';
+import Compare from '../Compare/Compare';
 import { v4 as uuid } from 'uuid';
 
 function ExamTable(props) {
   const mode = props.mode
   const rows = props.rows;
+  const [showCompareModal, setShowCompareModal] = useState(false);
 
   const dispatch = useDispatch();
 
 
   const headers = 
       mode === "COMPLETE"  
-    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
     : mode === "IN PROGRESS" 
-    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
     : mode === "UPCOMING"
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ACTION']
     :   [];
@@ -45,8 +47,22 @@ function ExamTable(props) {
     dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.exam_id} });
   }
 
+  const setExamAndShowModal = (row) => {
+    setShowCompareModal(true);
+    setSelectedExam(row);
+  }
+
   return (
   <div>
+      <Modal
+        open={showCompareModal} 
+        onClose={ ()=>setShowCompareModal(false) } 
+        className="compareModal flexParentVertical"
+        hideBackdrop={true}
+      >
+        <Compare />
+      </Modal>
+
     <TableContainer sx={{ minWidth: 500, maxWidth: 1200}} component={Paper}>
       <Table sx={{ minWidth: 500, maxWidth: 1200 }} aria-label="simple table">
        
@@ -78,7 +94,15 @@ function ExamTable(props) {
 
           {/* ==== ID ===================== */}
               { mode === 'COMPLETE' || mode === 'IN PROGRESS' 
-              ? <TableCell>{!row.id_confirmed ? 'FALSE' : 'TRUE'}</TableCell>
+              ? <TableCell>
+                  {
+                      row.id_confirmed === "TRUE" 
+                    ? 'YES' 
+                    : row.id_confirmed === "FALSE" 
+                    ? 'NO'
+                    : <Button onClick={ ()=>setExamAndShowModal(row) } variant="contained">VERIFY ID</Button>
+                  }
+                </TableCell>
               : <></> }
 
           {/* ==== HELP ===================== */}

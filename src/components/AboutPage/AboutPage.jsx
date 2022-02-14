@@ -16,7 +16,7 @@ function AboutPage(props) {
 
   return (
    <div> 
-     <h3 className="heading">Technologies Used</h3>
+     <h2 className="heading">Technologies Used</h2>
      <ul>
        <li>PostgreSQL</li>
        <li>Express.Js</li>
@@ -24,7 +24,7 @@ function AboutPage(props) {
        <li>Node.Js</li>
      </ul>
       <br></br>
-     <h3 className="heading">Team</h3>
+     <h2 className="heading">Team</h2>
      <ul>
        <li>Amanda Zimmerman</li>
        <li>Chris Nelson</li>

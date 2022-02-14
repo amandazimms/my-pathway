@@ -10,55 +10,63 @@ function ProctorExamPageInProgress() {
   const question = useSelector(store => store.exam.selectedQuestionProctor)
 
  return (
-    <>
-      <h3 className="heading">Student: {exam.first_name} {exam.last_name}</h3>
+   <div className="flexParentVertical">
+      <h2 className="heading">Student: {exam.first_name} {exam.last_name}</h2>
       {/* profile pic here ( {exam.profile_picture} ) */}
 
-      <Card sx={{maxWidth: 745 }} className="questionCard" >
-          
-          <CardContent>
-            <Typography className="questionTitle" sx={{fontSize: 25}} gutterBottom>
-              {question.question}
-            </Typography> 
-            <Typography sx={{fontSize: 15}} gutterBottom>
-              {question.point_value} pts
-            </Typography>
-            <Typography>Note: Choices appear in a randomized order to the student</Typography>
-          </CardContent>
-           
+      <div className="flexParent">
 
-          <CardContent> 
-            <Typography sx={{fontSize: 18}} >
-            <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-            {question.answer}
-            </Typography> 
+        <Card sx={{maxWidth: 745 }} className="questionCard" >
             
-            <Typography sx={{fontSize: 18}}>
-            <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-            {question.option_two}
-            </Typography> 
+            <CardContent>
+              <Typography className="questionTitle" sx={{fontSize: 25}} gutterBottom>
+                {question.question}
+              </Typography> 
+              <Typography sx={{fontSize: 15}} gutterBottom>
+                {question.point_value} pts
+              </Typography>
+              <Typography>Note: Choices appear in a randomized order to the student</Typography>
+            </CardContent>
+            
 
-            <Typography sx={{fontSize: 18}}>
-            <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-            {question.option_three}
-            </Typography>
+            <CardContent> 
+              <Typography sx={{fontSize: 18}} >
+              <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+              {question.answer}
+              </Typography> 
+              
+              <Typography sx={{fontSize: 18}}>
+              <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+              {question.option_two}
+              </Typography> 
 
-            <Typography sx={{fontSize: 18}}>
-            <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-            {question.option_four}
-            </Typography>
-          </CardContent>
+              <Typography sx={{fontSize: 18}}>
+              <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+              {question.option_three}
+              </Typography>
 
-          <CardContent>
-            <Typography sx={{fontSize: 18}}>
-            Answer: {question.answer}
-            </Typography>
-          </CardContent>
+              <Typography sx={{fontSize: 18}}>
+              <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
+              {question.option_four}
+              </Typography>
+            </CardContent>
 
-      </Card>
+            <CardContent>
+              <Typography sx={{fontSize: 18}}>
+              Answer: {question.answer}
+              </Typography>
+            </CardContent>
+
+        </Card>
+
+        <Card className="chatPlaceholderDiv">
+          <p>Chat placeholder</p>
+        </Card>
+
+      </div>
 
       <IncidentCounter exam={exam}/>
-    </>
+  </div>
   );
 }
 

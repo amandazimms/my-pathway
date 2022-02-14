@@ -36,7 +36,7 @@ function EventStudentsTab(props) {
         : <></>
       }
     
-      <h3 className="heading">REGISTERED STUDENTS</h3>
+      <h2 className="heading">REGISTERED STUDENTS</h2>
       <ExamTable 
         mode={event.status} 
         rows={exams} 

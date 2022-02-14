@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
 
 const selected = (state = {}, action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const selectedExam = useSelector(store => store.exam.selected);
   switch (action.type) {
     case 'SET_SELECTED_EXAM':
       return action.payload;
@@ -27,8 +25,6 @@ const myExams = (state = [], action) => {
 };
 
 const detail = (state = {}, action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const selectedExam = useSelector(store => store.exam.selected);
   switch (action.type) {
     case 'SET_SELECTED_EXAM_DETAIL':
       return action.payload;
@@ -40,8 +36,6 @@ const detail = (state = {}, action) => {
 };
 
 const selectedQuestionProctor = (state = {}, action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const selectedExam = useSelector(store => store.exam.selected);
   switch (action.type) {
     case 'SET_SELECTED_EXAM_QUESTION_PROCTOR':
       return action.payload;
@@ -53,8 +47,6 @@ const selectedQuestionProctor = (state = {}, action) => {
 };
 
 const all = (state = [], action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const allExams = useSelector(store => store.exam.all);
   switch (action.type) {
     case 'SET_ALL_EXAMS':
       return action.payload;

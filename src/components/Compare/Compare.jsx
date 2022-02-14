@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import './Compare.css'
 import { Button } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 // Basic functional component structure for React with default state
@@ -113,11 +113,12 @@ function compareFunction(props) {
     dispatch({
       type: 'CONFIRM_STUDENT_ID',
       payload: {
-        id_confirmed:true,
-        exam_id:store.exam.selected.id,
+        id_confirmed:"TRUE",
+        exam_id:store.exam.selected.exam_id,
         user_id:store.user.id,
         done:()=>{
-          history.push('/events-all')
+          // history.push('/events-all')
+          history.goBack()
         }
       }
     })
@@ -128,26 +129,35 @@ function compareFunction(props) {
     dispatch({
       type: 'CONFIRM_STUDENT_ID',
       payload: {
-        id_confirmed:false,
-        exam_id:store.exam.selected.id,
+        id_confirmed:"FALSE",
+        exam_id:store.exam.selected.exam_id,
         user_id:store.user.id,
         done:()=>{
-          history.push('/events-all')
+          // history.push('/events-all')
+          history.goBack()
         }
       }
     })
   }
 
   return (
-    <div>
-      <h2>{heading}</h2>
-      <img src={photoToCompare} className='compareImage' />
-      <img src={idToCompare} className='compareImage' />
-      <br />
-      <br />
-      <Button variant="contained" color="error" onClick={denyStudent}>Deny</Button>
-      <Button variant="contained" color="success" onClick={validateStudent}>Approve</Button>
-    </div>
+    <>
+      <h2 className='heading'>{heading}</h2>
+      {/* <p>{JSON.stringify(store.exam.selected)}</p> */}
+      <p>Please verify this student's ID</p>
+
+      <div className="flexParent">
+        <img src={photoToCompare} className='compareImage' />
+        <img src={idToCompare} className='compareImage' />
+      </div>
+
+      <p>Do these appear to be the same person?</p>
+      
+      <div className="flexParent">
+        <Button variant="outline" onClick={denyStudent}>Deny</Button>
+        <Button variant="contained" onClick={validateStudent}>Approve</Button>
+      </div>
+    </>
   );
 }
 

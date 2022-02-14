@@ -8,33 +8,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import LandingPage from '../LandingPage/LandingPage';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-import Chat from '../Chat/Chat';
-import MessageSession from '../Chat/MessageSession'; 
-import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 import './App.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import UserManagement from '../UserManagement/UserManagement'
-import TestList from '../TestList/TestList';
-import TestPage from '../TestPage/TestPage';
-import ProctorExamPageComplete from '../ProctorExamPageComplete/ProctorExamPageComplete';
-import EventList from '../EventList/EventList';
-import EventPage from '../EventPage/EventPage';
-import Validation from '../Validation/Validation';
-import Compare from '../Compare/Compare'
-import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
-import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
-import ExamQuestion from '../ExamQuestion/ExamQuestion'; 
-import ExamRoomPage from '../ExamRoomPage/ExamRoomPage';
 import NavDrawer from '../Nav/NavDrawer';
-import ProctorExamPageInProgress from '../ProctorExamPageInProgress/ProctorExamPageInProgress';
-import MyExams from '../MyExams/MyExams';
-import StudentExamPageComplete from '../StudentExamPageComplete/StudentExamPageComplete';
+import RoutesStudent from './RoutesStudent';
+import RoutesProctor from './RoutesProctor';
+import RoutesVisitor from './RoutesVisitor';
 
 const theme = createTheme({
 
@@ -79,176 +58,11 @@ function App() {
         <div>
           <NavDrawer /> 
           <Nav />
-          <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
-
-            {/* Visiting localhost:3000/about will show the about page. */}
-            <Route exact path="/about">
-              {/* // shows AboutPage at all times (logged in or not) */}
-              <AboutPage />
-            </Route>
-
-            {/* //USER ----------------------------- */}
-            {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-            <ProtectedRoute exact path="/user">
-              {/* // logged in shows UserPage else shows LoginPage */}
-              <UserPage />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/user_management">
-              {/* // logged in shows InfoPage else shows LoginPage */}
-              <UserManagement />
-            </ProtectedRoute>
-
-
-            {/* //CHAT ----------------------------- */}
-            <ProtectedRoute exact path="/chat" >
-              {/* // logged in shows UserPage else shows LoginPage */}
-              <Chat />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/message_session" >
-              {/* // logged in shows UserPage else shows LoginPage */}
-              <MessageSession />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/validation" >
-              {/* // logged in shows UserPage else shows LoginPage */}
-              <Validation />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/compare" >
-              {/* // logged in shows UserPage else shows LoginPage */}
-              <Compare />
-            </ProtectedRoute>
-
-
-            {/* //TESTS ----------------------------- */}
-            <ProtectedRoute exact path="/test-new" >
-              {/* // logged in shows TestPage (with new = true as props) else shows LoginPage */}
-              <TestPage new={true} />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/test">
-              {/* // logged in shows TestPage (with new = false as props) else shows LoginPage */}
-              <TestPage new={false} />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/tests-all">
-              {/* // logged in shows TestList else shows LoginPage */}
-              <TestList />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/exam-question">
-              {/* // logged in shows TestList else shows LoginPage */}
-              <ExamQuestion/>
-            </ProtectedRoute>
-
-
-            {/* //EVENTS ----------------------------- */}
-            <ProtectedRoute exact path="/event-new" >
-              {/* // logged in shows EventPage (with new = true as props) else shows LoginPage */}
-              <EventPage new={true} />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/event" >
-              {/* // logged in shows EventPage (with new = false as props) else shows LoginPage */}
-              <EventPage new={false} />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/events-all" >
-              {/* // logged in shows EventList else shows LoginPage */}
-              <EventList />
-            </ProtectedRoute>
-
-            {/* //EXAMS ----------------------------- */}
-            <ProtectedRoute exact path="/proctor-exam-complete" >
-              {/* // logged in shows ProctorExamPageComplete else shows LoginPage */}
-              <ProctorExamPageComplete />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/student-exam-complete" >
-              {/* // logged in shows ProctorExamPageComplete else shows LoginPage */}
-              <StudentExamPageComplete />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/proctor-exam-in-progress" >
-              {/* // logged in shows ProctorExamPageInProgress else shows LoginPage */}
-              <ProctorExamPageInProgress />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/before-begin" >
-              {/* // logged in shows BeforeYouBeginPage else shows LoginPage */}
-              <BeforeYouBeginPage />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/terms-of-use" >
-              {/* // logged in shows TermsPage else shows LoginPage */}
-             <TermsPage />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/exam-room" >
-              {/* // logged in shows TermsPage else shows LoginPage */}
-             <ExamRoomPage />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/my-exams" >
-              {/* // logged in shows TermsPage else shows LoginPage */}
-             <MyExams />
-            </ProtectedRoute>
-
-
-
-            {/* //LOGIN/REGISTRATION ----------------------------- */}
-            <Route exact path="/login" >
-                {   user.id  && user.role === "STUDENT"
-                  ?
-                    // If the user is already logged in, 
-                    // redirect them to the /user page
-                    <Redirect to="/my-exams" />
-                    //todo change /about to wherever we want the user to land
-                  :   
-                    user.id && user.role === "PROCTOR"
-                  ? <Redirect to="/events-all" />
-                  : <LoginPage />
-                }
-            </Route>
-
-            <Route exact path="/registration" >
-                {   user.id  && user.role === "STUDENT"
-                  ?
-                    // If the user is already logged in, 
-                    // redirect them to the /user page
-                    <Redirect to="/my-exams" />
-                    //todo change /about to wherever we want the user to land
-                  : 
-                    user.id && user.role === "PROCTOR"
-                  ? <Redirect to="/events-all" />
-                  : <RegisterPage />
-                }
-            </Route>
-
-            <Route exact path="/home">
-              {   user.id && user.role === "STUDENT"
-                ? <Redirect to="/my-exams" />
-                //todo change /about to wherever we want the user to land
-                :  
-                  user.id && user.role === "PROCTOR"
-                ? <Redirect to="/events-all" />
-                : <RegisterPage />
-              }
-          </Route>
-
-            {/* If none of the other routes matched, we will show a 404. */}
-            <Route>
-              <h1>404</h1>
-            </Route>
-
-          </Switch>
+          {
+             user.id  && user.role === "STUDENT" ? <RoutesStudent/>
+            : user.id  && user.role === "PROCTOR" ? <RoutesProctor/> 
+            : <RoutesVisitor/>
+          }
           <Footer />
         </div>
       </Router>

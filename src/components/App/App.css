@@ -156,9 +156,14 @@ label:focus,
 }
 
 .fakeAutocompleteInput {
-  margin-bottom: 0;
-  width: 88%;
-  padding-right: 80px;
+  height: 48px;
+  background-color: white !important;
+  border: 1px solid #7FC1C5 !important;
+  font-size: 18px;
+  /* font-family: Helvetica-Light;  */
+  padding: 0 80px 0 12px;
+  margin-bottom: 0 10px;
+  width: 90%;
 
 }
 
@@ -185,4 +190,33 @@ label:focus,
 
 .socialFooterIcon {
   margin: 0 5px;
+}
+
+.backDrop {
+  display: none;    
+}
+
+.compareModal {
+  background-color: #ffffff;
+  width: 80%;
+  height: 85%;
+  margin: auto;
+  padding: 20px;
+  z-index: 9999;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.chatPlaceholderDiv {
+  width: 300px;
+  height: 400px;
+  background-color: #e5eaf3;
+  margin: 0 30px 0 30px;
+
+  transition: .2s;
+  border: .5px solid black; 
+  color: #1E2A49; 
+  font-family: Neue-Helvetica;
+  text-transform:capitalize;
+  border-radius: 5px;
 }

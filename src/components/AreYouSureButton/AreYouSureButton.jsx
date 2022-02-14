@@ -10,6 +10,7 @@ function AreYouSureButton(props) {
   //AND and run the function passed via onButtonClick
 
   //there are is also the ability to (optionally) pass two different variants for the different stages
+  //and (optionally) add a link path which the user will be taken to upon that 2nd click
 
   //use it in another component like so:
   // <AreYouSureButton
@@ -18,6 +19,7 @@ function AreYouSureButton(props) {
   //   onButtonClick={doTheThingFunction}
   //   beginningVariant={"outlined"}
   //   areYouSureVariant={"contained"}
+  //   linkPath={"/home"} 
   // />
 
   const [showWarning, setShowWarning] = useState(false);
@@ -35,16 +37,29 @@ function AreYouSureButton(props) {
   return (
   <>
     {
-        showWarning 
-      ?
+        showWarning && props.linkPath
+      ? 
+        // after the first click, show this if there was a link path passed via props
+        <Link to={props.linkPath}>
+          <Button 
+            onClick={proceed} 
+            variant={props.areYouSureVariant || "contained"}
+          >
+            {props.areYouSureText || "Are you sure?"}
+          </Button>
+        </Link>
+      : 
+        // after the first click, show this if there was NO link path passed via props
+        showWarning && !props.linkPath
+      ?  
         <Button 
-          onClick={proceed} 
-          variant={props.areYouSureVariant || "contained"}
-        >
-          {props.areYouSureText || "Are you sure?"}
+            onClick={proceed} 
+            variant={props.areYouSureVariant || "contained"}
+          >
+            {props.areYouSureText || "Are you sure?"}
         </Button>
-
-      :
+      : 
+        //before the first click, show this
         <Button 
           onClick={launchWarning} 
           variant={props.beginningVariant || "outlined"}

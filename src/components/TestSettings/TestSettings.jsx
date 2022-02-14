@@ -32,7 +32,6 @@ function TestSettings(props) {
   })
 
   const deleteTest = () => {
-    //@Jackie or @Amanda todo: as user first - "are you sure???"
     dispatch({ type: 'DELETE_TEST', payload: { test_id: test.id } }); 
   }
 
@@ -57,9 +56,16 @@ function TestSettings(props) {
             alignItems="center"
             justifyContent="center" > 
             <Grid item> 
-              <Link to="/tests-all">
-                <Button variant="outlined" onClick={deleteTest}>Delete Test</Button>
-              </Link>
+
+            <AreYouSureButton
+              beginningText={"Delete Test"}
+              areYouSureText={"Delete this test and all questions in it?"}
+              onButtonClick={deleteTest}
+              beginningVariant={"outlined"}
+              areYouSureVariant={"contained"}
+              linkPath={"/tests-all"}
+            />
+
             </Grid> 
           </Grid> 
         </> 
