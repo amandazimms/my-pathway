@@ -48,8 +48,17 @@ function ExamTable(props) {
   }
 
   const setExamAndShowModal = (row) => {
-    setShowCompareModal(true);
-    setSelectedExam(row);
+    dispatch({
+      type:'COMPARE_IMAGES',
+      payload:{
+        exam: row,
+        done:()=> {
+          setShowCompareModal(true)
+        }
+      }
+    })
+    // setShowCompareModal(true);
+    // setSelectedExam(row);
   }
 
   return (
