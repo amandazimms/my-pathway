@@ -100,9 +100,8 @@ function ExamTable(props) {
                     ? 'YES' 
                     : row.id_confirmed === "FALSE" 
                     ? 'NO'
-                    : <Button onClick={ ()=>setExamAndShowModal(row) } variant="contained">CLICK TO VERIFY ID</Button>
+                    : <Button onClick={ ()=>setExamAndShowModal(row) } variant="contained">VERIFY ID</Button>
                   }
-
                 </TableCell>
               : <></> }
 
