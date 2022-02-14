@@ -48,6 +48,10 @@ function RoutesStudent() {
         <ProtectedRoute exact path="/user">
           <UserPage />
         </ProtectedRoute>
+
+        <ProtectedRoute exact path="/validation" >
+          <Validation />
+        </ProtectedRoute>
         
         <ProtectedRoute exact path="/exam-room" >
           <ExamRoomPage />

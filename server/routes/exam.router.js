@@ -161,15 +161,25 @@ router.put('/photo', (req, res) => {
   // console.log('body', req.body);
   // console.log('params', req.params);
   const queryString = `UPDATE exam SET face_image = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
-  WHERE exam.id = ${req.body.exam_id}
-  RETURNING *`;
+  WHERE exam.id = ${req.body.exam_id}`;
   const values = [req.body.url, req.body.user_id];
   pool.query(queryString, values).then((results) => {
-    res.send(results.rows[0]);
-  }).catch((err) => {
-    console.log("error put exam photo", err);
-    res.sendStatus(500);
+    const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
+    incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    FROM exam 
+    JOIN "event" ON "event".id=exam.event_id
+    JOIN test ON test.id="event".test_id
+    JOIN "user" ON exam.student_id="user".id
+    WHERE exam.id = ${req.body.exam_id}`;
+    pool.query(queryString).then((results) => {
+      res.send(results.rows[0]);
+    })
   })
+    .catch((err) => {
+      console.log("error put exam photo", err);
+      res.sendStatus(500);
+    })
 });
 
 
@@ -201,26 +211,46 @@ router.put('/addIncident/:id', (req, res)=> {
 router.put('/id-image', (req, res) => {
   console.log('body', req.body);
   const queryString = `UPDATE exam SET id_image = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
-  WHERE exam.id = ${req.body.exam_id}
-  RETURNING *`;
+  WHERE exam.id = ${req.body.exam_id}`;
   const values = [req.body.url, req.body.user_id];
   pool.query(queryString, values).then((results) => {
-    res.send(results.rows[0]);
-  }).catch((err) => {
-    console.log("error put exam photo", err);
-    res.sendStatus(500);
+    const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
+    incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    FROM exam 
+    JOIN "event" ON "event".id=exam.event_id
+    JOIN test ON test.id="event".test_id
+    JOIN "user" ON exam.student_id="user".id
+    WHERE exam.id = ${req.body.exam_id}`;
+    pool.query(queryString).then((results) => {
+      res.send(results.rows[0]);
+    })
   })
+    .catch((err) => {
+      console.log("error put exam photo", err);
+      res.sendStatus(500);
+    })
 });
 
 router.put('/confirm-id', (req, res) => {
   console.log('body', req.body);
   const queryString = `UPDATE exam SET id_confirmed = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
-  WHERE exam.id = ${req.body.exam_id}
-  RETURNING *`;
+  WHERE exam.id = ${req.body.exam_id}`;
   const values = [req.body.id_confirmed, req.body.user_id];
   pool.query(queryString, values).then((results) => {
-    res.send(results.rows[0]);
-  }).catch((err) => {
+    const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
+    incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    FROM exam 
+    JOIN "event" ON "event".id=exam.event_id
+    JOIN test ON test.id="event".test_id
+    JOIN "user" ON exam.student_id="user".id
+    WHERE exam.id = ${req.body.exam_id}`;
+    pool.query(queryString).then((results) => {
+      res.send(results.rows[0]);
+    })
+  })
+  .catch((err) => {
     console.log("error put exam photo", err);
     res.sendStatus(500);
   })

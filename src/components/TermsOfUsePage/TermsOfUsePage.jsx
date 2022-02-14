@@ -8,6 +8,7 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import "../TermsOfUsePage/TermsOfUsePage.css"
+import { useHistory } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -29,6 +30,8 @@ function TermsPage(props) {
     // if agree === false, it will be set to true
     setAgree(!agree);
   }
+
+  const history = useHistory();
 
 
   return (
@@ -74,7 +77,7 @@ function TermsPage(props) {
 
      <Grid item xs={3} justifyContent="flex-end">
     <Item className="btn">
-    <Button disabled={!agree} className="btn">Next  &nbsp; &nbsp;  {'>'}</Button>
+    <Button disabled={!agree} className="btn" onClick={()=>history.push('/validation')}>Next  &nbsp; &nbsp;  {'>'}</Button>
      </Item>
    </Grid> 
       </Grid> 
