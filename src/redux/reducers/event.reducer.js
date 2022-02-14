@@ -26,8 +26,6 @@ const calculateEventStatusArray = (events) => {
 }
 
 const selected = (state = {}, action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const selectedEvent = useSelector(store => store.event.selected);
   switch (action.type) {
     case 'SET_SELECTED_EVENT':
       return calculateSingleEventStatus(action.payload);
@@ -41,8 +39,6 @@ const selected = (state = {}, action) => {
 };
 
 const all = (state = [], action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const allEvents = useSelector(store => store.event.all);
   switch (action.type) {
     case 'SET_ALL_EVENTS':
       return calculateEventStatusArray(action.payload);
@@ -54,8 +50,6 @@ const all = (state = [], action) => {
 };
 
 const exams = (state = [], action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const allEvents = useSelector(store => store.event.all);
   switch (action.type) {
     case 'SET_EVENT_EXAMS':
       return action.payload;

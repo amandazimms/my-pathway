@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import ExamTable from '../ExamTable/ExamTable';
 import EditEvent from '../EditEvent/EditEvent'
 import EventCreate from '../EventCreate/EventCreate';
+import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 
 
 function EventDetailsTab(props) {
@@ -31,7 +32,6 @@ function EventDetailsTab(props) {
   });
 
   const deleteEvent = () => {
-    //@Jackie or @Amanda todo: as user first - "are you sure?"
     dispatch({ type: 'DELETE_EVENT', payload: { event_id: event.id } });
   }
 
@@ -58,9 +58,14 @@ function EventDetailsTab(props) {
           <>
             <Button variant="contained" color="primary" onClick={()=>{setEditMode(true)}}>Edit Event</Button>
               <br /><br />
-            <Link to="/events-all">
-              <Button variant="outlined" color="primary" onClick={deleteEvent}>Delete Event</Button>
-            </Link>
+            <AreYouSureButton
+              beginningText={"Delete Event"}
+              areYouSureText={"Delete this event and unregister all students from it?"}
+              onButtonClick={deleteEvent}
+              beginningVariant={"outlined"}
+              areYouSureVariant={"contained"}
+              linkPath={"/events-all"}
+            />
               <br /><br />
           </>
         : <></>

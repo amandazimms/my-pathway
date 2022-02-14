@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
 
 const selected = (state = {}, action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const selectedQuestion = useSelector(store => store.question.selected);
   switch (action.type) {
     case 'SET_SELECTED_QUESTION':
       return action.payload;
@@ -16,8 +14,6 @@ const selected = (state = {}, action) => {
 };
 
 const all = (state = [], action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const allQuestions = useSelector(store => store.question.all);
   switch (action.type) {
     case 'SET_ALL_QUESTIONS':
       return action.payload;
@@ -29,8 +25,6 @@ const all = (state = [], action) => {
 };
 
 const examAll = (state = [], action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const allQuestions = useSelector(store => store);
   switch (action.type) {
     case 'SET_ALL_EXAM_QUESTIONS':
       return action.payload;
@@ -67,8 +61,6 @@ const randomizeOrder = (question) => {
 }
 
 const examSelected = (state = {}, action) => {
-  //@jackie store/reducer - if you want to use this store in your component, put something like this at the top
-  //const allQuestions = useSelector(store => store);
   switch (action.type) {
     case 'SET_SELECTED_EXAM_QUESTIONS':
       return randomizeOrder(action.payload);

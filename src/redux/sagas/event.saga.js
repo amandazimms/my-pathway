@@ -87,9 +87,7 @@ function* deleteEvent(action){
   try {
     yield axios.delete(`/api/event/${ap.event_id}`);
     yield put({ type: 'UNSET_SELECTED_EVENT' });
-    //note - unsure if we need to fetch_all_EVENTs here... I suppose deleting a event would bring
-    //the proctor back to the "all events" type view, but that should be doing its own 
-    //fetch_all_EVENTs already. if needed we can add one here!
+    yield put({ type: 'FETCH_ALL_EVENTS' }); 
   } catch (error) {
     console.log('DELETE event failed', error);
   }

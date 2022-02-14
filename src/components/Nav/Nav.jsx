@@ -26,11 +26,6 @@ function Nav() {
         }
 
         {/* If a user is logged in, show these links */}
-        {user.role === "PROCTOR" && (
-          <Link className="navLink" to="/user_management">
-            Users
-          </Link>
-        )}
         {user.id && (
           <>
             <Link className="navLink" to="/user">
@@ -63,7 +58,6 @@ function Nav() {
               {/* this whole link will eventually be removed from Nav - here for quick testing purposes now */}
             </Link>
 
-            <LogOutButton className="navLink" />
           </>
         )}
         {user.role === "PROCTOR" && (
@@ -75,6 +69,9 @@ function Nav() {
         <Link className="navLink" to="/about">
           About
         </Link>
+
+        <LogOutButton className="navLink" />
+
       </div>
     </div>
   );

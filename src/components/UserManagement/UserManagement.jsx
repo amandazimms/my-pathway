@@ -38,7 +38,7 @@ function userManagementFunction(props) {
 
   return (
     <div>
-      <h3 className="heading">{heading}</h3>
+      <h2 className="heading">{heading}</h2>
       {/* <p>{JSON.stringify(store.allUsers.setAllUsers)}</p> */}
       <TableContainer sx={{ minWidth: 500, maxWidth: 800 }} component={Paper}>
       <Table sx={{ minWidth: 500, maxWidth: 800 }} aria-label="simple table">

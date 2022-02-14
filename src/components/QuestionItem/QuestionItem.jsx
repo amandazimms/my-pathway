@@ -33,8 +33,6 @@ const ExpandMore = styled((props) => {
 }));
 
 function QuestionItem(props) {
-  //@Amanda todo - when a question is edited, be sure the new data displays on DOM as well as DB.
-
   const store = useSelector(store => store);
   const user = useSelector(store => store.user);
   const test = useSelector(store => store.test.selected);

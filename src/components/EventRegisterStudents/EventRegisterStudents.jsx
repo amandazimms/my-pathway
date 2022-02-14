@@ -48,7 +48,7 @@ function EventRegisterStudents(props) {
   return (
     <div>
       <div className="fullWidthDiv">
-        <input className="loginInput fakeAutocompleteInput" type="text" placeholder="Enter student to search for" onChange={ (event) => handleSearchInputChange(event) }></input>
+        <input className="fakeAutocompleteInput" type="text" placeholder="Enter student to search for" onChange={ (event) => handleSearchInputChange(event) }></input>
         <Button className="buttonInsideInput" variant="contained" onClick={clearResults}>x</Button>
       </div>
 

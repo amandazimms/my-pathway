@@ -153,7 +153,7 @@ function TestEdit(props) {
           </Grid> 
           <br />
      
-          <Grid item> 
+          <Grid item className="flexParent"> 
           <Button className="saveChangesBtn" variant="contained" onClick={updateTest}>Save Changes</Button>
           </Grid> 
           <br></br>
@@ -234,8 +234,8 @@ function TestEdit(props) {
             }}></TextField>
           </Grid> 
           <Grid item> 
-        <Button variant="contained" onClick={()=> setIsEditMode(true)}>Edit Test</Button> 
-        </Grid> 
+          <Button variant="contained" onClick={()=> setIsEditMode(true)}>Edit Test</Button> 
+          </Grid> 
         <br></br>
         </> 
     } 

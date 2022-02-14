@@ -25,8 +25,8 @@ function studentExamPageComplete(props) {
   return (
     <div>
       <h2>EXAM RESULTS</h2>
-      <h3>{exam.test_title} - {prettyEventDate} - {prettyEventTime}</h3>
-      <h3>{exam.first_name} {exam.last_name} - {exam.username}</h3>
+      <h2>{exam.test_title} - {prettyEventDate} - {prettyEventTime}</h2>
+      <h2>{exam.first_name} {exam.last_name} - {exam.username}</h2>
       
       <TableContainer component={Paper}>
         <Table sx={{ maxWidth: 650 }} aria-label="simple table">

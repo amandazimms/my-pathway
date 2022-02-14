@@ -11,7 +11,7 @@ function ProctorExamPageInProgress() {
 
  return (
     <>
-      <h3 className="heading">Student: {exam.first_name} {exam.last_name}</h3>
+      <h2 className="heading">Student: {exam.first_name} {exam.last_name}</h2>
       {/* profile pic here ( {exam.profile_picture} ) */}
 
       <Card sx={{maxWidth: 745 }} className="questionCard" >

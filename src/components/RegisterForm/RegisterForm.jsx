@@ -116,9 +116,9 @@ function RegisterForm() {
   return (
     <form className="formPanel" onSubmit={validateUser}>
       {errors.registrationMessage && (
-        <h3 className="alert" role="alert">
+        <h2 className="alert" role="alert">
           {errors.registrationMessage}
-        </h3>
+        </h2>
       )}
       <div className="loginContainer">
           <input
