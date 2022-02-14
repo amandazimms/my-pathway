@@ -12,6 +12,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box'; 
 import '../EventList/EventList.css'; 
+import IconButton from '@mui/material/IconButton';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 
 function EventList(props) {
@@ -37,9 +39,14 @@ function EventList(props) {
 
   return (
     <div>
+      <div > 
         <Link to="/event-new">
-          <Button variant="contained" color="secondary" onClick={unsetSelectedEvent}>Add a New Event</Button>
+          <IconButton className="iconBtn" color="primary" variant="contained" size="medium" onClick={unsetSelectedEvent}>
+          <AddCircleOutlineIcon fontSize="small"></AddCircleOutlineIcon>
+          &nbsp; ADD A NEW EVENT
+          </IconButton>
         </Link>
+        </div> 
       <br />
       <br />
       <h2 className="heading">EVENTS</h2>
@@ -73,15 +80,15 @@ function EventList(props) {
               <TableCell align="left">{new Date(event.event_date_end).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})}</TableCell>
               <TableCell align="center">
                 {event.status === 'UPCOMING'?
-                <Button variant="contained" onClick={() => setSelectedEvent(event)} >View Event</Button>:
+                <Button style={{backgroundColor: '#1E2A49'}} variant="contained" onClick={() => setSelectedEvent(event)} >View Event</Button>:
                 <></>
                 }
                 {event.status === 'IN PROGRESS'?
-                <Button variant="contained" onClick={() => setSelectedEvent(event)}>Enter Event</Button>:
+                <Button style={{backgroundColor: '#1E2A49'}} variant="contained" onClick={() => setSelectedEvent(event)}>Enter Event</Button>:
                 <></>
                 }
                 {event.status === 'COMPLETE'?
-                <Button variant="contained" onClick={() => setSelectedEvent(event)}>View Results</Button>:
+                <Button style={{backgroundColor: '#1E2A49'}} variant="contained" onClick={() => setSelectedEvent(event)}>View Results</Button>:
                 <></>
                 }
               </TableCell>

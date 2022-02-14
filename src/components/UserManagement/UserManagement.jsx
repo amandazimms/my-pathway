@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
-
+import Box from '@material-ui/core/Box'; 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
@@ -40,6 +40,8 @@ function userManagementFunction(props) {
     <div>
       <h2 className="heading">{heading}</h2>
       {/* <p>{JSON.stringify(store.allUsers.setAllUsers)}</p> */}
+      <Box display="flex"
+      justifyContent="center">
       <TableContainer sx={{ minWidth: 500, maxWidth: 800 }} component={Paper}>
       <Table sx={{ minWidth: 500, maxWidth: 800 }} aria-label="simple table">
         <TableHead>
@@ -80,6 +82,7 @@ function userManagementFunction(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    </Box>
     </div>
   );
 }
