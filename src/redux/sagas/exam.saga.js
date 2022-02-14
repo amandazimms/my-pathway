@@ -13,6 +13,7 @@ function* eventSaga() {
   yield takeLatest('UPDATE_ACTIVE_EXAM_QUESTION', updateActiveExamQuestion);//update exam with students active question id.
   yield takeLatest('CAPTURE_ANSWER', captureAnswer);//updates exam_detail record with answer and graded outcome.
   yield takeLatest('SCORE_EXAM', scoreExam);
+  yield takeLatest('ACCEPT_TERMS', acceptTerms);
   //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
   yield takeLatest('APPROVE_EXAM', approveExam);
   //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
@@ -70,6 +71,21 @@ function* updateActiveExamQuestion(action) {
       data: ap
     });
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+  } catch (error) {
+    console.log('setExamPhoto failed', error);
+  }
+}
+
+function* acceptTerms(action) {
+  const ap = action.payload;
+  try {
+    const response = yield axios({
+      method: 'PUT',
+      url: `/api/exam/accept-terms`,
+      data: ap
+    });
+    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+    ap.done()
   } catch (error) {
     console.log('setExamPhoto failed', error);
   }

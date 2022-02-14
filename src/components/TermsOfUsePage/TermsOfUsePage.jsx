@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Grid from '@mui/material/Grid';
@@ -32,6 +32,19 @@ function TermsPage(props) {
   }
 
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const acceptTerms  = () => {
+    dispatch({
+      type:'ACCEPT_TERMS',
+      payload: {
+        user_id:store.user.id,
+        exam_id:store.exam.selected.exam_id,
+        done: ()=>history.push('/validation')
+      }
+    })
+    
+  }
 
 
   return (
@@ -77,7 +90,7 @@ function TermsPage(props) {
 
      <Grid item xs={3} justifyContent="flex-end">
     <Item className="btn">
-    <Button disabled={!agree} className="btn" onClick={()=>history.push('/validation')}>Next  &nbsp; &nbsp;  {'>'}</Button>
+    <Button disabled={!agree} className="btn" onClick={acceptTerms}>Next  &nbsp; &nbsp;  {'>'}</Button>
      </Item>
    </Grid> 
       </Grid> 

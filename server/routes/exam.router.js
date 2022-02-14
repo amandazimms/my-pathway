@@ -166,7 +166,7 @@ router.put('/photo', (req, res) => {
   pool.query(queryString, values).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
@@ -216,7 +216,7 @@ router.put('/id-image', (req, res) => {
   pool.query(queryString, values).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
@@ -240,7 +240,7 @@ router.put('/confirm-id', (req, res) => {
   pool.query(queryString, values).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
@@ -271,12 +271,12 @@ router.put('/passFail/:id', (req, res) => {
 });
 
 router.put('/begin-exam/:id', (req, res) => {
-  const queryString = `UPDATE exam SET exam_time_start = CURRENT_TIMESTAMP
+  const queryString = `UPDATE exam SET exam_time_start = CURRENT_TIMESTAMP, present = 'TRUE'
     WHERE exam.id = ${req.params.id}`;
   pool.query(queryString).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
@@ -292,7 +292,7 @@ router.put('/begin-exam/:id', (req, res) => {
 });
 
 router.put('/end-exam/:id', (req, res) => {
-  const queryString = `UPDATE exam SET exam_time_end = CURRENT_TIMESTAMP
+  const queryString = `UPDATE exam SET exam_time_end = CURRENT_TIMESTAMP, present = 'FALSE'
   WHERE exam.id = ${req.params.id}`;
   pool.query(queryString).then((results) => {
     const queryString = `  SELECT exam_detail.id AS exam_detail_id, question.point_value, exam_detail.question_id, exam_detail.exam_id, exam_detail.correct
@@ -320,7 +320,31 @@ router.put('/active-question', (req, res) => {
   pool.query(queryString, values).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
+    FROM exam 
+    JOIN "event" ON "event".id=exam.event_id
+    JOIN test ON test.id="event".test_id
+    JOIN "user" ON exam.student_id="user".id
+    WHERE exam.id = ${req.body.exam_id}`;
+
+    pool.query(queryString).then((results) => {
+      res.send(results.rows[0])
+    }).catch((err) => {
+      console.log("error put exam active question", err);
+      res.sendStatus(500);
+    })
+  })
+});
+
+router.put('/accept-terms', (req, res) => {
+  const queryString = `UPDATE exam SET privacy_terms = $1, last_modified_date=CURRENT_TIMESTAMP, last_modified_by=$2
+    WHERE exam.id = ${req.body.exam_id}`;
+  const values = [true, req.body.user_id]
+
+  pool.query(queryString, values).then((results) => {
+    const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
+    incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
