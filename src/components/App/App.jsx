@@ -14,6 +14,8 @@ import NavDrawer from '../Nav/NavDrawer';
 import RoutesStudent from './RoutesStudent';
 import RoutesProctor from './RoutesProctor';
 import RoutesVisitor from './RoutesVisitor';
+import ProctorNavDrawer from '../Nav/ProctorNavDrawer';
+import StudentNavDrawer from '../Nav/NavDrawer';
 
 const theme = createTheme({
 
@@ -56,8 +58,13 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <div>
-          <NavDrawer /> 
-          <Nav />
+          {/* <NavDrawer />  */}
+          {
+             user.id  && user.role === "STUDENT" ? <StudentNavDrawer/>
+            : user.id  && user.role === "PROCTOR" ? <ProctorNavDrawer/> 
+            : <Nav /> 
+          }
+          {/* <Nav /> */}
           {
              user.id  && user.role === "STUDENT" ? <RoutesStudent/>
             : user.id  && user.role === "PROCTOR" ? <RoutesProctor/> 

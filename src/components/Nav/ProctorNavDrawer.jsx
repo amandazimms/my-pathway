@@ -8,7 +8,7 @@ import '../Nav/Nav.css';
 import KyrosLogo3 from "../../images/KyrosLogo3.png"; 
 import { useSelector } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import LongLogo from '../../images/LongLogo.png'; 
+import LongLogo from "../../images/LongLogo.png"; 
 
 import {
     Drawer, 
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
 })
         
 
-export default function StudentNavDrawer({children}) {
+export default function ProctorNavDrawer({children}) {
 
 const classes= useStyles() 
 const history= useHistory();
@@ -76,28 +76,38 @@ const toggleDrawer = (anchor, open) => (event) => {
 
 const user = useSelector((store) => store.user);
 
+const proctorMenuItems = [
+{
+    text: 'User Management',
+    icon: <AdminPanelSettingsOutlinedIcon color="secondary"/>, 
+    path: '/user_management', 
+ },
+{
+    text: 'Create and View Tests',
+    icon: <FeedOutlinedIcon color="secondary"/> ,
+    path: '/tests-all', 
+},
+{
+    text: 'Grade Exams',
+    icon: <GradingOutlinedIcon color="secondary"/> , 
+    path: '//proctor-exam-complete', 
+},
+{
+    text: 'Events',
+    icon: <EventOutlinedIcon color="secondary"/> , 
+    path: '/events-all', 
+},
+{
+    text: 'Validation',
+    icon: <HowToRegOutlinedIcon color="secondary"/> , 
+    path: '/compare', 
+},
 
-const studentMenuItems = [
-    {
-        text: 'My Credientials',
-        icon: <MilitaryTechOutlinedIcon color="secondary" /> , 
-        path: '/user', 
-    },
-    {
-        text: 'Transcripts',
-        icon: <FeedOutlinedIcon color="secondary" />, 
-        path: '/tests', 
-    },
-    {
-        text: 'Upcoming Exams',
-        icon: <EventOutlinedIcon color="secondary" />, 
-        path: '/my-exams', 
-    }
 ]
 
 
-// List for when student is logged in 
-const studentList = (anchor) => (
+// list when proctor is logged in 
+const proctorList = (anchor) => (
 
     <div className={classes.root}> 
     <Drawer
@@ -119,7 +129,7 @@ const studentList = (anchor) => (
         </Link>
         </div>
 <List>
-    {studentMenuItems.map(item => (
+    {proctorMenuItems.map(item => (
         <ListItem
         button
         key={item.text}
@@ -130,13 +140,13 @@ const studentList = (anchor) => (
         </ListItem>
         ))}
 </List>
-<List> 
 <Divider/> 
-<ListItem> <LogOutButton variant="outlined" /></ListItem>
+<List> 
+<ListItem> <LogOutButton/></ListItem>
 </List> 
 </Drawer>
 </div> 
-); 
+);
 
   return (
       <div className="nav">
@@ -150,21 +160,16 @@ const studentList = (anchor) => (
     
     {/* if user is logged in as a proctor */}
     <div> 
-    {user.role === "STUDENT" && (
+    {user.role === "PROCTOR" && (
           <Button onClick={toggleDrawer('left', true)}><img src={LongLogo} alt="logo" className="logo" /></Button>
             )}
-         </div> 
-
-    <div>
-    {user.role === "STUDENT" && (
-    <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
-    {studentList('left')}
-    </Drawer>
-    )}
-    </div>
-     
+    {user.role === "PROCTOR" && (
+          <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
+              {proctorList('left')}
+          </Drawer>
+    )} 
+         </div>
     
      </div>      
     ); 
 }; 
-

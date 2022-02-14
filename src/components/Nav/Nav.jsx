@@ -70,7 +70,7 @@ function Nav() {
           About
         </Link>
 
-        <LogOutButton className="navLink" />
+        {/* <LogOutButton className="navLink" /> */}
 
       </div>
     </div>
