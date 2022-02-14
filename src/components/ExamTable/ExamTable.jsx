@@ -21,9 +21,9 @@ function ExamTable(props) {
 
   const headers = 
       mode === "COMPLETE"  
-    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
     : mode === "IN PROGRESS" 
-    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID VERIFIED', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
     : mode === "UPCOMING"
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ACTION']
     :   [];
@@ -78,7 +78,17 @@ function ExamTable(props) {
 
           {/* ==== ID ===================== */}
               { mode === 'COMPLETE' || mode === 'IN PROGRESS' 
-              ? <TableCell>{!row.id_confirmed ? 'FALSE' : 'TRUE'}</TableCell>
+              ? <TableCell>
+                  {
+                      row.id_confirmed === "TRUE" 
+                    ? 'YES' 
+                    : row.id_confirmed === "FALSE" 
+                    ? 'NO'
+                    : <Link to="/compare">
+                        <Button variant="contained" onClick={ ()=>setSelectedExam(row) }>CLICK TO VERIFY</Button>
+                      </Link>
+                  }
+                </TableCell>
               : <></> }
 
           {/* ==== HELP ===================== */}

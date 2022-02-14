@@ -8,33 +8,9 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-// import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-// import AboutPage from '../AboutPage/AboutPage';
-// import UserPage from '../UserPage/UserPage';
-// import LandingPage from '../LandingPage/LandingPage';
-// import LoginPage from '../LoginPage/LoginPage';
-// import RegisterPage from '../RegisterPage/RegisterPage';
-// import Chat from '../Chat/Chat';
-// import MessageSession from '../Chat/MessageSession'; 
-// import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 import './App.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import UserManagement from '../UserManagement/UserManagement'
-// import TestList from '../TestList/TestList';
-// import TestPage from '../TestPage/TestPage';
-// import ProctorExamPageComplete from '../ProctorExamPageComplete/ProctorExamPageComplete';
-// import EventList from '../EventList/EventList';
-// import EventPage from '../EventPage/EventPage';
-// import Validation from '../Validation/Validation';
-// import Compare from '../Compare/Compare'
-// import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
-// import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
-// import ExamQuestion from '../ExamQuestion/ExamQuestion'; 
-// import ExamRoomPage from '../ExamRoomPage/ExamRoomPage';
 import NavDrawer from '../Nav/NavDrawer';
-// import ProctorExamPageInProgress from '../ProctorExamPageInProgress/ProctorExamPageInProgress';
-// import MyExams from '../MyExams/MyExams';
-// import StudentExamPageComplete from '../StudentExamPageComplete/StudentExamPageComplete';
 import RoutesStudent from './RoutesStudent';
 import RoutesProctor from './RoutesProctor';
 import RoutesVisitor from './RoutesVisitor';

@@ -71,7 +71,7 @@ router.get('/selected', (req, res) => {
   const id = req.query.exam_id
   const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
 	    incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-      exam.status AS exam_status, exam.id AS exam_id, active_question_id
+      exam.status AS exam_status, exam.id AS exam_id, active_question_id, face_image, id_image, id_confirmed 
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id

@@ -191,3 +191,17 @@ label:focus,
 .socialFooterIcon {
   margin: 0 5px;
 }
+
+.backDrop {
+  display: none;    
+}
+.compareModal {
+  background-color: #ffffff;
+  width: 80%;
+  height: 85%;
+  margin: auto;
+  padding: 20px;
+  z-index: 9999;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}

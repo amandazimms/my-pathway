@@ -1,13 +1,16 @@
-import { Button, easing, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Button, easing, Modal, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 import Paper from '@mui/material/Paper';
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
+import { Link } from 'react-router-dom';
+import Compare from '../Compare/Compare';
 
 
 function ProctorExamPageComplete(props) {
   const exam = useSelector(store => store.exam.selected);
+  const [showCompareModal, setShowCompareModal] = useState(false);
   const dispatch = useDispatch();
 
   const formatDate = (dateString) => {
@@ -38,8 +41,27 @@ function ProctorExamPageComplete(props) {
     dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
   }
 
+  const setAndLogCompareTrue = () => {
+    console.log('show:', showCompareModal);
+    setShowCompareModal(true);
+  }
+
+  const setAndLogCompareFalse = () => {
+    console.log('show:', showCompareModal);
+    setShowCompareModal(false);
+  }
+
   return (
-    <div>
+    <>
+      <Modal 
+        open={showCompareModal} 
+        onClose={ ()=>setShowCompareModal(false) } 
+        className="compareModal flexParentVertical"
+        hideBackdrop={true}
+      >
+        <Compare />
+      </Modal>
+
       <h2 className='heading'>EXAM RESULTS</h2>
       <p>{exam.test_title} - {prettyEventDate} - {prettyEventTime}</p>
       <p>{exam.first_name} {exam.last_name} - {exam.username}</p>
@@ -70,12 +92,27 @@ function ProctorExamPageComplete(props) {
             </TableRow> 
 
             <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
+              <TableCell component="th" scope="row">ID MATCH?</TableCell>
+              {
+                  exam.id_confirmed === "TRUE" 
+                ? <TableCell align="right" style={{ color:"#308713" }}>YES</TableCell>
+                :  exam.id_confirmed === "FALSE"
+                ? <TableCell align="right" style={{ color:"#871313" }}>NO</TableCell>
+                : <TableCell align="right">
+                    {/* <Link to="/compare"> */}
+                      <Button onClick={ ()=>setShowCompareModal(true) }>CLICK TO VERIFY ID</Button>
+                    {/* </Link> */}
+                  </TableCell>
+              }
+            </TableRow> 
+
+            <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row">PASS/FAIL</TableCell>
                 {   exam.pass === "PASS" 
                   ? <TableCell align="right" style={{ color:"#308713" }}>PASS</TableCell>
                   : exam.pass === "FAIL"
                   ? <TableCell align="right" style={{ color:"#871313" }}>FAIL</TableCell>
-                  : <TableCell align="right" style={{ color:"#871313" }}>
+                  : <TableCell align="right">
                         <AreYouSureButton
                           beginningText={"MARK AS FAIL"}
                           areYouSureText={"FAIL EXAM - ARE YOU SURE?"}
@@ -115,8 +152,8 @@ function ProctorExamPageComplete(props) {
             <Button variant="contained" onClick={approveExam}>APPROVE RESULTS</Button>
           </>
       }          
-     
-    </div>
+
+    </>
   );
 }
 
