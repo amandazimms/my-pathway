@@ -21,6 +21,7 @@ function ExamTable(props) {
   const dispatch = useDispatch();
 
 
+
   const headers = 
       mode === "COMPLETE"  
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
@@ -38,8 +39,8 @@ function ExamTable(props) {
     props.onUnregisterStudent(student);
   }
 
-  const setSelectedExam = (exam) => {
-    props.onSetSelectedExam(exam);
+  const setSelectedExam = async (exam) => {
+    await props.onSetSelectedExam(exam);
   }
 
   const setExamAndQuestion = (exam) => {
@@ -48,8 +49,17 @@ function ExamTable(props) {
   }
 
   const setExamAndShowModal = (row) => {
-    setShowCompareModal(true);
-    setSelectedExam(row);
+    dispatch({
+      type:'COMPARE_IMAGES',
+      payload:{
+        exam: row,
+        done:()=> {
+          setShowCompareModal(true)
+        }
+      }
+    })
+    // setShowCompareModal(true);
+    // setSelectedExam(row);
   }
 
   return (

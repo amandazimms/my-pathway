@@ -45,7 +45,7 @@ function EventList(props) {
           parent_test_id:exam.test_id, // need to replace with event.test_id
       }
   })
-    history.push('/exam-room')
+    history.push('/before-begin')
   }
 
   

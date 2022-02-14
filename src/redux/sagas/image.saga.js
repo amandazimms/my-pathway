@@ -17,9 +17,26 @@ function* fetchImageUrl() {
       } 
 
 };
+function* compareImages(action) {
+  let ap = action.payload
+  console.log('In fetchImageUrl');
+
+  try {
+        yield put(
+          { type: 'SET_SELECTED_EXAM', payload: ap.exam  }
+          );
+        ap.done() 
+      } 
+      catch (err) {
+      console.log('fetchImageUrl error', err);
+      } 
+
+};
 
 function* imageSaga() {
   yield takeLatest('FETCH_IMAGE_URL', fetchImageUrl);
+  yield takeLatest('COMPARE_IMAGES', compareImages);
+  
 }
 
 export default imageSaga;
