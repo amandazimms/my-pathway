@@ -21,22 +21,6 @@ function EventList(props) {
   let history = useHistory()
 
 
-  //TODO remove this example before final build
-  let startArray = ["hi","hello","howdy", "greetings", "HEY"];
-  let randArray = []
-  
-
-  const randomize = () => {
-    while(startArray.length){
-      let randomIndex = Math.floor(Math.random() * startArray.length);
-      let randomItem = startArray[randomIndex];
-      startArray.splice(randomIndex, 1);
-      randArray.push(randomItem);
-    }
-    console.log('startArray:', startArray);
-    console.log('randArray:', randArray);
-  }
-
   useEffect(() => {
     dispatch({ type: 'FETCH_ALL_EVENTS' }); 
   }, []);
@@ -53,9 +37,6 @@ function EventList(props) {
 
   return (
     <div>
-        {/* //TODO remove this example before final build */}
-      <button onClick={randomize}>Randomize</button>
-
         <Link to="/event-new">
           <Button variant="contained" color="secondary" onClick={unsetSelectedEvent}>Add a New Event</Button>
         </Link>

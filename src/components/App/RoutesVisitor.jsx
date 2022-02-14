@@ -5,9 +5,6 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -17,8 +14,6 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Chat from '../Chat/Chat';
 import MessageSession from '../Chat/MessageSession'; 
 import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
-import './App.css';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserManagement from '../UserManagement/UserManagement'
 import TestList from '../TestList/TestList';
 import TestPage from '../TestPage/TestPage';
@@ -31,67 +26,42 @@ import BeforeYouBeginPage from '../BeforeYouBeingPage/BeforeYouBeginPage';
 import TermsPage from '../TermsOfUsePage/TermsOfUsePage';
 import ExamQuestion from '../ExamQuestion/ExamQuestion'; 
 import ExamRoomPage from '../ExamRoomPage/ExamRoomPage';
-import NavDrawer from '../Nav/NavDrawer';
 import ProctorExamPageInProgress from '../ProctorExamPageInProgress/ProctorExamPageInProgress';
 import MyExams from '../MyExams/MyExams';
 import StudentExamPageComplete from '../StudentExamPageComplete/StudentExamPageComplete';
-import RoutesStudent from './RoutesStudent';
-import RoutesProctor from './RoutesProctor';
-import RoutesVisitor from './RoutesVisitor';
 
-const theme = createTheme({
 
-  palette: {
-    primary: {
-      main: '#1E2A49',
-    },
-    secondary: {
-      main: '#7FC1C5',
-    },
-    error: {
-      main: 'rgba(236,58,45,0.97)',
-    },
-    warning: {
-      main: '#ff9906',
-    },
-    success: {
-      main: '#46b54b',
-    },
-  },
-
-  typography: {
-    fontFamily: 'Nunito Sans',
-    fontWeightLight: 200,
-    fontWeightRegular: 300,
-    fontWeightRegular: 400,
-    fontWeightBold: 600,
-  },
-});
-
-function App() {
-  const dispatch = useDispatch();
-  const user = useSelector(store => store.user);
-
-  useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
-  }, [dispatch]);
+function RoutesVisitor() {
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <div>
-          <NavDrawer /> 
-          <Nav />
-          {
-             user.id  && user.role === "STUDENT" ? <RoutesStudent/>
-            : user.id  && user.role === "PROCTOR" ? <RoutesProctor/> 
-            : <RoutesVisitor/>
-          }
-          <Footer />
-        </div>
-      </Router>
-    </ThemeProvider>
+    <>
+    {/* <p>routes visitor</p> */}
+
+      <Switch>
+        <Redirect exact from="/" to="/home" />
+
+        <Route exact path="/about">
+          <AboutPage />
+        </Route>
+
+        <Route exact path="/login" >
+          <LoginPage />
+        </Route>
+
+        <Route exact path="/registration" >
+          <RegisterPage />
+        </Route>
+
+        <Route exact path="/home">
+          <LoginPage />
+        </Route>
+
+        <Route>
+          <h1 className="heading">404</h1>
+        </Route>
+      </Switch>
+    </>
   );
 }
 
-export default App;
+export default RoutesVisitor;
