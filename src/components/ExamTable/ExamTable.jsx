@@ -48,12 +48,6 @@ function ExamTable(props) {
     dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.exam_id} });
   }
 
-<<<<<<< HEAD
-  const setExamAndShowModal = async (row) => {
-    await setSelectedExam(row);
-    await setShowCompareModal(true);
-    
-=======
   const setExamAndShowModal = (row) => {
     dispatch({
       type:'COMPARE_IMAGES',
@@ -66,7 +60,6 @@ function ExamTable(props) {
     })
     // setShowCompareModal(true);
     // setSelectedExam(row);
->>>>>>> compare-image
   }
 
   return (
