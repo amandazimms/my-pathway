@@ -3,11 +3,21 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Button, Card, CardContent, Typography } from '@mui/material'; 
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import IncidentCounter from '../IncidentCounter/IncidentCounter';
+import { useHistory } from 'react-router-dom';
 
 
 function ProctorExamPageInProgress() {
   const exam = useSelector(store => store.exam.selected);
   const question = useSelector(store => store.exam.selectedQuestionProctor)
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+
+  const doneHelping = () => {
+    dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: false, exam_id: exam.exam_id} });
+    history.goBack();
+  }
+
 
  return (
    <div className="flexParentVertical">
@@ -66,6 +76,9 @@ function ProctorExamPageInProgress() {
       </div>
 
       <IncidentCounter exam={exam}/>
+
+      <br/>
+      <Button variant="contained" onClick={doneHelping}>DONE ASSISTING</Button>
   </div>
   );
 }
