@@ -20,6 +20,9 @@ function ExamRoomPage(props) {
     const [examBegin, setExamBegin] = useState(false);
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
 
+    const test = useSelector(store => store.test.selected);
+    const [testName, setTestName] = useState(test.title)
+
     const beginExam = () => {
         setExamBegin(true)
         dispatch({
@@ -155,7 +158,11 @@ function ExamRoomPage(props) {
                 </Grid>
 
                 : <>
-                    <Button onClick={abortExam}>Abort Exam</Button>
+                    <Grid container justifyContent="flex-end">
+                    <Grid item sm={2}>
+                    <Button variant="contained" onClick={abortExam}>Abort Exam</Button>
+                    </Grid>
+                    </Grid> 
                     <ExamQuestion
                         setSelection={setSelection}
                         selectedAnswer={selectedAnswer}

@@ -9,6 +9,7 @@ import KyrosLogo3 from "../../images/KyrosLogo3.png";
 import { useSelector } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import LongLogo from "../../images/LongLogo.png"; 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import {
     Drawer, 
@@ -88,19 +89,14 @@ const proctorMenuItems = [
     path: '/tests-all', 
 },
 {
-    text: 'Grade Exams',
-    icon: <GradingOutlinedIcon color="secondary"/> , 
-    path: '//proctor-exam-complete', 
-},
-{
-    text: 'Events',
+    text: 'Create and View Events',
     icon: <EventOutlinedIcon color="secondary"/> , 
     path: '/events-all', 
 },
 {
-    text: 'Validation',
-    icon: <HowToRegOutlinedIcon color="secondary"/> , 
-    path: '/compare', 
+    text: 'My Profile',
+    icon: <AccountCircleIcon color="secondary"/> , 
+    path: '/user', 
 },
 
 ]
