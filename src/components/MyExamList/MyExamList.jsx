@@ -42,10 +42,18 @@ function EventList(props) {
     dispatch({
       type: 'FETCH_ALL_EXAM_QUESTIONS',
       payload: {
-          parent_test_id:exam.test_id, // need to replace with event.test_id
+          parent_test_id:exam.test_id
       }
   })
-    history.push('/before-begin')
+  dispatch({
+    type: 'GET_MESSAGE_SESSION',
+    payload: {
+      exam_id: exam.exam_id,
+      done: () => {
+        history.push('/before-begin')
+      }
+    }
+  })
   }
 
   

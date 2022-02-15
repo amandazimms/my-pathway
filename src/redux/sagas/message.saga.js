@@ -33,7 +33,7 @@ function* getMessageSession(info) {
  
   try {
     console.log("getMessageSession Saga", info);
-    const response = yield axios.get('/api/message/enter',{params: info.payload});
+    const response = yield axios.get('/api/message/fetch-active',{params: info.payload});
     
     yield put({ type: 'SET_ACTIVE_MESSAGE_SESSION', payload: response.data });
     info.payload.done();

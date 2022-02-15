@@ -131,7 +131,7 @@ router.get('/detail', (req, res) => {
   })
 });
 
-router.get('/enter', (req, res) => {
+router.get('/fetch-active', (req, res) => {
   console.log('In GET available sessions', req.query);
   const query = `SELECT 
                   message_session.id AS message_session_id,
@@ -149,7 +149,7 @@ router.get('/enter', (req, res) => {
                   JOIN event ON exam.event_id=event.id
                   LEFT JOIN "user" AS proctor ON proctor.id=event.proctor_id
                   LEFT JOIN "user" AS student ON student.id=exam.student_id
-                  WHERE message_session.id=${req.query.session_id};`
+                  WHERE message_session.exam_id=${req.query.exam_id};`
   pool.query(query)
   .then( result => {
   res.send(result.rows[0]);

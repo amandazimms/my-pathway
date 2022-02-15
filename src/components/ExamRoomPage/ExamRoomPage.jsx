@@ -22,17 +22,34 @@ function ExamRoomPage(props) {
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
 
     const beginExam = () => {
-        setExamBegin(true)
+        if (store.message.activeMessageSession === "") {
+            dispatch({
+                type: 'CREATE_MESSAGE_SESSION',
+                payload: {
+                    userId: store.user.id,
+                    examId: store.exam.selected.exam_id,
+                    done: () => {
+                        setExamBegin(true)
+                    }
+                }
+            })
+        } else {
+            setExamBegin(true)
+        }
+        dispatch({
+            type: 'UNSET_ACTIVE_MESSAGE_DETAIL'
+        })
+
         dispatch({
             type: 'BEGIN_EXAM',
-            payload:{
-                exam_id:store.exam.selected.exam_id
+            payload: {
+                exam_id: store.exam.selected.exam_id
             }
         })
         dispatch({
             type: 'CREATE_EXAM_DETAIL_RECORD',
             payload: {
-                exam_id:store.exam.selected.exam_id,
+                exam_id: store.exam.selected.exam_id,
                 question_id: store.question.examSelected.id
             }
         })
@@ -189,10 +206,11 @@ function ExamRoomPage(props) {
                         ?
                         <Button onClick={ ()=>changeHandRaiseStatus(true) }>Raise your hand</Button>
 
-                        : <> <MessageSession />
+                        : <> 
                             <Button onClick={ ()=>changeHandRaiseStatus(false) }>Put your hand down</Button>
                         </>
                     }
+                    <MessageSession />
                 </>
             }
         </div>
