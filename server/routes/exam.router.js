@@ -2,6 +2,20 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+
+router.put('/changeHelp/:id', (req, res) => {
+  // req.params.id is exam id? 
+  // req.body.pass is true or false?
+  const queryString = `UPDATE exam SET help = $1 WHERE id = $2;`;
+  const values = [req.body.help, req.params.id];
+  pool.query(queryString, values).then((results) => {
+    res.sendStatus(201);
+  }).catch((err) => {
+    console.log("error put exam change help", err);
+    res.sendStatus(500);
+  })
+});
+
 router.get('/search', (req, res) => {
   //req.query.search_text
   //req.query.event_id 
