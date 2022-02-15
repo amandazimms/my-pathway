@@ -81,9 +81,9 @@ CREATE TABLE exam (
     id SERIAL PRIMARY KEY,
     event_id integer REFERENCES event(id) ON DELETE CASCADE ON UPDATE CASCADE,
     student_id integer REFERENCES "user"(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    incident integer,
+    incident integer DEFAULT 0,
     score integer,
-    pass boolean,
+    pass character varying,
     exam_time_start timestamp without time zone,
     status character varying DEFAULT 'AWAITING APPROVAL'::character varying,
     active_question_id integer REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -134,8 +134,9 @@ CREATE TABLE exam_detail (
     selected_answer character varying,
     correct boolean,
     create_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    incident_count integer
+    incident_count integer DEFAULT 0
 );
+
 
 INSERT INTO "exam_detail" ("exam_id", "selected_answer", "correct")
 VALUES (111, 'Answer 1', 'FALSE'), (112, 'Answer 2', 'TRUE'), (113, 'Answer 3', 'FALSE'), (114, 'Answer 4', 'TRUE');
