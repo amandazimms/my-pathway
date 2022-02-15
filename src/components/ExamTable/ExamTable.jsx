@@ -17,7 +17,7 @@ function ExamTable(props) {
   const mode = props.mode
   const rows = props.rows;
   const [showCompareModal, setShowCompareModal] = useState(false);
-
+  const helpIconPath = "/icons/Assistance.png";
   const dispatch = useDispatch();
 
 
@@ -117,7 +117,18 @@ function ExamTable(props) {
 
           {/* ==== HELP ===================== */}
               { mode === 'IN PROGRESS' 
-              ? <TableCell>{!row.help ? 'FALSE' : 'TRUE'}</TableCell>
+              ? <TableCell>
+                  {   row.help 
+                    ? <Link to="/proctor-exam-in-progress">
+                        <img 
+                          className="helpIcon" 
+                          src={helpIconPath}
+                          onClick={ ()=>setExamAndQuestion(row) }
+                        />
+                      </Link> 
+                    : <></>
+                  }
+                </TableCell>
               : <></> }
 
           {/* ==== TIMES ===================== */}

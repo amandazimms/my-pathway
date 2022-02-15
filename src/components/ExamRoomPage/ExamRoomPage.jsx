@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 function ExamRoomPage(props) {
     const store = useSelector((store) => store);
+    const exam = useSelector(store=>store.exam.selected);
     const [heading, setHeading] = useState('Functional Component');
     const [helpNeeded, setHelpNeeded] = useState(false);
     const dispatch = useDispatch();
@@ -144,6 +145,11 @@ function ExamRoomPage(props) {
             }
     }
 
+    const changeHandRaiseStatus = (value) => {
+        setHelpNeeded(value)
+        dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: value, exam_id: exam.exam_id} });
+    }
+
     return (
         <div>
             {!examBegin ?
@@ -181,10 +187,10 @@ function ExamRoomPage(props) {
                     }
                     {!helpNeeded
                         ?
-                        <Button onClick={() => { setHelpNeeded(true) }}>Raise your hand</Button>
+                        <Button onClick={ ()=>changeHandRaiseStatus(true) }>Raise your hand</Button>
 
                         : <> <MessageSession />
-                            <Button onClick={() => { setHelpNeeded(false) }}>Put your hand down</Button>
+                            <Button onClick={ ()=>changeHandRaiseStatus(false) }>Put your hand down</Button>
                         </>
                     }
                 </>

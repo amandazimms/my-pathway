@@ -26,7 +26,22 @@ function* eventSaga() {
   //dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.id} });
   yield takeLatest('ADD_INCIDENT', addIncident);
   //dispatch({ type:'ADD_INCIDENT', payload: {exam_detail: exam_detail} });
+  yield takeLatest('CHANGE_HELP_STATUS', changeHelpStatus);
+  //dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: value} });
 
+}
+
+// worker Saga: will be fired on "CHANGE_HELP_STATUS" actions
+function* changeHelpStatus(action) {
+  const ap = action.payload;
+  //ap.help is true or false
+  //ap.exam_id is the exam id
+  try {
+    yield axios.put(`/api/exam/changeHelp/${ap.exam_id}`, {help: ap.help});
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: {help: ap.help } });
+  } catch (error) {
+    console.log('update exam change-help failed', error);
+  }
 }
 
 // worker Saga: will be fired on "ADD_INCIDENT" actions
