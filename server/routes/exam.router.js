@@ -220,7 +220,21 @@ router.put('/addIncident/:id', (req, res)=> {
   // ^^ remember that you need data in your DB for all these to work:
   //   - create an exam that starts ~2 min from now, then quickly register at least 1 student to it
   //   - once it's in progress, that student should appear in the exam list, and you can enter their exam
+  const queryString = `UPDATE exam_detail SET incident_count = incident_count + 1
+  WHERE exam_detail.id = ${req.params.id} 
+  RETURNING exam_id`;
+  pool.query(queryString).then((results) => {
+    const queryString = `UPDATE exam SET incident = incident + 1     
+    WHERE exam.id = ${results.rows[0].exam_id} 
+    RETURNING incident`;
+  pool.query(queryString).then((results) => {
+  res.send(results.rows[0]);
+  })}).catch((err) => {
+  console.log("error put exam incident", err);
+  res.sendStatus(500);
+  })
 });
+
 
 router.put('/id-image', (req, res) => {
   console.log('body', req.body);
