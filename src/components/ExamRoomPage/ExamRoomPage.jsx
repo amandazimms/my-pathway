@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ExamQuestion from '../ExamQuestion/ExamQuestion';
 import Button from '@mui/material/Button'
-import MessageSession from '../Chat/MessageSession'
+import MessageSession from '../Chat/MessageSession';
 import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import '../ExamRoomPage/ExamRoomPage.css'
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 import { useHistory } from 'react-router-dom';
 
+
+
 function ExamRoomPage(props) {
+
     const store = useSelector((store) => store);
     const exam = useSelector(store=>store.exam.selected);
     const [heading, setHeading] = useState('Functional Component');
@@ -217,11 +220,13 @@ function ExamRoomPage(props) {
                             <Button onClick={ ()=>changeHandRaiseStatus(false) }>Put your hand down</Button>
                         </>
                     }
+               
                     <MessageSession />
+                
                 </>
             }
         </div>
     );
 }
 
-export default ExamRoomPage;
+export default (ExamRoomPage);

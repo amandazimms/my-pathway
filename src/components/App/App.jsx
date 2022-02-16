@@ -17,6 +17,7 @@ import RoutesVisitor from './RoutesVisitor';
 import ProctorNavDrawer from '../Nav/ProctorNavDrawer';
 import StudentNavDrawer from '../Nav/NavDrawer';
 
+
 const theme = createTheme({
 
   palette: {
@@ -46,7 +47,7 @@ const theme = createTheme({
   },
 });
 
-function App() {
+function App(props) {
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
 
@@ -55,14 +56,14 @@ function App() {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}> 
       <Router>
         <div>
-          {/* <NavDrawer />  */}
+        
           {
              user.id  && user.role === "STUDENT" ? <StudentNavDrawer/>
             : user.id  && user.role === "PROCTOR" ? <ProctorNavDrawer/> 
-            : <Nav /> 
+            : <RoutesVisitor /> 
           }
           {/* <Nav /> */}
           {
@@ -73,7 +74,9 @@ function App() {
           <Footer />
         </div>
       </Router>
-    </ThemeProvider>
+
+    </ThemeProvider> 
+
   );
 }
 
