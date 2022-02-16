@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Nunito Sans';
+    /* font-family: 'Nunito Sans'; */
     margin: 0 0 30px;
     background-color: #1E2A49;
     overflow: hidden;

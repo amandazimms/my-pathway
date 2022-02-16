@@ -25,12 +25,12 @@
   
   .testCardName {
     font-size: 25px;
-    font-family: Helvetica-Neue-Light;
+    /* font-family: Helvetica-Neue-Light; */
     margin-bottom: 0px;
   }
   
   .testCardPrepTime {
-    font-family: HelveticaNeue;
+    /* font-family: HelveticaNeue; */
     font-size: 13px;
     margin-bottom: 0px;
     color: #898B8D;
