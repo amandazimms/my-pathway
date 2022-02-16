@@ -19,6 +19,7 @@ function ExamTable(props) {
   const [showCompareModal, setShowCompareModal] = useState(false);
   const helpIconPath = "/icons/Assistance.png";
   const dispatch = useDispatch();
+  const history = useHistory()
 
 
 
@@ -46,6 +47,15 @@ function ExamTable(props) {
   const setExamAndQuestion = (exam) => {
     setSelectedExam(exam);
     dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.exam_id} });
+    dispatch({
+      type: 'GET_MESSAGE_SESSION',
+      payload: {
+        exam_id: exam.exam_id,
+        done: () => {
+          history.push('/proctor-exam-in-progress')
+        }
+      }
+    })
   }
 
   const setExamAndShowModal = (row) => {
@@ -167,9 +177,8 @@ function ExamTable(props) {
                   : <></>
                 }
                 { mode === 'IN PROGRESS' 
-                  ? <Link to="/proctor-exam-in-progress">
-                      <Button variant="contained" onClick={ ()=>setExamAndQuestion(row) }>ENTER EXAM</Button> 
-                    </Link> 
+                  ?
+                    <Button variant="contained" onClick={ ()=>setExamAndQuestion(row) }>ENTER EXAM</Button> 
                   : <></>
                 }
                 { mode === 'COMPLETE' 

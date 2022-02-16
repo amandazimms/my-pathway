@@ -4,6 +4,7 @@ import {Button, Card, CardContent, Typography } from '@mui/material';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import IncidentCounter from '../IncidentCounter/IncidentCounter';
 import { useHistory } from 'react-router-dom';
+import MessageSession from '../Chat/MessageSession'
 
 
 function ProctorExamPageInProgress() {
@@ -70,7 +71,7 @@ function ProctorExamPageInProgress() {
         </Card>
 
         <Card className="chatPlaceholderDiv">
-          <p>Chat placeholder</p>
+          <MessageSession />
         </Card>
 
       </div>
