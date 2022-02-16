@@ -21,6 +21,10 @@
     url("../../fonts/HelveNeuThiExt") format("truetype");
 }
 
+* {
+  font-family: 'Nunito Sans', HelveticaNeue;
+}
+
 html,
 body,
 #react-root {
@@ -28,7 +32,7 @@ body,
 }
 
 body {
-  font-family: HelveticaNeue; 
+  /* font-family: HelveticaNeue;  */
   margin: 0px;
 }
 
@@ -65,12 +69,12 @@ textarea {
 }
 
 h1 {
-  font-family: Helvetica-Neue-Light;
+  /* font-family: Helvetica-Neue-Light; */
   font-size: 48px;
 }
 
 h2 {
-  font-family: Helvetica-Medium;
+  /* font-family: Helvetica-Medium; */
   font-size: 28px;
 }
 
@@ -81,7 +85,7 @@ h2 {
   border-radius: 5px !important;
   width: 100% !important;
   height: 48px;
-  font-family: Helvetica-Bold!important;
+  /* font-family: Helvetica-Bold!important; */
 }
 
 /* .btn-primary:focus,
@@ -109,7 +113,7 @@ h2 {
   border-color: #7FC1C5;
   color: #fafcfb;
   border-radius: 5px !important;
-  font-family: Helvetica-Bold !important;
+  /* font-family: Helvetica-Bold !important; */
 }
 
 .buttonGroup {
@@ -117,18 +121,18 @@ h2 {
 }
 
 a {
-  font-family: HelveticaNeue;
+  /* font-family: HelveticaNeue; */
   font-weight: bold;
   color: black;
   font-size: 18px;
 }
 
 .ModalTitle {
-  font-family: Helvetica-Bold;
+  /* font-family: Helvetica-Bold; */
 }
 
 .modalBody {
-  font-family: Helvetica-Medium;
+  /* font-family: Helvetica-Medium; */
   font-size: 15px;
 }
 
@@ -216,7 +220,7 @@ label:focus,
   transition: .2s;
   border: .5px solid black; 
   color: #1E2A49; 
-  font-family: Neue-Helvetica;
+  /* font-family: Neue-Helvetica; */
   text-transform:capitalize;
   border-radius: 5px;
 }
