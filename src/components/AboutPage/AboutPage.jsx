@@ -13,7 +13,19 @@ function AboutPage(props) {
    <div> 
      <ImageDisplay
        url={"https://kyros-exam-objects.s3.us-east-2.amazonaws.com/wlUjXXAP6ZLzStdDh88MLI4FvZ4OKeCQ"}
-       class={"largeImageDisplay"}
+       classToPass={"largeImageDisplay"}
+     />
+     <ImageDisplay
+       url={"https://kyros-exam-objects.s3.us-east-2.amazonaws.com/wlUjXXAP6ZLzStdDh88MLI4FvZ4OKeCQ"}
+       classToPass={"mediumImageDisplay"}
+     />
+     <ImageDisplay
+       url={"https://kyros-exam-objects.s3.us-east-2.amazonaws.com/wlUjXXAP6ZLzStdDh88MLI4FvZ4OKeCQ"}
+       classToPass={"smallImageDisplay"}
+     />
+     <ImageDisplay
+       url={"https://kyros-exam-objects.s3.us-east-2.amazonaws.com/wlUjXXAP6ZLzStdDh88MLI4FvZ4OKeCQ"}
+       classToPass={"tinyImageDisplay"}
      />
      <h2 className="heading">Technologies Used</h2>
      <ul>

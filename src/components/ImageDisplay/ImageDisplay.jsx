@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 
 function ImageDisplay(props) {
   const url = props.url;
-  const class = props.class;
+  const classToPass = props.classToPass;
   const [photo, setPhoto] = useState('/images/profile_default.png');
 
   //How to use this component
@@ -14,6 +14,15 @@ function ImageDisplay(props) {
   //   url={/bla/bloopity/bling}
   //   class={"mySpecialCssClass"}
   // />
+
+  //I also created some broad clasees in app.css, 
+  //you can pass these and or ANY other for the class:
+  //   largeImageDisplay (500x500), mediumImageDisplay (300x300), 
+  //   smallImageDisplay (150x150), tinyImageDisplay (50x50)
+
+  useEffect( () => {
+    getPhotoToCompare()
+  }, []);
 
   const getPhotoToCompare = () =>{
       fetch(url)
@@ -57,9 +66,7 @@ function ImageDisplay(props) {
   };
 
   return (
-  <>
-    <img src={photo} className={class}/>
-  </>
+    <img src={photo} className={classToPass}/>
   );
 }
 
