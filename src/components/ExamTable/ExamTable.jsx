@@ -27,7 +27,7 @@ function ExamTable(props) {
       mode === "COMPLETE"  
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
     : mode === "IN PROGRESS" 
-    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'GO IN']
     : mode === "UPCOMING"
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ACTION']
     :   [];
@@ -178,7 +178,9 @@ function ExamTable(props) {
                 }
                 { mode === 'IN PROGRESS' 
                   ?
-                    <Button variant="contained" onClick={ ()=>setExamAndQuestion(row) }>ENTER EXAM</Button> 
+                    row.present === true
+                    ? <Button variant="contained" onClick={ ()=>setExamAndQuestion(row) }>ENTER EXAM</Button> 
+                    : <p>NOT PRESENT</p>
                   : <></>
                 }
                 { mode === 'COMPLETE' 

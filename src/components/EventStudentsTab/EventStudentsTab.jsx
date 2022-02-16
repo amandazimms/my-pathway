@@ -15,10 +15,15 @@ function EventStudentsTab(props) {
 
   useEffect(() => {
     if (!isNew){
-      dispatch({ type: "FETCH_EVENT_EXAMS", payload:{event_id:event.id} });
+      fetchEventExams();
+      const getMessageTimer = setInterval(() => {fetchEventExams()}, 3000);
+      return () => clearInterval(getMessageTimer)
     } 
   }, []);
 
+  const fetchEventExams = () => {
+    dispatch({ type: "FETCH_EVENT_EXAMS", payload:{event_id:event.id} });
+  }
   const unregisterStudent = (student) => {
     dispatch({ type:'UNREGISTER_STUDENT_TO_EVENT', 
       payload: {exam_id: student.exam_id, event_id: event.id} });
@@ -27,6 +32,8 @@ function EventStudentsTab(props) {
   const setSelectedExam = (exam) => {
     dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: exam.exam_id} }); 
   }
+
+  //fetech every few seconds
 
 
   return (

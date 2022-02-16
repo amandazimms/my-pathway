@@ -48,12 +48,12 @@ function* changeHelpStatus(action) {
 // worker Saga: will be fired on "ADD_INCIDENT" actions
 function* addIncident(action) {
   const ap = action.payload;
-  //ap.exam_detail
-  console.log('Add incident : saga action.payload:', ap);
+  //ap.exam_detail_id
+  //ap.exam_id
   try {
-    const response = yield axios.put(`/api/exam/addIncident/${ap.exam_detail}`);
-    console.log('add incident saga received this back from db: ', response.data);
-    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: { incident: response.data } });
+    const response = yield axios.put(`/api/exam/addIncident/${ap.exam_detail_id}`, {exam_id: ap.exam_id} );
+
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: { incident: response.data.incident } });
   } catch (error) {
     console.log('update increment incident failed', error);
   }
