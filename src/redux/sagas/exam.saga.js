@@ -52,7 +52,6 @@ function* addIncident(action) {
   //ap.exam_id
   try {
     const response = yield axios.put(`/api/exam/addIncident/${ap.exam_detail_id}`, {exam_id: ap.exam_id} );
-                    yield axios.put(`/api/exam/passFail/${ap.exam_id}`, { pass: "PASS" });
 
     yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: { incident: response.data.incident } });
   } catch (error) {
