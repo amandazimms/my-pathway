@@ -157,7 +157,6 @@ const proctorList = (anchor) => (
     {user.role === "PROCTOR" && (
             <Button 
                 onClick={toggleDrawer('left', true)}
-                onMouseEnter={toggleDrawer('left', true)}
             >
                 <img src={LongLogo} alt="logo" className="logo" />
             </Button>
@@ -167,7 +166,6 @@ const proctorList = (anchor) => (
                 anchor={'left'} 
                 open={state['left']} 
                 onClose={toggleDrawer('left', false)}
-                onMouseLeave={toggleDrawer('left', false)}
             >
               {proctorList('left')}
           </Drawer>
