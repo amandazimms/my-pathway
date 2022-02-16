@@ -18,6 +18,7 @@ function IncidentCounter(props) {
 
  return (
     <>
+      <p>exam detail: {JSON.stringify(exam_detail)}</p>
       <p><b>Incidents:</b>{exam.incident}</p>
       <AreYouSureButton
         beginningText={"Mark Incident"}
