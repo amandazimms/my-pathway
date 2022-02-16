@@ -8,6 +8,7 @@ import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
 import TextField from "@material-ui/core/TextField";
 import Send from "@material-ui/icons/Send";
 import Paper from "@material-ui/core/Paper"; 
+import '../Chat/Chat.css'; 
 
 const useStyles = makeStyles({
 
@@ -19,41 +20,41 @@ const useStyles = makeStyles({
     },
   },
 
-  grayPaper: {
-    backgroundColor: '#F5F5F5',
-  }, 
+//   grayPaper: {
+//     backgroundColor: '#F5F5F5',
+//   }, 
 
-  chatTextBoxContainer: {
-    position: "flex",
-    bottom: "15px",
-    left: "315px",
-    boxSizing: "border-box",
-    overflow: "auto",
-    width: "calc(100% - 300px - 50px)",
-    height: "50px",
-    backgroundColor: "#d3d4db",
-    borderRadius: "10px",
-    padding: "10px",
-  },
+//   chatTextBoxContainer: {
+//     position: "flex",
+//     bottom: "15px",
+//     left: "315px",
+//     boxSizing: "border-box",
+//     overflow: "auto",
+//     width: "calc(100% - 300px - 50px)",
+//     height: "50px",
+//     backgroundColor: "#d3d4db",
+//     borderRadius: "10px",
+//     padding: "10px",
+//   },
 
-  chatTextBox: {
-    width: "calc(100% - 40px)",
-    height: "20px",
-    marginRight: "10px",
-    fontFamily: "Helvetica-Neue-Light",
-  },
-  backBtn: {
-    position: "fixed",
-    height: "70px",
-    width: "100px",
-    right: "0px",
-  },
+//   chatTextBox: {
+//     width: "calc(100% - 40px)",
+//     height: "20px",
+//     marginRight: "10px",
+//     fontFamily: "Helvetica-Neue-Light",
+//   },
+//   backBtn: {
+//     position: "fixed",
+//     height: "70px",
+//     width: "100px",
+//     right: "0px",
+//   },
 
-  backIcon: {
-    color: "white",
-    height: "35px",
-    width: "35px",
-  },
+//   backIcon: {
+//     color: "white",
+//     height: "35px",
+//     width: "35px",
+//   },
 });
 
 
@@ -102,8 +103,16 @@ export default function messageSessionFunction(props) {
 
 
   return (
-    <div>
-    <Paper className={classes.grayPaper}> 
+    <div> 
+  
+  <div className="chatWindow">
+      <ul className="chat" id="chatList"> 
+      {store.message.activeMessageDetail.map(message => 
+        (<MessageDetail message={message} 
+        key={message.message_id}/> ))}</ul> 
+</div> 
+    
+  {/* <Paper className={classes.grayPaper}>  */}
   
       {/* <button onClick={() => {history.goBack()}}>RETURN TO CHAT HOME</button>
       <h2>{heading}</h2> */}
@@ -112,24 +121,24 @@ export default function messageSessionFunction(props) {
       <p>Message Session ID: {store.message.activeMessageSession.message_session_id}</p>
       <p>Student Name: {store.message.activeMessageSession.student_first_name} {store.message.activeMessageSession.student_last_name}</p>
       <p>Proctor Name: {store.message.activeMessageSession.proctor_first_name} {store.message.activeMessageSession.proctor_last_name}</p> */}
-      
-      <main id="chatview-container" className={classes.content}> 
+ 
+     
       {/* <h2>Message Session Details</h2> */}
-      {store.message.activeMessageDetail.map(message => (<MessageDetail message={message} key={message.message_id} />))}
+      {/* {store.message.activeMessageDetail.map(message => (<MessageDetail message={message} key={message.message_id} />))} */}
       
       {/* box used to type a new message */}
-      <div className={classes.chatTextBoxContainer}> 
-      <TextField 
-      type="text" 
-      id='chattextbox' 
+      <div className="chatInputWrapper"> 
+      <form> 
+      <input 
+      type="text"
       placeholder='type message a...' 
       value={messageText} 
-      className={classes.chatTextBox}
+      className="textarea input" 
       onChange={handleMessageText}/>
       <Send onClick={handleNewMessage} className={classes.sendBtn}>Send Message</Send>
-      </div>
-      </main>
-     </Paper> 
+      </form>
+      </div> 
+    
     </div>
   );
 }
