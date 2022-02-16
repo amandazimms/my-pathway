@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* messageSaga() {
+function* allUsers() {
   yield takeLatest('FETCH_ALL_USERS', fetchAllUsers);
   yield takeLatest('UPDATE_USER_ROLE', updateUserRole);
   yield takeLatest('FETCH_ALL_PROCTORS', fetchAllProctors);
@@ -51,4 +51,4 @@ function* updateUserRole(info) {
 
 
 
-export default messageSaga;
+export default allUsers;

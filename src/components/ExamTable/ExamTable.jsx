@@ -17,8 +17,9 @@ function ExamTable(props) {
   const mode = props.mode
   const rows = props.rows;
   const [showCompareModal, setShowCompareModal] = useState(false);
-
+  const helpIconPath = "/icons/Assistance.png";
   const dispatch = useDispatch();
+  const history = useHistory()
 
 
 
@@ -26,7 +27,7 @@ function ExamTable(props) {
       mode === "COMPLETE"  
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
     : mode === "IN PROGRESS" 
-    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'GO IN']
     : mode === "UPCOMING"
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ACTION']
     :   [];
@@ -46,6 +47,15 @@ function ExamTable(props) {
   const setExamAndQuestion = (exam) => {
     setSelectedExam(exam);
     dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.exam_id} });
+    dispatch({
+      type: 'GET_MESSAGE_SESSION',
+      payload: {
+        exam_id: exam.exam_id,
+        done: () => {
+          history.push('/proctor-exam-in-progress')
+        }
+      }
+    })
   }
 
   const setExamAndShowModal = (row) => {
@@ -117,7 +127,18 @@ function ExamTable(props) {
 
           {/* ==== HELP ===================== */}
               { mode === 'IN PROGRESS' 
-              ? <TableCell>{!row.help ? 'FALSE' : 'TRUE'}</TableCell>
+              ? <TableCell>
+                  {   row.help 
+                    ? <Link to="/proctor-exam-in-progress">
+                        <img 
+                          className="helpIcon" 
+                          src={helpIconPath}
+                          onClick={ ()=>setExamAndQuestion(row) }
+                        />
+                      </Link> 
+                    : <></>
+                  }
+                </TableCell>
               : <></> }
 
           {/* ==== TIMES ===================== */}
@@ -156,9 +177,10 @@ function ExamTable(props) {
                   : <></>
                 }
                 { mode === 'IN PROGRESS' 
-                  ? <Link to="/proctor-exam-in-progress">
-                      <Button variant="contained" onClick={ ()=>setExamAndQuestion(row) }>ENTER EXAM</Button> 
-                    </Link> 
+                  ?
+                    row.present === true
+                    ? <Button variant="contained" onClick={ ()=>setExamAndQuestion(row) }>ENTER EXAM</Button> 
+                    : <p>NOT PRESENT</p>
                   : <></>
                 }
                 { mode === 'COMPLETE' 

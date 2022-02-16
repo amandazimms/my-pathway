@@ -3,7 +3,7 @@
     padding-top: 70px;
     position: absolute;
     top: 0px;
-    font-family: HelveticaNeue;
+    /* font-family: HelveticaNeue; */
   }
   
   
@@ -11,7 +11,7 @@
   .addNewTest {
     background-color: #cbd0d6;
     padding: 20px 0px;
-    font-family: HelveticaNeue;
+    /* font-family: HelveticaNeue; */
   }
   
   .addButton {
@@ -23,7 +23,7 @@
     color: white;
     border-radius: 23px;
     height: 40px;
-    font-family: Helvetica-Neue-Light;
+    /* font-family: Helvetica-Neue-Light; */
   }
   
   .addButton:focus {
@@ -46,7 +46,7 @@
   }
   
   .heading {
-      font-family: Helvetica-Neue-Light; 
+      /* font-family: Helvetica-Neue-Light;  */
       padding: 10px; 
       margin-bottom: 10px; 
       

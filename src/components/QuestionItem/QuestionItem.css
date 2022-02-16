@@ -3,7 +3,7 @@
     transition: .2s;
     border: .5px solid black; 
     color: #1E2A49; 
-    font-family: Neue-Helvetica;
+    /* font-family: Neue-Helvetica; */
     text-transform:capitalize;
     margin: 10px 0px;
 }
@@ -19,7 +19,7 @@
 }
 
 .addQuestion {
-    font-family: Helvetica-Neue-Light; 
+    /* font-family: Helvetica-Neue-Light;  */
     color: #28324d
 }
 

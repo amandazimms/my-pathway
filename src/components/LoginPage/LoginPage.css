@@ -35,7 +35,7 @@ align-items: center;
     background-color: white !important;
     border: 1px solid #7FC1C5 !important;
     font-size: 18px;
-    font-family: Helvetica-Light; 
+    /* font-family: Helvetica-Light;  */
     padding-left: 12px;
     margin: 0px, 10px;
   }
@@ -49,14 +49,14 @@ align-items: center;
   
   .loginButton {
     text-transform: uppercase;
-    font-family: HelveticaNeue;
+    /* font-family: HelveticaNeue; */
     font-weight: bold;
     margin-top: 15px;
   }
   
   .loginButton {
     text-transform: uppercase;
-    font-family: Helvetica-Light;
+    /* font-family: Helvetica-Light; */
     font-weight: bold;
     margin-top: 15px;
   }

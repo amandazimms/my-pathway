@@ -2,6 +2,20 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+
+router.put('/changeHelp/:id', (req, res) => {
+  // req.params.id is exam id? 
+  // req.body.pass is true or false?
+  const queryString = `UPDATE exam SET help = $1 WHERE id = $2;`;
+  const values = [req.body.help, req.params.id];
+  pool.query(queryString, values).then((results) => {
+    res.sendStatus(201);
+  }).catch((err) => {
+    console.log("error put exam change help", err);
+    res.sendStatus(500);
+  })
+});
+
 router.get('/search', (req, res) => {
   //req.query.search_text
   //req.query.event_id 
@@ -53,10 +67,12 @@ router.get('/all', (req, res) => {
 
 router.get('/question', (req, res) => {
   const id = req.query.exam_id
+  //add one more join to also get exam detail id 
   const queryString = `SELECT question.question AS question, point_value, answer,
-      option_one, option_two, option_three, option_four, option_five, option_six
+      option_one, option_two, option_three, option_four, option_five, option_six, exam_detail.id AS "exam_detail_id" 
   FROM exam    
   JOIN "question" ON question.id=exam.active_question_id
+  JOIN exam_detail ON exam_detail.exam_id=exam.id 
   WHERE exam.id = $1`;
   pool.query(queryString, [id]).then((results) => {
     res.send(results.rows[0]);
@@ -166,7 +182,7 @@ router.put('/photo', (req, res) => {
   pool.query(queryString, values).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
@@ -184,29 +200,24 @@ router.put('/photo', (req, res) => {
 
 
 router.put('/addIncident/:id', (req, res)=> {
-  //@Nickolas please write this route:
+  const queryString = `UPDATE exam_detail SET incident_count = incident_count + 1
+  WHERE exam_detail.id = ${req.params.id};`;
 
-  //req.params.id is the exam_detail.id
+  pool.query(queryString).then((results) => {
 
-  //need to increment the incident_count column of this table by one
-  //(WHERE exam_detail.id = req.params.id)
-  //   I think you can do column_name = column_name+1, try searching that. 
-  //  use RETURNING to return the exam_id from this row of the exam_detail table as well.
+    const queryString = `UPDATE exam SET incident = incident + 1     
+    WHERE exam.id = ${req.body.exam_id} 
+    RETURNING incident`;
 
-  //THEN make another call to the db - this can be a nested query or there might be other ways if you want
-  //in this call, we need to increment the "incident" column in the exam table that matches this exam id.
-  //This is why I had you return the exam_id above - your 2nd query here would look something like:
-  // (do the increment on incident) WHERE exam_id = (the exam id that you got).
-  //Finally, in that 2nd query, please use RETURNING to send me back the new incident count (from exam table)
-
-  //The other parts are built out, so you *should* theoretically be able to test this by going to:
-  //All events > Enter an In Progress event > Enter an exam > Mark Incident (are you sure = click again)
-  //    this should increment the incident/incident count for both tables
-  //and the total number (from exam table) should display above this button
-  // ^^ remember that you need data in your DB for all these to work:
-  //   - create an exam that starts ~2 min from now, then quickly register at least 1 student to it
-  //   - once it's in progress, that student should appear in the exam list, and you can enter their exam
+  pool.query(queryString).then((results) => {
+    res.send(results.rows[0]);
+    })
+  }).catch((err) => {
+    console.log("error put exam incident", err);
+    res.sendStatus(500);
+    })
 });
+
 
 router.put('/id-image', (req, res) => {
   console.log('body', req.body);
@@ -216,7 +227,7 @@ router.put('/id-image', (req, res) => {
   pool.query(queryString, values).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
@@ -240,7 +251,7 @@ router.put('/confirm-id', (req, res) => {
   pool.query(queryString, values).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
@@ -271,12 +282,12 @@ router.put('/passFail/:id', (req, res) => {
 });
 
 router.put('/begin-exam/:id', (req, res) => {
-  const queryString = `UPDATE exam SET exam_time_start = CURRENT_TIMESTAMP
+  const queryString = `UPDATE exam SET exam_time_start = CURRENT_TIMESTAMP, present = 'TRUE'
     WHERE exam.id = ${req.params.id}`;
   pool.query(queryString).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
@@ -292,7 +303,7 @@ router.put('/begin-exam/:id', (req, res) => {
 });
 
 router.put('/end-exam/:id', (req, res) => {
-  const queryString = `UPDATE exam SET exam_time_end = CURRENT_TIMESTAMP
+  const queryString = `UPDATE exam SET exam_time_end = CURRENT_TIMESTAMP, present = 'FALSE'
   WHERE exam.id = ${req.params.id}`;
   pool.query(queryString).then((results) => {
     const queryString = `  SELECT exam_detail.id AS exam_detail_id, question.point_value, exam_detail.question_id, exam_detail.exam_id, exam_detail.correct
@@ -320,7 +331,31 @@ router.put('/active-question', (req, res) => {
   pool.query(queryString, values).then((results) => {
     const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
     incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
-    exam.status AS exam_status, exam.id AS exam_id, active_question_id
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
+    FROM exam 
+    JOIN "event" ON "event".id=exam.event_id
+    JOIN test ON test.id="event".test_id
+    JOIN "user" ON exam.student_id="user".id
+    WHERE exam.id = ${req.body.exam_id}`;
+
+    pool.query(queryString).then((results) => {
+      res.send(results.rows[0])
+    }).catch((err) => {
+      console.log("error put exam active question", err);
+      res.sendStatus(500);
+    })
+  })
+});
+
+router.put('/accept-terms', (req, res) => {
+  const queryString = `UPDATE exam SET privacy_terms = $1, last_modified_date=CURRENT_TIMESTAMP, last_modified_by=$2
+    WHERE exam.id = ${req.body.exam_id}`;
+  const values = [true, req.body.user_id]
+
+  pool.query(queryString, values).then((results) => {
+    const queryString = `SELECT points_possible, username, first_name, last_name, profile_picture, 
+    incident, pass, score, test.title AS test_title, "event".event_date_start AS event_date, 
+    exam.status AS exam_status, exam.id AS exam_id, active_question_id, exam.privacy_terms, exam.present
     FROM exam 
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id

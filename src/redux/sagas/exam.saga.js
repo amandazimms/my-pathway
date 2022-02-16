@@ -13,6 +13,7 @@ function* eventSaga() {
   yield takeLatest('UPDATE_ACTIVE_EXAM_QUESTION', updateActiveExamQuestion);//update exam with students active question id.
   yield takeLatest('CAPTURE_ANSWER', captureAnswer);//updates exam_detail record with answer and graded outcome.
   yield takeLatest('SCORE_EXAM', scoreExam);
+  yield takeLatest('ACCEPT_TERMS', acceptTerms);
   //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
   yield takeLatest('APPROVE_EXAM', approveExam);
   //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
@@ -26,18 +27,33 @@ function* eventSaga() {
   //dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.id} });
   yield takeLatest('ADD_INCIDENT', addIncident);
   //dispatch({ type:'ADD_INCIDENT', payload: {exam_detail: exam_detail} });
+  yield takeLatest('CHANGE_HELP_STATUS', changeHelpStatus);
+  //dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: value} });
 
+}
+
+// worker Saga: will be fired on "CHANGE_HELP_STATUS" actions
+function* changeHelpStatus(action) {
+  const ap = action.payload;
+  //ap.help is true or false
+  //ap.exam_id is the exam id
+  try {
+    yield axios.put(`/api/exam/changeHelp/${ap.exam_id}`, {help: ap.help});
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: {help: ap.help } });
+  } catch (error) {
+    console.log('update exam change-help failed', error);
+  }
 }
 
 // worker Saga: will be fired on "ADD_INCIDENT" actions
 function* addIncident(action) {
   const ap = action.payload;
-  //ap.exam_detail
-  console.log('Add incident : saga action.payload:', ap);
+  //ap.exam_detail_id
+  //ap.exam_id
   try {
-    const response = yield axios.put(`/api/exam/addIncident/${ap.exam_detail}`);
-    console.log('add incident saga received this back from db: ', response.data);
-    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: { incident: response.data } });
+    const response = yield axios.put(`/api/exam/addIncident/${ap.exam_detail_id}`, {exam_id: ap.exam_id} );
+
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: { incident: response.data.incident } });
   } catch (error) {
     console.log('update increment incident failed', error);
   }
@@ -70,6 +86,21 @@ function* updateActiveExamQuestion(action) {
       data: ap
     });
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+  } catch (error) {
+    console.log('setExamPhoto failed', error);
+  }
+}
+
+function* acceptTerms(action) {
+  const ap = action.payload;
+  try {
+    const response = yield axios({
+      method: 'PUT',
+      url: `/api/exam/accept-terms`,
+      data: ap
+    });
+    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+    ap.done()
   } catch (error) {
     console.log('setExamPhoto failed', error);
   }

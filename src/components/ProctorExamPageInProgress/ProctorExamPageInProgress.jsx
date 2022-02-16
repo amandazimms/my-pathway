@@ -3,11 +3,22 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Button, Card, CardContent, Typography } from '@mui/material'; 
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import IncidentCounter from '../IncidentCounter/IncidentCounter';
+import { useHistory } from 'react-router-dom';
+import MessageSession from '../Chat/MessageSession'
 
 
 function ProctorExamPageInProgress() {
   const exam = useSelector(store => store.exam.selected);
   const question = useSelector(store => store.exam.selectedQuestionProctor)
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+
+  const doneHelping = () => {
+    dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: false, exam_id: exam.exam_id} });
+    history.goBack();
+  }
+
 
  return (
    <div className="flexParentVertical">
@@ -32,7 +43,7 @@ function ProctorExamPageInProgress() {
             <CardContent> 
               <Typography sx={{fontSize: 18}} >
               <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-              {question.answer}
+              {question.option_one}
               </Typography> 
               
               <Typography sx={{fontSize: 18}}>
@@ -60,12 +71,15 @@ function ProctorExamPageInProgress() {
         </Card>
 
         <Card className="chatPlaceholderDiv">
-          <p>Chat placeholder</p>
+          <MessageSession />
         </Card>
 
       </div>
 
       <IncidentCounter exam={exam}/>
+
+      <br/>
+      <Button variant="contained" onClick={doneHelping}>DONE ASSISTING</Button>
   </div>
   );
 }
