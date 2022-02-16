@@ -229,3 +229,23 @@ label:focus,
   width: 50px;
   height: 50px;
 }
+
+.largeImageDisplay {
+  width: 500px;
+  height: 500px;
+}
+
+.mediumImageDisplay {
+  width: 300px;
+  height: 300px;
+}
+
+.smallImageDisplay {
+  width: 150px;
+  height: 150px;
+}
+
+.tinyImageDisplay {
+  width: 50px;
+  height: 50px;
+}

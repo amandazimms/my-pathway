@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
-
-
-// This is one of our simplest components
-// It doesn't have local state,
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is'
 
 function AboutPage(props) {
   const dispatch = useDispatch();
@@ -16,6 +11,10 @@ function AboutPage(props) {
 
   return (
    <div> 
+     <ImageDisplay
+       url={"https://kyros-exam-objects.s3.us-east-2.amazonaws.com/wlUjXXAP6ZLzStdDh88MLI4FvZ4OKeCQ"}
+       class={"largeImageDisplay"}
+     />
      <h2 className="heading">Technologies Used</h2>
      <ul>
        <li>PostgreSQL</li>
