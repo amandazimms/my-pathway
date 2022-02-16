@@ -6,20 +6,22 @@ import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 
 
 function IncidentCounter(props) {
-  const exam_detail = useSelector(store => store.exam.selectedDetail || 88);
-  const exam = props.exam;
+  const question = useSelector(store => store.exam.selectedQuestionProctor);
+  const exam = useSelector(store => store.exam.selected)
 
   const dispatch = useDispatch();
 
   const markIncident = () => {
     console.log("mark incident button clicked");
-    dispatch({ type:'ADD_INCIDENT', payload: {exam_detail: exam_detail} });
+    dispatch({ type:'ADD_INCIDENT', payload: {exam_detail_id: question.exam_detail_id, exam_id: exam.exam_id} });
   }
 
  return (
-    <>
-      <p>exam detail: {JSON.stringify(exam_detail)}</p>
-      <p><b>Incidents:</b>{exam.incident}</p>
+    <div className="flexParent">
+    {/* <p>Exam: {JSON.stringify(exam)}</p> */}
+    {/* <p>Question: {JSON.stringify(question)}</p> */}
+      <p style={{paddingRight: "20px"}}><b>Incidents: </b>{exam.incident}</p>
+
       <AreYouSureButton
         beginningText={"Mark Incident"}
         areYouSureText={"Are you sure?"}
@@ -27,7 +29,7 @@ function IncidentCounter(props) {
         beginningVariant={"outlined"}
         areYouSureVariant={"contained"}
       />
-    </>
+    </div>
   );
 }
 

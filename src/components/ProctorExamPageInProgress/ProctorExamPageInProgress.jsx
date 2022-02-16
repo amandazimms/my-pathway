@@ -43,7 +43,7 @@ function ProctorExamPageInProgress() {
             <CardContent> 
               <Typography sx={{fontSize: 18}} >
               <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-              {question.answer}
+              {question.option_one}
               </Typography> 
               
               <Typography sx={{fontSize: 18}}>
