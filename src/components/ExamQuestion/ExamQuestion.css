@@ -6,14 +6,13 @@
 
 .radio-buttons-group{
     max-width: 500px;
+    min-width: 350px;
+    min-height: 300px;
     border: 1px;
     border-color:black;
     border-style: double;
     border-radius: 5px;
     padding-top: 0px;
-    margin-left: 10px;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    margin-top: 15px;
+
 
 }

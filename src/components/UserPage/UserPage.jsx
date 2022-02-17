@@ -73,7 +73,7 @@ function UserPage() {
         <p>Username: {user.username}</p>
         {/* <img src={store.image.profilePicture} alt="" /> */}
         <ImageDisplay
-          url={user.profile_picture}
+          url={store.user.profile_picture}
           classToPass={"mediumImageDisplay roundImage blueBorderThicc"}
         />
         <br />

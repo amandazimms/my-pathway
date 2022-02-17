@@ -14,7 +14,7 @@ import { useHistory } from 'react-router-dom';
 function ExamRoomPage(props) {
 
     const store = useSelector((store) => store);
-    const exam = useSelector(store=>store.exam.selected);
+    const exam = useSelector(store => store.exam.selected);
     const [heading, setHeading] = useState('Functional Component');
     const dispatch = useDispatch();
     const examQuestions = useSelector(store => store);
@@ -29,18 +29,18 @@ function ExamRoomPage(props) {
     const fetchRepeating = () => {
         //runs every {3s} while this page is open
         fetchMyExam();
-        const getMessageTimer = setInterval(() => {fetchMyExam()}, 3000);
+        const getMessageTimer = setInterval(() => { fetchMyExam() }, 3000);
         return () => clearInterval(getMessageTimer)
     }
 
     useEffect(() => {
         fetchRepeating();
-      }, []);
+    }, []);
 
     const fetchMyExam = () => {
-        dispatch({ type: "FETCH_SELECTED_EXAM", payload: {exam_id:exam.exam_id} });
+        dispatch({ type: "FETCH_SELECTED_EXAM", payload: { exam_id: exam.exam_id } });
     }
-      
+
     const beginExam = () => {
         if (store.message.activeMessageSession === "") {
             dispatch({
@@ -89,12 +89,12 @@ function ExamRoomPage(props) {
     }
 
     const checkAnswer = (answer) => {
-        if(answer === store.question.examSelected.answer){
+        if (answer === store.question.examSelected.answer) {
             setAnswerCorrect(true)
-       }
-       else{
-           setAnswerCorrect(false) 
-       }
+        }
+        else {
+            setAnswerCorrect(false)
+        }
     }
 
     const nextQuestion = () => {
@@ -103,7 +103,7 @@ function ExamRoomPage(props) {
         } else {
             setSelectedQuestionIndex(selectedQuestionIndex + 1)
             setSelectedAnswer('')
-            updateQuestionIndex() 
+            updateQuestionIndex()
             createExamDetailRecord()
             updateActiveQuestion()
             captureAnswer()
@@ -139,13 +139,13 @@ function ExamRoomPage(props) {
             payload: store.question.examAll[selectedQuestionIndex + 1]
         })
     }
-    
+
     const createExamDetailRecord = () => {
         console.log('createExamDetailRecord');
         dispatch({
             type: 'CREATE_EXAM_DETAIL_RECORD',
             payload: {
-                exam_id:store.exam.selected.exam_id,
+                exam_id: store.exam.selected.exam_id,
                 question_id: store.question.examAll[selectedQuestionIndex + 1].id
             }
         })
@@ -154,41 +154,41 @@ function ExamRoomPage(props) {
     const history = useHistory()
 
     const completeExam = () => {
-        if(confirm('Are you sure you want to complete the exam?')){
-        captureAnswer()
-        dispatch({
-            type: 'END_EXAM',
-            payload:{
-                exam_id:store.exam.selected.exam_id,
-                done: () => {
-                    history.push('/home')
-                }
-            }
-        })
-        }
-    }
-
-    const abortExam = () => {
-        if(confirm('Are you sure you want to abort this exam? It cannot be undone, and you cannot return to the exam later. If you are unsure, please contact your proctor before proceeding.')){
+        if (confirm('Are you sure you want to complete the exam?')) {
+            captureAnswer()
             dispatch({
                 type: 'END_EXAM',
-                payload:{
-                    exam_id:store.exam.selected.exam_id,
+                payload: {
+                    exam_id: store.exam.selected.exam_id,
                     done: () => {
                         history.push('/home')
                     }
                 }
             })
-            }
+        }
+    }
+
+    const abortExam = () => {
+        if (confirm('Are you sure you want to abort this exam? It cannot be undone, and you cannot return to the exam later. If you are unsure, please contact your proctor before proceeding.')) {
+            dispatch({
+                type: 'END_EXAM',
+                payload: {
+                    exam_id: store.exam.selected.exam_id,
+                    done: () => {
+                        history.push('/home')
+                    }
+                }
+            })
+        }
     }
 
     const changeHandRaiseStatus = (value) => {
-        dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: value, exam_id: exam.exam_id} });
+        dispatch({ type: 'CHANGE_HELP_STATUS', payload: { help: value, exam_id: exam.exam_id } });
     }
 
     return (
         <div>
-            <p>exam:{JSON.stringify(exam)}</p>
+            {/* <p>exam:{JSON.stringify(exam)}</p> */}
             {!examBegin ?
                 <Grid container justifyContent="center" className="formPanel" alignItems="center" >
                     <div>
@@ -197,44 +197,46 @@ function ExamRoomPage(props) {
                     <Button onClick={beginExam} size="large" variant="contained" className="beginBtn">Begin Exam</Button>
                 </Grid>
 
-                : <>
-                    <Grid container justifyContent="flex-end">
-                    <Grid item sm={2}>
-                    <Button variant="contained" onClick={abortExam}>Abort Exam</Button>
-                    </Grid>
-                    </Grid> 
-                    <ExamQuestion
-                        setSelection={setSelection}
-                        selectedAnswer={selectedAnswer}
-                    />
-                    <MessageSession />
-                    {selectedQuestionIndex != store.question.examAll.length - 1 ?
-                        // <Button onClick={nextQuestion}>Next</Button> 
-                        <AreYouSureButton
-                            beginningText={"Next"}
-                            areYouSureText={"Are you sure?, Click to Proceed"}
-                            onButtonClick={nextQuestion}
-                            beginningVariant={"outlined"}
-                            areYouSureVariant={"contained"}
-                        />
-                        :
-                        // <Button onClick={completeExam}>Complete Exam</Button>
-                        <AreYouSureButton
-                            beginningText={"Complete Exam"}
-                            areYouSureText={"Are you sure?, Click to Proceed"}
-                            onButtonClick={completeExam}
-                            beginningVariant={"outlined"}
-                            areYouSureVariant={"contained"}
-                        />
+                :
+                <div className="ExamRoomPage">
+                    <Button className="abortButton" variant="contained" color="error" onClick={abortExam}>Abort Exam</Button>
+                    <div className="ExamFlex">
+                        <div className="questionSection">
+                            <ExamQuestion
+                                setSelection={setSelection}
+                                selectedAnswer={selectedAnswer}
+                            />
+                            <br />
+                            {selectedQuestionIndex != store.question.examAll.length - 1 ?
+                                <AreYouSureButton
+                                    beginningText={"Confirm Answer"}
+                                    areYouSureText={"Are you sure?, Click to Proceed"}
+                                    onButtonClick={nextQuestion}
+                                    beginningVariant={"outlined"}
+                                    areYouSureVariant={"contained"}
+                                />
+                                :
+                                <AreYouSureButton
+                                    beginningText={"Complete Exam"}
+                                    areYouSureText={"Are you sure?, Click to Proceed"}
+                                    onButtonClick={completeExam}
+                                    beginningVariant={"outlined"}
+                                    areYouSureVariant={"contained"}
+                                />
+                            }
+                        </ div>
+
+                        <div className="messageSession">
+                            <MessageSession />
+                        </div>
+                    </div>
+                    <br />
+                    {exam.help
+                        ? <Button variant="outlined" color="error" onClick={() => changeHandRaiseStatus(false)}>Hand is rasised, click to cancel</Button>
+                        : <Button variant="outlined" color="success" onClick={() => changeHandRaiseStatus(true)}>Raise your hand for help</Button>
                     }
-                    {  exam.help
-                        ? <Button onClick={ ()=>changeHandRaiseStatus(false) }>Lower your hand</Button>
-                        : <Button onClick={ ()=>changeHandRaiseStatus(true) }>Raise your hand</Button>
-                    }
-               
-                    <MessageSession />
-                
-                </>
+
+                </div>
             }
         </div>
     );
