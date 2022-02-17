@@ -188,7 +188,7 @@ function ExamRoomPage(props) {
 
     return (
         <div>
-            <p>exam:{JSON.stringify(exam)}</p>
+            {/* <p>exam:{JSON.stringify(exam)}</p> */}
             {!examBegin ?
                 <Grid container justifyContent="center" className="formPanel" alignItems="center" >
                     <div>
