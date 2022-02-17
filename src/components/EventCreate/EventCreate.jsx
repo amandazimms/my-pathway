@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
+import Box from '@material-ui/core/Box'; 
 
 function EventCreate(props) {
   const store = useSelector(store => store);
@@ -67,7 +68,8 @@ function EventCreate(props) {
 
 return (
     <div>
-      <h2>Create New Event</h2>
+      <Box justify="center" component="span" sx={{display: 'block'}}>
+      <h2 className="heading">CREATE A NEW EVENT</h2>
         <TextField
           required
           id="outlined-required"
@@ -136,6 +138,7 @@ return (
         <br />
         <br />
         <Button variant="outlined" onClick={createEvent}>Create New Event</Button>
+        </Box>
     </div>
   );
 }

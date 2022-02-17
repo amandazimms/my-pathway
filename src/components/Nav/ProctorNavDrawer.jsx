@@ -9,7 +9,8 @@ import KyrosLogo3 from "../../images/KyrosLogo3.png";
 import { useSelector } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import LongLogo from "../../images/LongLogo.png"; 
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Nav from './Nav';
 import {
     Drawer, 
     ListItem,
@@ -144,7 +145,6 @@ const proctorList = (anchor) => (
 
   return (
       <div className="nav">
-     
      {/* if no user is logged in show these links */}
     {user.id === null &&
     <Link className="navLink" to="/login">

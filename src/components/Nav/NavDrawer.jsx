@@ -28,6 +28,7 @@ import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const drawerWidth = 240
 
@@ -79,12 +80,12 @@ const user = useSelector((store) => store.user);
 
 const studentMenuItems = [
     {
-        text: 'My Exams',
-        icon: <EventOutlinedIcon color="secondary" />, 
-        path: '/my-exams', 
+        text: 'My Profile',
+        icon: <AccountCircleIcon color="secondary" /> , 
+        path: '/user', 
     },
     {
-        text: 'Profile',
+        text: 'Exams',
         icon: <EventOutlinedIcon color="secondary" />, 
         path: '/user', 
     }

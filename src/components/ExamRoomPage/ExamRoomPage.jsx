@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ExamQuestion from '../ExamQuestion/ExamQuestion';
 import Button from '@mui/material/Button'
-import MessageSession from '../Chat/MessageSession'
+import MessageSession from '../Chat/MessageSession';
 import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import '../ExamRoomPage/ExamRoomPage.css'
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 import { useHistory } from 'react-router-dom';
 
+
+
 function ExamRoomPage(props) {
+
     const store = useSelector((store) => store);
     const exam = useSelector(store=>store.exam.selected);
     const [heading, setHeading] = useState('Functional Component');
@@ -19,6 +22,9 @@ function ExamRoomPage(props) {
     const [answerCorrect, setAnswerCorrect] = useState(false);
     const [examBegin, setExamBegin] = useState(false);
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
+
+    const test = useSelector(store => store.test.selected);
+    const [testName, setTestName] = useState(test.title)
 
     const fetchRepeating = () => {
         //runs every {3s} while this page is open
@@ -192,7 +198,11 @@ function ExamRoomPage(props) {
                 </Grid>
 
                 : <>
-                    <Button onClick={abortExam}>Abort Exam</Button>
+                    <Grid container justifyContent="flex-end">
+                    <Grid item sm={2}>
+                    <Button variant="contained" onClick={abortExam}>Abort Exam</Button>
+                    </Grid>
+                    </Grid> 
                     <ExamQuestion
                         setSelection={setSelection}
                         selectedAnswer={selectedAnswer}
@@ -220,11 +230,13 @@ function ExamRoomPage(props) {
                         ? <Button onClick={ ()=>changeHandRaiseStatus(false) }>Lower your hand</Button>
                         : <Button onClick={ ()=>changeHandRaiseStatus(true) }>Raise your hand</Button>
                     }
+               
                     <MessageSession />
+                
                 </>
             }
         </div>
     );
 }
 
-export default ExamRoomPage;
+export default (ExamRoomPage);

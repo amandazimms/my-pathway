@@ -13,7 +13,7 @@ function LoginPage() {
 
   return (
     <div>
-    <Grid container spacing={1} justifyContent="center" wrap="wrap" direction="row" alignitem="center">
+    <Grid container className="loginGrid" spacing={1} justifyContent="center" wrap="wrap" direction="row" alignitem="center">
       <Grid item>
         <Grid
         container
