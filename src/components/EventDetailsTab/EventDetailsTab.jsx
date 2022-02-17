@@ -44,7 +44,10 @@ function EventDetailsTab(props) {
     <>
       {   editMode // --- if we're currently editing the event ----
         ? <EditEvent onExit={ ()=>setEditMode(false) }/>
-        : // --- if we're NOT currently editing the event ----
+        : 
+          isNew 
+        ? <></>
+        : // --- if we're NOT editing the event and it's NOT new ----
           <>
             <p><b>Event Title:</b> {event.event_name}</p>
             <p><b>Start Date and Time:</b> {eventStartTime}</p>
