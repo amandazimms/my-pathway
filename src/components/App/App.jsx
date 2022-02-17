@@ -63,9 +63,8 @@ function App(props) {
           {
              user.id  && user.role === "STUDENT" ? <StudentNavDrawer/>
             : user.id  && user.role === "PROCTOR" ? <ProctorNavDrawer/> 
-            : <RoutesVisitor /> 
+            : <Nav /> 
           }
-          {/* <Nav /> */}
           {
              user.id  && user.role === "STUDENT" ? <RoutesStudent/>
             : user.id  && user.role === "PROCTOR" ? <RoutesProctor/> 
