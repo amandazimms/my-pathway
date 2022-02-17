@@ -11,22 +11,6 @@ function AboutPage(props) {
 
   return (
    <div> 
-     <ImageDisplay
-       url={"https://kyros-exam-objects.s3.us-east-2.amazonaws.com/wlUjXXAP6ZLzStdDh88MLI4FvZ4OKeCQ"}
-       classToPass={"largeImageDisplay"}
-     />
-     <ImageDisplay
-       url={"https://kyros-exam-objects.s3.us-east-2.amazonaws.com/wlUjXXAP6ZLzStdDh88MLI4FvZ4OKeCQ"}
-       classToPass={"mediumImageDisplay"}
-     />
-     <ImageDisplay
-       url={"https://kyros-exam-objects.s3.us-east-2.amazonaws.com/wlUjXXAP6ZLzStdDh88MLI4FvZ4OKeCQ"}
-       classToPass={"smallImageDisplay"}
-     />
-     <ImageDisplay
-       url={"https://kyros-exam-objects.s3.us-east-2.amazonaws.com/wlUjXXAP6ZLzStdDh88MLI4FvZ4OKeCQ"}
-       classToPass={"tinyImageDisplay"}
-     />
      <h2 className="heading">Technologies Used</h2>
      <ul>
        <li>PostgreSQL</li>
@@ -37,10 +21,10 @@ function AboutPage(props) {
       <br></br>
      <h2 className="heading">Team</h2>
      <ul>
-       <li>Amanda Zimmerman</li>
-       <li>Chris Nelson</li>
-       <li>Jackie Spiess</li>
-       <li>Nickolas Cunningham</li>
+       <li>Amanda Zimmerman: Full Stack, Saga Girl</li>
+       <li>Chris Nelson: Research and Development, The Spiker</li>
+       <li>Jackie Spiess: Front End, Master Stylist</li>
+       <li>Nickolas Cunningham: Back End, Databoy</li>
      </ul>
   </div> 
   );
