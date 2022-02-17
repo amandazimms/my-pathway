@@ -13,7 +13,6 @@ function ExamRoomPage(props) {
     const store = useSelector((store) => store);
     const exam = useSelector(store=>store.exam.selected);
     const [heading, setHeading] = useState('Functional Component');
-    const [helpNeeded, setHelpNeeded] = useState(false);
     const dispatch = useDispatch();
     const examQuestions = useSelector(store => store);
     const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -21,6 +20,21 @@ function ExamRoomPage(props) {
     const [examBegin, setExamBegin] = useState(false);
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
 
+    const fetchRepeating = () => {
+        //runs every {3s} while this page is open
+        fetchMyExam();
+        const getMessageTimer = setInterval(() => {fetchMyExam()}, 3000);
+        return () => clearInterval(getMessageTimer)
+    }
+
+    useEffect(() => {
+        fetchRepeating();
+      }, []);
+
+    const fetchMyExam = () => {
+        dispatch({ type: "FETCH_SELECTED_EXAM", payload: {exam_id:exam.exam_id} });
+    }
+      
     const beginExam = () => {
         if (store.message.activeMessageSession === "") {
             dispatch({
@@ -163,12 +177,12 @@ function ExamRoomPage(props) {
     }
 
     const changeHandRaiseStatus = (value) => {
-        setHelpNeeded(value)
         dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: value, exam_id: exam.exam_id} });
     }
 
     return (
         <div>
+            <p>exam:{JSON.stringify(exam)}</p>
             {!examBegin ?
                 <Grid container justifyContent="center" className="formPanel" alignItems="center" >
                     <div>
@@ -202,13 +216,9 @@ function ExamRoomPage(props) {
                             areYouSureVariant={"contained"}
                         />
                     }
-                    {!helpNeeded
-                        ?
-                        <Button onClick={ ()=>changeHandRaiseStatus(true) }>Raise your hand</Button>
-
-                        : <> 
-                            <Button onClick={ ()=>changeHandRaiseStatus(false) }>Put your hand down</Button>
-                        </>
+                    {  exam.help
+                        ? <Button onClick={ ()=>changeHandRaiseStatus(false) }>Lower your hand</Button>
+                        : <Button onClick={ ()=>changeHandRaiseStatus(true) }>Raise your hand</Button>
                     }
                     <MessageSession />
                 </>

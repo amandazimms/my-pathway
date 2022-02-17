@@ -137,7 +137,7 @@ function* fetchExamQuestionProctor(action){
   const ap = action.payload;
   //ap.exam_id is the exam id to fetch
   try {
-    const response = yield axios.get('/api/exam/selected', { params: {exam_id: ap.exam_id} });
+    const response = yield axios.get('/api/exam/selected', {params: {exam_id: ap.exam_id} });
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
   } catch (error) {
     console.log('get selected exam request failed', error);

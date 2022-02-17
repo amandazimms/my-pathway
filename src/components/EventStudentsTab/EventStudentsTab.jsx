@@ -13,11 +13,16 @@ function EventStudentsTab(props) {
   const exams = useSelector(store => store.event.exams);
   const dispatch = useDispatch();
 
+  const fetchRepeating = () => {
+    //runs every {3s} while this page is open
+    fetchEventExams();
+    const getMessageTimer = setInterval(() => {fetchEventExams()}, 3000);
+    return () => clearInterval(getMessageTimer)
+  }
+
   useEffect(() => {
     if (!isNew){
-      fetchEventExams();
-      const getMessageTimer = setInterval(() => {fetchEventExams()}, 3000);
-      return () => clearInterval(getMessageTimer)
+      fetchRepeating();
     } 
   }, []);
 

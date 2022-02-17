@@ -81,21 +81,35 @@ function validateFunction(props) {
         <></> :
         <>
           <h2 className="heading">Capture Photo</h2>
-          <PhotoCapture />
+          <div className="flexParent">
+            <PhotoCapture />
+          </div>
+          <div className="flexParent">
+
+          <div className="a100pxSpacer"></div>
+
           {store.image.url === "/images/profile_default.png" ?
             <></> :
             <Button variant="outlined" onClick={setExamPhoto}>Use Photo</Button>
           }
+          </div>
         </>
       }
       {photoComplete === true && idComplete === false?
         <>
           <h2>Capture ID</h2>
-          <PhotoCapture />
+          <div className="flexParent">
+            <PhotoCapture />
+          </div>
+          <div className="flexParent">
+
+          <div className="a100pxSpacer"></div>
+
           {store.image.url === "/images/profile_default.png" ?
             <></> :
             <Button variant="outlined" onClick={setIdPhoto}>Use ID Image</Button>
           }
+          </div>
         </>:
         <></>
       }
