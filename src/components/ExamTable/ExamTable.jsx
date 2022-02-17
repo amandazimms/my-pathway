@@ -12,6 +12,7 @@ import Paper from '@mui/material/Paper';
 import { Button, Modal } from '@mui/material';
 import Compare from '../Compare/Compare';
 import { v4 as uuid } from 'uuid';
+import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
 function ExamTable(props) {
   const mode = props.mode
@@ -105,7 +106,12 @@ function ExamTable(props) {
           <TableRow key={uuid.v4} sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               
           {/* ==== PIC (ALL CASES) ===================== */}
-            <TableCell component="th" scope="row">{row.profile_picture}</TableCell>
+            <TableCell component="th" scope="row">
+              <ImageDisplay
+                url={row.profile_picture}
+                classToPass={"roundImage blueBorderThin tableImageDisplay"}
+              />
+            </TableCell>
 
           {/* ==== NAMES (ALL CASES) ===================== */}
               <TableCell component="th" scope="row">{row.first_name}</TableCell>

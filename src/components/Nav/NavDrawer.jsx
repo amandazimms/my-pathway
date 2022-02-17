@@ -87,7 +87,7 @@ const studentMenuItems = [
     {
         text: 'Exams',
         icon: <EventOutlinedIcon color="secondary" />, 
-        path: '/my-exams', 
+        path: '/user', 
     }
 ]
 

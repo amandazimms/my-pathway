@@ -183,6 +183,7 @@ label:focus,
 .flexParent {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .flexParentVertical {
@@ -228,4 +229,55 @@ label:focus,
 .helpIcon {
   width: 50px;
   height: 50px;
+  padding: 0;
+}
+
+.largeImageDisplay {
+  width: 500px;
+  height: 500px;
+  padding: 0;
+}
+
+.mediumImageDisplay {
+  width: 300px;
+  height: 300px;
+  padding: 0;
+}
+
+.smallImageDisplay {
+  width: 150px;
+  height: 150px;
+  padding: 0;
+}
+
+.tinyImageDisplay {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}
+
+.tableImageDisplay {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+
+.roundImage {
+  border-radius: 50%;
+  padding: 0;
+}
+
+.blueBorder {
+  border: 5px solid #1E2A49;
+  padding: 0;
+}
+
+.blueBorderThicc {
+  border: 8px solid #1E2A49;
+  padding: 0;
+}
+
+.blueBorderThin {
+  border: 3px solid #1E2A49;
+  padding: 0;
 }
