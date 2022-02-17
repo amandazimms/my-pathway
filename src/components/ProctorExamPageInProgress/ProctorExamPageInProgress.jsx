@@ -6,7 +6,6 @@ import IncidentCounter from '../IncidentCounter/IncidentCounter';
 import { useHistory } from 'react-router-dom';
 import MessageSession from '../Chat/MessageSession'
 
-
 function ProctorExamPageInProgress() {
   const exam = useSelector(store => store.exam.selected);
   const question = useSelector(store => store.exam.selectedQuestionProctor)
@@ -70,8 +69,10 @@ function ProctorExamPageInProgress() {
 
         </Card>
 
-        <Card className="chatPlaceholderDiv">
+        <Card sx={{maxWidth: 645 }} className="questionCard" >
+          <CardContent>
           <MessageSession />
+          </CardContent>
         </Card>
 
       </div>

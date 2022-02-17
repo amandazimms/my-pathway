@@ -1,3 +1,12 @@
+.form {
+  display: flex; 
+  flex-direction: column; 
+}
+.form input[type="text"] {
+  width: 300px;
+  height: 30px;
+  margin-bottom: 10px;
+}
 .form input[type="submit"] {
     padding: 5px;
     height: 30px;
@@ -11,28 +20,12 @@
     background-color: #000;
     color: #fff;
   }
-  .error{
-    color: red;
-    font-size: 10px;
-    text-align: center;
-  }
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+ 
+
   .message {
     font-size: 15px !important;
   }
-  body {
-    background-color: #f5f5f5;
-    font: 600 18px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Lato,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    color: #4b4b4b;
-  }
+  
   .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -40,14 +33,7 @@
     grid-gap: 3px;
     margin-top: 15px;
   }
-  .group {
-    background: #4eb5e5;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 190;
-    border-radius: 5px;
-  }
+ 
   .chatWindow {
     display: grid;
     grid-column-start: 2;
@@ -69,37 +55,17 @@
   .chat {
     list-style: none;
     background: none;
-    margin: 0;
-    padding: 0 0 50px 0;
+    margin: 0; 
     margin-top: 60px;
     margin-bottom: 10px;
     max-height: 400px;
     overflow: scroll;
     scroll-behavior: smooth;
   }
+
   .chat li {
-    padding: 0.5rem;
     overflow: hidden;
-    display: flex;
-  }
-  .chat .avatar {
-    position: relative;
-    display: block;
-    z-index: 2;
-  }
-  .chat .avatar img {
-    background-color: rgba(255, 255, 255, 0.9);
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
-  .chat .uid img {
-    background-color: rgba(255, 255, 255, 0.9);
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    display: flex; 
   }
   .chat .day {
     position: relative;
@@ -124,11 +90,18 @@
     -moz-user-select: none;
     -ms-user-select: none;
   }
+
   .other .msg {
     order: 1;
     border-top-left-radius: 0px;
     box-shadow: -1px 2px 0px #d4d4d4;
   }
+
+  .other {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
   .other:before {
     content: "";
     position: relative;
@@ -150,22 +123,7 @@
     border-bottom-right-radius: 0px;
     box-shadow: 1px 2px 0px #d4d4d4;
   }
-  .self .avatar {
-    order: 2;
-  }
-  .self .avatar:after {
-    content: "";
-    position: relative;
-    display: inline-block;
-    bottom: 19px;
-    right: 0px;
-    width: 0px;
-    height: 0px;
-    border: 5px solid #fff;
-    border-right-color: transparent;
-    border-top-color: transparent;
-    box-shadow: 0px 2px 0px #d4d4d4;
-  }
+  
   .msg {
     background: white;
     min-width: fit-content;
@@ -178,44 +136,15 @@
     margin: 0 0 0.2rem 0;
     color: rgb(81, 84, 255);
   }
-  .msg img {
-    position: relative;
-    display: block;
-    width: 450px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 3px #eee;
-    transition: all 0.4s cubic-bezier(0.565, -0.26, 0.255, 1.41);
-    cursor: default;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+  .msg2 p {
+    font-size: 0.8rem;
+    margin: 0 0 0.2rem 0;
+    color: rgb(87, 255, 81);
   }
-  @media screen and (max-width: 800px) {
-    .msg img {
-      width: 300px;
-    }
-  }
-  @media screen and (max-width: 550px) {
-    .msg img {
-      width: 200px;
-    }
-  }
-  .msg time {
-    font-size: 0.7rem;
-    color: #ccc;
-    margin-top: 3px;
-    float: right;
-    cursor: default;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
+
   .msg time:before {
     content: " ";
     color: #ddd;
-    font-family: FontAwesome;
     display: inline-block;
     margin-right: 4px;
   }
@@ -249,7 +178,7 @@
   }
   /* T Y P E */
   input.textarea {
-    width: 100%;
+    width: 80%;
     height: 50px;
     background: #fafafa;
     border: none;
@@ -257,5 +186,6 @@
     padding-left: 55px;
     padding-right: 55px;
     color: #666;
-    font-weight: 400;
+    font-size: 15px; 
+    font-weight: 800;
   }

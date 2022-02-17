@@ -145,7 +145,6 @@ const proctorList = (anchor) => (
 
   return (
       <div className="nav">
-      <Nav />
      {/* if no user is logged in show these links */}
     {user.id === null &&
     <Link className="navLink" to="/login">
