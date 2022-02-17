@@ -67,9 +67,10 @@ function EventPage(props) {
 
   return (
     <div>
-
-      <h2 className="heading">{event.event_name}: {eventStartTime}</h2>
-
+      {   isNew 
+        ? <></>
+        : <h2 className="heading">{event.event_name}: {eventStartTime}</h2>
+      }
       <Box sx={{width: '100%', typography: 'body1'}}> 
         <TabContext value={selectedTab} centered textColor="secondary" indicatorColor="secondary">
           <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>

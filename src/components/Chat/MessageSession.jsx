@@ -2,18 +2,30 @@ import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import MessageDetail from './MessageDetail';
+import {makeStyles} from '@material-ui/core';
+import Card from '@material-ui/core/Card'; 
+import Send from "@material-ui/icons/Send";
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
-function messageSessionFunction(props) {
+import '../Chat/Chat.css'; 
+
+const useStyles = makeStyles({
+
+  sendBtn: {
+    color: "blue",
+    cursor: "pointer",
+    "&:hover": {
+      color: "gray",
+    },
+  },
+});
+
+
+export default function messageSessionFunction(props) {
   const dispatch = useDispatch();
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
+  const classes = useStyles (); 
   const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('Message Session Header');
   const [messageText, setMessageText] = useState('')
-
+  const user = useSelector(store => store.user);
   const history = useHistory()
 
   useEffect(() => {
@@ -51,20 +63,43 @@ function messageSessionFunction(props) {
 
 
   return (
-    <div>
-      {/* <button onClick={() => {history.goBack()}}>RETURN TO CHAT HOME</button>
-      <h2>{heading}</h2> */}
-      <p>Event Name: {store.message.activeMessageSession.event_name}</p>
-      <p>Message Session ID: {store.message.activeMessageSession.message_session_id}</p>
-      <p>Student Name: {store.message.activeMessageSession.student_first_name} {store.message.activeMessageSession.student_last_name}</p>
-      <p>Proctor Name: {store.message.activeMessageSession.proctor_first_name} {store.message.activeMessageSession.proctor_last_name}</p>
-      
-      {/* <h2>Message Session Details</h2> */}
-      {store.message.activeMessageDetail.map(message => (<MessageDetail message={message} key={message.message_id} />))}
-      <input type="text" id='message' placeholder='type message here' value={messageText} onChange={handleMessageText}/>
-      <button onClick={handleNewMessage}>Send Message</button>
+  
+  <div className="chatWindow"> 
+  <div>
+      <ul className="chat" id="chatList"> 
+      {store.message.activeMessageDetail.map(message => 
+        (<MessageDetail message={message} 
+        key={message.message_id}>
+        { 
+          user.id && user.role === "STUDENT" ? (
+            <li className="self">
+              <div className="msg">
+                <p>{message.creator_first_name}</p>
+                <div className="message">{message.message}</div>
+              </div>
+            </li>
+          ) : (
+            <> </> 
+          )
+        }
+          
+        </MessageDetail> ))}
+  </ul> 
+</div> 
+      <div className="chatInputWrapper"> 
+      <form onSubmit={handleNewMessage}> 
+      <input
+      type="text"
+      placeholder='type a message here...' 
+      value={messageText} 
+      className="textarea input" 
+      onChange={handleMessageText}></input>
+      <Send onClick={handleNewMessage} className={classes.sendBtn}/> 
+      </form>
+      </div> 
+
     </div>
   );
 }
 
-export default messageSessionFunction;
+

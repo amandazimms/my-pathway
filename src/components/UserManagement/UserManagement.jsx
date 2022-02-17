@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 import Box from '@material-ui/core/Box'; 
+import ImageDisplay from '../ImageDisplay/ImageDisplay';
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
@@ -46,6 +47,7 @@ function userManagementFunction(props) {
       <Table sx={{ minWidth: 500, maxWidth: 800 }} aria-label="simple table">
         <TableHead>
           <TableRow>
+            <TableCell></TableCell>
             <TableCell>First Name</TableCell>
             <TableCell align="left">Last Name</TableCell>
             <TableCell align="left">Email</TableCell>
@@ -59,6 +61,12 @@ function userManagementFunction(props) {
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
+              <TableCell>
+                <ImageDisplay
+                  url={row.profile_picture}
+                  classToPass={"roundImage blueBorderThin tableImageDisplay"}
+                />
+              </TableCell>
               <TableCell component="th" scope="row">
                 {row.first_name}
               </TableCell>

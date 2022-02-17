@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ExamQuestion from '../ExamQuestion/ExamQuestion';
 import Button from '@mui/material/Button'
-import MessageSession from '../Chat/MessageSession'
+import MessageSession from '../Chat/MessageSession';
 import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import '../ExamRoomPage/ExamRoomPage.css'
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 import { useHistory } from 'react-router-dom';
 
+
+
 function ExamRoomPage(props) {
+
     const store = useSelector((store) => store);
     const exam = useSelector(store=>store.exam.selected);
     const [heading, setHeading] = useState('Functional Component');
-    const [helpNeeded, setHelpNeeded] = useState(false);
     const dispatch = useDispatch();
     const examQuestions = useSelector(store => store);
     const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -21,6 +23,24 @@ function ExamRoomPage(props) {
     const [examBegin, setExamBegin] = useState(false);
     const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0)
 
+    const test = useSelector(store => store.test.selected);
+    const [testName, setTestName] = useState(test.title)
+
+    const fetchRepeating = () => {
+        //runs every {3s} while this page is open
+        fetchMyExam();
+        const getMessageTimer = setInterval(() => {fetchMyExam()}, 3000);
+        return () => clearInterval(getMessageTimer)
+    }
+
+    useEffect(() => {
+        fetchRepeating();
+      }, []);
+
+    const fetchMyExam = () => {
+        dispatch({ type: "FETCH_SELECTED_EXAM", payload: {exam_id:exam.exam_id} });
+    }
+      
     const beginExam = () => {
         if (store.message.activeMessageSession === "") {
             dispatch({
@@ -163,12 +183,12 @@ function ExamRoomPage(props) {
     }
 
     const changeHandRaiseStatus = (value) => {
-        setHelpNeeded(value)
         dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: value, exam_id: exam.exam_id} });
     }
 
     return (
         <div>
+            <p>exam:{JSON.stringify(exam)}</p>
             {!examBegin ?
                 <Grid container justifyContent="center" className="formPanel" alignItems="center" >
                     <div>
@@ -178,14 +198,16 @@ function ExamRoomPage(props) {
                 </Grid>
 
                 : <>
-                    <Button onClick={abortExam}>Abort Exam</Button>
-                    <div className="ExamFlex">
+                    <Grid container justifyContent="flex-end">
+                    <Grid item sm={2}>
+                    <Button variant="contained" onClick={abortExam}>Abort Exam</Button>
+                    </Grid>
+                    </Grid> 
                     <ExamQuestion
                         setSelection={setSelection}
                         selectedAnswer={selectedAnswer}
                     />
                     <MessageSession />
-                    </div>
                     {selectedQuestionIndex != store.question.examAll.length - 1 ?
                         // <Button onClick={nextQuestion}>Next</Button> 
                         <AreYouSureButton
@@ -205,19 +227,17 @@ function ExamRoomPage(props) {
                             areYouSureVariant={"contained"}
                         />
                     }
-                    {!helpNeeded
-                        ?
-                        <Button onClick={ ()=>changeHandRaiseStatus(true) }>Raise your hand</Button>
-
-                        : <> 
-                            <Button onClick={ ()=>changeHandRaiseStatus(false) }>Put your hand down</Button>
-                        </>
+                    {  exam.help
+                        ? <Button onClick={ ()=>changeHandRaiseStatus(false) }>Lower your hand</Button>
+                        : <Button onClick={ ()=>changeHandRaiseStatus(true) }>Raise your hand</Button>
                     }
-                    
+               
+                    <MessageSession />
+                
                 </>
             }
         </div>
     );
 }
 
-export default ExamRoomPage;
+export default (ExamRoomPage);

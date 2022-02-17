@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
-
-
-// This is one of our simplest components
-// It doesn't have local state,
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is'
 
 function AboutPage(props) {
   const dispatch = useDispatch();
@@ -26,10 +21,10 @@ function AboutPage(props) {
       <br></br>
      <h2 className="heading">Team</h2>
      <ul>
-       <li>Amanda Zimmerman</li>
-       <li>Chris Nelson</li>
-       <li>Jackie Spiess</li>
-       <li>Nickolas Cunningham</li>
+       <li>Amanda Zimmerman: Full Stack, Saga Girl</li>
+       <li>Chris Nelson: Research and Development, The Spiker</li>
+       <li>Jackie Spiess: Front End, Master Stylist</li>
+       <li>Nickolas Cunningham: Back End, Databoy</li>
      </ul>
   </div> 
   );

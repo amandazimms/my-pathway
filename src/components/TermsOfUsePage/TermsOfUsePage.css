@@ -10,6 +10,11 @@
     font-size: small; 
 }
 
+.body {
+    font-family: HelveticaNeue;  
+    font-size: large; 
+}
+
 .checkboxDiv{
     width: 100%; 
     height: 100%; 
