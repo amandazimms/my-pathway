@@ -179,10 +179,13 @@ function ExamRoomPage(props) {
 
                 : <>
                     <Button onClick={abortExam}>Abort Exam</Button>
+                    <div className="ExamFlex">
                     <ExamQuestion
                         setSelection={setSelection}
                         selectedAnswer={selectedAnswer}
                     />
+                    <MessageSession />
+                    </div>
                     {selectedQuestionIndex != store.question.examAll.length - 1 ?
                         // <Button onClick={nextQuestion}>Next</Button> 
                         <AreYouSureButton
@@ -210,7 +213,7 @@ function ExamRoomPage(props) {
                             <Button onClick={ ()=>changeHandRaiseStatus(false) }>Put your hand down</Button>
                         </>
                     }
-                    <MessageSession />
+                    
                 </>
             }
         </div>
