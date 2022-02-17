@@ -11,6 +11,7 @@ import Radio from '@mui/material/Radio';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Theme, createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import './ExamQuestion.css';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -41,40 +42,41 @@ function ExamQuestion(props) {
   }
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={8}>
-        {/* <ThemeProvider> */}
-        <Box
-          sx={{
-            p: 2,
-            bgcolor: 'background.default',
-            display: 'grid',
-            gridtemplateColumns: { md: '1fr 1fr' },
-            gap: 2,
-          }}
-        >
-          <FormControl>
-            <Typography className="questionTitle" sx={{ fontSize: 25 }} gutterBottom>
-              {question.question}
-            </Typography>
+    <div className="radio-buttons-group">
+      {/* <Grid className="radio-buttons-group" container spacing={4}>
+    </Grid><Grid item xs={8}> */}
+      {/* <ThemeProvider> */}
+      <Box
+        sx={{
+          p: 2,
+          bgcolor: 'background.default',
+          display: 'grid',
+          gridtemplateColumns: { md: '1fr 1fr' },
+          gap: 2,
+        }}
+      >
+        <FormControl>
+          <Typography className="questionTitle" sx={{ fontSize: 25 }} gutterBottom>
+            {question.question}
+          </Typography>
 
-            <RadioGroup
-              aria-labelledby="radio-buttons-group-label"
-              name="radio-buttons-group"
-              onChange={() => { handleChange(event) }}>
-              
-              <FormControlLabel value={question.option_one} control={<Radio />} label={question.option_one} checked={question.option_one === props.selectedAnswer} />
-              <FormControlLabel value={question.option_two} control={<Radio />} label={question.option_two} checked={question.option_two === props.selectedAnswer} />
-              <FormControlLabel value={question.option_three} control={<Radio />} label={question.option_three} checked={question.option_three === props.selectedAnswer} />
-              <FormControlLabel value={question.option_four} control={<Radio />} label={question.option_four} checked={question.option_four === props.selectedAnswer} />
-             
-            </RadioGroup>
-          </FormControl>
-        </Box>
-        {/* </ThemeProvider> */}
-      </Grid>
+          <RadioGroup
+            aria-labelledby="radio-buttons-group-label"
+            name="radio-buttons-group"
+            onChange={() => { handleChange(event) }}>
 
-    </Grid>
+            <FormControlLabel className="radio-buttons-option" value={question.option_one} control={<Radio />} label={'A. ' + question.option_one} checked={question.option_one === props.selectedAnswer} />
+            <FormControlLabel className="radio-buttons-option" value={question.option_two} control={<Radio />} label={'B. ' + question.option_two} checked={question.option_two === props.selectedAnswer} />
+            <FormControlLabel className="radio-buttons-option" value={question.option_three} control={<Radio />} label={'C. ' + question.option_three} checked={question.option_three === props.selectedAnswer} />
+            <FormControlLabel className="radio-buttons-option" value={question.option_four} control={<Radio />} label={'D. ' + question.option_four} checked={question.option_four === props.selectedAnswer} />
+
+          </RadioGroup>
+        </FormControl>
+      </Box>
+      {/* </ThemeProvider> */}
+      {/* </Grid>
+        </Grid> */}
+    </div>
   );
 }
 
