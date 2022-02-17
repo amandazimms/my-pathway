@@ -79,19 +79,14 @@ const user = useSelector((store) => store.user);
 
 const studentMenuItems = [
     {
-        text: 'My Credientials',
-        icon: <MilitaryTechOutlinedIcon color="secondary" /> , 
-        path: '/user', 
-    },
-    {
-        text: 'Transcripts',
-        icon: <FeedOutlinedIcon color="secondary" />, 
-        path: '/tests', 
-    },
-    {
-        text: 'Upcoming Exams',
+        text: 'My Exams',
         icon: <EventOutlinedIcon color="secondary" />, 
         path: '/my-exams', 
+    },
+    {
+        text: 'Profile',
+        icon: <EventOutlinedIcon color="secondary" />, 
+        path: '/user', 
     }
 ]
 

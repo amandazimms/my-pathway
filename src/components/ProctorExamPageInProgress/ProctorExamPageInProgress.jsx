@@ -5,6 +5,7 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import IncidentCounter from '../IncidentCounter/IncidentCounter';
 import { useHistory } from 'react-router-dom';
 import MessageSession from '../Chat/MessageSession'
+import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
 
 function ProctorExamPageInProgress() {
@@ -22,8 +23,13 @@ function ProctorExamPageInProgress() {
 
  return (
    <div className="flexParentVertical">
-      <h2 className="heading">Student: {exam.first_name} {exam.last_name}</h2>
-      {/* profile pic here ( {exam.profile_picture} ) */}
+      <div className="flexParent">
+        <h2 className="heading">Now Assisting: {exam.first_name} {exam.last_name}</h2>
+        <ImageDisplay
+          url={exam.profile_picture}
+          classToPass={"roundImage blueBorder tinyImageDisplay"}
+        />
+      </div>
 
       <div className="flexParent">
 

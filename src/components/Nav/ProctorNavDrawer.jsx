@@ -78,31 +78,25 @@ const user = useSelector((store) => store.user);
 
 const proctorMenuItems = [
 {
-    text: 'User Management',
-    icon: <AdminPanelSettingsOutlinedIcon color="secondary"/>, 
-    path: '/user_management', 
- },
-{
-    text: 'Create and View Tests',
-    icon: <FeedOutlinedIcon color="secondary"/> ,
-    path: '/tests-all', 
-},
-{
-    text: 'Grade Exams',
-    icon: <GradingOutlinedIcon color="secondary"/> , 
-    path: '//proctor-exam-complete', 
-},
-{
     text: 'Events',
     icon: <EventOutlinedIcon color="secondary"/> , 
     path: '/events-all', 
 },
 {
-    text: 'Validation',
-    icon: <HowToRegOutlinedIcon color="secondary"/> , 
-    path: '/compare', 
+    text: 'Tests',
+    icon: <FeedOutlinedIcon color="secondary"/> ,
+    path: '/tests-all', 
 },
-
+{
+    text: 'Users',
+    icon: <AdminPanelSettingsOutlinedIcon color="secondary"/>, 
+    path: '/user_management', 
+ },
+ {
+    text: 'Profile',
+    icon: <EventOutlinedIcon color="secondary" />, 
+    path: '/user', 
+ }
 ]
 
 
@@ -161,10 +155,18 @@ const proctorList = (anchor) => (
     {/* if user is logged in as a proctor */}
     <div> 
     {user.role === "PROCTOR" && (
-          <Button onClick={toggleDrawer('left', true)}><img src={LongLogo} alt="logo" className="logo" /></Button>
+            <Button 
+                onClick={toggleDrawer('left', true)}
+            >
+                <img src={LongLogo} alt="logo" className="logo" />
+            </Button>
             )}
     {user.role === "PROCTOR" && (
-          <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
+            <Drawer 
+                anchor={'left'} 
+                open={state['left']} 
+                onClose={toggleDrawer('left', false)}
+            >
               {proctorList('left')}
           </Drawer>
     )} 

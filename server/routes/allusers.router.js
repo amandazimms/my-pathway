@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
                   "user".last_name AS last_name,
                   "user".username AS email,
                   "user".role AS role,
-                  "user".id AS id
+                  "user".id AS id, 
+                  "user".profile_picture AS profile_picture  
                   FROM "user"
                   ORDER BY last_name;`
   pool.query(query)
