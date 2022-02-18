@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import '../Chat/Chat.css'; 
+import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
 //styling for messages
 // const Item = styled(Paper)(({ theme }) => ({
@@ -27,9 +28,29 @@ const user = useSelector((store) => store.user);
 
   return (
     <li className={props.className}>
+      {   props.messageClassName === "themMessage"
+        ? <ImageDisplay
+            classToPass={"tableImageDisplay roundImage blueBorderDainty marginSides3"}
+          />
+        : <></>  
+      }
+           
       <div className="msg">
-        <p className={props.messageClassName}><b>{props.message.creator_first_name}:</b> <span className="messageDetailSpan">{props.message.message}</span></p> 
+        
+        <div className={props.messageClassName}>
+          <p>
+            <b>{props.message.creator_first_name}: </b> 
+            <span className="messageDetailSpan">{props.message.message}</span>
+          </p>
+        </div> 
       </div>
+
+      {   props.messageClassName === "selfMessage"
+        ? <ImageDisplay
+            classToPass={"tableImageDisplay roundImage blueBorderDainty marginSides3"}
+          />
+        : <></>  
+      }
       </li>     
   );
 }

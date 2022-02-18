@@ -291,6 +291,11 @@ label:focus,
   padding: 0;
 }
 
+.blueBorderDainty {
+  border: 2px solid #1E2A49;
+  padding: 0;
+}
+
 .registerButton {
   width: auto;
 }
@@ -312,4 +317,8 @@ label:focus,
 
 .blueColor {
   color: #1E2A49
+}
+
+.marginSides3 {
+  margin: 0 3px;
 }

@@ -107,12 +107,10 @@ export default function messageSessionFunction(props) {
           onChange={handleMessageText}>
         </input>
 
-        {/* <Send onClick={handleNewMessage} className={classes.sendBtn} /> */}
         <SendIcon
           className="chatSendIcon blueColor" 
           onClick={handleNewMessage}
         />
-        {/* <Button className="sendMessageButton buttonInsideInput" variant="contained" color="primary" onClick={handleNewMessage}>Send</Button> */}
 
       </div>
       
