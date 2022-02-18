@@ -31,7 +31,7 @@ function LoginPage() {
       </Grid>
 
       <Grid item>
-      <h1 className="login-h1">Welcome Back</h1>
+      <h2 className="login-h1">Welcome Back</h2>
       </Grid>
 
       <Grid item>
