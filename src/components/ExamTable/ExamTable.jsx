@@ -125,7 +125,7 @@ function ExamTable(props) {
           <TableRow key={uuid.v4} sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               
           {/* ==== PIC (ALL CASES) ===================== */}
-            <TableCell component="th" scope="row">
+            <TableCell component="th" scope="row" className="a30pxSquare">
               <ImageDisplay
                 url={row.profile_picture}
                 classToPass={"roundImage blueBorderThin tableImageDisplay"}

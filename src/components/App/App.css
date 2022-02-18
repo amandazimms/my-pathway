@@ -281,3 +281,8 @@ label:focus,
   border: 3px solid #1E2A49;
   padding: 0;
 }
+
+.a30pxSquare {
+  width: 30px;
+  height: 30px;
+}

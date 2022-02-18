@@ -21,7 +21,13 @@ function ImageDisplay(props) {
   //   smallImageDisplay (150x150), tinyImageDisplay (50x50)
 
   useEffect( () => {
-    getPhotoToCompare()
+    if (url === "/images/profile_default.png" || url === null || !url){ 
+      //if no pic was taken, use default
+      setPhoto("/images/profile_default.png");
+    }
+    else { 
+      getPhotoToCompare()
+    }
   }, []);
 
   const getPhotoToCompare = () =>{
