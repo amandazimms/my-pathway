@@ -29,7 +29,7 @@ function RegisterPage() {
        </Grid>
 
       <Grid item>
-       <h1 className="register-h1">Register</h1>
+       <h2 className="register-h1">REGISTER</h2>
       </Grid>
       
       <Grid item>

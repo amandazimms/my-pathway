@@ -41,6 +41,9 @@ function LoginPage() {
       <Grid item>
       Not a registered user?
       <br /> 
+      </Grid> 
+
+      <Grid item>
         <Button
           varient="text"
           type="button"
