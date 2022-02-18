@@ -32,6 +32,7 @@ function EventRegisterStudents(props) {
   }
 
   const doSearch = (textToSearch) => {
+    dispatch({ type:'UNSET_SEARCHED_STUDENTS'});
     dispatch({  type:'SEARCH_FOR_STUDENTS', 
                 payload: {search_text: textToSearch, event_id: selectedEvent.id} });
   }

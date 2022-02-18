@@ -30,7 +30,7 @@ router.get('/exams', (req, res) => {
   const queryString = 
   `SELECT
     exam.id AS exam_id, student_id, first_name, last_name, username, id_confirmed, present, 
-    help, exam_time_start, exam_time_end, incident, exam.face_image, exam.id_image
+    help, exam_time_start, exam_time_end, incident, exam.face_image, exam.id_image, "user".profile_picture 
   FROM exam
   JOIN "user" ON exam.student_id="user".id  
   WHERE event_id=${req.query.event_id}`;
