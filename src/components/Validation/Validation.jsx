@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import PhotoCapture from '../PhotoCapture/PhotoCapture';
 import { Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
+import './Validation.css'
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -80,8 +81,8 @@ function validateFunction(props) {
       {photoComplete ?
         <></> :
         <>
-          <h2 className="heading">Capture Photo</h2>
-          <div className="flexParent">
+          <h2 className="heading">Please Capture A Headshot for ID Confirmation:</h2>
+          <div className="flexParent photoDiv">
             <PhotoCapture />
           </div>
           <div className="flexParent">
@@ -90,15 +91,15 @@ function validateFunction(props) {
 
           {store.image.url === "/images/profile_default.png" ?
             <></> :
-            <Button variant="outlined" onClick={setExamPhoto}>Use Photo</Button>
+            <Button className='photoDiv' variant="contained" onClick={setExamPhoto}>Use This Headshot</Button>
           }
           </div>
         </>
       }
       {photoComplete === true && idComplete === false?
         <>
-          <h2>Capture ID</h2>
-          <div className="flexParent">
+          <h2>Please Capture A Photo of Your State ID or Passport:</h2>
+          <div className="flexParent photoDiv">
             <PhotoCapture />
           </div>
           <div className="flexParent">
@@ -107,7 +108,7 @@ function validateFunction(props) {
 
           {store.image.url === "/images/profile_default.png" ?
             <></> :
-            <Button variant="outlined" onClick={setIdPhoto}>Use ID Image</Button>
+            <Button className='photoDiv' variant="contained" onClick={setIdPhoto}>Use This ID Image</Button>
           }
           </div>
         </>:
