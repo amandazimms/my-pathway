@@ -24,11 +24,9 @@ function ImageDisplay(props) {
     if (url === "/images/profile_default.png" || url === null || !url){ 
       //if no pic was taken, use default
       setPhoto("/images/profile_default.png");
-      console.log("---USING DEFAULT");
     }
     else { 
       getPhotoToCompare();
-      console.log("---using real");
     }
   }, []);
 
