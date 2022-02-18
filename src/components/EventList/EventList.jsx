@@ -25,6 +25,8 @@ function EventList(props) {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_ALL_EVENTS' }); 
+    dispatch({ type: 'UNSET_EVENT_EXAMS_HELP' });
+    dispatch({ type: 'UNSET_EVENT_EXAMS' });
   }, []);
 
 

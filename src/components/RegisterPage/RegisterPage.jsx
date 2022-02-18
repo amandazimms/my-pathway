@@ -29,7 +29,7 @@ function RegisterPage() {
        </Grid>
 
       <Grid item>
-       <h1 className="register-h1">Register</h1>
+       <h2 className="register-h1">Register</h2>
       </Grid>
       
       <Grid item>
@@ -37,7 +37,10 @@ function RegisterPage() {
       </Grid>
 
       <Grid item>
-        already have an account? 
+        Already have an account? 
+      </Grid>
+
+      <Grid item>  
       <Button
           variant="text" 
           type="button"

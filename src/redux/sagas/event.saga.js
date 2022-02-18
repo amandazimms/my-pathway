@@ -21,7 +21,8 @@ function* eventSaga() {
     //dispatch({ type:'UNREGISTER_STUDENT_TO_EVENT', payload: {student: student} })
   
   yield takeLatest('FETCH_EVENT_EXAMS', getEventExams);//return all exams associated with the event.
-    
+  
+  yield takeLatest('FETCH_EVENT_EXAMS_HELP', getEventExamsHelp);//return only help and id for all exams associated with the event.
  }
 
  // worker Saga: will be fired on "UNREGISTER_STUDENT_TO_EVENT" actions
@@ -125,8 +126,19 @@ function* fetchEvent(action) {
   }
 }
 
+// worker Saga: will be fired on "FETCH_EVENT_EXAMS_HELP" actions
+function* getEventExamsHelp(action) {
+  const ap = action.payload;
+  //ap.event_id is the event id to fetch
+  try {
+    const response = yield axios.get('/api/event/examsHelp', { params: {event_id: ap.event_id} });
+    yield put({ type: 'SET_EVENT_EXAMS_HELP', payload: response.data });
+  } catch (error) {
+    console.log('getEventExamsHelp request failed', error);
+  }
+}
 
-
+// worker Saga: will be fired on "FETCH_EVENT_EXAMS" actions
 function* getEventExams(action) {
   const ap = action.payload;
   //ap.event_id is the event id to fetch

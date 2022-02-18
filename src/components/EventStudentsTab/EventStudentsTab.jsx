@@ -13,22 +13,16 @@ function EventStudentsTab(props) {
   const exams = useSelector(store => store.event.exams);
   const dispatch = useDispatch();
 
-  const fetchRepeating = () => {
-    //runs every {3s} while this page is open
-    fetchEventExams();
-    const getMessageTimer = setInterval(() => {fetchEventExams()}, 3000);
-    return () => clearInterval(getMessageTimer)
-  }
-
-  useEffect(() => {
+  useEffect(() => {    
     if (!isNew){
-      fetchRepeating();
-    } 
+      fetchEventExams();
+    }
   }, []);
 
   const fetchEventExams = () => {
     dispatch({ type: "FETCH_EVENT_EXAMS", payload:{event_id:event.id} });
   }
+
   const unregisterStudent = (student) => {
     dispatch({ type:'UNREGISTER_STUDENT_TO_EVENT', 
       payload: {exam_id: student.exam_id, event_id: event.id} });
@@ -50,6 +44,7 @@ function EventStudentsTab(props) {
     
       <h2 className="heading">REGISTERED STUDENTS</h2>
       <ExamTable 
+        event={event}
         mode={event.status} 
         rows={exams} 
         onUnregisterStudent={ (student)=>unregisterStudent(student)}
