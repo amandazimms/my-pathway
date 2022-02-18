@@ -29,6 +29,7 @@ import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
 const drawerWidth = 240
 
@@ -144,23 +145,29 @@ const studentList = (anchor) => (
     </Link>
     }
     
-    {/* if user is logged in as a proctor */}
+    {/* if user is logged in as a student */}
     <div> 
-    {user.role === "STUDENT" && (
-          <Button onClick={toggleDrawer('left', true)}><img src={LongLogo} alt="logo" className="logo" /></Button>
-            )}
-         </div> 
+        {user.role === "STUDENT" && (
+        <Button onClick={toggleDrawer('left', true)}><img src={LongLogo} alt="logo" className="logo" /></Button>
+        )}
+    </div> 
 
     <div>
-    {user.role === "STUDENT" && (
-    <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
-    {studentList('left')}
-    </Drawer>
-    )}
+        {user.role === "STUDENT" && (
+        <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
+        {studentList('left')}
+        </Drawer>
+        )}
     </div>
+
+    <Link to="/user">
+        <ImageDisplay
+            url={user.profile_picture}
+            classToPass={"roundImage tealBorderThin tinyImageDisplay mr15"}
+        />
+    </Link>
      
-    
-     </div>      
+    </div>      
     ); 
 }; 
 

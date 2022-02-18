@@ -5,8 +5,6 @@ import './Nav.css';
 import { useSelector } from 'react-redux';
 import KyrosLogo3 from "../../images/KyrosLogo3.png"
 
-
-
 function Nav() {
   const user = useSelector((store) => store.user);
 

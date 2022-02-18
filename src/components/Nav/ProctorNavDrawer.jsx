@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import LongLogo from "../../images/LongLogo.png"; 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ImageDisplay from '../ImageDisplay/ImageDisplay';
 import Nav from './Nav';
 import {
     Drawer, 
@@ -172,6 +173,13 @@ const proctorList = (anchor) => (
     )} 
          </div>
     
-     </div>      
+    <Link to="/user">
+        <ImageDisplay
+            url={user.profile_picture}
+            classToPass={"roundImage tealBorderThin tinyImageDisplay mr15"}
+        />
+    </Link>
+    
+    </div>      
     ); 
 }; 

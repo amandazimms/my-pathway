@@ -12,7 +12,7 @@ function ImageDisplay(props) {
   //How to use this component
   // <ImageDisplay
   //   url={/bla/bloopity/bling}
-  //   class={"mySpecialCssClass"}
+  //   classToPass={"mySpecialCssClass"}
   // />
 
   //I also created some broad clasees in app.css, 

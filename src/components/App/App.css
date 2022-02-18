@@ -295,3 +295,12 @@ label:focus,
 .registerButton {
   width: auto;
 }
+
+.tealBorderThin {
+  border: 3px solid #7FC1C5;
+  padding: 0;
+}
+
+.mr15 {
+  margin-right: 15px;
+}
