@@ -199,7 +199,9 @@ function ExamRoomPage(props) {
 
                 :
                 <div className="ExamRoomPage">
+                    <h2 className="examHeader">You are in Exam: {store.exam.selected.event_name + ' - ' + store.exam.selected.test_title}</h2>
                     <Button className="abortButton" variant="contained" color="error" onClick={abortExam}>Abort Exam</Button>
+                    <h3>Question #{selectedQuestionIndex+1} of {store.question.examAll.length}</h3>
                     <div className="ExamFlex">
                         <div className="questionSection">
                             <ExamQuestion
@@ -210,19 +212,27 @@ function ExamRoomPage(props) {
                             {selectedQuestionIndex != store.question.examAll.length - 1 ?
                                 <AreYouSureButton
                                     beginningText={"Confirm Answer"}
-                                    areYouSureText={"Are you sure?, Click to Proceed"}
+                                    areYouSureText={"Are you sure?  Click to Proceed to Next Question"}
                                     onButtonClick={nextQuestion}
-                                    beginningVariant={"outlined"}
-                                    areYouSureVariant={"contained"}
+                                    beginningVariant={"contained"}
+                                    areYouSureVariant={"outlined"}
+                                    className="areYouSureExam"
                                 />
                                 :
                                 <AreYouSureButton
                                     beginningText={"Complete Exam"}
-                                    areYouSureText={"Are you sure?, Click to Proceed"}
+                                    areYouSureText={"Are you sure?  Click to Exit Exam."}
                                     onButtonClick={completeExam}
-                                    beginningVariant={"outlined"}
-                                    areYouSureVariant={"contained"}
+                                    beginningVariant={"contained"}
+                                    areYouSureVariant={"outlined"}
+                                    className="areYouSureExam"
                                 />
+                            }
+                            <br />
+                            <br />
+                            {exam.help
+                                ? <Button className="areYouSureExam" variant="outlined" color="error" onClick={() => changeHandRaiseStatus(false)}>Hand is rasised, click to cancel</Button>
+                                : <Button className="areYouSureExam" variant="outlined" color="success" onClick={() => changeHandRaiseStatus(true)}>Raise your hand for help</Button>
                             }
                         </ div>
 
@@ -230,11 +240,7 @@ function ExamRoomPage(props) {
                             <MessageSession />
                         </div>
                     </div>
-                    <br />
-                    {exam.help
-                        ? <Button variant="outlined" color="error" onClick={() => changeHandRaiseStatus(false)}>Hand is rasised, click to cancel</Button>
-                        : <Button variant="outlined" color="success" onClick={() => changeHandRaiseStatus(true)}>Raise your hand for help</Button>
-                    }
+
 
                 </div>
             }
