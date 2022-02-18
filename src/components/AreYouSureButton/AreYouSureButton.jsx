@@ -42,6 +42,7 @@ function AreYouSureButton(props) {
         // after the first click, show this if there was a link path passed via props
         <Link to={props.linkPath}>
           <Button 
+            className={props.className}
             onClick={proceed} 
             variant={props.areYouSureVariant || "contained"}
           >
@@ -53,6 +54,7 @@ function AreYouSureButton(props) {
         showWarning && !props.linkPath
       ?  
         <Button 
+            className={props.className}
             onClick={proceed} 
             variant={props.areYouSureVariant || "contained"}
           >
@@ -60,7 +62,8 @@ function AreYouSureButton(props) {
         </Button>
       : 
         //before the first click, show this
-        <Button 
+        <Button
+          className={props.className} 
           onClick={launchWarning} 
           variant={props.beginningVariant || "outlined"}
         >

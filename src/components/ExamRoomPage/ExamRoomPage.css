@@ -10,7 +10,9 @@ font-size: 30px;
 }
 
 
-
+.abortButton{
+    width: 300px;
+}
 
 .ExamFlex{
     display: flex;
@@ -28,11 +30,22 @@ font-size: 30px;
 .messageSession{
     max-width: 500px;
     min-width: 500px;
-    min-height: 300px;
+    max-height: 400px;
     border: 1px;
     border-color:black;
     border-style: double;
     border-radius: 5px;
     padding-top: 0px;
     margin-left: 10px;
+}
+
+.areYouSureExam{
+    width: 100%;
+}
+.examHeader{
+    justify-content: left;
+}
+
+.sendMessageButton{
+    width: 100%;
 }

@@ -26,19 +26,11 @@ const user = useSelector((store) => store.user);
 
 
   return (
-    <div className="chatWindow"> 
-    <ul className="chat" id="chatList"> 
-    <li className="self">
+    <li className={props.className}>
       <div className="msg">
-        <p>{props.message.creator_first_name}</p>
-        <div className="message">{props.message.message}</div>
+        <p className={props.messageClassName}><b>{props.message.creator_first_name}:</b> <span className="messageDetailSpan">{props.message.message}</span></p> 
       </div>
-      </li> 
-    </ul> 
-      {/* <p><b>{props.message.creator_first_name} Said: </b>{props.message.message}</p> */}
-       {/* <p>{JSON.stringify(props)}</p> */}
-    </div>     
-  
+      </li>     
   );
 }
 

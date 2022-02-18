@@ -116,7 +116,8 @@ router.get('/detail', (req, res) => {
                 message_detail.creator_id AS creator_id,
                 message_detail.message AS message,
                 "user".first_name AS creator_first_name,
-                "user".last_name AS creator_last_name
+                "user".last_name AS creator_last_name,
+                "user".role AS creator_role
                 FROM message_detail
                 JOIN "user" ON message_detail.creator_id="user".id
                 WHERE message_detail.message_session_id=${req.query.session_id}

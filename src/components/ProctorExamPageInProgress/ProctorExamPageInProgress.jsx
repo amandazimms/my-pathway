@@ -74,12 +74,14 @@ function ProctorExamPageInProgress() {
             </CardContent>
 
         </Card>
-
+{/* 
         <Card sx={{maxWidth: 645 }} className="questionCard" >
-          <CardContent>
+          <CardContent> */}
+          <div className="messageSession">
           <MessageSession />
-          </CardContent>
-        </Card>
+          </div>
+          {/* </CardContent>
+        </Card> */}
 
       </div>
 

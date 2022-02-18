@@ -6,8 +6,9 @@
 
 .radio-buttons-group{
     max-width: 500px;
-    min-width: 350px;
-    min-height: 300px;
+    min-width: 450px;
+    min-height: 265px;
+    max-height: 400px;
     border: 1px;
     border-color:black;
     border-style: double;
