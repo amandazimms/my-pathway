@@ -15,14 +15,15 @@ import { v4 as uuid } from 'uuid';
 import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
 function ExamTable(props) {
-  const mode = props.mode
+  const event = props.event;
+  const mode = props.mode;
   const rows = props.rows;
+
+  const examsHelp = useSelector(store => store.event.examsHelp);
   const [showCompareModal, setShowCompareModal] = useState(false);
   const helpIconPath = "/icons/Assistance.png";
   const dispatch = useDispatch();
   const history = useHistory()
-
-
 
   const headers = 
       mode === "COMPLETE"  
@@ -33,6 +34,24 @@ function ExamTable(props) {
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ACTION']
     :   [];
   
+  const fetchRepeating = () => {
+    //runs every {3s} while this page is open
+    //if proctor is viewing an event in progress, this will allow them to see hands getting raised
+    fetchEventExamsHelp();
+    const getMessageTimer = setInterval(() => {fetchEventExamsHelp()}, 3000);
+    return () => clearInterval(getMessageTimer);
+  } 
+
+  useEffect(() => {    
+    if (mode === "IN PROGRESS"){
+      return fetchRepeating();
+    } 
+  }, []);
+
+  const fetchEventExamsHelp = () => {
+    dispatch({ type: "FETCH_EVENT_EXAMS_HELP", payload: {event_id: event.id} });
+  }
+
   const registerStudent = (student) => {
     props.onRegisterStudent(student);
   }
@@ -75,6 +94,7 @@ function ExamTable(props) {
 
   return (
   <div>
+    {/* <p>{JSON.stringify(rows)}</p> */}
       <Modal
         open={showCompareModal} 
         onClose={ ()=>setShowCompareModal(false) } 
@@ -102,7 +122,7 @@ function ExamTable(props) {
     
     {/* ==== BODY ===================== */}
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row, rowIndex) => (
           <TableRow key={uuid.v4} sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               
           {/* ==== PIC (ALL CASES) ===================== */}
@@ -134,15 +154,24 @@ function ExamTable(props) {
           {/* ==== HELP ===================== */}
               { mode === 'IN PROGRESS' 
               ? <TableCell>
-                  {   row.help 
-                    ? <Link to="/proctor-exam-in-progress">
-                        <img 
-                          className="helpIcon" 
-                          src={helpIconPath}
-                          onClick={ ()=>setExamAndQuestion(row) }
-                        />
-                      </Link> 
-                    : <></>
+                  {  
+                      examsHelp.length !== 0
+                    ?  
+                      <>
+                          {
+                              examsHelp[rowIndex].help
+                            ? <Link to="/proctor-exam-in-progress">
+                                <img 
+                                  className="helpIcon" 
+                                  src={helpIconPath}
+                                  onClick={ ()=>setExamAndQuestion(row) }
+                                />
+                              </Link> 
+                            : <></>
+                          }
+                      </>
+                    : <></>  
+                     
                   }
                 </TableCell>
               : <></> }
