@@ -1,12 +1,10 @@
 .screenShot{
-    width: 98%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
     border: "primary";
     border-style: solid;
     border-width: 2px;
     border-radius: 6px;
-    max-width: 500px;
+    padding: 0px !important;
 }
 
 .photoCaptureIcon{
@@ -14,13 +12,15 @@
 }
 
 .photoCaptureRetakeImageButton{
-    width: 98%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     height: 50px;
-    max-width: 500px;
 }
 
 .photCaptureLaunchButton{
-    width: 98%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     height: 50px;
-    max-width: 500px;
 }
