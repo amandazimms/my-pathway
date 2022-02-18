@@ -60,11 +60,21 @@ const exams = (state = [], action) => {
   }
 };
 
-
+const examsHelp = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_EVENT_EXAMS_HELP':
+      return action.payload;
+    case 'UNSET_EVENT_EXAMS_HELP':
+      return [];
+    default:
+      return state;
+  }
+};
 
 export default combineReducers({
   selected,
   all,
-  exams
+  exams,
+  examsHelp
 });
 

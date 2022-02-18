@@ -27,8 +27,6 @@ router.get('/all', (req, res) => {
 });
 
 router.get('/exams', (req, res) => {
-  //@nickolas todo (from Amanda - thanks)
-  //select * from events
   const queryString = 
   `SELECT
     exam.id AS exam_id, student_id, first_name, last_name, username, id_confirmed, present, 
@@ -43,6 +41,18 @@ router.get('/exams', (req, res) => {
     res.sendStatus( 500 );
   })
 });
+
+router.get('/examsHelp', (req, res) => {
+  const queryString = 
+    `SELECT help, id AS exam_id FROM exam WHERE event_id=${req.query.event_id}`;
+  pool.query( queryString ).then( (results)=>{
+    res.send( results.rows );
+  }).catch( (err)=>{
+    console.log("error get exams", err );
+    res.sendStatus( 500 );
+  })
+});
+
 
 
 router.post('/', (req, res) => {
