@@ -291,3 +291,7 @@ label:focus,
   border: 3px solid #1E2A49;
   padding: 0;
 }
+
+.registerButton {
+  width: auto;
+}
