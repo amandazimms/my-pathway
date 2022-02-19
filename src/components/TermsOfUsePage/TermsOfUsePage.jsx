@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button'; 
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
 import "../TermsOfUsePage/TermsOfUsePage.css"
 import { useHistory } from 'react-router-dom';
+import PrivacyDialog from './PrivacyDialog';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -17,6 +15,8 @@ const Item = styled(Paper)(({ theme }) => ({
     // color: theme.palette.text.secondary,
   }));
 
+
+
 function TermsPage(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
@@ -24,6 +24,7 @@ function TermsPage(props) {
   const [heading, setHeading] = useState('Functional Component');
 
   const [agree, setAgree] = useState(false);
+
 
   const checkboxHandler = () => {
     // if agree === true, it will be set to false
@@ -58,7 +59,7 @@ function TermsPage(props) {
 
      <Grid item xs={8} justifyContent="flex-end">
         <Item className="btn">
-     <Button>Privacy Policy</Button>
+           <PrivacyDialog /> 
      </Item>
     </Grid> 
 
