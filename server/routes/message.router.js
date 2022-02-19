@@ -22,9 +22,11 @@ router.post('/session', (req, res) => {
                     event.proctor_id AS proctor_id,
                     proctor.first_name AS proctor_first_name,
                     proctor.last_name AS proctor_last_name,
+                    proctor.profile_picture AS proctor_profile_picture,
                     exam.student_id AS student_id,
                     student.first_name AS student_first_name,
-                    student.last_name AS student_last_name
+                    student.last_name AS student_last_name,
+                    student.profile_picture AS student_profile_picture
                     FROM message_session
                     JOIN exam ON exam.id=message_session.exam_id
                     JOIN event ON exam.event_id=event.id
@@ -32,7 +34,7 @@ router.post('/session', (req, res) => {
                     LEFT JOIN "user" AS student ON student.id=exam.student_id
                     WHERE message_session.id=${newMessageSessionId}`
       pool.query(query).then(result => {
-        console.log('Message_Session Query Results', result.rows);
+        // console.log('Message_Session Query Results', result.rows);
         res.send(result.rows[0]);
       })
         .catch(err => {
@@ -58,7 +60,8 @@ router.post('/detail', (req, res) => {
                     message_detail.creator_id AS creator_id,
                     message_detail.message AS message,
                     "user".first_name AS creator_first_name,
-                    "user".last_name AS creator_last_name
+                    "user".last_name AS creator_last_name,
+                    "user".profile_picture AS creator_profile_picture
                     FROM message_detail
                     JOIN "user" ON message_detail.creator_id="user".id
                     WHERE message_detail.message_session_id=${req.body.message_session_id}
@@ -87,9 +90,11 @@ router.get('/sessions', (req, res) => {
                   event.proctor_id AS proctor_id,
                   proctor.first_name AS proctor_first_name,
                   proctor.last_name AS proctor_last_name,
+                  proctor.profile_picture AS proctor_profile_picture,
                   exam.student_id AS student_id,
                   student.first_name AS student_first_name,
-                  student.last_name AS student_last_name
+                  student.last_name AS student_last_name, 
+                  student.profile_picture AS student_profile_picture
                   FROM message_session
                   JOIN exam ON exam.id=message_session.exam_id
                   JOIN event ON exam.event_id=event.id
@@ -108,7 +113,6 @@ router.get('/sessions', (req, res) => {
 });
 
 router.get('/detail', (req, res) => {
-  console.log('In GET MESSAGE DETAIL', req.query);
   const query = `SELECT
                 message_detail.id AS message_id,
                 message_detail.message_session_id AS message_session_id,
@@ -117,7 +121,8 @@ router.get('/detail', (req, res) => {
                 message_detail.message AS message,
                 "user".first_name AS creator_first_name,
                 "user".last_name AS creator_last_name,
-                "user".role AS creator_role
+                "user".role AS creator_role,
+                "user".profile_picture AS creator_profile_picture
                 FROM message_detail
                 JOIN "user" ON message_detail.creator_id="user".id
                 WHERE message_detail.message_session_id=${req.query.session_id}
@@ -142,9 +147,11 @@ router.get('/fetch-active', (req, res) => {
                   event.proctor_id AS proctor_id,
                   proctor.first_name AS proctor_first_name,
                   proctor.last_name AS proctor_last_name,
+                  proctor.profile_picture AS proctor_profile_picture,
                   exam.student_id AS student_id,
                   student.first_name AS student_first_name,
-                  student.last_name AS student_last_name
+                  student.last_name AS student_last_name,
+                  student.profile_picture AS student_profile_picture
                   FROM message_session
                   JOIN exam ON exam.id=message_session.exam_id
                   JOIN event ON exam.event_id=event.id

@@ -7,7 +7,7 @@ import { Button } from '@mui/material';
 function ImageDisplay(props) {
   const url = props.url;
   const classToPass = props.classToPass;
-  const [photo, setPhoto] = useState('/images/profile_default.png');
+  const [photo, setPhoto] = useState(props.url || '/images/profile_default.png');
 
   //How to use this component
   // <ImageDisplay
@@ -61,8 +61,8 @@ function ImageDisplay(props) {
       });
       })
       .then(stream => {
-      // Respond with our stream
-      return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+        // Respond with our stream
+        return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
       })
       .then(result => {
       // Do things with result
@@ -72,7 +72,9 @@ function ImageDisplay(props) {
   };
 
   return (
-    <img src={photo} className={classToPass}/>
+    <>
+      <img src={photo} className={classToPass}/>
+    </>
   );
 }
 

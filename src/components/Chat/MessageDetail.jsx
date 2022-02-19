@@ -21,15 +21,15 @@ import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
 function messageDetailFunction(props) {
 
-const store = useSelector((store) => store);
-const user = useSelector((store) => store.user);
-
-
+const store = useSelector(store => store);
+const user = useSelector(store => store.user);
 
   return (
     <li className={props.className}>
       {   props.messageClassName === "themMessage"
-        ? <ImageDisplay
+        ? 
+          <ImageDisplay
+            url={props.message.creator_profile_picture}
             classToPass={"tableImageDisplay roundImage blueBorderDainty marginSides3"}
           />
         : <></>  
@@ -46,9 +46,13 @@ const user = useSelector((store) => store.user);
       </div>
 
       {   props.messageClassName === "selfMessage"
-        ? <ImageDisplay
+        ? 
+          <>
+          <ImageDisplay
+            url={props.message.creator_profile_picture}
             classToPass={"tableImageDisplay roundImage blueBorderDainty marginSides3"}
           />
+          </>
         : <></>  
       }
       </li>     
