@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Send from "@material-ui/icons/Send";
 import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 
 import '../Chat/Chat.css';
 
@@ -72,7 +73,7 @@ export default function messageSessionFunction(props) {
 
 
   return (
-
+  <div className="chatWindowParent">
     <div className="chatWindow">
       <div>
         <div className="chat" id="chatList">
@@ -97,6 +98,7 @@ export default function messageSessionFunction(props) {
         </div>
       </div>
       <div className="chattextareadiv">
+
         <input
           type="text"
           placeholder='type a message here...'
@@ -104,10 +106,15 @@ export default function messageSessionFunction(props) {
           className="chattextarea"
           onChange={handleMessageText}>
         </input>
+
+        <SendIcon
+          className="chatSendIcon blueColor" 
+          onClick={handleNewMessage}
+        />
+
       </div>
-      <Button className="sendMessageButton" variant="contained" color="primary" onClick={handleNewMessage}>Send Message</Button>
-      {/* <Send onClick={handleNewMessage} className={classes.sendBtn} /> */}
     </div>
+  </div>  
   );
 }
 
