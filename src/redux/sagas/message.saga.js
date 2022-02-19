@@ -20,7 +20,8 @@ function* createMessageSession(info) {
       url: '/api/message/session',
       data: info.payload
     });
-    
+    console.log('create message session saga end with: ', response.data);
+
     yield put({ type: 'SET_ACTIVE_MESSAGE_SESSION', payload: response.data });
     info.payload.done();
 
@@ -32,7 +33,6 @@ function* createMessageSession(info) {
 function* getMessageSession(info) {
  
   try {
-    console.log("getMessageSession Saga", info);
     const response = yield axios.get('/api/message/fetch-active',{params: info.payload});
     
     yield put({ type: 'SET_ACTIVE_MESSAGE_SESSION', payload: response.data });
