@@ -19,15 +19,17 @@
 
 ## Description
 
-Kyros - Kyros app helps those on their recovery journey track progress, celebrate accomplishments, find support and demonstrate their credibility 
+Kyros - Kyros helps those on their recovery journey track progress, celebrate accomplishments, find support and demonstrate their credibility 
 
-Minnesota Certification Board (MCB) - MCB sets the policies and procedures for various certifications needed in the word of Substance Use Disorder (SUD)
+Minnesota Certification Board (MCB) - MCB sets the policies and procedures for various certifications needed in the world of Substance Use Disorder (SUD)
 
 Those In Recovery - Those in recovery who are far along enough in their journey, but do not have access to necessary resources
 
+This Application - Helps counselors and staff within the rehabilitation community achieve their certification goals as they work to support participants in the organanizations they serve. 
+
 ## Screenshots
 
-<img src="" />
+<img src="./public/videos/kyros_app.gif" />
 
 ## Built With
 
