@@ -235,9 +235,10 @@ function ExamRoomPage(props) {
                                 : <Button className="areYouSureExam" variant="outlined" color="success" onClick={() => changeHandRaiseStatus(true)}>Raise your hand for help</Button>
                             }
                         </ div>
-
-                        <div className="messageSession">
-                            <MessageSession />
+                        <div className="messageSessionParent">
+                            <div className="messageSession">
+                                <MessageSession />
+                            </div>
                         </div>
                     </div>
 
