@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import '../ExamRoomPage/ExamRoomPage.css'
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 import { useHistory } from 'react-router-dom';
-
+import ExamAppBar from './ExamRoomNavbar';
 
 
 function ExamRoomPage(props) {
@@ -199,8 +199,9 @@ function ExamRoomPage(props) {
 
                 :
                 <div className="ExamRoomPage">
-                    <h2 className="examHeader">You are in Exam: {store.exam.selected.event_name + ' - ' + store.exam.selected.test_title}</h2>
-                    <Button className="abortButton" variant="contained" color="error" onClick={abortExam}>Abort Exam</Button>
+                    <ExamAppBar/> 
+                    {/* <h2 className="examHeader">You are in Exam: {store.exam.selected.event_name + ' - ' + store.exam.selected.test_title}</h2> */}
+                    {/* <Button className="abortButton" variant="contained" color="error" onClick={abortExam}>Abort Exam</Button> */}
                     <h3>Question #{selectedQuestionIndex+1} of {store.question.examAll.length}</h3>
                     <div className="ExamFlex">
                         <div className="questionSection">
