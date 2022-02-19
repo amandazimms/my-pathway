@@ -38,7 +38,8 @@
     list-style: none;
     background: none;
     margin: 0; 
-    max-height: 275px;
+    min-height: 200px;
+    max-height: 290px;
     overflow: scroll;
     scroll-behavior: smooth;
   }

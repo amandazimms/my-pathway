@@ -73,7 +73,7 @@ export default function messageSessionFunction(props) {
 
 
   return (
-
+  <div className="chatWindowParent">
     <div className="chatWindow">
       <div>
         <div className="chat" id="chatList">
@@ -113,8 +113,8 @@ export default function messageSessionFunction(props) {
         />
 
       </div>
-      
     </div>
+  </div>  
   );
 }
 
