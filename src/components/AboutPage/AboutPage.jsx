@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import ImageDisplay from '../ImageDisplay/ImageDisplay';
+
 
 
 function AboutPage(props) {

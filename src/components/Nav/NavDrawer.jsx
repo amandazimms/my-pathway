@@ -21,13 +21,7 @@ import {
 } from '@material-ui/core'; 
 
 //MUI Icons
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
-import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
-import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
-import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
-import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
