@@ -17,7 +17,7 @@ router.get('/selected', (req, res) => {
 router.get('/all', (req, res) => {
   //@nickolas todo (from Amanda - thanks)
   //select * from events
-  const queryString = `SELECT * FROM event` ;
+  const queryString = `SELECT * FROM event ORDER BY event_date_end DESC` ;
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{

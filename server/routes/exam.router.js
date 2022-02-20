@@ -112,7 +112,8 @@ router.get('/my-exams', (req, res) => {
     JOIN "event" ON "event".id=exam.event_id
     JOIN test ON test.id="event".test_id
     JOIN "user" ON exam.student_id="user".id
-    WHERE exam.student_id = $1`;
+    WHERE exam.student_id = $1
+    ORDER BY event_date_start DESC`;
   pool.query(queryString, [id]).then((results) => {
     res.send(results.rows);
   }).catch((err) => {

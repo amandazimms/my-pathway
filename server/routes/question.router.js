@@ -7,7 +7,7 @@ router.get('/all', (req, res) => {
   //get all questions for this specific test
   //this will be used when a proctor is viewing an already created test with questions already on it
   const id = req.query.parent_test_id 
-  const queryString = `SELECT * FROM question WHERE parent_test_id = $1`
+  const queryString = `SELECT * FROM question WHERE parent_test_id = $1 ORDER BY question ASC;`
   pool.query( queryString, [id] ).then( (results)=>{
     // console.log('Questions for Exam:', results.rows);
     res.send( results.rows );
