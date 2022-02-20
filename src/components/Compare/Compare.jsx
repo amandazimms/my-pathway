@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import './Compare.css'
 import { Button } from '@mui/material';
 import { Link, useHistory } from 'react-router-dom';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 
 // Basic functional component structure for React with default state
@@ -15,7 +16,7 @@ function compareFunction(props) {
   const dispatch = useDispatch()
   const [photoToCompare, setPhotoToCompare] = useState('/images/profile_default.png')
   const [idToCompare, setIdToCompare] = useState('/images/profile_default.png')
-  const [heading, setHeading] = useState('Compare Images');
+  const [heading, setHeading] = useState("Please Verify Student's ID");
 
   useEffect( () => {
     getPhotoToCompare()
@@ -140,11 +141,19 @@ function compareFunction(props) {
     })
   }
 
+  const closeButton = () => {
+    props.onClickClose();
+  }
+
   return (
     <>
+      <div className="upperRhCornerParent">
+        <div className="width50px"></div>
+        <CancelIcon fontSize="large" onClick={closeButton}/>
+      </div>  
+
       <h2 className='heading'>{heading}</h2>
       {/* <p>{JSON.stringify(store.exam.selected)}</p> */}
-      <p>Please verify this student's ID</p>
 
       <div className="flexParent">
         <img src={photoToCompare} className='compareImage' />

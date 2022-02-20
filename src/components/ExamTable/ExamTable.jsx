@@ -101,7 +101,9 @@ function ExamTable(props) {
         className="compareModal flexParentVertical"
         hideBackdrop={true}
       >
-        <Compare />
+        <Compare 
+          onClickClose={ ()=>setShowCompareModal(false) } 
+        />
       </Modal>
 
     <TableContainer sx={{ minWidth: 500, maxWidth: 1200}} component={Paper}>
@@ -200,10 +202,10 @@ function ExamTable(props) {
             }
 
           {/* ==== INCIDENT ===================== */}
-              { mode === 'IN PROGRESS' || mode === 'COMPLETE'
+              {/* { mode === 'IN PROGRESS' || mode === 'COMPLETE'
               ? <TableCell align="center">{ !row.incident ? 0 : row.incident }</TableCell>
               : <></>
-              }
+              } */}
 
           {/* ==== ACTION BUTTON ===================== */}       
               <TableCell>

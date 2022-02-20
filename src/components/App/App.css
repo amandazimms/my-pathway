@@ -322,3 +322,17 @@ label:focus,
 .marginSides3 {
   margin: 0 3px;
 }
+
+.upperRhCornerParent {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-content: stretch;
+  align-items: flex-start;
+}
+
+.width50px {
+  width: 50px;
+}

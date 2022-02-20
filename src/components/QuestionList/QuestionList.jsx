@@ -37,7 +37,6 @@ function QuestionList(props) {
 
   const closeModal=()=>{
     setShowModal(false); 
-    console.log('closeModal running', showModal); 
   }
 
   const addQuestionAboutButterflies = () => {

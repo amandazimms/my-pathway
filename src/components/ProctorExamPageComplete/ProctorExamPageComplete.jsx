@@ -1,4 +1,4 @@
-import { Button, easing, Modal, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Box, Button, easing, Modal, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
@@ -43,13 +43,21 @@ function ProctorExamPageComplete(props) {
 
   return (
     <>
+      <Box 
+        sx={{
+          marginRight: "35px",
+          marginLeft: "35px"
+        }}
+      >
       <Modal 
         open={showCompareModal} 
         onClose={ ()=>setShowCompareModal(false) } 
         className="compareModal flexParentVertical"
         hideBackdrop={true}
       >
-        <Compare />
+        <Compare 
+          onClickClose={ ()=>setShowCompareModal(false) } 
+        />
       </Modal>
 
       <h2 className='heading'>EXAM RESULTS</h2>
@@ -140,7 +148,7 @@ function ProctorExamPageComplete(props) {
             <Button variant="contained" onClick={approveExam}>APPROVE RESULTS</Button>
           </>
       }          
-
+    </Box>
     </>
   );
 }
