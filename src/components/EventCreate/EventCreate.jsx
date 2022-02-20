@@ -5,6 +5,8 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
 import Box from '@material-ui/core/Box'; 
+import Grid from '@material-ui/core/Grid';
+import '../EventCreate/EventCreate.css'; 
 
 function EventCreate(props) {
   const store = useSelector(store => store);
@@ -67,8 +69,13 @@ function EventCreate(props) {
   }
 
 return (
-    <div>
-      <Box justify="center" component="span" sx={{display: 'block'}}>
+    <div className="container">
+ <Grid container
+ direction="column"
+ alignItems="center"
+ justifyContent="center"
+>
+<div className="form-check">
       <h2 className="heading">CREATE A NEW EVENT</h2>
         <TextField
           required
@@ -137,8 +144,9 @@ return (
         />
         <br />
         <br />
-        <Button variant="outlined" onClick={createEvent}>Create New Event</Button>
-        </Box>
+        <Button variant="contained" onClick={createEvent}>Create New Event</Button>
+        </div>
+        </Grid>
     </div>
   );
 }
