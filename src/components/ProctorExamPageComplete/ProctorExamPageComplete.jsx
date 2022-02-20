@@ -64,8 +64,10 @@ function ProctorExamPageComplete(props) {
       <p>{exam.test_title} - {prettyEventDate} - {prettyEventTime}</p>
       <p>{exam.first_name} {exam.last_name} - {exam.username}</p>
       
-      <TableContainer component={Paper}>
-        <Table sx={{ maxWidth: 650 }} aria-label="simple table">
+      <br/>
+
+      <TableContainer component={Paper} sx={{ maxWidth: 500 }}>
+        <Table  aria-label="simple table">
 
           <TableBody>
 
@@ -131,6 +133,8 @@ function ProctorExamPageComplete(props) {
 
         </Table>
       </TableContainer>
+
+      <div className="a50pxSpacer"></div>
 
       {   exam.exam_status === "APPROVED"
         ? <>
