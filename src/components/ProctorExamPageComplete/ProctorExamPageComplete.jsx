@@ -11,6 +11,7 @@ import Compare from '../Compare/Compare';
 function ProctorExamPageComplete(props) {
   const exam = useSelector(store => store.exam.selected);
   const [showCompareModal, setShowCompareModal] = useState(false);
+  const [editApprovedRejected, setEditApprovedRejected] = useState(false);
   const dispatch = useDispatch();
 
   const formatDate = (dateString) => {
@@ -31,6 +32,10 @@ function ProctorExamPageComplete(props) {
 
   const rejectExam = () => {
     dispatch({ type:'REJECT_EXAM', payload: {exam_id: exam.exam_id} })
+  }
+  
+  const updateExamToAwaitingApproval = () => {
+    dispatch({ type:'UPDATE_EXAM_AWAITING_APPROVAL', payload: {exam_id: exam.exam_id} })
   }
 
   const passExam = () => {
@@ -135,23 +140,24 @@ function ProctorExamPageComplete(props) {
       </TableContainer>
 
       <div className="a50pxSpacer"></div>
-
-      {   exam.exam_status === "APPROVED"
+      {
+          exam.exam_status === "APPROVED"
         ? <>
             <p>Exam Approved</p>
-            <Button variant="outlined" onClick={rejectExam}>REJECT RESULTS</Button>
+            <p className="linkText" onClick={updateExamToAwaitingApproval}>Undo Approval</p>
           </>
         : exam.exam_status === "REJECTED"
         ? <>
             <p>Exam Rejected</p>
-            <Button variant="outlined" onClick={approveExam}>APPROVE RESULTS</Button>
+            <p className="linkText" onClick={updateExamToAwaitingApproval}>Undo Rejection</p>
           </>
-        : <>
+        : <> 
+          {/* else if awaiting approval */}
             <p>Awaiting Approval</p>
             <Button variant="outlined" onClick={rejectExam}>REJECT RESULTS</Button>
             <Button variant="contained" onClick={approveExam}>APPROVE RESULTS</Button>
           </>
-      }          
+      }    
     </Box>
     </>
   );
