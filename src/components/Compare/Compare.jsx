@@ -148,7 +148,6 @@ function compareFunction(props) {
   return (
     <>
       <div className="upperRhCornerParent">
-        <div className="width50px"></div>
         <CancelIcon fontSize="large" onClick={closeButton}/>
       </div>  
 

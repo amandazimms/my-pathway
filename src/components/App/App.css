@@ -335,6 +335,8 @@ label:focus,
   justify-content: flex-end;
   align-content: stretch;
   align-items: flex-start;
+
+  width: 100%;
 }
 
 .width50px {
