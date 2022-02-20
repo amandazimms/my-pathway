@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Button, Card, CardContent, Typography } from '@mui/material'; 
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import IncidentCounter from '../IncidentCounter/IncidentCounter';
+// import IncidentCounter from '../IncidentCounter/IncidentCounter';
 import { useHistory } from 'react-router-dom';
 import MessageSession from '../Chat/MessageSession'
 import ImageDisplay from '../ImageDisplay/ImageDisplay';
@@ -87,7 +87,8 @@ function ProctorExamPageInProgress() {
 
       </div>
 
-      <IncidentCounter exam={exam}/>
+
+      {/* <IncidentCounter exam={exam}/> */}
 
       <br/>
       <Button variant="contained" onClick={doneHelping}>DONE ASSISTING</Button>

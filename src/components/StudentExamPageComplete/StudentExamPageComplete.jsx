@@ -1,4 +1,4 @@
-import { Button, easing, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Box, Button, easing, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
@@ -23,13 +23,18 @@ function studentExamPageComplete(props) {
 
 
   return (
-    <div>
+      <Box 
+        sx={{
+          marginRight: "35px",
+          marginLeft: "35px"
+        }}
+      >
       <h2>EXAM RESULTS</h2>
-      <h2>{exam.test_title} - {prettyEventDate} - {prettyEventTime}</h2>
-      <h2>{exam.first_name} {exam.last_name} - {exam.username}</h2>
+      <p>{exam.test_title} - {prettyEventDate} - {prettyEventTime}</p>
+      <p>{exam.first_name} {exam.last_name} - {exam.username}</p>
       
-      <TableContainer component={Paper}>
-        <Table sx={{ maxWidth: 650 }} aria-label="simple table">
+      <TableContainer component={Paper} sx={{ maxWidth: 500 }} >
+        <Table aria-label="simple table">
 
           <TableBody>
 
@@ -47,11 +52,11 @@ function studentExamPageComplete(props) {
               <TableCell component="th" scope="row"># CORRECT</TableCell>
               <TableCell align="right">{exam.score || 0}</TableCell>
             </TableRow> 
-
+{/* 
             <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row"># INCIDENTS</TableCell>
               <TableCell align="right">{exam.incident || 0}</TableCell>
-            </TableRow> 
+            </TableRow>  */}
 
             <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row">PASS/FAIL</TableCell>
@@ -67,8 +72,7 @@ function studentExamPageComplete(props) {
 
         </Table>
       </TableContainer>        
-     
-    </div>
+    </Box>
   );
 }
 

@@ -13,24 +13,32 @@ function* eventSaga() {
   yield takeLatest('UPDATE_ACTIVE_EXAM_QUESTION', updateActiveExamQuestion);//update exam with students active question id.
   yield takeLatest('CAPTURE_ANSWER', captureAnswer);//updates exam_detail record with answer and graded outcome.
   yield takeLatest('SCORE_EXAM', scoreExam);
+ 
   yield takeLatest('ACCEPT_TERMS', acceptTerms);
   //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
+  
   yield takeLatest('APPROVE_EXAM', approveExam);
   //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
   yield takeLatest('REJECT_EXAM', rejectExam);
   //dispatch({ type:'REJECT_EXAM', payload: {exam_id: exam.exam_id} })
+  yield takeLatest('UPDATE_EXAM_AWAITING_APPROVAL', updateExamAwaitingApproval);
+  //dispatch({ type:'UPDATE_EXAM_AWAITING_APPROVAL', payload: {exam_id: exam.exam_id} });
+
   yield takeLatest('PASS_EXAM', passExam);
   //dispatch({ type:'PASS_EXAM', payload: {exam_id: exam.exam_id} })
   yield takeLatest('FAIL_EXAM', failExam);
   //dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
+ 
   yield takeLatest('FETCH_EXAM_QUESTION_PROCTOR', fetchExamQuestionProctor);
   //dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.id} });
+  
   yield takeLatest('ADD_INCIDENT', addIncident);
   //dispatch({ type:'ADD_INCIDENT', payload: {exam_detail: exam_detail} });
   yield takeLatest('CHANGE_HELP_STATUS', changeHelpStatus);
   //dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: value} });
 
 }
+
 
 // worker Saga: will be fired on "CHANGE_HELP_STATUS" actions
 function* changeHelpStatus(action) {
@@ -274,6 +282,20 @@ function* rejectExam(action) {
     console.log('update exam failed', error);
   }
 }
+
+// worker Saga: will be fired on "UPDATE_EXAM_AWAITING_APPROVAL" actions
+function* updateExamAwaitingApproval(action) {
+  const ap = action.payload;
+  //ap.exam_id
+  try {
+    yield axios.put(`/api/exam/status/${ap.exam_id}`, { status: "AWAITING APPROVAL" });
+    yield put({ type: 'SET-UPDATE_SELECTED_EXAM', payload: { exam_status: "AWAITING APPROVAL" } });
+  } catch (error) {
+    console.log('update exam failed', error);
+  }
+}
+
+
 
 
 

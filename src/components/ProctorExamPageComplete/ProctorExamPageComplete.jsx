@@ -1,4 +1,4 @@
-import { Button, easing, Modal, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Box, Button, easing, Modal, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
@@ -11,6 +11,7 @@ import Compare from '../Compare/Compare';
 function ProctorExamPageComplete(props) {
   const exam = useSelector(store => store.exam.selected);
   const [showCompareModal, setShowCompareModal] = useState(false);
+  const [editApprovedRejected, setEditApprovedRejected] = useState(false);
   const dispatch = useDispatch();
 
   const formatDate = (dateString) => {
@@ -32,6 +33,10 @@ function ProctorExamPageComplete(props) {
   const rejectExam = () => {
     dispatch({ type:'REJECT_EXAM', payload: {exam_id: exam.exam_id} })
   }
+  
+  const updateExamToAwaitingApproval = () => {
+    dispatch({ type:'UPDATE_EXAM_AWAITING_APPROVAL', payload: {exam_id: exam.exam_id} })
+  }
 
   const passExam = () => {
     dispatch({ type:'PASS_EXAM', payload: {exam_id: exam.exam_id} })
@@ -43,21 +48,31 @@ function ProctorExamPageComplete(props) {
 
   return (
     <>
+      <Box 
+        sx={{
+          marginRight: "35px",
+          marginLeft: "35px"
+        }}
+      >
       <Modal 
         open={showCompareModal} 
         onClose={ ()=>setShowCompareModal(false) } 
         className="compareModal flexParentVertical"
         hideBackdrop={true}
       >
-        <Compare />
+        <Compare 
+          onClickClose={ ()=>setShowCompareModal(false) } 
+        />
       </Modal>
 
       <h2 className='heading'>EXAM RESULTS</h2>
       <p>{exam.test_title} - {prettyEventDate} - {prettyEventTime}</p>
       <p>{exam.first_name} {exam.last_name} - {exam.username}</p>
       
-      <TableContainer component={Paper}>
-        <Table sx={{ maxWidth: 650 }} aria-label="simple table">
+      <br/>
+
+      <TableContainer component={Paper} sx={{ maxWidth: 500 }}>
+        <Table  aria-label="simple table">
 
           <TableBody>
 
@@ -76,10 +91,10 @@ function ProctorExamPageComplete(props) {
               <TableCell align="right">{exam.score || 0}</TableCell>
             </TableRow> 
 
-            <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
+            {/* <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row"># INCIDENTS</TableCell>
               <TableCell align="right">{exam.incident || 0}</TableCell>
-            </TableRow> 
+            </TableRow>  */}
 
             <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row">ID MATCH?</TableCell>
@@ -124,23 +139,26 @@ function ProctorExamPageComplete(props) {
         </Table>
       </TableContainer>
 
-      {   exam.exam_status === "APPROVED"
+      <div className="a50pxSpacer"></div>
+      {
+          exam.exam_status === "APPROVED"
         ? <>
             <p>Exam Approved</p>
-            <Button variant="outlined" onClick={rejectExam}>REJECT RESULTS</Button>
+            <p className="linkText" onClick={updateExamToAwaitingApproval}>Undo Approval</p>
           </>
         : exam.exam_status === "REJECTED"
         ? <>
             <p>Exam Rejected</p>
-            <Button variant="outlined" onClick={approveExam}>APPROVE RESULTS</Button>
+            <p className="linkText" onClick={updateExamToAwaitingApproval}>Undo Rejection</p>
           </>
-        : <>
+        : <> 
+          {/* else if awaiting approval */}
             <p>Awaiting Approval</p>
             <Button variant="outlined" onClick={rejectExam}>REJECT RESULTS</Button>
             <Button variant="contained" onClick={approveExam}>APPROVE RESULTS</Button>
           </>
-      }          
-
+      }    
+    </Box>
     </>
   );
 }

@@ -27,9 +27,9 @@ function ExamTable(props) {
 
   const headers = 
       mode === "COMPLETE"  
-    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'EXAM START', 'EXAM END', '# INCIDENTS', 'ACTION']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'EXAM START', 'EXAM END', 'ACTION']
     : mode === "IN PROGRESS" 
-    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'ASSISTANCE', 'EXAM START', 'EXAM END', '# INCIDENTS', 'GO IN']
+    ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ID MATCH?', 'ASSISTANCE', 'EXAM START', 'EXAM END', 'GO IN']
     : mode === "UPCOMING"
     ?   ['', 'FIRST NAME', 'LAST NAME', 'EMAIL/USERNAME', 'ACTION']
     :   [];
@@ -101,7 +101,9 @@ function ExamTable(props) {
         className="compareModal flexParentVertical"
         hideBackdrop={true}
       >
-        <Compare />
+        <Compare 
+          onClickClose={ ()=>setShowCompareModal(false) } 
+        />
       </Modal>
 
     <TableContainer sx={{ minWidth: 500, maxWidth: 1200}} component={Paper}>
@@ -200,10 +202,10 @@ function ExamTable(props) {
             }
 
           {/* ==== INCIDENT ===================== */}
-              { mode === 'IN PROGRESS' || mode === 'COMPLETE'
+              {/* { mode === 'IN PROGRESS' || mode === 'COMPLETE'
               ? <TableCell align="center">{ !row.incident ? 0 : row.incident }</TableCell>
               : <></>
-              }
+              } */}
 
           {/* ==== ACTION BUTTON ===================== */}       
               <TableCell>
