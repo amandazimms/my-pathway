@@ -1,14 +1,8 @@
-.kyros-logo {
-    width: 200px;
-    max-width: 100%;
-    margin: 84px 0px 0px;
-  }
+
 
 .login-background {
 justify-content: center;
-min-height: 30vh;
 padding: 50px;
-min-height: 100vh;
 display: flex;
 flex-direction: column;
 align-items: center;
