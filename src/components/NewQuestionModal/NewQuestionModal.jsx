@@ -108,7 +108,8 @@ return (
           <MenuItem value={4}>4 pt</MenuItem>
         </Select>
       </FormControl>
-
+<br></br> 
+<br></br>
       {/* Partially built alternate format option - no FE exists for options other than Multiple Choice */}
       {/* <FormControl fullWidth> 
         <InputLabel id="questionFormat">Question Format</InputLabel>
@@ -131,25 +132,26 @@ return (
           id="input-with-sx" 
           label="Correct Answer" 
           variant="standard"
+          fullWidth="true" 
           sx={{ fontWeight: "bold" }}
         />
       </Box>
-
+      <br></br>
       <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
         <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-        <TextField  onChange={(event)=>setOptionTwo(event.target.value)} id="input-with-sx" label="Option 2" variant="standard"/>
+        <TextField  onChange={(event)=>setOptionTwo(event.target.value)} fullWidth="true"  label="Option 2" variant="standard"/>
       </Box>      
-
+      <br></br>
       <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
         <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-        <TextField  onChange={(event)=>setOptionThree(event.target.value)} id="input-with-sx" label="Option 3" variant="standard"/>
+        <TextField  onChange={(event)=>setOptionThree(event.target.value)} fullWidth="true"  label="Option 3" variant="standard"/>
       </Box>
-
+      <br></br>
       <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
         <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-        <TextField  onChange={(event)=>setOptionFour(event.target.value)} id="input-with-sx" label="Option 4" variant="standard"/>
+        <TextField  onChange={(event)=>setOptionFour(event.target.value)} fullWidth="true" label="Option 4" variant="standard"/>
       </Box>
-
+      <br></br>
       {/* Partially built toggle for whether question appears on tests - needs BE */}
       {/* <FormControlLabel control={<Switch defaultChecked />} label="" />   */}
       <br></br>
