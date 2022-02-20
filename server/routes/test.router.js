@@ -25,7 +25,7 @@ router.get('/all', (req, res) => {
   //get * from the tests table
   //this will be used when a proctor is viewing all the tests that have been created
   //send back the results.rows
-  const queryString = `SELECT * FROM test`;
+  const queryString = `SELECT * FROM test ORDER BY title ASC`;
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{
