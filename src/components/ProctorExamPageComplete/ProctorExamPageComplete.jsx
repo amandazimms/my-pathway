@@ -76,10 +76,10 @@ function ProctorExamPageComplete(props) {
               <TableCell align="right">{exam.score || 0}</TableCell>
             </TableRow> 
 
-            <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
+            {/* <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row"># INCIDENTS</TableCell>
               <TableCell align="right">{exam.incident || 0}</TableCell>
-            </TableRow> 
+            </TableRow>  */}
 
             <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row">ID MATCH?</TableCell>

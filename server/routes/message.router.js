@@ -6,7 +6,7 @@ const router = express.Router();
  * POST route template
  */
 router.post('/session', (req, res) => {
-  console.log('MADE IT TO MESSAGE PUT', req.body);
+  // console.log('MADE IT TO MESSAGE PUT', req.body);
   const query = `INSERT INTO "message_session" ("exam_id", "created_by")
                    VALUES ($1, $2)
                    RETURNING "id";`;
@@ -45,7 +45,7 @@ router.post('/session', (req, res) => {
 });
 
 router.post('/detail', (req, res) => {
-  console.log('MADE IT TO MESSAGE DETAIL PUT', req.body);
+  // console.log('MADE IT TO MESSAGE DETAIL PUT', req.body);
   const query = `INSERT INTO "message_detail" ("message_session_id", "creator_id", "message")
                    VALUES ($1, $2, $3)
                    RETURNING "id";`;
