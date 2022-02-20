@@ -1,26 +1,22 @@
 .kyros-logo {
     width: 200px;
-    max-width: 100%;
-    margin: 84px 0px 0px;
     padding: 0;
+    paddint-top: 0; 
   }
 
-.login-background {
-justify-content: center;
-min-height: 30vh;
-padding: 50px;
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-  
-  
+  .login-background {
+    justify-content: center;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1ch;
+    }
+
   .login-h1 {
-    text-transform: none;
-    font-size: 42px;
+    font-size: 32px;
   }
-  
+
   .login-p {
     text-align: center;
     width: 80%;
@@ -29,6 +25,7 @@ align-items: center;
     line-height: 24px;
     margin-bottom: 39px;
   }
+  
   
   .loginInput {
     width: 100%;
@@ -47,6 +44,7 @@ align-items: center;
     justify-content: center;
     min-height: 90vh;
   }
+
   
   .loginButton {
     text-transform: uppercase;
@@ -55,13 +53,7 @@ align-items: center;
     margin-top: 15px;
   }
   
-  .loginButton {
-    text-transform: uppercase;
-    /* font-family: Helvetica-Light; */
-    font-weight: bold;
-    margin-top: 15px;
-  }
-  
+
   .loginContainer {
     display: flex;
     flex-direction: column;
