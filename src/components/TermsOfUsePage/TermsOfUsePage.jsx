@@ -52,7 +52,7 @@ function TermsPage(props) {
 
         <Grid item xs={8}>
         <h1 className="pageHeading">Terms of Use</h1>
-        <h2 className='body'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisi turpis at velit libero, enim elementum consectetur luctus. A, proin ornare nulla nunc.</h2>
+        <h2 className='body'>Please take a moment to read through our privacy policy and terms of use.</h2>
         </Grid>
 
      <Grid item xs={8} justifyContent="flex-end">
