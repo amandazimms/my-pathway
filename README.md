@@ -1,4 +1,4 @@
-<img height="150px" src="https://github.com/amandazimms/my-pathway/blob/master/public/Icons/kryrosLogo.png?raw=true" />
+<img height="150px" src="https://github.com/amandazimms/my-pathway/blob/master/public/icons/kryrosLogo.png?raw=true" />
 
 <br/>
 

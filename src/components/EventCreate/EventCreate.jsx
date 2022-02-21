@@ -64,8 +64,15 @@ function EventCreate(props) {
       url: null,
       created_by: user.id, //this is the proctor's id, should be already there in the store 
     }
+    console.log("creating event:", newEvent);
     dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } });
     props.onSetIsNewFalse();
+  }
+
+  {/* todo secretbutton remove the function below this */}
+  const autoFillEvent = () => {
+    console.log('autofill');
+    setEventName("February PRSC Offering");
   }
 
 return (
@@ -76,12 +83,15 @@ return (
  justifyContent="center"
 >
 <div className="form-check">
-      <h2 className="heading">CREATE A NEW EVENT</h2>
+    
+      {/* todo secretbutton remove the onClick below this */}
+      <h2 className="heading" onClick={autoFillEvent}>CREATE A NEW EVENT</h2>
         <TextField
           required
           id="outlined-required"
           label="Event Name"
           sx={{ minWidth: 300 }}
+          value={eventName}
           onChange={handleNameChange}
         />
         <br />
