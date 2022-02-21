@@ -6,7 +6,12 @@ router.get('/selected', (req, res) => {
   //@nickolas todo (from Amanda - thanks)
   //select * from event from the db WHERE id is req.params.event_id
   const id = req.params.event_id
-  const queryString = `SELECT * FROM event WHERE id = $1` ;
+  const queryString = `SELECT event.id AS id, event.event_name, 
+      test_id, proctor_id, url, event.event_date_start, event.event_date_end,
+      test.title as test_title
+    FROM event 
+    JOIN test on event.test_id=test.id 
+    WHERE id = $1`;
   pool.query( queryString, [id] ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{
@@ -17,7 +22,12 @@ router.get('/selected', (req, res) => {
 router.get('/all', (req, res) => {
   //@nickolas todo (from Amanda - thanks)
   //select * from events
-  const queryString = `SELECT * FROM event ORDER BY event_date_end DESC` ;
+  const queryString = `SELECT event.id AS id, event.event_name, 
+    test_id, proctor_id, url, event.event_date_start, event.event_date_end,
+    test.title as test_title 
+  FROM event 
+  JOIN test on event.test_id=test.id 
+  ORDER BY event_date_end DESC` ;
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{

@@ -49,10 +49,11 @@ function EventDetailsTab(props) {
         ? <></>
         : // --- if we're NOT editing the event and it's NOT new ----
           <>
-            <p><b>Event Title:</b> {event.event_name}</p>
-            <p><b>Start Date and Time:</b> {eventStartTime}</p>
-            <p><b>End Date and Time:</b> {eventEndTime}</p>
-            <p><b>Proctor ID:</b> {event.proctor_id}</p>
+            <p><b>Event Title: </b>{event.event_name}</p>
+            <p><b>Test: </b>{event.test_title}</p>
+            <p><b>Start Date and Time: </b>{eventStartTime}</p>
+            <p><b>End Date and Time: </b>{eventEndTime}</p>
+            {/* <p><b>Proctor ID: </b>{event.proctor_id}</p> */}
           </> 
       }
 
