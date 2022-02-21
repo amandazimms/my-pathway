@@ -196,6 +196,15 @@ label:focus,
   align-items: center;
 }
 
+.flexParentChatAndQuestion {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: flex-end;
+}
+
 .socialFooterIcon {
   margin: 0 5px;
 }
@@ -316,7 +325,7 @@ label:focus,
 .chatSendIcon {
   width: 32px !important;
   height: 32px !important;
-  margin: 0 0 -8px -50px;
+  margin: 0 0 -8px -40px;
 }
 
 .blueColor {
@@ -325,6 +334,10 @@ label:focus,
 
 .marginSides3 {
   margin: 0 3px;
+}
+
+.margin10px {
+  margin: 10px !important;
 }
 
 .upperRhCornerParent {
@@ -354,4 +367,8 @@ label:focus,
 
 .noTopMargin {
   margin-top: 0;
+}
+
+.questionSection {
+  margin: 10px;
 }

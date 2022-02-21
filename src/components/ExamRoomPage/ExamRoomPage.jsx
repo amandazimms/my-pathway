@@ -198,48 +198,57 @@ function ExamRoomPage(props) {
                 </Grid>
 
                 :
-                <div className="ExamRoomPage">
-                    <h2 className="examHeader">You are in Exam: {store.exam.selected.event_name + ' - ' + store.exam.selected.test_title}</h2>
-                    <Button className="abortButton" variant="contained" color="error" onClick={abortExam}>Abort Exam</Button>
-                    <h3>Question #{selectedQuestionIndex+1} of {store.question.examAll.length}</h3>
-                    <div className="ExamFlex">
+                <div>
+                    <div className="flexParent">
+                        <h3 className="examHeader">You are in Exam: {store.exam.selected.event_name + ' - ' + store.exam.selected.test_title}</h3>
+                        <div className="width50px"></div>
+                        <Button className="abortButton" variant="contained" color="error" onClick={abortExam}>End Exam Early</Button>
+                    </div>
+
+                    <div className="flexParentChatAndQuestion">
+                        
                         <div className="questionSection">
+                            <h3>Question #{selectedQuestionIndex+1} of {store.question.examAll.length}</h3>
                             <ExamQuestion
                                 setSelection={setSelection}
                                 selectedAnswer={selectedAnswer}
-                            />
-                            <br />
-                            {selectedQuestionIndex != store.question.examAll.length - 1 ?
-                                <AreYouSureButton
-                                    beginningText={"Confirm Answer"}
-                                    areYouSureText={"Are you sure?  Click to Proceed to Next Question"}
-                                    onButtonClick={nextQuestion}
-                                    beginningVariant={"contained"}
-                                    areYouSureVariant={"outlined"}
-                                    className="areYouSureExam"
-                                />
-                                :
-                                <AreYouSureButton
-                                    beginningText={"Complete Exam"}
-                                    areYouSureText={"Are you sure?  Click to Exit Exam."}
-                                    onButtonClick={completeExam}
-                                    beginningVariant={"contained"}
-                                    areYouSureVariant={"outlined"}
-                                    className="areYouSureExam"
-                                />
-                            }
-                            <br />
-                            <br />
-                            {exam.help
-                                ? <Button className="areYouSureExam" variant="outlined" color="error" onClick={() => changeHandRaiseStatus(false)}>Hand is rasised, click to cancel</Button>
-                                : <Button className="areYouSureExam" variant="outlined" color="success" onClick={() => changeHandRaiseStatus(true)}>Raise your hand for help</Button>
-                            }
+                            />                            
                         </ div>
-                        <div className="messageSessionParent">
-                            <div className="messageSession">
-                                <MessageSession />
-                            </div>
-                        </div>
+                        
+                        {   exam.help 
+                          ? <MessageSession />
+                          : <></>
+                        }
+                       
+
+                    </div>
+
+                    <div className="flexParentVertical">    
+                        {selectedQuestionIndex != store.question.examAll.length - 1 
+                        ?
+                            <AreYouSureButton
+                                beginningText={"Confirm Answer"}
+                                areYouSureText={"Are you sure?  Click to Proceed to Next Question"}
+                                onButtonClick={nextQuestion}
+                                beginningVariant={"contained"}
+                                areYouSureVariant={"outlined"}
+                                className="areYouSureExam margin10px"
+                            />
+                        :
+                            <AreYouSureButton
+                                beginningText={"Complete Exam"}
+                                areYouSureText={"Are you sure?  Click to Exit Exam."}
+                                onButtonClick={completeExam}
+                                beginningVariant={"contained"}
+                                areYouSureVariant={"outlined"}
+                                className="areYouSureExam margin10px"
+                            />
+                        }
+
+                        {exam.help
+                            ? <Button className="areYouSureExam margin10px" variant="outlined" color="error" onClick={() => changeHandRaiseStatus(false)}>Hand is rasised, click to cancel</Button>
+                            : <Button className="areYouSureExam margin10px" variant="outlined" color="success" onClick={() => changeHandRaiseStatus(true)}>Raise your hand for help</Button>
+                        }
                     </div>
 
 
