@@ -19,6 +19,7 @@ function TestCreate(props) {
   const [testName, setTestName] = useState('')
   const [shuffleQuestions, setShuffleQuestions] = useState(false)
   const [testTimeLimit, setTestTimeLimit] = useState('')
+  const [passThreshold, setPassThreshold] = useState(.75);
   const [attemptsAllowed, setAttemptsAllowed] = useState('')
   const [editTest, setEditTest] = useState(false)
   const [isNew, setIsNew] = useState(props.new)
@@ -51,6 +52,9 @@ function TestCreate(props) {
     setAttemptsAllowed(event.target.value)
   }
 
+  const handlePercentageChange = (event) => {
+    setPassThreshold(event.target.value);
+  }
 
   const addTest = () => {
     let newTest ={
@@ -58,6 +62,7 @@ function TestCreate(props) {
       test_time_limit: testTimeLimit,
       question_shuffle: shuffleQuestions,
       test_attempt_limit: attemptsAllowed,
+      pass_threshold: passThreshold,
       id: test.id, //already in store
       created_by: user.id,
     }
@@ -125,6 +130,31 @@ return(
           </TextField>
           <br />
           <br />
+
+          <TextField
+                id="outlined-select-required"
+                required
+                select
+                label="Pass Threshold"
+                value={passThreshold}
+                sx={{ minWidth: 300 }}
+                onChange={handlePercentageChange}
+              >
+            <MenuItem key={uuid.v4} value={.5}>50%</MenuItem>
+            <MenuItem key={uuid.v4} value={.55}>55%</MenuItem>
+            <MenuItem key={uuid.v4} value={.6}>60%</MenuItem>
+            <MenuItem key={uuid.v4} value={.65}>65%</MenuItem>
+            <MenuItem key={uuid.v4} value={.7}>70%</MenuItem>
+            <MenuItem key={uuid.v4} value={.75}>75%</MenuItem>
+            <MenuItem key={uuid.v4} value={.8}>80%</MenuItem>
+            <MenuItem key={uuid.v4} value={.85}>85%</MenuItem>
+            <MenuItem key={uuid.v4} value={.9}>90%</MenuItem>
+            <MenuItem key={uuid.v4} value={.95}>95%</MenuItem>
+            <MenuItem key={uuid.v4} value={1}>100%</MenuItem>
+          </TextField>
+          <br></br>
+          <br></br>
+
           <TextField
             id="outlined-select-required"
             label="Number of Attempts Allowed"
