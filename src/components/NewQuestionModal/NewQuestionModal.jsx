@@ -29,9 +29,9 @@ useEffect(() => {
 
 const handleChange = (event) => {
   setNewQuestion(...newQuestion, event.target.value)
-  console.log('question:', event.target.value)
+  // console.log('question:', event.target.value)
 
-  console.log('newquestion:', newQuestion ); 
+  // console.log('newquestion:', newQuestion ); 
 }; 
 
 const [questionValue, setQuestionValue] = useState(2)

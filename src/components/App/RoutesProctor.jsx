@@ -109,18 +109,6 @@ function RoutesProctor() {
 
 
         {/* //TODO possibly can eventually delete the routes between $$$
-        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */}
-          <ProtectedRoute exact path="/exam-question">
-            <ExamQuestion/>
-          </ProtectedRoute>
-
-          <ProtectedRoute exact path="/chat" >
-            <Chat />
-          </ProtectedRoute>
-
-          <ProtectedRoute exact path="/message_session" >
-            <MessageSession />
-          </ProtectedRoute>
 
           {/* ExamRoomPage - this one is for students above - proctors don't need? */}
           <ProtectedRoute exact path="/exam-room" >

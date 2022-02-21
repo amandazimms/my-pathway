@@ -101,7 +101,7 @@ router.put('/:id', (req, res)=> {
   //for last_modified_by, do it the same as test.router's .put
   //(no RETURNING)
   //send 200 back :)
-  console.log('req.body:', req.body);
+  // console.log('req.body:', req.body);
   const id = req.params.id
   const queryString = `UPDATE event SET event_name = $1, test_id = $2, proctor_id = $3, event_date_start = $4, event_date_end = $5, url = $6, last_modified_by = $7, last_modified_date=CURRENT_TIMESTAMP
   WHERE event.id = ${id}`;

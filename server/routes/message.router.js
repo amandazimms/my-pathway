@@ -12,7 +12,7 @@ router.post('/session', (req, res) => {
                    RETURNING "id";`;
   pool.query(query, [req.body.examId, req.body.userId])
     .then(result => {
-      console.log(result.rows[0].id);
+      // console.log(result.rows[0].id);
       const newMessageSessionId = result.rows[0].id;
       const query = `SELECT 
                     message_session.id AS message_session_id,
@@ -51,7 +51,7 @@ router.post('/detail', (req, res) => {
                    RETURNING "id";`;
   pool.query(query, [req.body.message_session_id, req.body.creator_id, req.body.message])
     .then(result => {
-      console.log(result.rows[0].id);
+      // console.log(result.rows[0].id);
       const newMessageDetailId = result.rows[0].id;
       const query = `SELECT
                     message_detail.id AS message_id,
@@ -67,7 +67,7 @@ router.post('/detail', (req, res) => {
                     WHERE message_detail.message_session_id=${req.body.message_session_id}
                     ORDER BY timestamp ASC;`
       pool.query(query).then(result => {
-        console.log('Message_Session Query Results', result.rows);
+        // console.log('Message_Session Query Results', result.rows);
         res.send(result.rows);
       })
         .catch(err => {
@@ -81,7 +81,7 @@ router.post('/detail', (req, res) => {
  * GET route template
  */
 router.get('/sessions', (req, res) => {
-  console.log('In GET available sessions', req.query);
+  // console.log('In GET available sessions', req.query);
   const query = `SELECT 
                   message_session.id AS message_session_id,
                   exam.id AS exam_id,
@@ -138,7 +138,7 @@ router.get('/detail', (req, res) => {
 });
 
 router.get('/fetch-active', (req, res) => {
-  console.log('In GET available sessions', req.query);
+  // console.log('In GET available sessions', req.query);
   const query = `SELECT 
                   message_session.id AS message_session_id,
                   exam.id AS exam_id,

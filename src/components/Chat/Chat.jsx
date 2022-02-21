@@ -22,7 +22,7 @@ function chatFunction(props) {
     //either get the message session and set that as the active one,
     //or if that doesn't exist, create one and set that as active
     const getSessionsTimer = setInterval(() => {getSessions()}, 15000);
-      return () => clearInterval(getSessionsTimer)
+    return () => clearInterval(getSessionsTimer)
   },[])
 
   const history = useHistory()
@@ -56,7 +56,7 @@ function chatFunction(props) {
   };
 
   const resumeChat = (event) => {
-    console.log('setActiveChat event details', event.target.value);
+    // console.log('setActiveChat event details', event.target.value);
     dispatch({
       type: 'GET_MESSAGE_SESSION',
       payload: {

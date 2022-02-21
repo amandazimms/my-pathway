@@ -30,11 +30,11 @@ function ExamRoomPage(props) {
         //runs every {3s} while this page is open
         fetchMyExam();
         const getMessageTimer = setInterval(() => { fetchMyExam() }, 3000);
-        return () => clearInterval(getMessageTimer)
+        return () => clearInterval(getMessageTimer);
     }
 
     useEffect(() => {
-        fetchRepeating();
+        return fetchRepeating();
     }, []);
 
     const fetchMyExam = () => {
@@ -111,7 +111,7 @@ function ExamRoomPage(props) {
     }
 
     const captureAnswer = () => {
-        console.log('Capturing answer!');
+        // console.log('Capturing answer!');
         dispatch({
             type: 'CAPTURE_ANSWER',
             payload: {
@@ -141,7 +141,7 @@ function ExamRoomPage(props) {
     }
 
     const createExamDetailRecord = () => {
-        console.log('createExamDetailRecord');
+        // console.log('createExamDetailRecord');
         dispatch({
             type: 'CREATE_EXAM_DETAIL_RECORD',
             payload: {

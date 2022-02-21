@@ -59,7 +59,7 @@ function QuestionItem(props) {
   const selectedQuestion = useSelector(store => store.question.selected);
 
   const setSelectedQuestion = (_question) => {
-    console.log('clicked edit question');
+    // console.log('clicked edit question');
     dispatch({ type: 'SET_SELECTED_QUESTION', payload: _question });
   }
 

@@ -3,7 +3,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchImageUrl() {
-  console.log('In fetchImageUrl');
+  // console.log('In fetchImageUrl');
 
   try {
         const url = yield axios.get('/api/image');
@@ -19,7 +19,7 @@ function* fetchImageUrl() {
 };
 function* compareImages(action) {
   let ap = action.payload
-  console.log('In fetchImageUrl');
+  // console.log('In fetchImageUrl');
 
   try {
         yield put(

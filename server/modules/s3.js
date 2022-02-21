@@ -37,11 +37,11 @@ const generateUploadURL = async () => {
         Expires: 300
     })
 
-    console.log('In gernateUploadURL with imageName:', imageName, ' and params:', params, 'and s3:', s3);
+    // console.log('In gernateUploadURL with imageName:', imageName, ' and params:', params, 'and s3:', s3);
 
     const uploadURL = await s3.getSignedUrlPromise('putObject', params)
 
-    console.log('This is after the uploadURL');
+    // console.log('This is after the uploadURL');
     return uploadURL
 }
 

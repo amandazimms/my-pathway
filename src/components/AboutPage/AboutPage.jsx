@@ -7,7 +7,6 @@ import ImageDisplay from '../ImageDisplay/ImageDisplay';
 function AboutPage(props) {
   const dispatch = useDispatch();
   const store = useSelector((store) => store);
- 
 
   return (
    <div> 

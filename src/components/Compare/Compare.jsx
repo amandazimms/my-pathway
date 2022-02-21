@@ -110,7 +110,7 @@ function compareFunction(props) {
   const history = useHistory();
   
   const validateStudent = () =>{
-    console.log('STUDENT APPROVED');
+    // console.log('STUDENT APPROVED');
     dispatch({
       type: 'CONFIRM_STUDENT_ID',
       payload: {
@@ -126,7 +126,7 @@ function compareFunction(props) {
   }
 
   const denyStudent = () =>{
-    console.log('STUDENT DENIED');
+    // console.log('STUDENT DENIED');
     dispatch({
       type: 'CONFIRM_STUDENT_ID',
       payload: {
