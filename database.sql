@@ -20,9 +20,9 @@ CREATE TABLE "user" (
     profile_picture character varying
 );
 
-INSERT INTO "user" ("id", "first_name", "last_name", "address_one", "city", "state", "zip_code", "role", "username")
-VALUES (2, 'Student', 'User', '777 Park Ave', 'NYC', 'NY', '10001', 'STUDENT', 'suser@prime.com'),
-(3, 'Proctor', 'User', '1000 Holt Ave', 'Winter Park', 'FL', '32789', 'PROCTOR', 'puser@prime.com')
+INSERT INTO "user" ("first_name", "last_name", "address_one", "city", "state", "zip_code", "role", "username")
+VALUES ('Student', 'User', '777 Park Ave', 'NYC', 'NY', '10001', 'STUDENT', 'suser@prime.com'),
+('Proctor', 'User', '1000 Holt Ave', 'Winter Park', 'FL', '32789', 'PROCTOR', 'puser@prime.com')
 
 
 CREATE TABLE test (
@@ -39,8 +39,12 @@ CREATE TABLE test (
     published boolean
 );
 
-INSERT INTO "test" ("id", "title", "points_possible")
-VALUES (1,'Peer Recovery Specialist Certification', 100), (2,'Certified Clinical Supervisor Reciprocal', 100), (3,'Certified Prevention Professional', 100), (4,'Advanced Alcohol and Drug Counselor Reciprocal', 100);
+INSERT INTO "test" 
+        ("title", "points_possible", "test_time_limit")
+VALUES  ('Peer Recovery Specialist Certification', 100, 60), 
+        ('Certified Clinical Supervisor Reciprocal', 100, 90), 
+        ('Certified Prevention Professional', 100, 90), 
+        ('Advanced Alcohol and Drug Counselor Reciprocal', 100, 120);
 
 
 CREATE TABLE question (
@@ -64,11 +68,11 @@ CREATE TABLE question (
     active boolean
 );
 
-INSERT INTO "question" ("id", "parent_test_id", "point_value", "question", "option_one", "option_two", "option_three", "option_four", "answer")
-VALUES (1, 1, 4, 'Advocacy is intended to:', 'Provide education to peers/consumers', 'Support and find appropriate employement for peers/consumers', 'Provide housing and shelter for peers/consumers.', 'Promote the dignity and reduction of stigma against peers/consumers', 'Promote the dignity and reduction of stigma against peers/consumers'),
-(2, 1, 4, 'What are SAMHSA s four major dimensions of recovery?', ' Health, Home, Treatment and Case Management', 'Community, Purpose, Case Management and Care', 'Health, Home, Purpose, and Community', 'Community, Care, Treatment and Case Management', 'Health, Home, Purpose, and Community'), 
-(3, 1, 4, 'A benefit of sharing your recovery story is to:', 'Support change, and show recovery is possible', 'Create expectations', 'Show the best way toward recovery', 'Create a plan for a recovery process', 'Support change, and show recovery is possible'), 
-(4, 1, 4, 'An example of a recovery-oriented approach is?', 'Promoting professionals as main access to information', 'Focusing on wellness, ability and choice', 'Promoting clinical stability to manage illness', 'Focusing on deficits', 'Focusing on wellness, ability and choice');
+INSERT INTO "question" ("parent_test_id", "point_value", "question", "option_one", "option_two", "option_three", "option_four", "answer")
+VALUES (1, 4, 'Advocacy is intended to:', 'Provide education to peers/consumers', 'Support and find appropriate employement for peers/consumers', 'Provide housing and shelter for peers/consumers.', 'Promote the dignity and reduction of stigma against peers/consumers', 'Promote the dignity and reduction of stigma against peers/consumers'),
+(1, 4, 'What are SAMHSA s four major dimensions of recovery?', ' Health, Home, Treatment and Case Management', 'Community, Purpose, Case Management and Care', 'Health, Home, Purpose, and Community', 'Community, Care, Treatment and Case Management', 'Health, Home, Purpose, and Community'), 
+(1, 4, 'A benefit of sharing your recovery story is to:', 'Support change, and show recovery is possible', 'Create expectations', 'Show the best way toward recovery', 'Create a plan for a recovery process', 'Support change, and show recovery is possible'), 
+(1, 4, 'An example of a recovery-oriented approach is?', 'Promoting professionals as main access to information', 'Focusing on wellness, ability and choice', 'Promoting clinical stability to manage illness', 'Focusing on deficits', 'Focusing on wellness, ability and choice');
 
 
 CREATE TABLE event (
@@ -86,10 +90,10 @@ CREATE TABLE event (
 );
 
 
-INSERT INTO "event" ("id", "event_name", "test_id", "proctor_id", "event_date_start", "event_date_end")
-VALUES (1, 'Former Event', 1, 3, '2022-01-26 12:00:00.000000', '2022-01-26 13:00:00.000000'),
-(2, 'Current Event', 1, 3, '2022-02-22 11:00:00.000000', '2022-02-22 14:00:00.000000'),
-(3, 'Future Event', 1, 3, '2022-03-22 11:00:00.000000', '2022-03-22 14:00:00.000000');
+INSERT INTO "event" ("event_name", "test_id", "proctor_id", "event_date_start", "event_date_end")
+VALUES ('Former Event', 1, 3, '2022-01-26 12:00:00.000000', '2022-01-26 13:00:00.000000'),
+('Current Event', 1, 3, '2022-02-22 11:00:00.000000', '2022-02-22 14:00:00.000000'),
+('Future Event', 1, 3, '2022-03-22 11:00:00.000000', '2022-03-22 14:00:00.000000');
 
 CREATE TABLE exam (
     id SERIAL PRIMARY KEY,
@@ -114,8 +118,8 @@ CREATE TABLE exam (
     privacy_terms boolean
 );
 
-INSERT INTO "exam" ("id", "event_id", "student_id", "incident", "score", "pass", "exam_time_start", "exam_time_end", "id_confirmed", "present", "privacy_terms")
-VALUES (1, 1, 2, 0, 100, 'TRUE', '2022-01-26 12:00:00.000000', '2022-01-26 13:00:00.000000', 'TRUE', 'TRUE', 'TRUE');
+INSERT INTO "exam" ("event_id", "student_id", "incident", "score", "pass", "exam_time_start", "exam_time_end", "id_confirmed", "present", "privacy_terms")
+VALUES (1, 2, 0, 100, 'TRUE', '2022-01-26 12:00:00.000000', '2022-01-26 13:00:00.000000', 'TRUE', 'TRUE', 'TRUE');
 
 
 CREATE TABLE message_session (
@@ -146,5 +150,8 @@ CREATE TABLE exam_detail (
 );
 
 
-INSERT INTO "exam_detail" ("id", "exam_id", "question_id", "selected_answer", "correct")
-VALUES (1, 1, 1, 'Promote the dignity and reduction of stigma against peers/consumers', 'TRUE'), (2, 1, 2, 'Health, Home, Purpose, and Community', 'TRUE'), (3, 1, 3, 'Support change, and show recovery is possible', 'TRUE'), (4, 1, 4, 'Focusing on wellness, ability and choice', 'TRUE'); 
+INSERT INTO "exam_detail" ("exam_id", "question_id", "selected_answer", "correct")
+VALUES  (1, 1, 'Promote the dignity and reduction of stigma against peers/consumers', 'TRUE'), 
+        (1, 2, 'Health, Home, Purpose, and Community', 'TRUE'), 
+        (1, 3, 'Support change, and show recovery is possible', 'TRUE'), 
+        (1, 4, 'Focusing on wellness, ability and choice', 'TRUE'); 

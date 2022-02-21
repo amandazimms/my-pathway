@@ -79,7 +79,6 @@ const cancelQuestion=()=>{
 
 {/* todo secretbutton remove the function below this */}
 const autoFillQuestion = () => {
-  console.log('autofill q');
   setQuestionValue(2);
   setQuestionTitle("One major role of peer recovery support is to:");
   setQuestionAnswer("Serve as an advocate");
