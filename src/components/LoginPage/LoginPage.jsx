@@ -78,7 +78,7 @@ function LoginPage() {
           )}
           <div className='loginContainer'>
               <input
-                placeholder='Username'
+                placeholder='Email/Username'
                 className='loginInput'
                 type="text"
                 name="username"

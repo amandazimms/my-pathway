@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import PhotoCapture from '../PhotoCapture/PhotoCapture';
 import Button from '@mui/material/Button';
 import Footer from '../Footer/Footer';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 
 
 
 function RegisterForm() {
+  const MySwal = withReactContent(Swal)
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -69,33 +73,71 @@ function RegisterForm() {
   }; // end registerUser
 
   const validateUser = () => {
-    // console.log(
-    //   'firstName', firstName,
-    //       'lastName', lastName,
-    //       'username', username,
-    //       'password', password,
-    //       'addressOne', addressOne,
-    //       'addressTwo', addressTwo,
-    //       'city', city,
-    //       'state', state,
-    //       'zipCode', zipCode
-    // )
     if (firstName === "") {
-      alert("First name is required.");
+      MySwal.fire({
+        title: 'First name is required.',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#1E2A49',
+        confirmButtonText: 'OK'
+      })
     } else if (lastName === "") {
-      alert("Last name is required.");
+      MySwal.fire({
+        title: 'Last name is required.',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#1E2A49',
+        confirmButtonText: 'OK'
+      })
     } else if (!username.includes("@")||!username.includes(".")) {
-      alert("Email invalid.");
+      MySwal.fire({
+        title: 'Email Invalid.',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#1E2A49',
+        confirmButtonText: 'OK'
+      })
     } else if (password.length < 8) {
-      alert("Password must be at least 8 characters.");
+      MySwal.fire({
+        title: 'Password must be at least 8 characters',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#1E2A49',
+        confirmButtonText: 'OK'
+      })
     } else if (addressOne === "") {
-      alert("Address line 1 is required.");
+      MySwal.fire({
+        title: 'Address Line 1 is required.',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#1E2A49',
+        confirmButtonText: 'OK'
+      })
     } else if (city === "") {
-      alert("City is required.");
+      MySwal.fire({
+        title: 'City is required.',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#1E2A49',
+        confirmButtonText: 'OK'
+      })
     } else if ((state.length != 2)) {
-      alert("State must be a valid 2 character abbreviation");
+      MySwal.fire({
+        title: 'State must be a valid 2 character abbreviation',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#1E2A49',
+        confirmButtonText: 'OK'
+      })
+
     } else if ((zipCode.length != 5)) {
-      alert("Zip code must be 5 characters.");
+      MySwal.fire({
+        title: 'Zip Code must be 5 digits.',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#1E2A49',
+        confirmButtonText: 'OK'
+      })
     } else {
       registerUser();
     }
@@ -197,7 +239,7 @@ function RegisterForm() {
             <input
               placeholder="Zip Code"
               className="loginInput" 
-              type="text"
+              type="number"
               name="zip_code"
               value={zipCode}
               required

@@ -8,11 +8,13 @@ import Grid from '@mui/material/Grid';
 import '../ExamRoomPage/ExamRoomPage.css'
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 import { useHistory } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 
 function ExamRoomPage(props) {
 
+    const MySwal = withReactContent(Swal)
     const store = useSelector((store) => store);
     const exam = useSelector(store => store.exam.selected);
     const [heading, setHeading] = useState('Functional Component');
@@ -154,32 +156,52 @@ function ExamRoomPage(props) {
     const history = useHistory()
 
     const completeExam = () => {
-        if (confirm('Are you sure you want to complete the exam?')) {
-            captureAnswer()
-            dispatch({
-                type: 'END_EXAM',
-                payload: {
-                    exam_id: store.exam.selected.exam_id,
-                    done: () => {
-                        history.push('/home')
+        MySwal.fire({
+            title: 'Are you sure you want to complete the exam?',
+            text: "This cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#1E2A49',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, I am done!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                captureAnswer()
+                dispatch({
+                    type: 'END_EXAM',
+                    payload: {
+                        exam_id: store.exam.selected.exam_id,
+                        done: () => {
+                            history.push('/home')
+                        }
                     }
-                }
-            })
-        }
+                })
+            }
+        })
     }
 
     const abortExam = () => {
-        if (confirm('Are you sure you want to abort this exam? It cannot be undone, and you cannot return to the exam later. If you are unsure, please contact your proctor before proceeding.')) {
-            dispatch({
-                type: 'END_EXAM',
-                payload: {
-                    exam_id: store.exam.selected.exam_id,
-                    done: () => {
-                        history.push('/home')
+        MySwal.fire({
+            title: 'Are you sure you want to leave the exam early?',
+            text: "This cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#1E2A49',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, I am done!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({
+                    type: 'END_EXAM',
+                    payload: {
+                        exam_id: store.exam.selected.exam_id,
+                        done: () => {
+                            history.push('/home')
+                        }
                     }
-                }
-            })
-        }
+                })
+            }
+        })
     }
 
     const changeHandRaiseStatus = (value) => {
@@ -206,26 +228,26 @@ function ExamRoomPage(props) {
                     </div>
 
                     <div className="flexParentChatAndQuestion">
-                        
+
                         <div className="questionSection">
-                            <h3>Question #{selectedQuestionIndex+1} of {store.question.examAll.length}</h3>
+                            <h3>Question #{selectedQuestionIndex + 1} of {store.question.examAll.length}</h3>
                             <ExamQuestion
                                 setSelection={setSelection}
                                 selectedAnswer={selectedAnswer}
-                            />                            
+                            />
                         </ div>
-                        
-                        {   exam.help 
-                          ? <MessageSession />
-                          : <></>
+
+                        {exam.help
+                            ? <MessageSession />
+                            : <></>
                         }
-                       
+
 
                     </div>
 
-                    <div className="flexParentVertical">    
-                        {selectedQuestionIndex != store.question.examAll.length - 1 
-                        ?
+                    <div className="flexParentVertical">
+                        {selectedQuestionIndex != store.question.examAll.length - 1
+                            ?
                             <AreYouSureButton
                                 beginningText={"Confirm Answer"}
                                 areYouSureText={"Are you sure?  Click to Proceed to Next Question"}
@@ -234,7 +256,7 @@ function ExamRoomPage(props) {
                                 areYouSureVariant={"outlined"}
                                 className="areYouSureExam margin10px"
                             />
-                        :
+                            :
                             <AreYouSureButton
                                 beginningText={"Complete Exam"}
                                 areYouSureText={"Are you sure?  Click to Exit Exam."}
