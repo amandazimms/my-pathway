@@ -14,7 +14,7 @@ CREATE TABLE "user" (
     state character varying,
     zip_code character varying,
     role character varying,
-    username character varying,
+    username character varying UNIQUE,
     password character varying,
     create_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     profile_picture character varying

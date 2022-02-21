@@ -15,15 +15,13 @@ textarea{
     /* font-family: HelveNeuLigCon !important; */
 }
 
-label{
+/* label{
     display: flex !important;
     flex-direction: column !important;
     width: 500px;
     margin-bottom: 40px;
     font-size: 15px;
-    /* font-family: HelveticaNeue;  */
-
-}
+} */
 
 h2{
     display: flex;
