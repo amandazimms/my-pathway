@@ -36,7 +36,7 @@ function TestCard(props) {
   const selectedTest = useSelector(store => store.test.selected);
 
   const setSelectedTest = (_test) => {
-    console.log('clicked edit test');
+    // console.log('clicked edit test');
     dispatch({ type: 'SET_SELECTED_TEST', payload: _test });
   //navigate to /testpage 
     history.push("/test")

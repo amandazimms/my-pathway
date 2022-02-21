@@ -30,7 +30,7 @@ function ProctorExamPageInProgress() {
         />
       </div>
 
-      <div className="flexParent">
+      <div className="flexParentChatAndQuestion">
 
         <Card sx={{maxWidth: 745 }} className="questionCard" >
             
@@ -44,7 +44,6 @@ function ProctorExamPageInProgress() {
               <Typography>Note: Choices appear in a randomized order to the student</Typography>
             </CardContent>
             
-
             <CardContent> 
               <Typography sx={{fontSize: 18}} >
               <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
@@ -74,16 +73,8 @@ function ProctorExamPageInProgress() {
             </CardContent>
 
         </Card>
-{/* 
-        <Card sx={{maxWidth: 645 }} className="questionCard" >
-          <CardContent> */}
-          <div className="messageSessionParent">
-            <div className="messageSession">
-              <MessageSession />
-            </div>
-          </div>
-          {/* </CardContent>
-        </Card> */}
+
+        <MessageSession />
 
       </div>
 

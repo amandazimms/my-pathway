@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
   WHERE id=${id};`
   const values = [req.body.test_value, req.body.user_id]
   pool.query(queryString, values).then((results) => {
-    console.log('in QUESTION INSERT then function');
+    // console.log('in QUESTION INSERT then function');
     const query = `INSERT INTO question 
       (point_value, type, required, question, option_one, option_two, option_three, option_four, option_five, option_six, answer, active, parent_test_id, created_by, last_modified_by)
       VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     const values = [req.body.point_value, req.body.type, req.body.required, req.body.question, req.body.option_one, req.body.option_two, req.body.option_three, req.body.option_four, req.body.option_five, req.body.option_six, req.body.answer, req.body.active, req.body.parent_test_id, req.body.user_id, req.body.user_id];
     pool.query(query, values)
       .then((results) => {
-        console.log('results', results.rows[0]);
+        // console.log('results', results.rows[0]);
         res.send(results.rows[0]);
       }).catch((err) => {
         console.log("error post question", err);

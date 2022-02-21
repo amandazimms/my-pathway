@@ -45,7 +45,7 @@ function* deleteQuestion(action){
 // worker Saga: will be fired on "FETCH_ALL_QUESTIONS" actions
 function* fetchAllQuestions(action) {
   const ap = action.payload;
-  console.log('fetch all, ap:', ap)
+  // console.log('fetch all, ap:', ap)
   //ap.parent_test_id 
   try {
     const response = yield axios.get('/api/question/all', { params: {parent_test_id: ap.parent_test_id} } );
@@ -70,7 +70,6 @@ function* fetchAllExamQuestions(action) {
 // worker Saga: will be fired on "UPDATE_QUESTION" actions
 function* updateQuestion(action){
   const ap = action.payload;
-  console.log('ap:', ap);
   //ap.question is the question object to update:
   //id, point_value, type, required, question, option_one (thru six), answer, status, 
   //parent_test_id, created_by
@@ -89,7 +88,6 @@ function* addQuestion(action){
   //point_value, type, required, question, option_one (thru six), answer, status, 
   //parent_test_id, created_by
   let question = ap.question;
-  console.log('ap:', ap);
   try {
     const postedQuestion = yield axios.post('/api/question', ap.question );
     yield put({ type: 'FETCH_ALL_QUESTIONS', payload: {parent_test_id: question.parent_test_id} });
@@ -104,7 +102,6 @@ function* addQuestion(action){
 // worker Saga: will be fired on "UPDATE_TEST_SETTINGS" actions
 function* updateTestSettings(action){
   const ap = action.payload;
-  console.log('update test settings! ap:', ap);
    //ap.test is the test object to update, 
   //  including id, title, points_possible, test_time_limit, question_shuffle,
   //  test_attempt_limit, and .last_modified_by

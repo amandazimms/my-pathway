@@ -115,22 +115,7 @@ function ProctorExamPageComplete(props) {
                   ? <TableCell align="right" style={{ color:"#308713" }}>PASS</TableCell>
                   : exam.pass === "FAIL"
                   ? <TableCell align="right" style={{ color:"#871313" }}>FAIL</TableCell>
-                  : <TableCell align="right">
-                        <AreYouSureButton
-                          beginningText={"MARK AS FAIL"}
-                          areYouSureText={"FAIL EXAM - ARE YOU SURE?"}
-                          onButtonClick={failExam}
-                          beginningVariant={"outlined"}
-                          areYouSureVariant={"outlined"} 
-                        />
-                        <AreYouSureButton
-                          beginningText={"MARK AS PASS"}
-                          areYouSureText={"PASS EXAM - ARE YOU SURE?"}
-                          onButtonClick={passExam}
-                          beginningVariant={"contained"}
-                          areYouSureVariant={"contained"} 
-                        />
-                    </TableCell>
+                  : <TableCell align="right">FAIL (EXAM NOT SUBMITTED)</TableCell>
                 } 
             </TableRow> 
 

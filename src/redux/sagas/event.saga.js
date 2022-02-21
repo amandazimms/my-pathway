@@ -104,10 +104,8 @@ function* addEvent(action){
   try {
     const postedEvent = yield axios.post('/api/event', ap.event );  //now add to that event object the id & dates that were created when it was posted to DB
     event = {...event, id: postedEvent.data.id, create_date: postedEvent.data.create_date, last_modified_date: postedEvent.data.last_modified_date }
-    yield put({ type: 'SET_SELECTED_EVENT', payload: event }); //finally send the 'complete' event object to the reducer
-    //note - I did not put a fetch_all_EVENTs here since when a proctor creates a event, they are
-    // necessarily now selecting that event. if they navigate back to the 'all events' type view,
-    // there a fetch_all_EVENTs will be triggered anwyay. If needed we can add one of those here too.
+    console.log('event in add event after post:', event);
+    yield put({ type: 'FETCH_EVENT', payload: {event_id: event.id} }); 
 
   } catch (error) {
     console.log('POST event failed', error);
@@ -118,6 +116,7 @@ function* addEvent(action){
 function* fetchEvent(action) {
   const ap = action.payload;
   //ap.event_id is the event id to fetch
+  console.log('fetch event ap.event_id:', ap.event_id);
   try {
     const response = yield axios.get('/api/event/selected', { params: {event_id: ap.event_id} });
     yield put({ type: 'SET_SELECTED_EVENT', payload: response.data });

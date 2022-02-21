@@ -67,6 +67,7 @@ function EventPage(props) {
 
   return (
     <div>
+      {/* <p>Event: {JSON.stringify(event)}</p> */}
       {   isNew 
         ? <></>
         : <h2 className="heading">{event.event_name}: {eventStartTime}</h2>

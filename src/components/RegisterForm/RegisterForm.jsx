@@ -24,7 +24,7 @@ function RegisterForm() {
   const postImageData = async () => {
     if(store.image.url != '/images/profile_default.png'){
       const url = store.image.url;
-      console.log('url = ', url);
+      // console.log('url = ', url);
       return await fetch(url,{
         method: 'PUT',
         headers: {
@@ -39,9 +39,9 @@ function RegisterForm() {
     // event.preventDefault();
     try{
       const url = store.image.url.split('?')[0];
-      console.log('line 39 url = ', url);        
+      // console.log('line 39 url = ', url);        
       const result = await postImageData();
-      console.log(result);
+      // console.log(result);
       dispatch({
         type: 'REGISTER',
         payload: {

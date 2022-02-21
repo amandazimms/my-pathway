@@ -102,7 +102,7 @@ router.get('/selected', (req, res) => {
 });
 
 router.get('/my-exams', (req, res) => {
-  console.log('In GET My-Exams with:', req.query);
+  // console.log('In GET My-Exams with:', req.query);
   const id = req.query.student_id
   const queryString = `SELECT 
 	    event.event_name AS event_name, test.title AS test_title, "event".event_date_start AS event_date_start, "event".event_date_end AS event_date_end,
@@ -221,7 +221,7 @@ router.put('/addIncident/:id', (req, res)=> {
 
 
 router.put('/id-image', (req, res) => {
-  console.log('body', req.body);
+  // console.log('body', req.body);
   const queryString = `UPDATE exam SET id_image = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
   WHERE exam.id = ${req.body.exam_id}`;
   const values = [req.body.url, req.body.user_id];
@@ -245,7 +245,7 @@ router.put('/id-image', (req, res) => {
 });
 
 router.put('/confirm-id', (req, res) => {
-  console.log('body', req.body);
+  // console.log('body', req.body);
   const queryString = `UPDATE exam SET id_confirmed = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
   WHERE exam.id = ${req.body.exam_id}`;
   const values = [req.body.id_confirmed, req.body.user_id];
@@ -305,9 +305,11 @@ router.put('/begin-exam/:id', (req, res) => {
 
 router.put('/end-exam/:id', (req, res) => {
   const queryString = `UPDATE exam SET exam_time_end = CURRENT_TIMESTAMP, present = 'FALSE'
-  WHERE exam.id = ${req.params.id}`;
+    WHERE exam.id = ${req.params.id}`;
   pool.query(queryString).then((results) => {
-    const queryString = `  SELECT exam_detail.id AS exam_detail_id, question.point_value, exam_detail.question_id, exam_detail.exam_id, exam_detail.correct
+    const queryString = `SELECT exam_detail.id AS exam_detail_id, question.point_value, 
+      exam_detail.question_id, exam_detail.exam_id, exam_detail.correct, 
+      test.pass_threshold AS test_pass_threshold, test.points_possible AS test_points_possible 
     FROM exam_detail
     JOIN exam ON exam.id=exam_detail.exam_id
     JOIN event ON event.id=exam.event_id
@@ -373,11 +375,10 @@ router.put('/accept-terms', (req, res) => {
 });
 
 router.put('/score-exam', (req, res) => {
-  //req.body.status is REJECTED or APPROVED
   //req.params.id is the id
-  const queryString = `UPDATE exam SET score = $1
+  const queryString = `UPDATE exam SET score = $1, pass = $2 
     WHERE exam.id = ${req.body.exam_id}`;
-  const values = [req.body.score]
+  const values = [req.body.score, req.body.pass];
   pool.query(queryString, values).then((results) => {
     res.sendStatus(200);
   }).catch((err) => {

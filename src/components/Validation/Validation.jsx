@@ -21,7 +21,7 @@ function validateFunction(props) {
 
   const postImageData = async () => {
       const url = store.image.url;
-      console.log('url = ', url);
+      // console.log('url = ', url);
       return await fetch(url,{
         method: 'PUT',
         headers: {
@@ -32,7 +32,7 @@ function validateFunction(props) {
     }
 
   const setExamPhoto = async () => {
-    console.log('in setExamPhoto');
+    // console.log('in setExamPhoto');
     await postImageData()
     dispatch({
       type: 'SET_EXAM_PHOTO',
@@ -54,7 +54,7 @@ function validateFunction(props) {
   const history = useHistory()
 
   const setIdPhoto = async () => {
-    console.log('in setExamPhoto');
+    // console.log('in setExamPhoto');
     await postImageData()
     dispatch({
       type: 'SET_ID_PHOTO',

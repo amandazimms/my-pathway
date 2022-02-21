@@ -29,9 +29,6 @@ useEffect(() => {
 
 const handleChange = (event) => {
   setNewQuestion(...newQuestion, event.target.value)
-  console.log('question:', event.target.value)
-
-  console.log('newquestion:', newQuestion ); 
 }; 
 
 const [questionValue, setQuestionValue] = useState(2)
@@ -51,7 +48,6 @@ const findTestValue = () => {
   setTestValue(result)
   return result
 }
-
 
 const addQuestion = (event) => {
   let question = {
@@ -81,6 +77,16 @@ const cancelQuestion=()=>{
   props.onClickClose()
 }
 
+{/* todo secretbutton remove the function below this */}
+const autoFillQuestion = () => {
+  setQuestionValue(2);
+  setQuestionTitle("One major role of peer recovery support is to:");
+  setQuestionAnswer("Serve as an advocate");
+  setOptionTwo("Provide counseling");
+  setOptionThree("Serve as a sponsor");
+  setOptionFour("Provide healthcare advice");
+}
+
 return (
 <Modal open={open}
 // onClose={handleClose}
@@ -88,10 +94,17 @@ return (
   <Box>
     <form className="formPanel">
 
-      <h2 className="heading">QUESTION</h2>
+      {/* todo secretbutton remove the onclick below this */}
+      <h2 className="heading" onClick={autoFillQuestion}>QUESTION</h2>
       
       <FormControl fullWidth>
-        <TextField  onChange={(event)=>setQuestionTitle(event.target.value)} id="outlined-basic" label="Question" variant="outlined"/> 
+        <TextField  
+            onChange={(event)=>setQuestionTitle(event.target.value)} 
+            id="outlined-basic" 
+            label="Question" 
+            variant="outlined"
+            value={questionTitle}
+        /> 
       </FormControl>
       <br></br>
       <br></br>
@@ -133,23 +146,42 @@ return (
           label="Correct Answer" 
           variant="standard"
           fullWidth="true" 
+          value={questionAnswer}
           sx={{ fontWeight: "bold" }}
         />
       </Box>
       <br></br>
       <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
         <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-        <TextField  onChange={(event)=>setOptionTwo(event.target.value)} fullWidth="true"  label="Option 2" variant="standard"/>
+        <TextField  
+          onChange={(event)=>setOptionTwo(event.target.value)} 
+          fullWidth="true"  
+          label="Option 2" 
+          variant="standard"
+          value={optionTwo}
+        />
       </Box>      
       <br></br>
       <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
         <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-        <TextField  onChange={(event)=>setOptionThree(event.target.value)} fullWidth="true"  label="Option 3" variant="standard"/>
+        <TextField  
+          onChange={(event)=>setOptionThree(event.target.value)} 
+          fullWidth="true"  
+          label="Option 3" 
+          variant="standard"
+          value={optionThree}
+        />
       </Box>
       <br></br>
       <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
         <RadioButtonUncheckedIcon sx={{color: 'action.active', mr: 1, my: .05}}/>
-        <TextField  onChange={(event)=>setOptionFour(event.target.value)} fullWidth="true" label="Option 4" variant="standard"/>
+        <TextField  
+          onChange={(event)=>setOptionFour(event.target.value)} 
+          fullWidth="true"
+          label="Option 4" 
+          variant="standard"
+          value={optionFour}
+        />
       </Box>
       <br></br>
       {/* Partially built toggle for whether question appears on tests - needs BE */}

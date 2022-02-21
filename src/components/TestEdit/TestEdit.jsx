@@ -6,6 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
 import {Grid} from '@mui/material'; 
 import '../TestEdit/TestEdit.css'
+import { v4 as uuid } from 'uuid';
+
 function TestEdit(props) {
   //This is the page that displays "one event".
 
@@ -25,6 +27,7 @@ function TestEdit(props) {
 
   const [testName, setTestName] = useState(test.title)
   const [testTimeLimit, setTestTimeLimit] = useState(test.test_time_limit)
+  const [passThreshold, setPassThreshold] = useState(test.pass_threshold);
   const [shuffleQuestions, setShuffleQuestions] = useState(test.question_shuffle)
   const [attemptsAllowed, setAttemptsAllowed] = useState(test.test_attempt_limit)
   const [isEditMode, setIsEditMode] = useState(false)
@@ -60,6 +63,10 @@ function TestEdit(props) {
     setAttemptsAllowed(event.target.value)
   }
 
+  const handleThresholdChange = (event) => {
+    setPassThreshold(event.target.value);
+  }
+
   const updateTest = () => {
     //this function should run when user(proctor) has FINISHED entering all of the details for an event, 
     //and then clicks "update event" 
@@ -68,7 +75,7 @@ function TestEdit(props) {
       test_time_limit: testTimeLimit,
       question_shuffle: shuffleQuestions,
       test_attempt_limit: attemptsAllowed,
-
+      pass_threshold: passThreshold,
       last_modified_by: user.id, //this is the proctor's id, should be already there in the store 
       id: test.id, //this is also in store already
     }
@@ -78,6 +85,7 @@ function TestEdit(props) {
 
   return (
     <div>
+      {/* <p>{JSON.stringify(test)}</p> */}
   <Grid container
  spacing={2}
  direction="column"
@@ -133,6 +141,31 @@ function TestEdit(props) {
           </TextField>
           </Grid> 
           <br />
+
+          <Grid item> 
+          <TextField
+                id="outlined-select-required"
+                required
+                select
+                label="Pass Threshold"
+                value={passThreshold}
+                sx={{ minWidth: 300 }}
+                onChange={handleThresholdChange}
+              >
+            <MenuItem key={uuid.v4} value={.5}>50%</MenuItem>
+            <MenuItem key={uuid.v4} value={.55}>55%</MenuItem>
+            <MenuItem key={uuid.v4} value={.6}>60%</MenuItem>
+            <MenuItem key={uuid.v4} value={.65}>65%</MenuItem>
+            <MenuItem key={uuid.v4} value={.7}>70%</MenuItem>
+            <MenuItem key={uuid.v4} value={.75}>75%</MenuItem>
+            <MenuItem key={uuid.v4} value={.8}>80%</MenuItem>
+            <MenuItem key={uuid.v4} value={.85}>85%</MenuItem>
+            <MenuItem key={uuid.v4} value={.9}>90%</MenuItem>
+            <MenuItem key={uuid.v4} value={.95}>95%</MenuItem>
+            <MenuItem key={uuid.v4} value={1}>100%</MenuItem>
+          </TextField>
+          </Grid> 
+          <br/>
         
           <Grid item> 
           <TextField
@@ -217,6 +250,23 @@ function TestEdit(props) {
             sx={{ minWidth: 300 }}
           />
         </Grid>
+
+
+        <Grid item> 
+          <TextField
+              color="primary"
+              InputProps={{
+                readOnly: true,
+              }}
+              focused 
+              id="outlined-select-required"
+              label="Pass Threshold"
+              value={Math.floor(test.pass_threshold * 100) + "%"}
+              sx={{ minWidth: 300 }}
+              onChange={handleThresholdChange}
+          />
+          </Grid> 
+
         <Grid item> 
         <TextField  
            color="primary"

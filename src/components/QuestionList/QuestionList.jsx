@@ -71,7 +71,7 @@ function QuestionList(props) {
       <br />
       <IconButton helvetica-label="addQuestion" color="primary" size="medium" onClick={addQuestion} className="addQuestion">
         <AddCircleOutlineIcon fontSize="large"></AddCircleOutlineIcon>
-        &nbsp; Add Question
+        &nbsp; ADD QUESTION
       </IconButton>
       <br></br> 
         <section className="questions">

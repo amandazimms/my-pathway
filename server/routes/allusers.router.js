@@ -7,7 +7,7 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-  console.log('In GET allUsers');
+  // console.log('In GET allUsers');
   const query = `SELECT 
                   "user".first_name AS first_name,
                   "user".last_name AS last_name,
@@ -50,7 +50,7 @@ router.get('/proctors', (req, res) => {
 
 
 router.put('/role', (req, res) => {
-  console.log('In PUT Role Update', req.body);
+  // console.log('In PUT Role Update', req.body);
   const query = 
     `UPDATE "user"
     SET "role"= 'PROCTOR'

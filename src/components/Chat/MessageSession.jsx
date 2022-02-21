@@ -73,7 +73,7 @@ export default function messageSessionFunction(props) {
 
 
   return (
-  <div className="chatWindowParent">
+  <div className="messageSession">
     <div className="chatWindow">
       <div>
         <div className="chat" id="chatList">

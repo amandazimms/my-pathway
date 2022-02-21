@@ -110,32 +110,36 @@ function compareFunction(props) {
   const history = useHistory();
   
   const validateStudent = () =>{
-    console.log('STUDENT APPROVED');
+    // console.log('STUDENT APPROVED');
     dispatch({
       type: 'CONFIRM_STUDENT_ID',
       payload: {
         id_confirmed:"TRUE",
         exam_id:store.exam.selected.exam_id,
         user_id:store.user.id,
+        event_id:store.event.selected.id, 
         done:()=>{
           // history.push('/events-all')
-          history.goBack()
+          // history.goBack()
+          props.onClickClose();
         }
       }
     })
   }
 
   const denyStudent = () =>{
-    console.log('STUDENT DENIED');
+    // console.log('STUDENT DENIED');
     dispatch({
       type: 'CONFIRM_STUDENT_ID',
       payload: {
         id_confirmed:"FALSE",
         exam_id:store.exam.selected.exam_id,
         user_id:store.user.id,
+        event_id:store.event.selected.id, 
         done:()=>{
           // history.push('/events-all')
-          history.goBack()
+          // history.goBack()
+          props.onClickClose();
         }
       }
     })

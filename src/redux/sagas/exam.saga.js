@@ -155,7 +155,6 @@ function* fetchExamQuestionProctor(action){
  // worker Saga: will be fired on "FETCH_MY_EXAMS" actions
  function* fetchMyExams(action) {
   const ap = action.payload;
-  console.log(ap);
   try {
     const response = yield axios.get('/api/exam/my-exams', { params: {student_id: ap.student_id} });
 
@@ -196,22 +195,35 @@ function* endExam(action) {
   const ap = action.payload;
   try {
     const exam = yield axios.put(`/api/exam/end-exam/${ap.exam_id}`);
-    yield console.log('exam_deatil_results', exam.data);
+    // yield console.log('exam_deatil_results', exam.data); 
+
     const score = yield () => {
-     let scoreSum = 0
-    for(let i=0; i<exam.data.length; i++){
-      console.log('point value:', exam.data[i].point_value, 'correct:', exam.data[i].correct );
-      if(exam.data[i].correct === true){
-        scoreSum += exam.data[i].point_value
+      let scoreSum = 0
+      for(let i=0; i<exam.data.length; i++){
+        // console.log('point value:', exam.data[i].point_value, 'correct:', exam.data[i].correct );
+        if(exam.data[i].correct === true){
+          scoreSum += exam.data[i].point_value
+        }
+      }
+      return scoreSum
+    }
+
+    let totalScore = score();
+
+    const passFail = yield () => {
+      if (exam.data.length > 0){
+        const pointsPossible = exam.data[0].test_points_possible;
+        const threshold = exam.data[0].test_pass_threshold
+        return totalScore/pointsPossible >= threshold ? "PASS" : "FAIL"; 
       }
     }
-    return scoreSum
-  }
+
     yield put({ 
       type: 'SCORE_EXAM', 
       payload: {
         exam_id:ap.exam_id,
-        score: score()
+        score: totalScore,
+        pass: passFail()
     }});
     yield put({ type: 'UNSET_SELECTED_EXAM'});
     yield put({ type: 'UNSET_SELECTED_EXAM_DETAIL'});
@@ -230,7 +242,7 @@ function* scoreExam(action) {
       data: ap
     });
   } catch (error) {
-    console.log('setExamPhoto failed', error);
+    console.log('scoreExam failed', error);
   }
 }
 
@@ -312,8 +324,6 @@ function* setExamPhoto(action) {
       data: ap
     });
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
-    console.log('');
-    //todo ^ @Amanda - definitely need to verify that this works correctly
   } catch (error) {
     console.log('setExamPhoto failed', error);
   }
@@ -350,7 +360,9 @@ function* confirmId(action) {
       url: `/api/exam/confirm-id`,
       data: ap
     });
-    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+    yield put({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: ap.exam_id} });
+    yield put({ type: 'FETCH_EVENT_EXAMS', payload: {event_id: ap.event_id} });
+
     ap.done()
   } catch (error) {
     console.log('confirmId failed', error);
