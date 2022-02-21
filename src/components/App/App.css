@@ -351,3 +351,7 @@ label:focus,
 .inputLimitSize {
   max-width: 272px;
 }
+
+.noTopMargin {
+  margin-top: 0;
+}
