@@ -117,9 +117,11 @@ function compareFunction(props) {
         id_confirmed:"TRUE",
         exam_id:store.exam.selected.exam_id,
         user_id:store.user.id,
+        event_id:store.event.selected.id, 
         done:()=>{
           // history.push('/events-all')
-          history.goBack()
+          // history.goBack()
+          props.onClickClose();
         }
       }
     })
@@ -133,9 +135,11 @@ function compareFunction(props) {
         id_confirmed:"FALSE",
         exam_id:store.exam.selected.exam_id,
         user_id:store.user.id,
+        event_id:store.event.selected.id, 
         done:()=>{
           // history.push('/events-all')
-          history.goBack()
+          // history.goBack()
+          props.onClickClose();
         }
       }
     })

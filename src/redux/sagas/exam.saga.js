@@ -360,7 +360,9 @@ function* confirmId(action) {
       url: `/api/exam/confirm-id`,
       data: ap
     });
-    yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
+    yield put({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: ap.exam_id} });
+    yield put({ type: 'FETCH_EVENT_EXAMS', payload: {event_id: ap.event_id} });
+
     ap.done()
   } catch (error) {
     console.log('confirmId failed', error);

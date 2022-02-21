@@ -27,7 +27,7 @@ router.get('/all', (req, res) => {
     test.title as test_title 
   FROM event 
   JOIN test on event.test_id=test.id 
-  ORDER BY event_date_end DESC` ;
+  ORDER BY event_date_end DESC`;
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{
@@ -58,7 +58,7 @@ router.get('/examsHelp', (req, res) => {
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{
-    console.log("error get exams", err );
+    console.log("error get exams help", err );
     res.sendStatus( 500 );
   })
 });
