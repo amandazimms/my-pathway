@@ -57,7 +57,7 @@ function EventCreate(props) {
   const createEvent = () => {
     let newEvent = {
       event_name: eventName,
-      proctor_id: store.user.id, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
+      proctor_id: user.id, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
       test_id: eventTest,
       event_date_start: eventDateStart,
       event_date_end: eventDateEnd,
@@ -71,8 +71,10 @@ function EventCreate(props) {
 
   {/* todo secretbutton remove the function below this */}
   const autoFillEvent = () => {
-    console.log('autofill');
     setEventName("February PRSC Offering");
+    setEventDateStart("2022-02-23T10:30");
+    setEventDateEnd("2022-02-23T13:30");
+    setEventTest(1);
   }
 
 return (
@@ -98,6 +100,7 @@ return (
         <br />
         <TextField
           id="outlined-select-required"
+          className="inputLimitSize"
           required
           select
           label="Test"
@@ -113,7 +116,8 @@ return (
         </TextField>
         <br />
         <br />
-        <TextField
+        
+        {/* <TextField
           id="outlined-select-required"
           required
           select
@@ -129,11 +133,13 @@ return (
           ))}
         </TextField>
         <br />
-        <br />
+        <br /> */}
+
         <TextField
           id="datetime-local"
           label="Event Start Date/Time"
           type="datetime-local"
+          value={eventDateStart}
           sx={{ minWidth: 300 }}
           InputLabelProps={{
             shrink: true,
@@ -146,6 +152,7 @@ return (
           id="datetime-local"
           label="Event End Date/Time"
           type="datetime-local"
+          value={eventDateEnd}
           sx={{ minWidth: 300 }}
           InputLabelProps={{
             shrink: true,

@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
+import Grid from '@material-ui/core/Grid';
+
 
 function EventPage(props) {
   //This is the page that displays "one event".
@@ -72,7 +74,7 @@ function EventPage(props) {
     //and then clicks "update event" 
     let updatedEvent = {
       event_name: eventName,
-      proctor_id: eventProctor,
+      proctor_id: user.id, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
       test_id: eventTest,
       event_date_start: eventDateStart,
       event_date_end: eventDateEnd,
@@ -84,7 +86,12 @@ function EventPage(props) {
   }
 
 return (
-    <div>
+  <div className="container">
+    <Grid container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+      >
           <h2 className="heading">Edit Event</h2>
           <TextField
             required
@@ -95,12 +102,12 @@ return (
             onChange={handleNameChange}
           />
           <br />
-          <br />
           <TextField
             id="outlined-select-required"
             required
             select
             label="Test"
+            className="inputLimitSize"
             value={eventTest}
             sx={{ minWidth: 300 }}
             onChange={handleTestChange}
@@ -112,8 +119,8 @@ return (
             ))}
           </TextField>
           <br />
-          <br />
-          <TextField
+
+          {/* <TextField
             id="outlined-select-required"
             required
             select
@@ -129,7 +136,8 @@ return (
             ))}
           </TextField>
           <br />
-          <br />
+          <br /> */}
+
           <TextField
             id="datetime-local"
             label="Event Start Date/Time"
@@ -141,7 +149,6 @@ return (
             }}
             onChange={handleDateStartChange}
           />
-          <br />
           <br />
           <TextField
             id="datetime-local"
@@ -155,10 +162,10 @@ return (
             onChange={handleDateEndChange}
           />
           <br />
-          <br />
           <Button variant="outlined" onClick={updateEvent}>Save Changes</Button>
-          <br/><br/>
+          <br/>
           <Button variant="contained" color="primary" onClick={ ()=>props.onExit() }>Cancel Changes</Button>
+        </Grid>
     </div>
   );
 }

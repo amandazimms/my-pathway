@@ -347,3 +347,7 @@ label:focus,
   text-decoration: underline;
   color: #1E2A49;
 }
+
+.inputLimitSize {
+  max-width: 272px;
+}

@@ -32,6 +32,7 @@ CREATE TABLE test (
     test_time_limit integer,
     question_shuffle boolean,
     test_attempt_limit integer,
+    pass_threshold numeric DEFAULT .75,
     created_by integer REFERENCES "user"(id) ON DELETE SET NULL ON UPDATE CASCADE,
     create_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     last_modified_by integer REFERENCES "user"(id) ON DELETE SET NULL ON UPDATE CASCADE,

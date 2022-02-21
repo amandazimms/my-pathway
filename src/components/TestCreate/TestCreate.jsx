@@ -172,11 +172,13 @@ return(
           <br />
 
         
-          <Button variant="contained" onClick={addTest}>
-            Create New Test
-          </Button>
+          <div className="flexParent">
+            <Button variant="contained" onClick={addTest}>
+              Create New Test
+            </Button>
+          </div>
         
-    </div>:   
+    </div>
     </Grid>  
     </div> 
     </div>
