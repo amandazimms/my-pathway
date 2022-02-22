@@ -144,9 +144,9 @@ function ExamTable(props) {
               { mode === 'COMPLETE' || mode === 'IN PROGRESS' 
               ? <TableCell>
                   {
-                      row.id_confirmed === "TRUE" 
+                      row.id_confirmed === true
                     ? 'YES' 
-                    : row.id_confirmed === "FALSE" 
+                    : row.id_confirmed === false
                     ? 'NO'
                     : <Button onClick={ ()=>setExamAndShowModal(row) } variant="contained">VERIFY ID</Button>
                   }
