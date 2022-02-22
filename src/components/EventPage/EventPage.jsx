@@ -6,8 +6,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
 import EventRegisterStudents from '../EventRegisterStudents/EventRegisterStudents';
 import ExamTable from '../ExamTable/ExamTable';
-import AboutPage from '../AboutPage/AboutPage';
-
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
