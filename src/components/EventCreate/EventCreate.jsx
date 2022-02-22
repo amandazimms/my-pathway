@@ -70,9 +70,9 @@ function EventCreate(props) {
 
   {/* todo secretbutton remove the function below this */}
   const autoFillEvent = () => {
-    setEventName("February PRSC Offering");
-    setEventDateStart("2022-02-23T10:30");
-    setEventDateEnd("2022-02-23T13:30");
+    setEventName("April PRSC Offering");
+    setEventDateStart("2022-04-23T10:30");
+    setEventDateEnd("2022-04-23T13:30");
     setEventTest(1);
   }
 
