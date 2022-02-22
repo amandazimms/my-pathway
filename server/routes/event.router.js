@@ -2,10 +2,18 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+/*
+  This router handles CRUD for events. 
+  
+      Reminder - Definitions:
+      A Test is a collection of questions
+      An Event is a day/time where a specific test can be taken
+      An Exam is an instance of one student assigned to that event; taking that test
+  
+  Since events/exams are tightly linked, 
+  it may make more sense to some to store some of these routes in the exam router instead
+*/
 router.get('/selected', (req, res) => {
-  //@nickolas todo (from Amanda - thanks)
-  //select * from event from the db WHERE id is req.params.event_id
-  console.log("req.query.event_id:", req.query.event_id);
   const id = req.query.event_id
   const queryString = `SELECT event.id AS id, event.event_name, 
       test_id, proctor_id, url, event.event_date_start, event.event_date_end,
@@ -21,8 +29,6 @@ router.get('/selected', (req, res) => {
   })
 });
 router.get('/all', (req, res) => {
-  //@nickolas todo (from Amanda - thanks)
-  //select * from events
   const queryString = `SELECT event.id AS id, event.event_name, 
     test_id, proctor_id, url, event.event_date_start, event.event_date_end,
     test.title as test_title 
@@ -100,9 +106,6 @@ router.put('/:id', (req, res)=> {
 
 })
 router.delete('/:id', (req,res)=> {
-  //@nickolas todo (from Amanda - thanks)
-  //delete an event entry from the db
-  //req.params.id is the id of the event to delete
   const id = req.params.id
   const queryString =  `DELETE FROM event WHERE id = $1 `;
   pool.query(queryString, [id])

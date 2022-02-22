@@ -2,7 +2,17 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+/*
+  This router handles CRUD for exams. 
 
+      Reminder - Definitions:
+      A Test is a collection of questions
+      An Event is a day/time where a specific test can be taken
+      An Exam is an instance of one student assigned to that event; taking that test
+
+  Since events/exams are tightly linked, 
+  it may make more sense to some to store some of these routes in the event router instead
+*/
 router.put('/changeHelp/:id', (req, res) => {
   // req.params.id is exam id? 
   // req.body.pass is true or false?
@@ -17,9 +27,6 @@ router.put('/changeHelp/:id', (req, res) => {
 });
 
 router.get('/search', (req, res) => {
-  //req.query.search_text
-  //req.query.event_id 
-
   const queryString = `SELECT CASE WHEN y.in_event=1 
                 THEN true ELSE false END AS 
                   registered, y.total_registered, y.in_event,y.username, 
@@ -67,7 +74,6 @@ router.get('/all', (req, res) => {
 
 router.get('/question', (req, res) => {
   const id = req.query.exam_id
-  //add one more join to also get exam detail id 
   const queryString = `SELECT question.question AS question, point_value, answer,
       option_one, option_two, option_three, option_four, option_five, option_six, exam_detail.id AS "exam_detail_id" 
   FROM exam    
@@ -123,20 +129,6 @@ router.get('/my-exams', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-
-  //.post notes
-  // req.body...
-  // ...event_id, student_id, and created_by (proctor id)
-  // also re-use the same value for created_by to update the "last_updated_by" column (both are the proctor who clicked just now)
-  //follow the same steps for test.router.post - need the same returning stuff and .rows[0]
-
-  //@Nickolas I commented this queryString and Values as we are going to post just the few columns we have at the time of registering student. The remaining fields will be filled in in a PUT instead
-  // const queryString = `INSERT INTO exam (event_id, student_id, incident, score, pass, exam_time_start, status, active_question_id, exam_time_end, created_by, create_date, last_modified_by, last_modified_date, face_image, id_image, id_confirmed, present, help, privacy_terms) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)  RETURNING id, create_date, last_modified_date`;
-  // const values = [ req.body.event_id, req.body.student_id, req.body.incident, req.body.score, req.body.pass, req.body.exam_time_start, req.body.status, req.body.active_question_id, req.body.exam_time_end, req.body.created_by, req.body.create_date, req.body.last_modified_by, req.body.last_modified_date, req.body.face_image, req.body.id_image, req.body.id_confirmed, req.body.present, req.body.help, req.body.privacy_terms ];
-
-  //req.body.student_id
-  //req.body.proctor_id
-  //req.body.event_id
   const queryString = `INSERT INTO exam (event_id, student_id, created_by, last_modified_by) 
                         VALUES ($1, $2, $3, $4)`;
   const values = [req.body.event_id, req.body.student_id, req.body.proctor_id, req.body.proctor_id];
@@ -174,9 +166,6 @@ router.put('/answer', (req, res) => {
 });
 
 router.put('/photo', (req, res) => {
-  // console.log('query', req.query);
-  // console.log('body', req.body);
-  // console.log('params', req.params);
   const queryString = `UPDATE exam SET face_image = $1, last_modified_by = $2, last_modified_date =CURRENT_TIMESTAMP
   WHERE exam.id = ${req.body.exam_id}`;
   const values = [req.body.url, req.body.user_id];
@@ -430,5 +419,3 @@ router.delete('/:id', (req, res) => {
 
 
 module.exports = router;
-
-//return id of newly created exam

@@ -2,10 +2,13 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+/*
+  This router handles CRUD for questions. 
+
+  Since tests/questions are tightly linked, 
+  it may make more sense to some to store some of these routes in the test router instead
+*/
 router.get('/all', (req, res) => {
-  //@nickolas todo (from Amanda - thanks)
-  //get all questions for this specific test
-  //this will be used when a proctor is viewing an already created test with questions already on it
   const id = req.query.parent_test_id 
   const queryString = `SELECT * FROM question WHERE parent_test_id = $1 ORDER BY id DESC;`
   pool.query( queryString, [id] ).then( (results)=>{
@@ -15,9 +18,6 @@ router.get('/all', (req, res) => {
     console.log("error get all questions", err );
     res.sendStatus( 500 );
   })
-
-  //req.params.test_id is the test id
-  //send back the results.rows
 });
 
 router.post('/', (req, res) => {
@@ -51,22 +51,6 @@ router.post('/', (req, res) => {
 
 
 router.put('/:id', (req, res)=> {
-  //@nickolas todo (from Amanda - thanks)
-  //this is very analogous to the .put for test, higher above.
-
-  //data received is the same as for .post /question, right above.
-
-  //req.params.id is the id of the question
-
-  //req.body is the question object, again containing almost all the same properties as in the post, right above this
-
-  //the only difference is instead of created_by, we are sending last_modified_by
-  //for last_modified_date use NOW()
-
-  //and don't do anything with create_date or created_by
-  //you don't need to do RETURNING
-  //send a status 200 back
-  // console.log('req.body', req.body);
   const id = req.params.id
   const queryString = `UPDATE question 
   SET point_value = $1, 
@@ -104,10 +88,6 @@ router.put('/:id', (req, res)=> {
 })
 
 router.delete('/:id', (req,res)=> {
-  //@nickolas todo (from Amanda - thanks)
-  //delete the question with id req.params.id
-  //send back status 200
-  // console.log('req.query', req.query);
   const id = req.params.id
   const queryString =  `DELETE FROM question WHERE id = $1`;
   pool.query(queryString, [id])

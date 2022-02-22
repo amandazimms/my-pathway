@@ -3,8 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-/**
- * GET route template
+/*
+  This router is responsible for CRUD for "other" users, not the user that is logged in: 
+  e.g. get all the users; get all the proctors; or make another user into a proctor
  */
 router.get('/', (req, res) => {
   // console.log('In GET allUsers');
