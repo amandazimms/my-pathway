@@ -44,7 +44,7 @@ router.get('/exams', (req, res) => {
     help, exam_time_start, exam_time_end, incident, exam.face_image, exam.id_image, "user".profile_picture 
   FROM exam
   JOIN "user" ON exam.student_id="user".id  
-  WHERE event_id=${req.query.event_id}`;
+  WHERE event_id=${req.query.event_id} ORDER BY exam_id ASC`;
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{
@@ -55,7 +55,7 @@ router.get('/exams', (req, res) => {
 
 router.get('/examsHelp', (req, res) => {
   const queryString = 
-    `SELECT help, id AS exam_id FROM exam WHERE event_id=${req.query.event_id}`;
+    `SELECT help, id AS exam_id FROM exam WHERE event_id=${req.query.event_id} ORDER BY exam_id ASC`;
   pool.query( queryString ).then( (results)=>{
     res.send( results.rows );
   }).catch( (err)=>{
