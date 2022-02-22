@@ -99,9 +99,9 @@ function ProctorExamPageComplete(props) {
             <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row">ID MATCH?</TableCell>
               {
-                  exam.id_confirmed === "TRUE" 
+                  exam.id_confirmed === true 
                 ? <TableCell align="right" style={{ color:"#308713" }}>YES</TableCell>
-                :  exam.id_confirmed === "FALSE"
+                :  exam.id_confirmed === false
                 ? <TableCell align="right" style={{ color:"#871313" }}>NO</TableCell>
                 : <TableCell align="right">
                     <Button onClick={ ()=>setShowCompareModal(true) }>CLICK TO VERIFY ID</Button>
