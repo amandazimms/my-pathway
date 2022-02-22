@@ -68,14 +68,6 @@ function EventCreate(props) {
     props.onSetIsNewFalse();
   }
 
-  {/* todo secretbutton remove the function below this */}
-  const autoFillEvent = () => {
-    setEventName("April PRSC Offering");
-    setEventDateStart("2022-04-23T10:30");
-    setEventDateEnd("2022-04-23T13:30");
-    setEventTest(1);
-  }
-
 return (
     <div className="container">
  <Grid container
@@ -85,8 +77,7 @@ return (
 >
 <div className="form-check">
     
-      {/* todo secretbutton remove the onClick below this */}
-      <h2 className="heading" onClick={autoFillEvent}>CREATE A NEW EVENT</h2>
+      <h2 className="heading">CREATE A NEW EVENT</h2>
         <TextField
           required
           id="outlined-required"

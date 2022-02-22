@@ -77,16 +77,6 @@ const cancelQuestion=()=>{
   props.onClickClose()
 }
 
-{/* todo secretbutton remove the function below this */}
-const autoFillQuestion = () => {
-  setQuestionValue(2);
-  setQuestionTitle("One major role of peer recovery support is to:");
-  setQuestionAnswer("Serve as an advocate");
-  setOptionTwo("Provide counseling");
-  setOptionThree("Serve as a sponsor");
-  setOptionFour("Provide healthcare advice");
-}
-
 return (
 <Modal open={open}
 // onClose={handleClose}
@@ -94,8 +84,7 @@ return (
   <Box>
     <form className="formPanel">
 
-      {/* todo secretbutton remove the onclick below this */}
-      <h2 className="heading" onClick={autoFillQuestion}>QUESTION</h2>
+      <h2 className="heading">QUESTION</h2>
       
       <FormControl fullWidth>
         <TextField  

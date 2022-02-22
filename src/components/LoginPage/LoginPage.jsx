@@ -32,18 +32,6 @@ function LoginPage() {
     }
   }; // end login
 
-  {/* todo secretbutton remove the function below this */}
-  const autoFillNickolas = () => {
-    setUsername("nickolascunningham@gmail.com");
-    setPassword("12345678");
-  }
-
-  {/* todo secretbutton remove the function below this */}
-  const autoFillAmanda = () => {
-    setUsername("amanda.zimms@gmail.com");
-    setPassword("dowop1920");
-  }
-
   return (
     <div>
     <Grid container className="loginGrid" spacing={0} justifyContent="center" wrap="wrap" direction="row" alignitem="center">
@@ -60,13 +48,11 @@ function LoginPage() {
 
 
       <Grid item>  
-      {/* todo secretbutton remove the onclick below this */}
-      <img alt="logo" className="kyros-logo" onClick={autoFillNickolas} src={KyrosLogo}/>
+      <img alt="logo" className="kyros-logo" src={KyrosLogo}/>
       </Grid>
 
       <Grid item>
-      {/* todo secretbutton remove the onclick below this */}
-      <h2 className="login-h1" onClick={autoFillAmanda}>Welcome Back</h2>
+      <h2 className="login-h1">Welcome Back</h2>
       </Grid>
 
       <Grid item>
