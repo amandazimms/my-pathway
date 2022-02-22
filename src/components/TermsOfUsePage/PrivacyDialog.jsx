@@ -48,7 +48,7 @@ export default function PrivacyDialog() {
           >
             {[...new Array(1)]
               .map(
-                () => `Protecting your private information is our priority. This Statement of Privacy applies to Pathway, and Pathway LLC and governs data collection and usage. For the purposes of this Privacy Policy, unless otherwise noted, all references to Pathway LLC include www.mypathway.us and Pathway. The Pathway application is a sobriety management platform. application. By using the Pathway application, you consent to the data practices described in this statement.
+                () => `Protecting your private information is our priority. This Statement of Privacy applies to Kyros, and Kyros LLC and governs data collection and usage. For the purposes of this Privacy Policy, unless otherwise noted, all references to Pathway LLC include www.mypathway.us and Pathway. The Pathway application is a sobriety management platform. application. By using the Pathway application, you consent to the data practices described in this statement.
                 Collection of your Personal Information
                 In order to better provide you with products and services offered, Pathway may collect personally identifiable information, such as your:
                 

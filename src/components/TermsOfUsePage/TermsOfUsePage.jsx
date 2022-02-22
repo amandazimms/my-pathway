@@ -70,7 +70,7 @@ function TermsPage(props) {
   <Grid item xs={12} justifyContent="center" alignItems="center">
     <div className="checkboxDiv">
    <input type="checkbox" id="agree" onChange={checkboxHandler} />  
-   <label htmlFor="agree" style={{ marginLeft: '.5rem' }} > I have read and agree to Pathway's privacy policy and terms of use.</label>  
+   <label htmlFor="agree" style={{ marginLeft: '.5rem' }} > I have read and agree to Kyros's privacy policy and terms of use.</label>  
    </div>
     </Grid>
 
