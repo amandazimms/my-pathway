@@ -44,12 +44,13 @@ function EventRegisterStudents(props) {
 
   const clearResults = () => {
     dispatch({ type:'UNSET_SEARCHED_STUDENTS'});
+    setSearchText("");
   }
 
   return (
     <div>
       <div className="fullWidthDiv">
-        <input className="fakeAutocompleteInput" type="text" placeholder="Enter student to search for" onChange={ (event) => handleSearchInputChange(event) }></input>
+        <input className="fakeAutocompleteInput" value={searchText} type="text" placeholder="Enter student to search for" onChange={ (event) => handleSearchInputChange(event) }></input>
         <Button className="buttonInsideInput" variant="contained" onClick={clearResults}>x</Button>
       </div>
 
