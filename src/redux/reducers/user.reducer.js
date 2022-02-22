@@ -1,4 +1,4 @@
-const userReducer = (state = {}, action) => {
+const userReducer = (state = {profile_picture: "/images/profile_default.png"}, action) => {
   switch (action.type) {
     case 'SET_USER':
       return action.payload;
