@@ -11,7 +11,6 @@ import UserPage from '../UserPage/UserPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import Chat from '../Chat/Chat';
 import MessageSession from '../Chat/MessageSession'; 
 import NewQuestionModal from '../NewQuestionModal/NewQuestionModal';
 import UserManagement from '../UserManagement/UserManagement'
@@ -35,7 +34,6 @@ function RoutesProctor() {
 
   return (
     <>
-      {/* <p>routes proctor</p> */}
       <Switch>
         
         <Redirect exact from="/" to="/home" />

@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
 function LogOutButton(props) {
+  //handles a user logging out
+  
   const dispatch = useDispatch();
 
   const logout = () => {

@@ -17,9 +17,9 @@ import EventDetailsTab from '../EventDetailsTab/EventDetailsTab';
 
 
 function EventPage(props) {
-  //This is the page that displays "one event".
+  //This is the page that displays "one event" and is flexible depending on the status...
 
-  //status will be passed as props, either "inProgress", "upcoming", or "completed"
+  //status is passed to it as props (and passed to children), either "IN PROGRESS", "UPCOMING", or "COMPLETED"
 
   //If it's an event in progress, it will look like wireframe "NEW view of Event in progress, proctor's view", from figma
 
@@ -38,6 +38,8 @@ function EventPage(props) {
   const dispatch = useDispatch();
 
   const setDefaultTab = () => {
+    //set the default tab: "details" tab if it's upcoming/brand new, otherwise "students tab"
+
     if (!event.status) { //if this value is falsy, it's a not-yet-created event
       return '1';
     }
@@ -65,8 +67,8 @@ function EventPage(props) {
 
   return (
     <div>
-      {/* <p>Event: {JSON.stringify(event)}</p> */}
       {   isNew 
+        //if it's a new event don't display the heading since there is no data yet to display
         ? <></>
         : <h2 className="heading">{event.event_name}: {eventStartTime}</h2>
       }

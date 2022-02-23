@@ -17,7 +17,8 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 
 function EventList(props) {
-  //this is a page that displays all events; it's wireframe "Proctor View - Events" from figma
+  //This is a page that displays all event as EventItems
+
   const events = useSelector(store => store.event.all);
   const dispatch = useDispatch();
   let history = useHistory()

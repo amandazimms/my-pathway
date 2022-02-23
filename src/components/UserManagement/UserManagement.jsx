@@ -11,13 +11,12 @@ import { Button } from '@mui/material';
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 import Box from '@material-ui/core/Box'; 
 import ImageDisplay from '../ImageDisplay/ImageDisplay';
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
+
 function userManagementFunction(props) {
+  /*
+    On this a proctor can view all the users, and has the option to make one into a proctor
+  */
   const dispatch = useDispatch();
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('USER MANAGEMENT');
 

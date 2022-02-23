@@ -33,6 +33,9 @@ const ExpandMore = styled((props) => {
 }));
 
 function QuestionItem(props) {
+  /*
+    Children of QuestionList
+  */
   const store = useSelector(store => store);
   const user = useSelector(store => store.user);
   const test = useSelector(store => store.test.selected);
@@ -59,7 +62,6 @@ function QuestionItem(props) {
   const selectedQuestion = useSelector(store => store.question.selected);
 
   const setSelectedQuestion = (_question) => {
-    // console.log('clicked edit question');
     dispatch({ type: 'SET_SELECTED_QUESTION', payload: _question });
   }
 
@@ -74,7 +76,6 @@ function QuestionItem(props) {
        } }); 
   }
 
-//expanding question 
 const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -83,9 +84,6 @@ const [expanded, setExpanded] = React.useState(false);
 
   return (
     <div>
-      {/* <h2>I'm a question</h2>
-      <p>stringified question:{JSON.stringify(question)}</p> */}
-  
       <Card sx={{maxWidth: 745 }}
       className="questionCard"
       onClick={() => setSelectedQuestion(question)}
@@ -140,11 +138,7 @@ const [expanded, setExpanded] = React.useState(false);
            {props.question.option_four}
           </Typography>
 
-        </CardContent>
-     
-      {/* <Link to="/test" onClick={() => setSelectedQuestion(question)}> */}
-        {/* when the edit button is clicked, this will move user to the /test page, and set the selectedTest to this one */}
-        
+        </CardContent>        
       
         <IconButton aria-label="edit" color="primary" onClick={deleteQuestion}>
           <DeleteIcon className="questionIcon" /> 
@@ -158,14 +152,8 @@ const [expanded, setExpanded] = React.useState(false);
           <MoreHorizIcon className="questionIcon"/> 
         </IconButton> */}
 
-
-  
-        
-         {/* <button>Edit this Question</button>
-
-        <button onClick={updateQuestionToStegosaurus}>For Testing - Edit this Question to be about stegosauruses instead</button> */}
-        {/* <button onClick={deleteQuestion}>Delete this Question</button> */}
-      {/* </Link> */}
+          {/* No CRUD for this - out of scope */}
+          {/* <button>Edit this Question</button> */}
      
       </Card>
     </div>

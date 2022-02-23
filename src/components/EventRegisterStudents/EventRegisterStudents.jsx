@@ -13,6 +13,10 @@ import { Button } from '@mui/material';
 import ExamTable from '../ExamTable/ExamTable';
 
 function EventRegisterStudents(props) {
+  /*
+    Component that handles searching for and registering students.
+    Appears only when on the 'students' tab of an upcoming event
+  */
 
   const user = useSelector(store => store.user);
   const searchedStudents = useSelector(store => store.allUsers.searchedStudents);
@@ -50,7 +54,13 @@ function EventRegisterStudents(props) {
   return (
     <div>
       <div className="fullWidthDiv">
-        <input className="fakeAutocompleteInput" value={searchText} type="text" placeholder="Enter student to search for" onChange={ (event) => handleSearchInputChange(event) }></input>
+        <input 
+          className="fakeAutocompleteInput" 
+          value={searchText} 
+          type="text" 
+          placeholder="Enter student to search for" 
+          onChange={ (event) => handleSearchInputChange(event) }
+        ></input>
         <Button className="buttonInsideInput" variant="contained" onClick={clearResults}>x</Button>
       </div>
 

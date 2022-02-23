@@ -20,11 +20,6 @@
   }
  
   .chatWindow {
-    /* display: grid;
-    grid-column-start: 0;
-    grid-column-end: 9;
-    grid-row-start: 1;
-    grid-row-end: 6; */
     background: rgb(241, 243, 245);
     border-radius: 5px;
     padding-top: 5px;

@@ -9,17 +9,9 @@ import '../TestEdit/TestEdit.css'
 import { v4 as uuid } from 'uuid';
 
 function TestEdit(props) {
-  //This is the page that displays "one event".
-
-  //status will be passed as props, either "inProgress", "upcoming", or "completed"
-
-  //If it's an event in progress, it will look like wireframe "NEW view of Event in progress, proctor's view", from figma
-
-  //If it's upcoming, it will look like wireframe "Create/Edit Event" in figma, with isNew=false
-  //  If proctor just clicked "add event" from the EventList page, ^ it will also look like that - with isNew=true
-
-  //If it's a completed evnet, it will look like wireframe "Proctor view of Individual event results" from figma
-  
+  /*
+    Edit an existing test
+  */
   const store = useSelector(store => store);
   const user = useSelector(store => store.user);
   const test = useSelector(store => store.test.selected);

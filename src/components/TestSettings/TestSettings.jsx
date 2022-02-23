@@ -10,10 +10,7 @@ import TestEdit from '../TestEdit/TestEdit';
 import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 
 function TestSettings(props) {
-  //This is the page a proctor is brought to upon clicking "add test" or "edit test";
-  //if we arrive here by clicking "add" a new test, props.new will be true (see app.jsx, routes).
-  //if we arrive by clicking "edit" an existing test, props.new will be false.
-  //use isNew to conditionally render things! 
+  //The Test Settings tab from clicking into a test (TestQuestions is the other tab)
   
   const store = useSelector(store => store);
   const user = useSelector(store => store.user);
@@ -42,13 +39,11 @@ function TestSettings(props) {
 
   return (
     <div> 
-   { isNew 
+   {    isNew 
       ? 
-        <>
-          <TestCreate 
-            onClickCreate={ ()=>createTest() }
-          /> 
-        </> 
+        <TestCreate 
+          onClickCreate={ ()=>createTest() }
+        />  
       : <>
           <TestEdit /> 
 

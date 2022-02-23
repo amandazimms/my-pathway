@@ -5,12 +5,10 @@ import { Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import './Validation.css'
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
 function validateFunction(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
+  /*
+    Component for student taking a pic of their face, then their ID, before an exam
+  */
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Validation');
   const [photoComplete, setPhotoComplete] = useState(false)
@@ -54,7 +52,6 @@ function validateFunction(props) {
   const history = useHistory()
 
   const setIdPhoto = async () => {
-    // console.log('in setExamPhoto');
     await postImageData()
     dispatch({
       type: 'SET_ID_PHOTO',
@@ -78,8 +75,12 @@ function validateFunction(props) {
 
   return (
     <div>
-      {photoComplete ?
-        <></> :
+      {photoComplete 
+        ?
+        //if the photo is already taken, display nothing
+        <></> 
+        :
+        //otherwise, show instructions and ability to capture a pic
         <>
           <h2 className="heading">Please Capture A Headshot for ID Confirmation:</h2>
           <div className="flexParent photoDiv">
@@ -89,14 +90,20 @@ function validateFunction(props) {
 
           <div className="a100pxSpacer"></div>
 
-          {store.image.url === "/images/profile_default.png" ?
-            <></> :
+          {store.image.url === "/images/profile_default.png" 
+            ?
+            //if the default image is still the one stored, display nothing
+            <></> 
+            :
+            //otherwise (since a 'real image' must be stored), display a button asking user to use this image
             <Button className='photoDiv' variant="contained" onClick={setExamPhoto}>Use This Headshot</Button>
           }
           </div>
         </>
       }
-      {photoComplete === true && idComplete === false?
+      {
+        photoComplete === true && idComplete === false
+        ?
         <>
           <h2>Please Capture A Photo of Your State ID or Passport:</h2>
           <div className="flexParent photoDiv">
@@ -106,12 +113,17 @@ function validateFunction(props) {
 
           <div className="a100pxSpacer"></div>
 
-          {store.image.url === "/images/profile_default.png" ?
-            <></> :
+          {   store.image.url === "/images/profile_default.png" 
+            ?
+              //if the default image is still the one stored, display nothing
+              <></> 
+            :
+              //otherwise (since a 'real image' must be stored), display a button asking user to use this image
             <Button className='photoDiv' variant="contained" onClick={setIdPhoto}>Use This ID Image</Button>
           }
           </div>
-        </>:
+        </>
+        :
         <></>
       }
     </div>

@@ -10,6 +10,13 @@ import SendIcon from '@mui/icons-material/Send';
 
 import '../Chat/Chat.css';
 
+
+/*
+  A message session (this) is the whole box where all chat messages are shown, 
+    and the input box, and send button
+  ...contrasted with message detail which is one chatted 'message'
+*/
+
 const useStyles = makeStyles({
 
   sendBtn: {

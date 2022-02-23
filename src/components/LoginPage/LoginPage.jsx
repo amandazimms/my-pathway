@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Paper } from '@material-ui/core';
@@ -9,6 +8,8 @@ import "./LoginPage.css";
 import Grid from '@mui/material/Grid';
 
 function LoginPage() {
+  //handles a user logging in
+  
   const history = useHistory();
 
   const [username, setUsername] = useState('');

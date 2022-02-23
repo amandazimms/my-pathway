@@ -30,13 +30,17 @@ function ExamRoomPage(props) {
 
     const fetchRepeating = () => {
         //runs every {3s} while this page is open
+        //When student raises hand and proctor assists, 
+        //proctor's use of "done assisting" button marks the "help" (student needs help) value false in the db.
+        //this repeating fetch will get that now-false value from the db and show the student that their hand is now down
+        //(since they ahve been helped)
         fetchMyExam();
         const getMessageTimer = setInterval(() => { fetchMyExam() }, 3000);
         return () => clearInterval(getMessageTimer);
     }
 
     useEffect(() => {
-        return fetchRepeating();
+        return fetchRepeating(); //without the return, the clearInterval is never reached and fetchRepeating runs forever even if you leave Xo
     }, []);
 
     const fetchMyExam = () => {
@@ -210,16 +214,20 @@ function ExamRoomPage(props) {
 
     return (
         <div>
-            {/* <p>exam:{JSON.stringify(exam)}</p> */}
             {!examBegin ?
+            // if the exam has not begun, display instructions
                 <Grid container justifyContent="center" className="formPanel" alignItems="center" >
                     <div>
-                        <h2 className="instructions"> Please take your time on each question, once you have selected an answer and clicked 'next' you will not be able to return to that question. Please double check your answers before moving on. Once you click on the 'Begin Exam' button your time will begin. </h2>
+                        <h2 className="instructions"> Please take your time on each question, 
+                        once you have selected an answer and clicked 'next' you will not be able to return to that question. 
+                        Please double check your answers before moving on. Once you click on the 
+                        'Begin Exam' button your time will begin. </h2>
                     </div>
                     <Button onClick={beginExam} size="large" variant="contained" className="beginBtn">Begin Exam</Button>
                 </Grid>
 
                 :
+               // if the exam has begun, display active question & exam info
                 <div>
                     <div className="flexParent">
                         <h3 className="examHeader">You are in Exam: {store.exam.selected.event_name + ' - ' + store.exam.selected.test_title}</h3>
@@ -238,6 +246,7 @@ function ExamRoomPage(props) {
                         </ div>
 
                         {exam.help
+                        //if hand is raised, show chat. Otherwise, hide it.
                             ? <MessageSession />
                             : <></>
                         }
@@ -247,6 +256,7 @@ function ExamRoomPage(props) {
 
                     <div className="flexParentVertical">
                         {selectedQuestionIndex != store.question.examAll.length - 1
+                        //if there are more questions after this, display button for moving to next Q
                             ?
                             <AreYouSureButton
                                 beginningText={"Confirm Answer"}
@@ -257,6 +267,7 @@ function ExamRoomPage(props) {
                                 className="areYouSureExam margin10px"
                             />
                             :
+                        //if this was the last question, display button for completing the entire exam
                             <AreYouSureButton
                                 beginningText={"Complete Exam"}
                                 areYouSureText={"Are you sure?  Click to Exit Exam."}
@@ -268,8 +279,22 @@ function ExamRoomPage(props) {
                         }
 
                         {exam.help
-                            ? <Button className="areYouSureExam margin10px" variant="outlined" color="error" onClick={() => changeHandRaiseStatus(false)}>Hand is rasised, click to cancel</Button>
-                            : <Button className="areYouSureExam margin10px" variant="outlined" color="success" onClick={() => changeHandRaiseStatus(true)}>Raise your hand for help</Button>
+                        //display the appropriate button whether hand is currently already up or down
+                            ? <Button 
+                                className="areYouSureExam margin10px" 
+                                variant="outlined" 
+                                color="error"
+                                onClick={() => changeHandRaiseStatus(false)}>
+                                    Hand is rasised, click to cancel
+                              </Button>
+                            : 
+                              <Button 
+                                className="areYouSureExam margin10px" 
+                                variant="outlined" 
+                                color="success" 
+                                onClick={() => changeHandRaiseStatus(true)}>
+                                    Raise your hand for help
+                              </Button>
                         }
                     </div>
 

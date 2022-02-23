@@ -14,6 +14,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Modal } from '@mui/material';
 
 function NewQuestionModal(props) {
+  /*
+    Popup window for when proctor is adding a new question to a test
+  */
 
 const store = useSelector((store) => store);
 const [heading, setHeading] = useState('Functional Component');
@@ -78,9 +81,8 @@ const cancelQuestion=()=>{
 }
 
 return (
-<Modal open={open}
-// onClose={handleClose}
->
+  <Modal open={open}
+  >
   <Box>
     <form className="formPanel">
 
@@ -112,7 +114,7 @@ return (
       </FormControl>
 <br></br> 
 <br></br>
-      {/* Partially built alternate format option - no FE exists for options other than Multiple Choice */}
+      {/* Partially built alternate format option - no BE/FE exists for options other than Multiple Choice */}
       {/* <FormControl fullWidth> 
         <InputLabel id="questionFormat">Question Format</InputLabel>
         <Select

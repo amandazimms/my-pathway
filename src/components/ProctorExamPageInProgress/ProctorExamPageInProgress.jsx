@@ -8,6 +8,10 @@ import MessageSession from '../Chat/MessageSession'
 import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
 function ProctorExamPageInProgress() {
+  /*
+    When a proctor clicks into an in progress event, and clicks one of those exams, they land here
+  */
+
   const exam = useSelector(store => store.exam.selected);
   const question = useSelector(store => store.exam.selectedQuestionProctor)
   const dispatch = useDispatch();
@@ -78,7 +82,7 @@ function ProctorExamPageInProgress() {
 
       </div>
 
-
+      {/* incidents - not used */}
       {/* <IncidentCounter exam={exam}/> */}
 
       <br/>

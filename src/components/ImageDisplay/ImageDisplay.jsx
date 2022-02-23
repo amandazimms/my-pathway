@@ -5,6 +5,20 @@ import {useHistory} from "react-router-dom";
 import { Button } from '@mui/material';
 
 function ImageDisplay(props) {
+  /*
+    This is how we are currently displaying most profile pics on the app
+    Currently we are making a call to AWS every time a picture is displayed on a page
+
+    A better way would be to store the resulting looooooong data string (look for setPhoto(result) )
+    in a reducer and 
+      - at least for the user's own profile picture for the duration they're logged in
+      - and maybe for when a user enters chat with another user, store that other user's temporarily
+          instead of fetching it every time they send a new chat
+    
+    Sorry we ran out of time to do it this way ^
+
+    See also: Compare component should/could make use of this logic and be DRYer
+  */
   const url = props.url;
   const classToPass = props.classToPass;
   const [photo, setPhoto] = useState(props.url || '/images/profile_default.png');
@@ -16,9 +30,10 @@ function ImageDisplay(props) {
   // />
 
   //I also created some broad clasees in app.css, 
-  //you can pass these and or ANY other for the class:
+  //you can pass these and or of course ANY other(s) for the class:
   //   largeImageDisplay (500x500), mediumImageDisplay (300x300), 
   //   smallImageDisplay (150x150), tinyImageDisplay (50x50)
+  //   roundImage, blueBorder etc.
 
   useEffect( () => {
     if (url === "/images/profile_default.png" || url === null || !url){ 

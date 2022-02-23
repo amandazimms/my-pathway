@@ -15,15 +15,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import TodayIcon from '@mui/icons-material/Today';
 import IconButton from '@mui/material/IconButton';
 
-//Card display settings 
-// var cardStyle = {
-//   display: 'block',
-//   width: '60vw',
-//   transitionDuration: '0.3s',
-//   height: '40vw', 
-// }
-
 function TestCard(props) {
+  /*
+    Child of TestList when a proctor is viewing all tests
+  */
 
   const store = useSelector(store => store);
   const [test, setTest] = useState(props.test);
