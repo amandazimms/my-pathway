@@ -1,3 +1,7 @@
+/*
+  Stores user that is logged in
+*/
+
 const userReducer = (state = {profile_picture: "/images/profile_default.png"}, action) => {
   switch (action.type) {
     case 'SET_USER':
@@ -9,6 +13,4 @@ const userReducer = (state = {profile_picture: "/images/profile_default.png"}, a
   }
 };
 
-// user will be on the redux state at:
-// state.user
 export default userReducer;
