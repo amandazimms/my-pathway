@@ -53,7 +53,7 @@ const randomizeOrder = (question) => {
 
   let randomizedOptions = []; //empty array that we'll push into shortly
 
-  while (options.length) 
+  while (options.length) {
     //get a random choice from options, remove it from there and put it in the new array instead. Do this until options is empty:
 
     let randomIndex = Math.floor(Math.random() * options.length); //get a random index according to length of options array, above
