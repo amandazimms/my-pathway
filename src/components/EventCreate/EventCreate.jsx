@@ -9,6 +9,12 @@ import Grid from '@material-ui/core/Grid';
 import '../EventCreate/EventCreate.css'; 
 
 function EventCreate(props) {
+   /*
+    Component for creating a new event. Note that this does not have to do with registering students to an event; that is handled separately
+     
+    Could be refactored to utilize the same componet as EditEvent to be DRYer 
+  */
+
   const store = useSelector(store => store);
   const user = useSelector(store => store.user);
 
@@ -68,14 +74,6 @@ function EventCreate(props) {
     props.onSetIsNewFalse();
   }
 
-  {/* todo secretbutton remove the function below this */}
-  const autoFillEvent = () => {
-    setEventName("April PRSC Offering");
-    setEventDateStart("2022-04-23T10:30");
-    setEventDateEnd("2022-04-23T13:30");
-    setEventTest(1);
-  }
-
 return (
     <div className="container">
  <Grid container
@@ -85,8 +83,7 @@ return (
 >
 <div className="form-check">
     
-      {/* todo secretbutton remove the onClick below this */}
-      <h2 className="heading" onClick={autoFillEvent}>CREATE A NEW EVENT</h2>
+      <h2 className="heading">CREATE A NEW EVENT</h2>
         <TextField
           required
           id="outlined-required"
@@ -116,6 +113,11 @@ return (
         <br />
         <br />
         
+
+         {/* we didn't have time to build out the CRUD fully here - 
+          if uncommented, this does allow you to assign a proctor to an event (and can be edited),
+          but we didn't scope for actually allowing that proctor & only that proctor
+            to be the one to proctor that specific exam */}
         {/* <TextField
           id="outlined-select-required"
           required

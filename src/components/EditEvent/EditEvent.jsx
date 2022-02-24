@@ -7,17 +7,13 @@ import { Button } from '@mui/material';
 import Grid from '@material-ui/core/Grid';
 
 
-function EventPage(props) {
-  //This is the page that displays "one event".
-
-  //status will be passed as props, either "inProgress", "upcoming", or "completed"
-
-  //If it's an event in progress, it will look like wireframe "NEW view of Event in progress, proctor's view", from figma
-
-  //If it's upcoming, it will look like wireframe "Create/Edit Event" in figma, with isNew=false
-  //  If proctor just clicked "add event" from the EventList page, ^ it will also look like that - with isNew=true
-
-  //If it's a completed evnet, it will look like wireframe "Proctor view of Individual event results" from figma
+function EditEvent(props) {
+   /*
+    Component for editing a new event. Note that this does not have to do with registering students to an event; that is handled separately
+     
+    Could be refactored to utilize the same componet as EventCreate to be DRYer 
+  */
+ 
   const isNew = props.new;
   const store = useSelector(store => store);
   const user = useSelector(store => store.user);
@@ -74,7 +70,7 @@ function EventPage(props) {
     //and then clicks "update event" 
     let updatedEvent = {
       event_name: eventName,
-      proctor_id: user.id, //<- reminder that this is the proctor who proctors the event, not the one creating/updating it now.
+      proctor_id: user.id, //<- reminder that the eventual idea is that this is the proctor who proctors the event, not the one creating/updating it now.
       test_id: eventTest,
       event_date_start: eventDateStart,
       event_date_end: eventDateEnd,
@@ -120,6 +116,11 @@ return (
           </TextField>
           <br />
 
+
+          {/* we didn't have time to build out the CRUD fully here - 
+          if uncommented, this does allow you to assign a proctor to an event (and can be edited),
+          but we didn't scope for actually allowing that proctor & only that proctor
+            to be the one to proctor that specific exam */}
           {/* <TextField
             id="outlined-select-required"
             required
@@ -170,4 +171,4 @@ return (
   );
 }
 
-export default EventPage;
+export default EditEvent;

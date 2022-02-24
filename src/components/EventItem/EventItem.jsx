@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 
 
 function EventItem(props) {
-  //this is one event item which is displayed in the .map of eventList
+  //this is one event item which is displayed in the .map of EventList
 
   const event = props.event;
 

@@ -15,11 +15,38 @@ import { v4 as uuid } from 'uuid';
 import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
 function ExamTable(props) {
+  /*
+    Anywhere you see a list of students associated to an event, you're probably looking at our friend ExamTable :)
+
+    It is prassed props including the mode - "COMPLETE" / "IN PROGRESS" / "UPCOMING", for exams, 
+      ... and also "SEARCH", because this table is also used when searching for students to register an exam.
+  */
+
   const event = props.event;
   const mode = props.mode;
-  const rows = props.rows;
+  const rows = props.rows; 
+  //rows is "exams" in most cases, except if mode is "search".
+  // either way think of rows as a group of students (which are sometimes students-taking-this-event = exams)
 
   const examsHelp = useSelector(store => store.event.examsHelp);
+    // ^^^ a note about examsHelp - 
+    //   we originally stored everything about a particular exam in the exams reducer
+    //   to allow a proctor to see hands raising/lowering 'in the moment', we needed 
+    //   to call another fetch on this reducer every few seconds.
+
+    //   but every time we did so it would cause the entire table to rebuild, causing
+    //   a jarring user experience
+
+    //   so we came up with the unconventional solution of storing only the 'help'
+    //     (help = does this student have their hand raised, t/f)
+    //   value in a separate reducer, and fetching THAT every few seconds instead.
+
+    //   it works fine in our testing, but it relies completely on the length of the fetched
+    //   exams array being the same length as the fetched examsHelp array - 
+    //     ...which SHOULD always be the case. 
+
+    //   if you search this "examsHelp[rowIndex].help" you will see what I mean.
+
   const [showCompareModal, setShowCompareModal] = useState(false);
   const helpIconPath = "/icons/Assistance.png";
   const dispatch = useDispatch();
@@ -36,7 +63,8 @@ function ExamTable(props) {
   
   const fetchRepeating = () => {
     //runs every {3s} while this page is open
-    //if proctor is viewing an event in progress, this will allow them to see hands getting raised
+    //if proctor is viewing an event in progress, 
+    //this will allow them to see hands getting raised/lowered in realtime
     fetchEventExamsHelp();
     const getMessageTimer = setInterval(() => {fetchEventExamsHelp()}, 3000);
     return () => clearInterval(getMessageTimer);
@@ -88,13 +116,10 @@ function ExamTable(props) {
         }
       }
     })
-    // setShowCompareModal(true);
-    // setSelectedExam(row);
   }
 
   return (
   <div>
-    {/* <p>{JSON.stringify(rows)}</p> */}
       <Modal
         open={showCompareModal} 
         onClose={ ()=>setShowCompareModal(false) } 
@@ -127,7 +152,7 @@ function ExamTable(props) {
           {rows.map((row, rowIndex) => (
           <TableRow key={uuid.v4} sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               
-          {/* ==== PIC (ALL CASES) ===================== */}
+          {/* ==== PROFILE PIC (ALL CASES) ===================== */}
             <TableCell component="th" scope="row">
               <ImageDisplay
                 url={row.profile_picture}
@@ -140,7 +165,7 @@ function ExamTable(props) {
               <TableCell component="th" scope="row">{row.last_name}</TableCell>
               <TableCell align="left">{row.username}</TableCell>
 
-          {/* ==== ID ===================== */}
+          {/* ==== ID (only for complete/in progress)===================== */}
               { mode === 'COMPLETE' || mode === 'IN PROGRESS' 
               ? <TableCell>
                   {
@@ -153,7 +178,7 @@ function ExamTable(props) {
                 </TableCell>
               : <></> }
 
-          {/* ==== HELP ===================== */}
+          {/* ==== HELP (only for in progress) ===================== */}
               { mode === 'IN PROGRESS' 
               ? <TableCell>
                   {  
@@ -178,7 +203,7 @@ function ExamTable(props) {
                 </TableCell>
               : <></> }
 
-          {/* ==== TIMES ===================== */}
+          {/* ==== TIMES (only in progress/complete) ===================== */}
             { mode === 'IN PROGRESS' || mode === 'COMPLETE'
             ? <>
                 <TableCell>
@@ -201,13 +226,15 @@ function ExamTable(props) {
             : <></>
             }
 
+          {/* incident "stubbed out"
+            -works with full CRUD but needs proctor to manually click to + an incident */}
           {/* ==== INCIDENT ===================== */}
               {/* { mode === 'IN PROGRESS' || mode === 'COMPLETE'
               ? <TableCell align="center">{ !row.incident ? 0 : row.incident }</TableCell>
               : <></>
               } */}
 
-          {/* ==== ACTION BUTTON ===================== */}       
+          {/* ==== ACTION BUTTON (different depending on mode) ===================== */}       
               <TableCell>
                 { mode === 'UPCOMING' 
                   ? <Button variant="contained" onClick={ ()=>unregisterStudent(row) }>UNREGISTER STUDENT</Button> 

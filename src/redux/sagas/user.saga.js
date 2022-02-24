@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+// saga for the logged in user
+
+function* userSaga() {
+  yield takeLatest('FETCH_USER', fetchUser);
+}
+
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUser() {
   try {
@@ -24,8 +30,5 @@ function* fetchUser() {
   }
 }
 
-function* userSaga() {
-  yield takeLatest('FETCH_USER', fetchUser);
-}
 
 export default userSaga;

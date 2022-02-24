@@ -14,16 +14,11 @@ import Box from '@mui/material/Box';
 import '../EventList/EventList.css'; 
 
 
-function EventList(props) {
-  //this is a page that displays all events; it's wireframe "Proctor View - Events" from figma
+function MyExamList(props) {
+  //displays a list of all exams that a student is signed up for (past, present, future)
+
   const events = useSelector(store => store.event.all);
   const store = useSelector(store => store);
-
-  // const events = [
-  //   {name: "fakeEvent1", status: "upcoming", date: '2487'},
-  //   {name: "fakeEvent2", status: "inProgress", date: '2022'},
-  //   {name: "fakeEvent3", status: "completed", date: '1999'},
-  // ]
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +27,7 @@ function EventList(props) {
       payload:{
         student_id:store.user.id
       }
-     }); 
+    }); 
   }, []);
 
   let history = useHistory()
@@ -66,8 +61,7 @@ function EventList(props) {
     <div>
       <h2 className="heading">MY EXAMS</h2>
       
-      <Box display="flex"
-      justifyContent="center">
+      <Box display="flex" justifyContent="center">
       <TableContainer sx={{ minWidth: 500, maxWidth: 1000 }} component={Paper} >
       <Table sx={{ minWidth: 500, maxWidth: 1000 }} aria-label="simple table">
         <TableHead>
@@ -122,4 +116,4 @@ function EventList(props) {
   );
 }
 
-export default EventList;
+export default MyExamList;

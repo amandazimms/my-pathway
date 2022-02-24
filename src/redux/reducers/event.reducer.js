@@ -1,6 +1,20 @@
 import { combineReducers } from 'redux';
 
+/*
+  This holds data about events. 
+  
+      Reminder - Definitions:
+      A Test is a collection of questions
+      An Event is a day/time where a specific test can be taken
+      An Exam is an instance of one student assigned to that event; taking that test
+  
+  Since events/exams are tightly linked, 
+  it may make more sense to some to store some of these in the exam redruce instead
+*/
 const calculateSingleEventStatus = (event) => {
+  //this needs to run whenever we fetch an event
+  //it compares the timestamps on that event to the current time
+  //to determine whether that event is complete/upcoming/in progress
   const now = new Date().valueOf();
 
   event.status = ''
@@ -17,6 +31,8 @@ const calculateSingleEventStatus = (event) => {
 }
 
 const calculateEventStatusArray = (events) => {
+  //when we're fetching multiple events (proctor is looking at the list of all events),
+  // we need to run calculateSingleEventStatus() on each one, so this does that.
   const now = new Date().valueOf();
 
   for (const event of events){
@@ -26,6 +42,7 @@ const calculateEventStatusArray = (events) => {
 }
 
 const selected = (state = {}, action) => {
+  //one selected ewvent
   switch (action.type) {
     case 'SET_SELECTED_EVENT':
       return calculateSingleEventStatus(action.payload);
@@ -39,6 +56,7 @@ const selected = (state = {}, action) => {
 };
 
 const all = (state = [], action) => {
+  //all events
   switch (action.type) {
     case 'SET_ALL_EVENTS':
       return calculateEventStatusArray(action.payload);
@@ -50,6 +68,7 @@ const all = (state = [], action) => {
 };
 
 const exams = (state = [], action) => {
+  //all the exams associated with this event
   switch (action.type) {
     case 'SET_EVENT_EXAMS':
       return action.payload;
@@ -61,6 +80,7 @@ const exams = (state = [], action) => {
 };
 
 const examsHelp = (state = [], action) => {
+  //the help status - ExamTable component has more explanation in comments
   switch (action.type) {
     case 'SET_EVENT_EXAMS_HELP':
       return action.payload;

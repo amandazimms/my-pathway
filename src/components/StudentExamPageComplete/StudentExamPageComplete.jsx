@@ -6,6 +6,9 @@ import Paper from '@mui/material/Paper';
 
 
 function studentExamPageComplete(props) {
+  /*
+    When a student views their "my Exams" and clicks into one, they are brought here
+  */
   const exam = useSelector(store => store.exam.selected);
   const dispatch = useDispatch();
 
@@ -52,7 +55,9 @@ function studentExamPageComplete(props) {
               <TableCell component="th" scope="row"># CORRECT</TableCell>
               <TableCell align="right">{exam.score || 0}</TableCell>
             </TableRow> 
-{/* 
+
+            {/* incidents not used */}
+            {/* 
             <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row"># INCIDENTS</TableCell>
               <TableCell align="right">{exam.incident || 0}</TableCell>

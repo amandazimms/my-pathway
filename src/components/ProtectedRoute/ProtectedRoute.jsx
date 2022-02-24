@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import LoginPage from '../LoginPage/LoginPage';
 import {useSelector} from 'react-redux';
 
+// Notes from Prime staff
 // A Custom Wrapper Component -- This will keep our code DRY.
 // Responsible for watching redux state, and returning an appropriate component
 // API for this component is the same as a regular route

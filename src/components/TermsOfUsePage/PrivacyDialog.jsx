@@ -7,6 +7,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export default function PrivacyDialog() {
+  /*
+    Kyros privacy policy moal
+  */
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
 

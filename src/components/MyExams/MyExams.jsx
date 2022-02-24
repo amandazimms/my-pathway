@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import {useSelector} from 'react-redux';
 import MyExamsList from '../MyExamList/MyExamList';
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
+
 function myExamsFunction(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
+  //simple job, as shown - could be refactored to combine with MyExamsList
+
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('My Exams');
 

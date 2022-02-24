@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
 
+/*
+  Holds data for tests in view/in use
+*/
 const selected = (state = {}, action) => {
+  //the active/current test
   switch (action.type) {
     case 'SET_SELECTED_TEST':
       return action.payload;
@@ -14,6 +18,7 @@ const selected = (state = {}, action) => {
 };
 
 const all = (state = [], action) => {
+  //all tests
   switch (action.type) {
     case 'SET_ALL_TESTS':
       return action.payload;

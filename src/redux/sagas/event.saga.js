@@ -1,27 +1,28 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+/*
+  This picks up component dispatches for events. 
+  
+      Reminder - Definitions:
+      A Test is a collection of questions
+      An Event is a day/time where a specific test can be taken
+      An Exam is an instance of one student assigned to that event; taking that test
+  
+  Since events/exams are tightly linked, 
+  it may make more sense to some to store some of these in the exam saga instead
+*/
+
 function* eventSaga() {
   yield takeLatest('FETCH_EVENT', fetchEvent);//fetches all the info for a single Event. 
-    //dispatch({ type: 'FETCH_EVENT', payload: {event_id: putSomethingHere} }); 
   yield takeLatest('FETCH_ALL_EVENTS', fetchAllEvents);//fetches ALL Events in DB. 
-    //dispatch({ type: 'FETCH_ALL_EVENTS' }); 
   yield takeLatest('ADD_EVENT', addEvent);//posts a new event to the db.
-    //dispatch({ type: 'ADD_EVENT', payload: { event: newEvent } }); 
   yield takeLatest('DELETE_EVENT', deleteEvent);//deletes a event from the db.
-    //dispatch({ type: 'DELETE_EVENT', payload: { event_id: putSomethingHere } }); 
   yield takeLatest('UPDATE_EVENT_SETTINGS', updateEventSettings);//updates any/all of the columns in the event table in the db.
-    //dispatch({ type: 'UPDATE_EVENT_SETTINGS', payload: { event: updatedEvent } }); 
-
   yield takeLatest('SEARCH_FOR_STUDENTS', searchForStudents)
-    //dispatch({ type:'SEARCH_FOR_STUDENTS', payload: {search_text: event.target.value} });
   yield takeLatest('REGISTER_STUDENT_TO_EVENT', registerStudentToEvent)  
-    //dispatch({ type:'REGISTER_STUDENT_TO_EVENT', payload: {student: student} })
-  yield takeLatest('UNREGISTER_STUDENT_TO_EVENT', unregisterStudentToEvent)  
-    //dispatch({ type:'UNREGISTER_STUDENT_TO_EVENT', payload: {student: student} })
-  
+  yield takeLatest('UNREGISTER_STUDENT_TO_EVENT', unregisterStudentToEvent)    
   yield takeLatest('FETCH_EVENT_EXAMS', getEventExams);//return all exams associated with the event.
-  
   yield takeLatest('FETCH_EVENT_EXAMS_HELP', getEventExamsHelp);//return only help and id for all exams associated with the event.
  }
 
@@ -44,7 +45,7 @@ function* registerStudentToEvent(action){
   //ap.student_id, ap.proctor_id, ap.event_id, ap.search_text
   try {
     yield axios.post('/api/exam', {student_id: ap.student_id, proctor_id: ap.proctor_id, event_id: ap.event_id} );  
-    yield put({  type:'SEARCH_FOR_STUDENTS', payload: {search_text: ap.search_text, event_id: ap.event_id} });
+    yield put({ type:'SEARCH_FOR_STUDENTS', payload: {search_text: ap.search_text, event_id: ap.event_id} });
     yield put({ type:'FETCH_EVENT_EXAMS', payload: {event_id: ap.event_id} });
   } catch (error) {
     console.log('POST student registration to exam failed', error);
@@ -53,6 +54,7 @@ function* registerStudentToEvent(action){
 
  // worker Saga: will be fired on "SEARCH_FOR_STUDENTS" actions
  function* searchForStudents(action) {
+  //runs as part of registering students to an event - when they are searched for
   const ap = action.payload;
   //ap.search_text 
   //ap.event_id
@@ -75,7 +77,6 @@ function* updateEventSettings(action){
   try {
     yield axios.put(`/api/event/${ap.event.id}`, ap.event);
     yield put({ type: 'SET-UPDATE_SELECTED_EVENT', payload: ap.event });
-      //todo ^ @Amanda - definitely need to verify that this works correctly
   } catch (error) {
     console.log('update event failed', error);
   }
@@ -127,6 +128,7 @@ function* fetchEvent(action) {
 
 // worker Saga: will be fired on "FETCH_EVENT_EXAMS_HELP" actions
 function* getEventExamsHelp(action) {
+  //see ExamTable for more info about examsHelp/examHelp
   const ap = action.payload;
   //ap.event_id is the event id to fetch
   try {
@@ -139,6 +141,7 @@ function* getEventExamsHelp(action) {
 
 // worker Saga: will be fired on "FETCH_EVENT_EXAMS" actions
 function* getEventExams(action) {
+  //for getting all the exams attached to an event
   const ap = action.payload;
   //ap.event_id is the event id to fetch
   try {
@@ -153,11 +156,6 @@ function* getEventExams(action) {
 function* fetchAllEvents() {
   try {
     const response = yield axios.get('/api/event/all');
-    
-    //@Chris todo please - research combining event_time and event_date into one date object. 
-    //then use some placeholder events (one in the past, one future, one now) to test
-    //I read that comparing date equality (=== / ==) is finnicky (not > / < / <=...), 
-    //but the pseudocode below should avoid that.
     const events = response.data;   
     yield put({ type: 'SET_ALL_EVENTS', payload: events });
   } catch (error) {

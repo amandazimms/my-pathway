@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+//for aws s3 image stuff
+
 const data = (state = '/images/profile_default.png', action) => {
   switch (action.type) {
     case 'SET_IMAGE_DATA':

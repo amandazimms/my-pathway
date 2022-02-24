@@ -8,6 +8,10 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
+/*
+  This router handles CRUD for the user that is logged in
+*/
+
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)

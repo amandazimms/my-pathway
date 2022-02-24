@@ -13,6 +13,12 @@ import Box from '@mui/material/Box';
 import { Theme, createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import './ExamQuestion.css';
 
+/*
+  Displays a question to a student while taking the exam
+
+  If you are looking for the randomization-of-answer-options part, it's in the question.reducer :D
+*/
+
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: 'center',
@@ -23,19 +29,11 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function ExamQuestion(props) {
   const store = useSelector((store) => store);
-
   const test = useSelector(store => store.test.selected);
-  // const question = props.question;
   const question = useSelector(store => store.question.examSelected);
-  // const questions = useSelector(store => store.question.selected);
   const dispatch = useDispatch();
 
   const [randOpt, setRandOpt] = useState([]);
-
-  //if selected answer === answer let correct = true 
-  //total points possible 
-  //question gets graded in the post to the db
-  //at the end of the exam, student gets graded as a whole 
 
   const handleChange = (event) => {
     props.setSelection(event.target.value)
@@ -43,9 +41,6 @@ function ExamQuestion(props) {
 
   return (
     <div className="radio-buttons-group">
-      {/* <Grid className="radio-buttons-group" container spacing={4}>
-    </Grid><Grid item xs={8}> */}
-      {/* <ThemeProvider> */}
       <Box
         sx={{
           p: 2,
@@ -73,9 +68,6 @@ function ExamQuestion(props) {
           </RadioGroup>
         </FormControl>
       </Box>
-      {/* </ThemeProvider> */}
-      {/* </Grid>
-        </Grid> */}
     </div>
   );
 }

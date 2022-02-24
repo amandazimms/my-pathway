@@ -14,26 +14,25 @@ import FilterNoneOutlinedIcon from '@mui/icons-material/FilterNoneOutlined';
 import '../BeforeYouBeingPage/BeforeYouBeginPage.css'
 import { Link } from 'react-router-dom';
 
+/*
+  This component is rendered when a student is about to take their test, showing all the warnings etc.
+*/
+
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
-    // color: theme.palette.text.secondary,
   }));
 
   const useStyles = makeStyles((theme) => ({
     avatar: {
       backgroundColor: '#1E2A49',
       border: `1px solid ${theme.palette.info.main}`,
-    //   color: theme.palette.info.main
     }
   }));
 
 function BeforeYouBeginPage(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
   const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('Functional Component');
 
   return (
     <div>

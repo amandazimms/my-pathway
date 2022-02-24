@@ -7,6 +7,13 @@ import ExamTable from '../ExamTable/ExamTable';
 import EventRegisterStudents from '../EventRegisterStudents/EventRegisterStudents';
 
 function EventStudentsTab(props) {
+   /*
+    Component that handles displaying the students registered to an event 
+    (not event details, that's EventDetailsTab)
+
+    Includes conditional rendering to allow registering of students if event is upcoming
+  */
+
   const isNew = props.isNew;
   const event = props.event;
 
@@ -14,7 +21,7 @@ function EventStudentsTab(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {    
-    if (!isNew){
+    if (!isNew){ //new events will not have any exams to fetch
       fetchEventExams();
     }
   }, []);
@@ -31,9 +38,6 @@ function EventStudentsTab(props) {
   const setSelectedExam = (exam) => {
     dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: exam.exam_id} }); 
   }
-
-  //fetech every few seconds
-
 
   return (
     <>

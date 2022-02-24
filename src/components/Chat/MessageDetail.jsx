@@ -9,15 +9,11 @@ import Avatar from '@mui/material/Avatar';
 import '../Chat/Chat.css'; 
 import ImageDisplay from '../ImageDisplay/ImageDisplay';
 
-//styling for messages
-// const Item = styled(Paper)(({ theme }) => ({
-//   ...theme.typography.body2,
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary, 
-//   minWidth: '400px', 
-//   height: 60,
-//   lineHeight: '60px',
-// }));
+/*
+  A message detail (this) is one chatted 'message;
+  contrasted with message session which is the whole box 
+     which displays all the messages, the input, and the send button
+*/
 
 function messageDetailFunction(props) {
 

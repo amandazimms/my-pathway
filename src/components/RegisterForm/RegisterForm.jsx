@@ -7,9 +7,14 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 
-
-
 function RegisterForm() {
+  /*
+    Lives on RegisterPage
+    
+    Register user to the app - they are registered as students by default
+    ... alter DB directly (role changes to "PROCTOR") 
+    ...or have another proctor make them a proctor in user management tab of nav drawer
+  */
   const MySwal = withReactContent(Swal)
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -28,7 +33,6 @@ function RegisterForm() {
   const postImageData = async () => {
     if(store.image.url != '/images/profile_default.png'){
       const url = store.image.url;
-      // console.log('url = ', url);
       return await fetch(url,{
         method: 'PUT',
         headers: {
@@ -40,12 +44,9 @@ function RegisterForm() {
   }
 
   const registerUser = async (event) => {
-    // event.preventDefault();
     try{
       const url = store.image.url.split('?')[0];
-      // console.log('line 39 url = ', url);        
       const result = await postImageData();
-      // console.log(result);
       dispatch({
         type: 'REGISTER',
         payload: {
@@ -264,9 +265,7 @@ function RegisterForm() {
         </Button>
       </div>
       <div>
-        {/* <Button className="autofill-registration" variant="contained" onClick={setDefaults}>
-          Auto Fill
-        </Button> */}
+
       </div>
     </form>
   );

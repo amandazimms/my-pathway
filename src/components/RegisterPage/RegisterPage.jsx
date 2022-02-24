@@ -9,6 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import {Paper} from '@material-ui/core'; 
 
 function RegisterPage() {
+  /*
+    For registering for the app - contains RegisterForm as its child
+  */
   const history = useHistory();
 
   return (

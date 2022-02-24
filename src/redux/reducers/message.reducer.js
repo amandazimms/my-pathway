@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
 
+/*
+  This stores data for messages (chat)
+*/
 const activeMessageDetail = (state = [], action) => {
+  //the current/active chat (single message)
   switch (action.type) {
     case 'SET_ACTIVE_MESSAGE_DETAIL':
       return action.payload;
@@ -12,6 +16,7 @@ const activeMessageDetail = (state = [], action) => {
 };
 
 const activeMessageSession = (state = {}, action) => {
+  //the current/active session (collection of chats back-and-forth during this exam)
   switch (action.type) {
     case 'SET_ACTIVE_MESSAGE_SESSION':
       return action.payload;
@@ -32,7 +37,6 @@ const availableMessageSession = (state = [], action) => {
       return state;
   }
 };
-
 
 export default combineReducers({
   activeMessageDetail,

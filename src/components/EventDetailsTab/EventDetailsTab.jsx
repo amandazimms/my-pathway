@@ -10,6 +10,13 @@ import AreYouSureButton from '../AreYouSureButton/AreYouSureButton';
 
 
 function EventDetailsTab(props) {
+  /*
+    Component that handles displaying the main details of an event 
+    (not student registration, that's EventStudentsTab)
+
+    Includes conditional rendering to display creating/editing/viewing an event depending on props
+  */
+
   const [isNew, setIsNew] = useState(props.isNew);
   const [editMode, setEditMode] = useState(false)
   const event = props.event;
@@ -53,7 +60,6 @@ function EventDetailsTab(props) {
             <p><b>Test: </b>{event.test_title}</p>
             <p><b>Start Date and Time: </b>{eventStartTime}</p>
             <p><b>End Date and Time: </b>{eventEndTime}</p>
-            {/* <p><b>Proctor ID: </b>{event.proctor_id}</p> */}
           </> 
       }
 
@@ -76,7 +82,7 @@ function EventDetailsTab(props) {
 
       }
 
-      {   isNew 
+      {   isNew // -- if it's a newly created event --
         ? <EventCreate
             onSetIsNewFalse={setIsNewToFalse}
           /> 

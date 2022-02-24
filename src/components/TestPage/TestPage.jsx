@@ -16,7 +16,7 @@ function TestPage(props) {
   //This is the page a proctor is brought to upon clicking "add test" or "edit test";
   //if we arrive here by clicking "add" a new test, props.new will be true (see app.jsx, routes).
   //if we arrive by clicking "edit" an existing test, props.new will be false.
-  //use isNew to conditionally render things! 
+  //isNew conditionally renders things
   const [isNew, setIsNew] = useState(props.new); 
   const [value, setValue] = useState('1');
 

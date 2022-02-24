@@ -6,14 +6,14 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Webcam from "react-webcam";
 
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
 function PhotoCapture(props) {
-  //define dispatch
+  /*
+    Component for taking a photo - used in registering a new user (capturing profile pic), 
+    and when student is about to take an exam
+
+    Currently there's no option for a user to re-take their profile pic
+  */
   const dispatch = useDispatch();
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Photo Capture Component');
   
@@ -24,8 +24,6 @@ function PhotoCapture(props) {
   
   const videoConstraints = {
     facingMode: "environment",
-    // width: { min: 640, ideal: 1920, max: 1920 },
-    // height: { min: 400, ideal: 1080 },
     aspectRatio: 1,
     frameRate: { max: 30 }
   };
@@ -52,14 +50,14 @@ function PhotoCapture(props) {
             />
           </div>
           <Button color="secondary" variant="contained" className='photCaptureLaunchButton' endIcon={<PhotoCameraIcon className='photoCaptureIcon' />} onClick={capture}></Button>
-        </>:
+        </>
+        :
           <>
             <img
               className = 'screenShot'
               src={imgSrc}
             />
             <Button color="secondary" variant="contained" className='photoCaptureRetakeImageButton' onClick={() => {setShowCamera(true)}}>RETAKE PHOTO</Button>
-
           </>
       } 
     </div>

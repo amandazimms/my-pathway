@@ -7,20 +7,15 @@ function* messageSaga() {
   yield takeLatest('GET_MESSAGE_DETAIL', getMessageDetail);  
   yield takeLatest('CREATE_MESSAGE_DETAIL', createMessageDetail);
   yield takeLatest('GET_AVAILALE_MESSAGE_SESSIONS', getAvailableMessageSessions);
-  
-  
 }
 
 function* createMessageSession(info) {
- 
   try {
-    // console.log("createMessage Saga");
     const response = yield axios({
       method: 'POST',
       url: '/api/message/session',
       data: info.payload
     });
-    // console.log('create message session saga end with: ', response.data);
 
     yield put({ type: 'SET_ACTIVE_MESSAGE_SESSION', payload: response.data });
     info.payload.done();
@@ -31,7 +26,6 @@ function* createMessageSession(info) {
 }
 
 function* getMessageSession(info) {
- 
   try {
     const response = yield axios.get('/api/message/fetch-active',{params: info.payload});
     
@@ -44,9 +38,7 @@ function* getMessageSession(info) {
 };
 
 function* getMessageDetail(info) {
- 
   try {
-    // console.log("getMessageDetail Saga", info);
     const response = yield axios.get('/api/message/detail',{params: info.payload});
     
     yield put({ type: 'SET_ACTIVE_MESSAGE_DETAIL', payload: response.data });
@@ -57,9 +49,7 @@ function* getMessageDetail(info) {
 };
 
 function* createMessageDetail(info) {
- 
   try {
-    // console.log("createMessageDetail Saga", info);
     const response = yield axios({
       method: 'POST',
       url: '/api/message/detail',
@@ -74,9 +64,7 @@ function* createMessageDetail(info) {
 }
 
 function* getAvailableMessageSessions(info) {
- 
   try {
-    // console.log("getMessageSessions Saga", info);
     const response = yield axios.get('/api/message/sessions',{params: info.payload});
     
     yield put({ type: 'SET_AVAILABLE_MESSAGE_SESSIONS', payload: response.data });

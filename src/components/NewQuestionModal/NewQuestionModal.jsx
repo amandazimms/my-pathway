@@ -14,6 +14,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Modal } from '@mui/material';
 
 function NewQuestionModal(props) {
+  /*
+    Popup window for when proctor is adding a new question to a test
+  */
 
 const store = useSelector((store) => store);
 const [heading, setHeading] = useState('Functional Component');
@@ -77,25 +80,13 @@ const cancelQuestion=()=>{
   props.onClickClose()
 }
 
-{/* todo secretbutton remove the function below this */}
-const autoFillQuestion = () => {
-  setQuestionValue(2);
-  setQuestionTitle("One major role of peer recovery support is to:");
-  setQuestionAnswer("Serve as an advocate");
-  setOptionTwo("Provide counseling");
-  setOptionThree("Serve as a sponsor");
-  setOptionFour("Provide healthcare advice");
-}
-
 return (
-<Modal open={open}
-// onClose={handleClose}
->
+  <Modal open={open}
+  >
   <Box>
     <form className="formPanel">
 
-      {/* todo secretbutton remove the onclick below this */}
-      <h2 className="heading" onClick={autoFillQuestion}>QUESTION</h2>
+      <h2 className="heading">QUESTION</h2>
       
       <FormControl fullWidth>
         <TextField  
@@ -123,7 +114,7 @@ return (
       </FormControl>
 <br></br> 
 <br></br>
-      {/* Partially built alternate format option - no FE exists for options other than Multiple Choice */}
+      {/* Partially built alternate format option - no BE/FE exists for options other than Multiple Choice */}
       {/* <FormControl fullWidth> 
         <InputLabel id="questionFormat">Question Format</InputLabel>
         <Select

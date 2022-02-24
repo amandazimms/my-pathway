@@ -1,6 +1,13 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+//for registering a user to the app
+
+
+function* registrationSaga() {
+  yield takeLatest('REGISTER', registerUser);
+}
+
 // worker Saga: will be fired on "REGISTER" actions
 function* registerUser(action) {
   try {
@@ -20,10 +27,6 @@ function* registerUser(action) {
     console.log('Error with user registration:', error);
     yield put({ type: 'REGISTRATION_FAILED' });
   }
-}
-
-function* registrationSaga() {
-  yield takeLatest('REGISTER', registerUser);
 }
 
 export default registrationSaga;

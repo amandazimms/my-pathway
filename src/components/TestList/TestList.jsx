@@ -10,12 +10,13 @@ import Box from '@mui/material/Box';
 
 
 function TestList(props) {
+  /*
+    Displays list of tests to proctor - these tests are TestCards
+  */
 
   const tests = useSelector(store => store.test.all);
-  // const tests = ["fakeTest1", "fakeTest2"]
   const dispatch = useDispatch();
 
-  // const [heading, setHeading] = useState('Functional Component');
 
   useEffect(() => {
     dispatch({ type: 'FETCH_ALL_TESTS' }); 
@@ -25,9 +26,6 @@ function TestList(props) {
 
   return (
     <div>
-      {/* <h2>Here's all the tests</h2> */}
-      {/* <p>all tests stringified: {JSON.stringify(tests)}</p> */}
-      
       <div>
 
         <div className="addNewTest">
@@ -52,19 +50,13 @@ function TestList(props) {
         </div>
 
         <div className="testCardContainer">
+        
         {tests.map(test => (
-        <TestCard test={test} key={test.id}/>
-      ))}
+          <TestCard test={test} key={test.id}/>
+        ))}
+        
         </div>
       </Container>
-
-
-      {/* <div className="cards">
-        <h2>Recent Tests</h2>
-      {tests.map(test => (
-        <TestItem test={test} key={test.id}/>
-      ))}
-      </div> */}
 
     </div>
     </div>

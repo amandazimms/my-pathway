@@ -2,9 +2,9 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * POST route template
- */
+/*
+  This router handles CRUD for chat (messages)
+*/
 router.post('/session', (req, res) => {
   // console.log('MADE IT TO MESSAGE PUT', req.body);
   const query = `INSERT INTO "message_session" ("exam_id", "created_by")

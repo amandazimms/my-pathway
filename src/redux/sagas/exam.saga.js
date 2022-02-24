@@ -1,6 +1,18 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+/*
+  This picks up component dispatches for exams. 
+  
+      Reminder - Definitions:
+      A Test is a collection of questions
+      An Event is a day/time where a specific test can be taken
+      An Exam is an instance of one student assigned to that event; taking that test
+  
+  Since events/exams are tightly linked, 
+  it may make more sense to some to store some of these in the event saga instead
+*/
+
 function* eventSaga() {
   yield takeLatest('SET_EXAM_PHOTO', setExamPhoto);//inputs the student photo url into exam table
   yield takeLatest('SET_ID_PHOTO', setIdPhoto);//inputs the id card image url into exam table. 
@@ -13,35 +25,21 @@ function* eventSaga() {
   yield takeLatest('UPDATE_ACTIVE_EXAM_QUESTION', updateActiveExamQuestion);//update exam with students active question id.
   yield takeLatest('CAPTURE_ANSWER', captureAnswer);//updates exam_detail record with answer and graded outcome.
   yield takeLatest('SCORE_EXAM', scoreExam);
- 
-  yield takeLatest('ACCEPT_TERMS', acceptTerms);
-  //dispatch({ type: 'FETCH_SELECTED_EXAM', payload: {exam_id: putSomethingHere} }); 
-  
+  yield takeLatest('ACCEPT_TERMS', acceptTerms);  
   yield takeLatest('APPROVE_EXAM', approveExam);
-  //dispatch({ type:'APPROVE_EXAM', payload: {exam_id: exam.exam_id} })
   yield takeLatest('REJECT_EXAM', rejectExam);
-  //dispatch({ type:'REJECT_EXAM', payload: {exam_id: exam.exam_id} })
   yield takeLatest('UPDATE_EXAM_AWAITING_APPROVAL', updateExamAwaitingApproval);
-  //dispatch({ type:'UPDATE_EXAM_AWAITING_APPROVAL', payload: {exam_id: exam.exam_id} });
-
   yield takeLatest('PASS_EXAM', passExam);
-  //dispatch({ type:'PASS_EXAM', payload: {exam_id: exam.exam_id} })
-  yield takeLatest('FAIL_EXAM', failExam);
-  //dispatch({ type:'FAIL_EXAM', payload: {exam_id: exam.exam_id} })
- 
-  yield takeLatest('FETCH_EXAM_QUESTION_PROCTOR', fetchExamQuestionProctor);
-  //dispatch({ type:'FETCH_EXAM_QUESTION_PROCTOR', payload: {exam_id: exam.id} });
-  
+  yield takeLatest('FAIL_EXAM', failExam); 
+  yield takeLatest('FETCH_EXAM_QUESTION_PROCTOR', fetchExamQuestionProctor);  
   yield takeLatest('ADD_INCIDENT', addIncident);
-  //dispatch({ type:'ADD_INCIDENT', payload: {exam_detail: exam_detail} });
   yield takeLatest('CHANGE_HELP_STATUS', changeHelpStatus);
-  //dispatch({ type:'CHANGE_HELP_STATUS', payload: {help: value} });
-
 }
 
 
 // worker Saga: will be fired on "CHANGE_HELP_STATUS" actions
 function* changeHelpStatus(action) {
+  //for when a student raises/lowers their hand - the 'help' column of DB is changed to t/f
   const ap = action.payload;
   //ap.help is true or false
   //ap.exam_id is the exam id
@@ -68,6 +66,8 @@ function* addIncident(action) {
 }
 
 function* createExamDetailRecord(action) {
+  //runs when a student is taking an exam, each time they click to move on to the next question
+  //an exam detail record holds the data about one question on one exam for one student
   const ap = action.payload;
   //ap.event is the event object to update, 
   //including event_name, test_id, proctor_id, event_date, event_time
@@ -95,11 +95,12 @@ function* updateActiveExamQuestion(action) {
     });
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
   } catch (error) {
-    console.log('setExamPhoto failed', error);
+    console.log('update active exam question failed', error);
   }
 }
 
 function* acceptTerms(action) {
+  //terms of use
   const ap = action.payload;
   try {
     const response = yield axios({
@@ -110,7 +111,7 @@ function* acceptTerms(action) {
     yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
     ap.done()
   } catch (error) {
-    console.log('setExamPhoto failed', error);
+    console.log('accept terms failed', error);
   }
 }
 
@@ -122,14 +123,14 @@ function* captureAnswer(action) {
       url: `/api/exam/answer`,
       data: ap
     });
-    // yield put({ type: 'SET_SELECTED_EXAM', payload: response.data });
   } catch (error) {
-    console.log('setExamPhoto failed', error);
+    console.log('capture answer failed', error);
   }
 }
 
  // worker Saga: will be fired on "FETCH_EXAM_QUESTION_PROCTOR" actions
 function* fetchExamQuestionProctor(action){
+  //when proctor enters an exam to assist a student, this is how they see the question the student is seeing
   const ap = action.payload;
   //ap.exam_id
   try {
@@ -154,6 +155,7 @@ function* fetchExamQuestionProctor(action){
 
  // worker Saga: will be fired on "FETCH_MY_EXAMS" actions
  function* fetchMyExams(action) {
+   //for student - list of all exams/events they are registered to
   const ap = action.payload;
   try {
     const response = yield axios.get('/api/exam/my-exams', { params: {student_id: ap.student_id} });
@@ -195,12 +197,12 @@ function* endExam(action) {
   const ap = action.payload;
   try {
     const exam = yield axios.put(`/api/exam/end-exam/${ap.exam_id}`);
-    // yield console.log('exam_deatil_results', exam.data); 
 
+    //score the exam after it is submitted:
     const score = yield () => {
       let scoreSum = 0
+
       for(let i=0; i<exam.data.length; i++){
-        // console.log('point value:', exam.data[i].point_value, 'correct:', exam.data[i].correct );
         if(exam.data[i].correct === true){
           scoreSum += exam.data[i].point_value
         }
@@ -210,6 +212,7 @@ function* endExam(action) {
 
     let totalScore = score();
 
+    //compare to the pass/fail threshold set for this test
     const passFail = yield () => {
       if (exam.data.length > 0){
         const pointsPossible = exam.data[0].test_points_possible;
@@ -225,6 +228,7 @@ function* endExam(action) {
         score: totalScore,
         pass: passFail()
     }});
+    
     yield put({ type: 'UNSET_SELECTED_EXAM'});
     yield put({ type: 'UNSET_SELECTED_EXAM_DETAIL'});
     yield ap.done()
@@ -234,6 +238,7 @@ function* endExam(action) {
 }
 
 function* scoreExam(action) {
+  //records the score, tallied in endExam, to the DB
   const ap = action.payload;
   try {
     const response = yield axios({
@@ -248,6 +253,9 @@ function* scoreExam(action) {
 
 // worker Saga: will be fired on "PASS_EXAM" actions
 function* passExam(action) {
+  //not using at the moment - 
+  //this is from an older concept where proctor manually clicked "pass" 
+  //because we didn't know the % threshold to pass!
   const ap = action.payload;
   //ap.exam_id
   try {
@@ -260,6 +268,9 @@ function* passExam(action) {
 
 // worker Saga: will be fired on "FAIL_EXAM" actions
 function* failExam(action) {
+  //not using at the moment - 
+  //this is from an older concept where proctor manually clicked "fail" 
+  //because we didn't know the % threshold to pass!
   const ap = action.payload;
   //ap.exam_id
   try {
@@ -273,6 +284,7 @@ function* failExam(action) {
 
 // worker Saga: will be fired on "APPROVE_EXAM" actions
 function* approveExam(action) {
+  //proctor manual approval of a student's exam after exam is taken
   const ap = action.payload;
   //ap.exam_id
   try {
@@ -285,6 +297,7 @@ function* approveExam(action) {
 
 // worker Saga: will be fired on "REJECT_EXAM" actions
 function* rejectExam(action) {
+  //proctor manual rejection of a student's exam after exam is taken
   const ap = action.payload;
   //ap.exam_id
   try {
@@ -297,6 +310,8 @@ function* rejectExam(action) {
 
 // worker Saga: will be fired on "UPDATE_EXAM_AWAITING_APPROVAL" actions
 function* updateExamAwaitingApproval(action) {
+  //when an exam is neither approved or rejected it's "awaiting approval";
+  // here's what runs if status needs to be set back to that state
   const ap = action.payload;
   //ap.exam_id
   try {
@@ -307,12 +322,8 @@ function* updateExamAwaitingApproval(action) {
   }
 }
 
-
-
-
-
-
 function* setExamPhoto(action) {
+  //photo (face photo) for a student's exam
   const ap = action.payload;
   //ap.event is the event object to update, 
   //including event_name, test_id, proctor_id, event_date, event_time
@@ -330,6 +341,7 @@ function* setExamPhoto(action) {
 }
 
 function* setIdPhoto(action) {
+  //photo (id photo) for a student's exam
   const ap = action.payload;
   //ap.event is the event object to update, 
   //including event_name, test_id, proctor_id, event_date, event_time
@@ -350,6 +362,7 @@ function* setIdPhoto(action) {
 
 
 function* confirmId(action) {
+  //when proctor compares the face and ID photos of a student's exam and clicks approve/deny, this runs
   const ap = action.payload;
   //ap.event is the event object to update, 
   //including event_name, test_id, proctor_id, event_date, event_time

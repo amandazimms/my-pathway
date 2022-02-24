@@ -9,6 +9,11 @@ import Compare from '../Compare/Compare';
 
 
 function ProctorExamPageComplete(props) {
+  /*
+    When a proctor clicks into a completed event, and views the list of exams there, 
+    and clicks into one of those exams, they land here.
+  */
+
   const exam = useSelector(store => store.exam.selected);
   const [showCompareModal, setShowCompareModal] = useState(false);
   const [editApprovedRejected, setEditApprovedRejected] = useState(false);
@@ -91,6 +96,7 @@ function ProctorExamPageComplete(props) {
               <TableCell align="right">{exam.score || 0}</TableCell>
             </TableRow> 
 
+            {/* incidents - not fully implemented */}
             {/* <TableRow sx={{ '&:last-child td, &:last-child th': {border: 0} }}>
               <TableCell component="th" scope="row"># INCIDENTS</TableCell>
               <TableCell align="right">{exam.incident || 0}</TableCell>

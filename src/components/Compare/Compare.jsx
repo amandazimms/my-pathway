@@ -5,13 +5,12 @@ import { Button } from '@mui/material';
 import { Link, useHistory } from 'react-router-dom';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
+/*
+  Displays the two student images; their face and their id; for proctor to compare
+  We have it displayed within a modal in a couple of other components.
+  This could be refactored to make use of the <ImageDisplay> component which would be DRYer - we ran out of time
+*/
 function compareFunction(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
   const store = useSelector((store) => store);
   const dispatch = useDispatch()
   const [photoToCompare, setPhotoToCompare] = useState('/images/profile_default.png')
@@ -56,7 +55,7 @@ function compareFunction(props) {
       })
       .then(stream => {
       // Respond with our stream
-      return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+        return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
       })
       .then(result => {
       // Do things with result
@@ -98,7 +97,7 @@ function compareFunction(props) {
       })
       .then(stream => {
       // Respond with our stream
-      return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+        return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
       })
       .then(result => {
       // Do things with result

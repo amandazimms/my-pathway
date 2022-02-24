@@ -19,7 +19,7 @@ import StudentNavDrawer from '../Nav/NavDrawer';
 
 
 const theme = createTheme({
-
+  //theme used across the site
   palette: {
     primary: {
       main: '#1E2A49',
@@ -60,14 +60,20 @@ function App(props) {
       <Router>
         <div>
         
-          {
+          { 
+            // if student is logged in, show student nav drawer
              user.id  && user.role === "STUDENT" ? <StudentNavDrawer/>
+            // else if proctor is logged in, show proctor nav drawer
             : user.id  && user.role === "PROCTOR" ? <ProctorNavDrawer/> 
+            // else, show basic nav bar at the top
             : <Nav /> 
           }
           {
+             // if student is logged in, allow student routes
              user.id  && user.role === "STUDENT" ? <RoutesStudent/>
+            // else if proctor is logged in, allow proctor routes
             : user.id  && user.role === "PROCTOR" ? <RoutesProctor/> 
+            // else, allow visitor route
             : <RoutesVisitor/>
           }
           <Footer />
